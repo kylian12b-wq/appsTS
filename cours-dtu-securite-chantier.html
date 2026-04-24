@@ -1,0 +1,1923 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DTU Menuiserie & Sécurité Chantier — Cours BTS ERA</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap');
+
+:root {
+  --bg: #f5f2ed;
+  --surface: #ede9e2;
+  --card: #ffffff;
+  --border: #d8d2c8;
+  --border-dark: #b8b0a4;
+  --dtu: #1a4a7a;
+  --dtu-light: #e8f0f8;
+  --dtu-mid: #4a7aaa;
+  --sec: #8b2500;
+  --sec-light: #fdf0ec;
+  --sec-mid: #c45030;
+  --gold: #c08020;
+  --gold-light: #fdf8ec;
+  --green: #1a6040;
+  --green-light: #eaf5f0;
+  --text: #1a1714;
+  --muted: #6b6560;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Barlow', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* ── BANDE DE CHANTIER TOP ── */
+.chantier-tape {
+  height: 8px;
+  background: repeating-linear-gradient(
+    45deg,
+    #f0c020 0px, #f0c020 16px,
+    #1a1714 16px, #1a1714 32px
+  );
+}
+
+/* ── NAV ── */
+nav {
+  background: var(--text);
+  display: flex; align-items: center;
+  padding: 0 28px; height: 52px;
+  position: sticky; top: 0; z-index: 100;
+  gap: 4px;
+}
+nav .logo {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 16px;
+  color: #fff; letter-spacing: .06em;
+  text-transform: uppercase;
+  margin-right: auto; white-space: nowrap;
+}
+nav a {
+  color: #aaa; text-decoration: none;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase;
+  padding: 0 14px; height: 52px;
+  display: flex; align-items: center;
+  border-bottom: 3px solid transparent;
+  transition: all .2s; white-space: nowrap;
+}
+nav a.dtu-link { border-bottom-color: var(--dtu); color: #7aaad0; }
+nav a.sec-link { border-bottom-color: var(--sec-mid); color: #e07050; }
+
+/* ── HERO ── */
+.hero {
+  background: var(--text);
+  color: #fff;
+  padding: 56px 40px 52px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent 0px, transparent 40px,
+    rgba(255,255,255,.02) 40px, rgba(255,255,255,.02) 41px
+  );
+}
+.hero .inner { max-width: 880px; margin: 0 auto; position: relative; }
+.hero .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+.hero .badge-item {
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 4px; padding: 3px 10px;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(255,255,255,.7);
+}
+.hero h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: clamp(32px, 6vw, 64px);
+  line-height: 1; letter-spacing: .02em; text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.hero h1 .t-dtu { color: #7aaad0; }
+.hero h1 .t-sec { color: #e07050; }
+.hero p { color: rgba(255,255,255,.6); max-width: 560px; font-size: 15px; }
+.hero .pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 24px; }
+.pill {
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 100px; padding: 5px 14px;
+  font-size: 12px; color: rgba(255,255,255,.7);
+}
+
+/* ── LAYOUT ── */
+.container { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+/* ── PART HEADER ── */
+.part-header {
+  padding: 52px 0 28px;
+  border-top: 3px solid var(--border-dark);
+  margin-top: 48px;
+}
+.part-number {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  margin-bottom: 6px; color: var(--muted);
+}
+.part-header h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(26px, 4vw, 44px);
+  font-weight: 900; text-transform: uppercase;
+  letter-spacing: .02em; line-height: 1.1;
+  margin-bottom: 14px;
+}
+.part-header p { color: var(--muted); max-width: 620px; }
+
+/* ── SECTION ── */
+.section { margin-bottom: 44px; }
+.section h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .04em;
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.section h3 .icon {
+  width: 32px; height: 32px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; flex-shrink: 0;
+}
+.dtu .section h3 .icon { background: var(--dtu-light); }
+.sec .section h3 .icon { background: var(--sec-light); }
+
+/* ── CARDS ── */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px,1fr)); gap: 14px; margin-bottom: 20px; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 12px; margin-bottom: 20px; }
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: 12px; margin-bottom: 20px; }
+
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 18px;
+}
+.card h4 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .08em;
+  margin-bottom: 10px;
+}
+.card p, .card li { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+.card ul { padding-left: 16px; }
+.card li { margin-bottom: 3px; }
+.card.dtu-accent { border-left: 4px solid var(--dtu); }
+.card.sec-accent { border-left: 4px solid var(--sec-mid); }
+.card.gold-accent { border-left: 4px solid var(--gold); }
+.card.green-accent { border-left: 4px solid var(--green); }
+
+/* ── INFO BOX ── */
+.info-box {
+  border-radius: var(--radius); padding: 14px 18px;
+  margin-bottom: 16px; font-size: 14px;
+  display: flex; gap: 12px; align-items: flex-start;
+  line-height: 1.6;
+}
+.info-box .ib-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.info-box.tip { background: var(--dtu-light); border: 1px solid #a0c0e0; color: var(--dtu); }
+.info-box.warn { background: var(--sec-light); border: 1px solid #e09080; color: var(--sec); }
+.info-box.law { background: var(--gold-light); border: 1px solid #d0a040; color: var(--gold); }
+.info-box.ok { background: var(--green-light); border: 1px solid #80c0a0; color: var(--green); }
+
+/* ── TABLES ── */
+.table-wrap { overflow-x: auto; margin-bottom: 20px; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+thead th {
+  background: var(--surface); color: var(--muted);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; padding: 10px 14px;
+  text-align: left; border-bottom: 2px solid var(--border-dark);
+}
+tbody td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: var(--surface); }
+td.val {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800; font-size: 15px;
+}
+td.dtu-val { color: var(--dtu); }
+td.sec-val { color: var(--sec-mid); }
+td.gold-val { color: var(--gold); }
+
+/* ── SVG SCHEMAS ── */
+.schema-wrap {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px;
+  margin-bottom: 20px; overflow-x: auto;
+}
+.schema-wrap h4 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .1em;
+  color: var(--muted); margin-bottom: 14px;
+}
+
+/* ── CHECKLISTS ── */
+.checklist { list-style: none; padding: 0; margin-bottom: 20px; }
+.checklist li {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 9px 14px; border-radius: 7px;
+  font-size: 14px; margin-bottom: 5px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  cursor: pointer; user-select: none;
+  transition: background .15s;
+}
+.checklist li:hover { background: var(--surface); }
+.checklist li .ck {
+  width: 18px; height: 18px; border-radius: 4px;
+  border: 2px solid var(--border-dark);
+  flex-shrink: 0; margin-top: 2px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; transition: all .15s;
+}
+.checklist li.done .ck { background: var(--dtu); border-color: var(--dtu); color: #fff; }
+.checklist li.done-sec .ck { background: var(--sec-mid); border-color: var(--sec-mid); color: #fff; }
+.checklist li.done-gold .ck { background: var(--gold); border-color: var(--gold); color: #fff; }
+.checklist li.done span:last-child,
+.checklist li.done-sec span:last-child,
+.checklist li.done-gold span:last-child { text-decoration: line-through; color: var(--muted); }
+
+/* ── TAGS ── */
+.tag {
+  display: inline-block; font-size: 11px; font-weight: 700;
+  padding: 2px 8px; border-radius: 3px;
+  letter-spacing: .06em; text-transform: uppercase;
+}
+.tag-ok { background: var(--green-light); color: var(--green); border: 1px solid #80c0a060; }
+.tag-warn { background: var(--gold-light); color: var(--gold); border: 1px solid #d0a04060; }
+.tag-no { background: var(--sec-light); color: var(--sec-mid); border: 1px solid #e0906060; }
+.tag-dtu { background: var(--dtu-light); color: var(--dtu); border: 1px solid #a0c0e060; }
+
+/* ── RECAP HEADER ── */
+.recap-header {
+  padding: 14px 20px; border-radius: var(--radius) var(--radius) 0 0;
+  display: flex; align-items: center; gap: 10px;
+  border: 1px solid var(--border-dark); border-bottom: none;
+}
+.recap-header span.title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .08em;
+}
+.recap-body {
+  border: 1px solid var(--border-dark); border-top: none;
+  border-radius: 0 0 var(--radius) var(--radius);
+  margin-bottom: 28px; overflow: hidden;
+}
+
+/* ── EPI CARDS ── */
+.epi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 10px; margin-bottom: 20px; }
+.epi-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px 14px;
+  text-align: center;
+}
+.epi-card .epi-icon { font-size: 32px; margin-bottom: 8px; display: block; }
+.epi-card h4 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .06em;
+  margin-bottom: 4px; color: var(--text);
+}
+.epi-card p { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.epi-card.obligatoire { border-top: 3px solid var(--sec-mid); }
+.epi-card.conditionnel { border-top: 3px solid var(--gold); }
+
+/* ── URGENCE BOX ── */
+.urgence-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 12px; margin-bottom: 20px; }
+.urgence-card {
+  background: var(--text); color: #fff;
+  border-radius: var(--radius); padding: 18px;
+  text-align: center;
+}
+.urgence-card .num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 52px; font-weight: 900;
+  line-height: 1; color: #f0c020;
+}
+.urgence-card h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; }
+.urgence-card p { font-size: 12px; color: rgba(255,255,255,.6); }
+
+/* ── TABS ── */
+.tab-nav { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 0; }
+.tab-btn {
+  background: var(--surface); border: 1px solid var(--border);
+  border-bottom: none; border-radius: 6px 6px 0 0;
+  padding: 7px 16px; font-size: 12px; font-weight: 700;
+  font-family: 'Barlow Condensed', sans-serif;
+  text-transform: uppercase; letter-spacing: .06em;
+  color: var(--muted); cursor: pointer;
+}
+.tab-btn.active-dtu { background: var(--dtu-light); border-color: var(--dtu); color: var(--dtu); }
+.tab-btn.active-sec { background: var(--sec-light); border-color: var(--sec-mid); color: var(--sec-mid); }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.tab-panel-dtu { background: var(--dtu-light); border: 1px solid var(--dtu); border-radius: 0 var(--radius) var(--radius) var(--radius); padding: 22px; margin-bottom: 28px; }
+.tab-panel-sec { background: var(--sec-light); border: 1px solid var(--sec-mid); border-radius: 0 var(--radius) var(--radius) var(--radius); padding: 22px; margin-bottom: 28px; }
+
+/* ── STEP PROCESS ── */
+.steps { counter-reset: step; margin-bottom: 20px; }
+.step {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 12px 0; border-bottom: 1px solid var(--border);
+}
+.step:last-child { border-bottom: none; }
+.step-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px; font-weight: 900;
+  flex-shrink: 0; margin-top: 2px;
+}
+.step-dtu .step-num { background: var(--dtu); color: #fff; }
+.step-sec .step-num { background: var(--sec-mid); color: #fff; }
+.step-body h5 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .06em;
+  margin-bottom: 4px;
+}
+.step-body p { font-size: 13.5px; color: var(--muted); }
+
+/* ── HIGHLIGHT ── */
+.highlight {
+  background: var(--surface); border-left: 4px solid var(--dtu);
+  padding: 12px 16px; border-radius: 0 6px 6px 0;
+  font-size: 14px; margin-bottom: 16px; line-height: 1.6;
+}
+.highlight.sec { border-left-color: var(--sec-mid); }
+.highlight.gold { border-left-color: var(--gold); }
+
+/* ── ACCORDION ── */
+.accordion { margin-bottom: 20px; }
+.acc-item { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 6px; overflow: hidden; }
+.acc-head {
+  background: var(--surface); padding: 12px 16px;
+  cursor: pointer; user-select: none;
+  display: flex; justify-content: space-between; align-items: center;
+  transition: background .15s;
+}
+.acc-head:hover { background: var(--border); }
+.acc-head h5 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .06em;
+}
+.acc-head .arr { font-size: 12px; color: var(--muted); transition: transform .2s; }
+.acc-item.open .arr { transform: rotate(180deg); }
+.acc-body { display: none; padding: 16px; font-size: 14px; line-height: 1.7; color: var(--muted); background: var(--card); }
+.acc-body ul { padding-left: 18px; }
+.acc-body li { margin-bottom: 4px; }
+.acc-item.open .acc-body { display: block; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--text); color: rgba(255,255,255,.5);
+  padding: 32px 24px; text-align: center; font-size: 13px;
+  margin-top: 64px;
+}
+
+@media (max-width: 600px) {
+  nav a { display: none; }
+  nav a.dtu-link, nav a.sec-link { display: flex; font-size: 11px; padding: 0 10px; }
+  .hero { padding: 36px 20px 32px; }
+  .container { padding: 0 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="chantier-tape"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">BTS ERA — DTU & Sécurité</div>
+  <a href="#dtu" class="dtu-link">Partie 3 · DTU</a>
+  <a href="#securite" class="sec-link">Partie 4 · Sécurité</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="inner">
+    <div class="badges">
+      <span class="badge-item">BTS ERA · Cours Réglementation</span>
+      <span class="badge-item">Parties 3 & 4</span>
+    </div>
+    <h1>
+      <span class="t-dtu">DTU Menuiserie</span><br>
+      &amp; <span class="t-sec">Sécurité Chantier</span>
+    </h1>
+    <p>Documents Techniques Unifiés, normes de pose, responsabilités — et toute la réglementation sécurité chantier : EPI, plan de prévention, PPSPS, accidents.</p>
+    <div class="pills">
+      <span class="pill">📘 DTU 36.1 · 36.2 · 37.1 · 68.3</span>
+      <span class="pill">⛑️ EPI obligatoires</span>
+      <span class="pill">📋 PPSPS complet</span>
+      <span class="pill">🚨 Procédure accident</span>
+      <span class="pill">✅ Checklists interactives</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     PARTIE 3 — DTU
+════════════════════════════════════ -->
+<div id="dtu" class="dtu container">
+
+  <div class="part-header">
+    <div class="part-number">Partie 3</div>
+    <h2 style="color:var(--dtu)">DTU Menuiserie &amp; Agencement</h2>
+    <p>Documents Techniques Unifiés — définition, application, responsabilités et points de contrôle sur chantier.</p>
+  </div>
+
+  <!-- 3.1 C'est quoi un DTU -->
+  <div class="section">
+    <h3><span class="icon">📘</span> Qu'est-ce qu'un DTU ?</h3>
+    <div class="grid-2">
+      <div class="card dtu-accent">
+        <h4>Définition officielle</h4>
+        <p>Un <strong>Document Technique Unifié (DTU)</strong> est un document normatif français qui définit les règles de l'art pour la mise en œuvre d'un ouvrage de construction. Publié par l'AFNOR et le CSTB, il fixe les conditions de réalisation d'une technique de construction.</p>
+      </div>
+      <div class="card">
+        <h4>Structure d'un DTU</h4>
+        <ul>
+          <li><strong>Partie 1-1 :</strong> Cahier des Clauses Techniques (CCT) — les règles de mise en œuvre</li>
+          <li><strong>Partie 1-2 :</strong> Critères Généraux de Choix des Matériaux (CGM)</li>
+          <li><strong>Partie 2 :</strong> Cahier des Clauses Administratives Spéciales (CCA)</li>
+          <li><strong>Partie 3 :</strong> Guide et commentaires (si applicable)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="info-box law">
+      <span class="ib-icon">⚖️</span>
+      <div><strong>Valeur juridique :</strong> Un DTU n'est pas une loi, mais il a valeur de <strong>présomption de bonne règle de l'art</strong>. Si un litige survient, le non-respect d'un DTU est considéré comme une faute professionnelle. Les assureurs et tribunaux s'y réfèrent systématiquement. En marchés publics et privés, le DTU est souvent rendu contractuellement obligatoire via le CCTP.</div>
+    </div>
+    <div class="info-box tip">
+      <span class="ib-icon">💡</span>
+      <div>Les DTU sont publiés sous la forme de <strong>normes NF DTU</strong> (ex : NF DTU 36.1). Ils sont disponibles à l'achat sur le site AFNOR ou consultables via le CSTB. En entreprise, l'accès aux DTU est souvent indispensable. Pour le BTS ERA : connais les grandes lignes des DTU applicables à ta spécialité.</div>
+    </div>
+
+    <!-- Pourquoi obligatoire -->
+    <div class="steps">
+      <div class="step step-dtu">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h5>Garantie décennale (art. 1792 Code Civil)</h5>
+          <p>Tout constructeur est responsable pendant 10 ans des désordres compromettant la solidité ou rendant l'ouvrage impropre à sa destination. Le respect des DTU protège contre cette responsabilité.</p>
+        </div>
+      </div>
+      <div class="step step-dtu">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h5>Assurance dommages-ouvrage</h5>
+          <p>L'assureur examine le respect des DTU en cas de sinistre. Si le DTU n'est pas respecté sans justification documentée, l'assurance peut refuser de couvrir.</p>
+        </div>
+      </div>
+      <div class="step step-dtu">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h5>Marchés publics et privés</h5>
+          <p>Le CCTP (Cahier des Clauses Techniques Particulières) intègre généralement les DTU applicables. Les respecter est une obligation contractuelle directe.</p>
+        </div>
+      </div>
+      <div class="step step-dtu">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h5>Référence en cas de litige</h5>
+          <p>Tribunaux, experts judiciaires et commissions d'arbitrage se réfèrent aux DTU pour évaluer la conformité d'une réalisation. C'est la référence technique opposable.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3.2 DTU 36.1 -->
+  <div class="section">
+    <h3><span class="icon">🪟</span> NF DTU 36.1 — Menuiseries extérieures bois</h3>
+    <div class="highlight">
+      <strong>NF DTU 36.1</strong> — Travaux de mise en œuvre des fenêtres et portes extérieures en bois et en matériaux à base de bois (hors menuiseries coulissantes ou pivotantes à axe vertical central).
+    </div>
+    <div class="grid-2">
+      <div class="card dtu-accent">
+        <h4>Domaine d'application</h4>
+        <ul>
+          <li>Fenêtres bois ouvrant à la française, oscillo-battant</li>
+          <li>Portes-fenêtres bois</li>
+          <li>Portes extérieures bois</li>
+          <li>Fenêtres et portes en matériaux dérivés du bois (bois/alu, bois/PVC)</li>
+          <li>Travaux neufs et rénovation</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Matériaux exclus</h4>
+        <ul>
+          <li>PVC seul (→ DTU 36.5)</li>
+          <li>Aluminium seul (→ DTU 37.1)</li>
+          <li>Vitrages (→ DTU 39)</li>
+          <li>Fermetures (volets, persiennes) → DTU 34.4</li>
+        </ul>
+      </div>
+    </div>
+
+    <h4 style="font-family:'Barlow Condensed';font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:14px;margin-bottom:12px;color:var(--dtu)">Points essentiels DTU 36.1</h4>
+    <div class="accordion">
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <h5>Préparation du support — maçonnerie et baie</h5>
+          <span class="arr">▼</span>
+        </div>
+        <div class="acc-body">
+          <ul>
+            <li>Largeur d'appui maçonnerie : <strong>min. 30 mm</strong> de chaque côté du cadre</li>
+            <li>Tolérance dimensionnelle de la baie : ± 5 mm sur largeur et hauteur</li>
+            <li>Planéité de l'appui : écart max. 3 mm sous règle de 20 cm</li>
+            <li>Humidité du support maçonnerie : ≤ 5% avant pose</li>
+            <li>Vérification de l'aplomb et de l'équerrage de la baie avant toute pose</li>
+          </ul>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <h5>Fixation du dormant</h5>
+          <span class="arr">▼</span>
+        </div>
+        <div class="acc-body">
+          <ul>
+            <li>Pattes de scellement ou vis à travers le dormant dans le support</li>
+            <li>Espacement des points de fixation : <strong>max. 60 cm</strong> entre points, max. 15 cm des angles</li>
+            <li>Minimum 2 fixations par montant quel que soit le format</li>
+            <li>Fixations inox ou zinguées obligatoires (anti-corrosion)</li>
+            <li>Cales d'assise et de positionnement : bois dur imputrescible ou plastique</li>
+            <li>Cale basse : min. 100 × 60 × épaisseur mm, positionnée sous les montants</li>
+          </ul>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <h5>Étanchéité — joints et calfeutrement</h5>
+          <span class="arr">▼</span>
+        </div>
+        <div class="acc-body">
+          <ul>
+            <li>Joint extérieur : mastic élastomère (silicone ou polyuréthane) compatible bois</li>
+            <li>Joint intérieur : bande comprimée préencollée (BCF) ou joint mousse imprégnée</li>
+            <li>Principe RAL : <strong>étanchéité à l'eau côté extérieur, étanchéité à l'air côté intérieur</strong></li>
+            <li>Aucun pont thermique ni pont acoustique non prévu</li>
+            <li>Lame de solin sur appui si plan incliné vers l'extérieur</li>
+          </ul>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <h5>Protections du bois et finitions</h5>
+          <span class="arr">▼</span>
+        </div>
+        <div class="acc-body">
+          <ul>
+            <li>Traitement de classe 3B minimum pour toutes les parties exposées</li>
+            <li>Chants de coupes traités avant pose</li>
+            <li>Humidité du bois à la pose : 10–18% selon la région</li>
+            <li>Peintures et vernis extérieurs : systèmes homologués par le fabricant</li>
+            <li>Quincaillerie : inox A2 minimum en atmosphère courante, A4 en bord de mer</li>
+          </ul>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <h5>Réception et contrôles</h5>
+          <span class="arr">▼</span>
+        </div>
+        <div class="acc-body">
+          <ul>
+            <li>Vérification du jeu de fonctionnement des ouvrants (2–3 mm)</li>
+            <li>Contrôle d'aplomb et de niveau du dormant (tolérance 2 mm/m)</li>
+            <li>Test d'étanchéité visuel après pose des joints</li>
+            <li>Vérification du sens d'ouverture conforme au plan</li>
+            <li>Réglage des ferrures : paumelles, crémones, espagnolettes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box warn">
+      <span class="ib-icon">⚠️</span>
+      <div><strong>Attention :</strong> le DTU 36.1 exige que le bois soit protégé de toute projection d'eau de chantier pendant et après la pose. Couvrir les menuiseries posées jusqu'à la réception. Tout bois gorgé d'eau avant application de la finition = non-conformité.</div>
+    </div>
+  </div>
+
+  <!-- 3.3 DTU 36.2 -->
+  <div class="section">
+    <h3><span class="icon">🚪</span> NF DTU 36.2 — Menuiseries intérieures bois</h3>
+    <div class="highlight">
+      <strong>NF DTU 36.2</strong> — Travaux de menuiseries intérieures en bois : portes intérieures, cloisons menuisées, placards intégrés, escaliers (hors escaliers métalliques).
+    </div>
+    <div class="grid-2">
+      <div class="card dtu-accent">
+        <h4>Domaine d'application</h4>
+        <ul>
+          <li>Portes intérieures bois (pleines, à âme, vitrées)</li>
+          <li>Blocs-portes (dormant + vantail)</li>
+          <li>Placards et dressings en bois</li>
+          <li>Cloisons légères bois</li>
+          <li>Boiseries intérieures (lambris, parquets → DTU 51)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Conditions préalables à la pose</h4>
+        <ul>
+          <li>Travaux humides terminés et secs (enduits, chapes)</li>
+          <li>Chauffage en fonctionnement depuis au moins 48h</li>
+          <li>Humidité ambiante : 30–70% H.R.</li>
+          <li>Température ≥ 10°C pendant la pose</li>
+          <li>Stockage sur chantier : à plat, hors sol, abri de l'humidité</li>
+        </ul>
+      </div>
+    </div>
+
+    <h4 style="font-family:'Barlow Condensed';font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:14px;margin-bottom:12px;color:var(--dtu)">Points essentiels DTU 36.2</h4>
+    <div class="accordion">
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <h5>Pose des blocs-portes intérieurs</h5>
+          <span class="arr">▼</span>
+        </div>
+        <div class="acc-body">
+          <ul>
+            <li>Faux-aplomb toléré : <strong>1 mm/m maximum</strong>, 3 mm pour l'ensemble du dormant</li>
+            <li>Jeu sous la porte : 10 mm minimum (20 mm si moquette épaisse)</li>
+            <li>Jeu entre vantail et dormant : <strong>2 à 3 mm</strong> sur le pourtour</li>
+            <li>Nombre de paumelles : 2 min. jusqu'à H 2,00 m, 3 au-delà ou pour portes lourdes</li>
+            <li>Espacement des vis de paumelles : en quincaillerie fournie par le fabricant</li>
+            <li>Fixation dormant dans maçonnerie : vis + cheville Ø8 min., espacement ≤ 60 cm</li>
+          </ul>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <h5>Humidité et acclimatation du bois</h5>
+          <span class="arr">▼</span>
+        </div>
+        <div class="acc-body">
+          <ul>
+            <li>Humidité du bois à la pose : <strong>8 à 12%</strong> pour locaux chauffés normaux</li>
+            <li>Acclimatation sur chantier : minimum 48h dans le local définitif</li>
+            <li>Ne jamais poser un bois humide (risque de jeu excessif au séchage)</li>
+            <li>Vérification humidimètre avant pose si doute</li>
+          </ul>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <h5>Placards et agencements intégrés</h5>
+          <span class="arr">▼</span>
+        </div>
+        <div class="acc-body">
+          <ul>
+            <li>Fixation des bâtis dans la structure porteuse (jamais dans le plâtre seul)</li>
+            <li>Équerrage : tolérance 2 mm pour une diagonale de 1 m</li>
+            <li>Planéité des façades : 2 mm sous règle de 2 m</li>
+            <li>Ventilation des espaces de rangement : évidements ou grilles de ventilation</li>
+            <li>Quincaillerie : charge de travail vérifiée selon le poids prévu (rayonnages chargés)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <h5>Tolérances dimensionnelles</h5>
+          <span class="arr">▼</span>
+        </div>
+        <div class="acc-body">
+          <ul>
+            <li>Aplomb du dormant : <strong>± 1 mm/m</strong>, maxi ± 3 mm</li>
+            <li>Niveau du seuil bas : ± 2 mm</li>
+            <li>Jeu vantail/dormant en pourtour : 2–3 mm</li>
+            <li>Jeu vantail/sol : 10 mm (20 mm avec moquette)</li>
+            <li>Affleure des parements : ± 1 mm entre vantail et habillage dormant</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3.4 DTU 37.1 -->
+  <div class="section">
+    <h3><span class="icon">🔩</span> NF DTU 37.1 — Menuiseries métalliques</h3>
+    <div class="highlight">
+      <strong>NF DTU 37.1</strong> — Mise en œuvre des fenêtres, portes et façades légères métalliques (aluminium, acier, inox), y compris les produits composites métal/bois et métal/PVC.
+    </div>
+    <div class="grid-3">
+      <div class="card dtu-accent">
+        <h4>Spécificités alu</h4>
+        <ul>
+          <li>Rupture de pont thermique (RPT) obligatoire en zones climatiques réglementées</li>
+          <li>Anodisation ≥ classe 15 ou laquage ≥ 60 µm</li>
+          <li>Isolement galvanique avec acier (corrosion bimétallique)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Fixation et dilatation</h4>
+        <ul>
+          <li>Coefficient de dilatation alu : 23 × 10⁻⁶ /°C (important en grande longueur)</li>
+          <li>Points fixes + points coulissants obligatoires</li>
+          <li>Jeux de dilatation à prévoir dans les joints</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Étanchéité façades légères</h4>
+        <ul>
+          <li>Principe pressure equalized (PE) pour murs-rideaux</li>
+          <li>Drainage des infiltrations prévu dans les profils</li>
+          <li>Essais d'étanchéité selon EN 12208 (classe A1–A4)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Élément de contrôle</th><th>Tolérance DTU 37.1</th><th>Méthode</th></tr></thead>
+        <tbody>
+          <tr><td>Aplomb du montant</td><td class="val dtu-val">± 1 mm/m</td><td>Niveau à bulle ou laser</td></tr>
+          <tr><td>Niveau des traverses</td><td class="val dtu-val">± 1 mm/m</td><td>Niveau à bulle</td></tr>
+          <tr><td>Planéité d'ensemble (façade)</td><td class="val dtu-val">± 3 mm / 3 m</td><td>Règle aluminium</td></tr>
+          <tr><td>Jeu de fonctionnement ouvrant</td><td class="val dtu-val">2–4 mm</td><td>Jauge d'épaisseur</td></tr>
+          <tr><td>Espacement fixations dormant</td><td class="val dtu-val">≤ 60 cm</td><td>Mètre ruban</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 3.5 DTU 68.3 -->
+  <div class="section">
+    <h3><span class="icon">💨</span> NF DTU 68.3 — Ventilation des bâtiments</h3>
+    <div class="highlight">
+      <strong>NF DTU 68.3</strong> — Installation de systèmes de ventilation mécanique contrôlée (VMC) simple flux et double flux dans les bâtiments d'habitation et tertiaires.
+    </div>
+    <div class="grid-2">
+      <div class="card dtu-accent">
+        <h4>Pourquoi le DTU 68.3 concerne l'agencement</h4>
+        <ul>
+          <li>Tout agencement modifiant la circulation d'air (cloisons, placards, faux-plafonds) peut impacter la VMC</li>
+          <li>Les grilles de transfert et passages d'air sous les portes doivent être maintenus</li>
+          <li>Un réagencement ne doit pas condamner une bouche VMC</li>
+          <li>En cuisine : la hotte doit être raccordée ou compensée</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Débits réglementaires (logements)</h4>
+        <ul>
+          <li>Cuisine : <strong>75 à 135 m³/h</strong> selon pièces</li>
+          <li>WC seul : 15 m³/h</li>
+          <li>Salle de bain + WC : 30 m³/h</li>
+          <li>Entrée d'air : grille en façade ou en allège (fenêtre)</li>
+          <li>Transfert : jeu sous porte 1 cm (10 à 15 cm²)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="info-box warn">
+      <span class="ib-icon">⚠️</span>
+      <div>Si un agencement condamne ou réduit le passage d'air (gaine derrière placard, bouche masquée par mobilier), c'est une <strong>non-conformité au DTU 68.3</strong>. Vérifier systématiquement les plans d'agencement par rapport aux plans de VMC existants.</div>
+    </div>
+  </div>
+
+  <!-- 3.6 Comment lire un DTU -->
+  <div class="section">
+    <h3><span class="icon">📖</span> Comment lire et utiliser un DTU au quotidien</h3>
+    <div class="steps">
+      <div class="step step-dtu">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h5>Identifier le DTU applicable</h5>
+          <p>Selon la nature de l'ouvrage (menuiserie bois extérieure → DTU 36.1, intérieure → DTU 36.2, métal → DTU 37.1, etc.). Le CCTP te l'indique en général.</p>
+        </div>
+      </div>
+      <div class="step step-dtu">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h5>Lire le Cahier des Clauses Techniques (CCT — Partie 1-1)</h5>
+          <p>C'est la partie opérationnelle. Elle décrit les conditions de mise en œuvre étape par étape : préparation, pose, fixations, joints, tolérances, contrôles.</p>
+        </div>
+      </div>
+      <div class="step step-dtu">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h5>Consulter les Critères de Choix des Matériaux (CGM — Partie 1-2)</h5>
+          <p>Vérifie que les matériaux choisis (essences de bois, quincaillerie, joints, colles) répondent aux exigences du DTU. C'est souvent là que se trouvent les exclusions.</p>
+        </div>
+      </div>
+      <div class="step step-dtu">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h5>Consulter les notes et commentaires (Partie 3)</h5>
+          <p>Clarifications, cas particuliers, exemples pratiques. Très utile pour les situations non standard.</p>
+        </div>
+      </div>
+      <div class="step step-dtu">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h5>Référencer le DTU dans ton CCTP</h5>
+          <p>Formule standard : <em>"La mise en œuvre sera conforme au NF DTU 36.1 (avril 2021) et ses amendements en vigueur à la date d'exécution des travaux."</em></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3.7 Responsabilité -->
+  <div class="section">
+    <h3><span class="icon">⚖️</span> Ce qui engage ta responsabilité si tu ne respectes pas les DTU</h3>
+    <div class="grid-2">
+      <div class="card sec-accent">
+        <h4>Garantie décennale (10 ans)</h4>
+        <p>Art. 1792 du Code civil. Si un défaut de mise en œuvre provoque un désordre grave (infiltrations, effondrement, impropriété à la destination), l'entreprise est responsable pendant 10 ans même après livraison.</p>
+      </div>
+      <div class="card gold-accent">
+        <h4>Garantie de parfait achèvement (1 an)</h4>
+        <p>Pendant 1 an après réception, l'entreprise doit reprendre tous les défauts signalés dans les réserves ou par lettre. Non-respect du DTU = défaut présumé imputable à l'entreprise.</p>
+      </div>
+      <div class="card">
+        <h4>Garantie biennale (2 ans)</h4>
+        <p>Pour les éléments d'équipement dissociables (quincaillerie, motorisation). Si la pose ne respecte pas les préconisations, le fabricant peut refuser sa garantie.</p>
+      </div>
+      <div class="card sec-accent">
+        <h4>Responsabilité pénale</h4>
+        <p>En cas d'accident corporel lié à une pose non conforme (chute de menuiserie, blessure par vitrage), la responsabilité pénale du chef de chantier et du dirigeant peut être engagée.</p>
+      </div>
+    </div>
+    <div class="info-box tip">
+      <span class="ib-icon">💡</span>
+      <div>Si tu dois t'écarter d'un DTU (situation atypique, technique nouvelle), tu dois le <strong>justifier par écrit dans le CCTP</strong> et obtenir l'accord du maître d'ouvrage et éventuellement un Avis Technique du CSTB. Ne jamais déroger tacitement.</div>
+    </div>
+  </div>
+
+  <!-- 3.8 Points de contrôle chantier -->
+  <div class="section">
+    <h3><span class="icon">🔍</span> Les points de contrôle essentiels sur chantier</h3>
+    <div class="tab-nav">
+      <button class="tab-btn active-dtu" onclick="switchTabDtu(this,'ctrl-ext')">Ext. bois (36.1)</button>
+      <button class="tab-btn" onclick="switchTabDtu(this,'ctrl-int')">Int. bois (36.2)</button>
+      <button class="tab-btn" onclick="switchTabDtu(this,'ctrl-metal')">Métal (37.1)</button>
+    </div>
+    <div id="ctrl-ext" class="tab-content active">
+      <div class="tab-panel-dtu">
+        <div class="grid-2">
+          <div>
+            <h5 style="font-family:'Barlow Condensed';font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;color:var(--dtu)">Avant pose</h5>
+            <ul style="font-size:14px;color:var(--text);line-height:1.8;padding-left:18px">
+              <li>Baie conforme (cotes, aplomb, humidité ≤ 5%)</li>
+              <li>Vérification de la menuiserie livrée (marquage CE, PV résistance)</li>
+              <li>Humidité du bois ≤ 18%</li>
+              <li>Chants de coupe traités</li>
+            </ul>
+          </div>
+          <div>
+            <h5 style="font-family:'Barlow Condensed';font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;color:var(--dtu)">Après pose</h5>
+            <ul style="font-size:14px;color:var(--text);line-height:1.8;padding-left:18px">
+              <li>Aplomb ≤ 1 mm/m</li>
+              <li>Fixations : nombre, espacement, type (inox)</li>
+              <li>Cales bois dur en place</li>
+              <li>Joint extérieur continu, sans coupure</li>
+              <li>Jeux ouvrant 2–3 mm</li>
+              <li>Fonctionnement ferrures OK</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="ctrl-int" class="tab-content">
+      <div class="tab-panel-dtu">
+        <div class="grid-2">
+          <div>
+            <h5 style="font-family:'Barlow Condensed';font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;color:var(--dtu)">Avant pose</h5>
+            <ul style="font-size:14px;color:var(--text);line-height:1.8;padding-left:18px">
+              <li>Travaux humides terminés (enduits secs)</li>
+              <li>Chauffage en route depuis 48h</li>
+              <li>Humidité ambiance 30–70% H.R.</li>
+              <li>Acclimatation menuiseries 48h</li>
+              <li>Humidité bois 8–12%</li>
+            </ul>
+          </div>
+          <div>
+            <h5 style="font-family:'Barlow Condensed';font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;color:var(--dtu)">Après pose</h5>
+            <ul style="font-size:14px;color:var(--text);line-height:1.8;padding-left:18px">
+              <li>Aplomb ≤ 1 mm/m</li>
+              <li>Jeu sous porte 10 mm minimum</li>
+              <li>Jeu pourtour 2–3 mm</li>
+              <li>Nombre de paumelles correct</li>
+              <li>Pas de frottement à l'ouverture</li>
+              <li>Huisserie fixée dans structure (pas plâtre seul)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="ctrl-metal" class="tab-content">
+      <div class="tab-panel-dtu">
+        <div class="grid-2">
+          <div>
+            <h5 style="font-family:'Barlow Condensed';font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;color:var(--dtu)">Avant pose</h5>
+            <ul style="font-size:14px;color:var(--text);line-height:1.8;padding-left:18px">
+              <li>RPT présent sur profils (obligatoire)</li>
+              <li>Vérification traitement surface (anodisation / laquage)</li>
+              <li>Isolement galvanique prévu si contact acier</li>
+              <li>Jeux de dilatation calculés</li>
+            </ul>
+          </div>
+          <div>
+            <h5 style="font-family:'Barlow Condensed';font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;color:var(--dtu)">Après pose</h5>
+            <ul style="font-size:14px;color:var(--text);line-height:1.8;padding-left:18px">
+              <li>Aplomb ± 1 mm/m</li>
+              <li>Planéité ± 3 mm/3 m</li>
+              <li>Points fixes et coulissants en place</li>
+              <li>Drainage des profils non obstrué</li>
+              <li>Fonctionnement ouvrants (jeu 2–4 mm)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FICHE RÉCAP DTU -->
+  <div class="recap-header" style="background:var(--dtu-light);border-color:var(--dtu)">
+    <span>📘</span>
+    <span class="title" style="color:var(--dtu)">Fiche Récap — Tableau des DTU applicables en menuiserie / agencement</span>
+  </div>
+  <div class="recap-body">
+    <div class="table-wrap" style="padding:0">
+      <table>
+        <thead>
+          <tr>
+            <th>Référence DTU</th>
+            <th>Domaine</th>
+            <th>Points clés</th>
+            <th>Mention CCTP type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="val dtu-val">NF DTU 36.1</td>
+            <td>Menuiseries extérieures bois</td>
+            <td>Appui min. 30 mm, fixations ≤ 60 cm, joint RAL, traitement classe 3B, humidité ≤ 18%</td>
+            <td>"Conforme NF DTU 36.1"</td>
+          </tr>
+          <tr>
+            <td class="val dtu-val">NF DTU 36.2</td>
+            <td>Menuiseries intérieures bois</td>
+            <td>Aplomb ≤ 1 mm/m, jeu 2–3 mm, acclimatation 48h, humidité 8–12%, fixation structure porteuse</td>
+            <td>"Conforme NF DTU 36.2"</td>
+          </tr>
+          <tr>
+            <td class="val dtu-val">NF DTU 36.5</td>
+            <td>Fenêtres PVC</td>
+            <td>Renforts acier, dilatation, étanchéité, fixations spécifiques PVC</td>
+            <td>"Conforme NF DTU 36.5"</td>
+          </tr>
+          <tr>
+            <td class="val dtu-val">NF DTU 37.1</td>
+            <td>Menuiseries métalliques</td>
+            <td>RPT, dilatation, anodisation cl.15+, planéité ±3mm/3m, drainage</td>
+            <td>"Conforme NF DTU 37.1"</td>
+          </tr>
+          <tr>
+            <td class="val dtu-val">NF DTU 34.4</td>
+            <td>Fermetures (volets, persiennes)</td>
+            <td>Fixations, réglages, sécurité anti-soulèvement</td>
+            <td>"Conforme NF DTU 34.4"</td>
+          </tr>
+          <tr>
+            <td class="val dtu-val">NF DTU 39</td>
+            <td>Travaux de vitrerie</td>
+            <td>Épaisseur vitrage, calage, mastic, flèche sous charge</td>
+            <td>"Conforme NF DTU 39"</td>
+          </tr>
+          <tr>
+            <td class="val dtu-val">NF DTU 51.1</td>
+            <td>Parquets collés</td>
+            <td>Humidité chape, primaire d'accrochage, colle, expansion</td>
+            <td>"Conforme NF DTU 51.1"</td>
+          </tr>
+          <tr>
+            <td class="val dtu-val">NF DTU 51.2</td>
+            <td>Parquets flottants</td>
+            <td>Sous-couche, joint périmétrique, humidité, chargement</td>
+            <td>"Conforme NF DTU 51.2"</td>
+          </tr>
+          <tr>
+            <td class="val dtu-val">NF DTU 58.1</td>
+            <td>Plafonds suspendus</td>
+            <td>Portées suspentes, entraxe, charge admissible, séisme</td>
+            <td>"Conforme NF DTU 58.1"</td>
+          </tr>
+          <tr>
+            <td class="val dtu-val">NF DTU 68.3</td>
+            <td>VMC — Ventilation mécanique</td>
+            <td>Débits réglementaires, passages d'air, bouches non condamnées</td>
+            <td>"Conforme NF DTU 68.3"</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Checklist DTU -->
+  <div class="section" style="margin-top:28px">
+    <h3><span class="icon">✅</span> Checklist utilisation DTU sur chantier</h3>
+    <ul class="checklist">
+      <li onclick="toggleCheck(this,'done')"><span class="ck">✓</span><span>DTU applicable identifié et version à jour vérifiée</span></li>
+      <li onclick="toggleCheck(this,'done')"><span class="ck">✓</span><span>DTU référencé dans le CCTP avec mention "et amendements en vigueur"</span></li>
+      <li onclick="toggleCheck(this,'done')"><span class="ck">✓</span><span>Conditions préalables vérifiées avant démarrage (humidité, température, support)</span></li>
+      <li onclick="toggleCheck(this,'done')"><span class="ck">✓</span><span>Matériaux vérifiés : humidité bois, traitement, quincaillerie inox</span></li>
+      <li onclick="toggleCheck(this,'done')"><span class="ck">✓</span><span>Tolérances dimensionnelles respectées et contrôlées (niveau, aplomb)</span></li>
+      <li onclick="toggleCheck(this,'done')"><span class="ck">✓</span><span>Fixations conformes : type, espacement, nombre minimum</span></li>
+      <li onclick="toggleCheck(this,'done')"><span class="ck">✓</span><span>Joints et étanchéité exécutés conformément au DTU</span></li>
+      <li onclick="toggleCheck(this,'done')"><span class="ck">✓</span><span>Bouches VMC non condamnées par l'agencement</span></li>
+      <li onclick="toggleCheck(this,'done')"><span class="ck">✓</span><span>Photos de chantier prises aux étapes clés (traçabilité)</span></li>
+      <li onclick="toggleCheck(this,'done')"><span class="ck">✓</span><span>Fiches techniques des matériaux conservées dans le dossier chantier</span></li>
+      <li onclick="toggleCheck(this,'done')"><span class="ck">✓</span><span>Réception formalisée avec PV de réception et réserves éventuelles</span></li>
+    </ul>
+  </div>
+
+</div><!-- end dtu container -->
+
+<!-- ═══════════════════════════════════
+     PARTIE 4 — SÉCURITÉ CHANTIER
+════════════════════════════════════ -->
+<div id="securite" class="sec container">
+
+  <div class="part-header">
+    <div class="part-number">Partie 4</div>
+    <h2 style="color:var(--sec)">Sécurité Chantier</h2>
+    <p>EPI, plan de prévention, PPSPS, risques spécifiques menuiserie, travail en hauteur, signalisation, accidents et sanctions.</p>
+  </div>
+
+  <!-- 4.1 EPI obligatoires -->
+  <div class="section">
+    <h3><span class="icon">⛑️</span> Les EPI obligatoires</h3>
+    <div class="info-box law">
+      <span class="ib-icon">⚖️</span>
+      <div><strong>Code du travail — Art. R4321-1 à R4321-5 :</strong> L'employeur est tenu de fournir gratuitement les EPI à ses salariés. Le port est obligatoire dès que le travail présente un risque. Le salarié a l'obligation de les porter sous peine de sanction disciplinaire.</div>
+    </div>
+    <div class="epi-grid">
+      <div class="epi-card obligatoire">
+        <span class="epi-icon">⛑️</span>
+        <h4>Casque</h4>
+        <p>Obligatoire dès risque de choc ou de chute d'objet. EN 397.</p>
+      </div>
+      <div class="epi-card obligatoire">
+        <span class="epi-icon">🥾</span>
+        <h4>Chaussures S3</h4>
+        <p>Coque acier, semelle anti-perforation, tige imperméable. EN ISO 20345 S3.</p>
+      </div>
+      <div class="epi-card obligatoire">
+        <span class="epi-icon">🦺</span>
+        <h4>Gilet HV</h4>
+        <p>Haute visibilité obligatoire près de circulations de véhicules. EN 471 cl.2.</p>
+      </div>
+      <div class="epi-card obligatoire">
+        <span class="epi-icon">🥽</span>
+        <h4>Lunettes de protection</h4>
+        <p>Projections, perçage, meulage, découpe. EN 166.</p>
+      </div>
+      <div class="epi-card obligatoire">
+        <span class="epi-icon">🧤</span>
+        <h4>Gants</h4>
+        <p>Manutention (EN 388), coupure, produits chimiques selon le risque.</p>
+      </div>
+      <div class="epi-card obligatoire">
+        <span class="epi-icon">🎧</span>
+        <h4>Protections auditives</h4>
+        <p>Obligatoires dès 85 dB(A). Bouchons ou casque anti-bruit. EN 352.</p>
+      </div>
+      <div class="epi-card conditionnel">
+        <span class="epi-icon">🪢</span>
+        <h4>Harnais anti-chute</h4>
+        <p>Travail en hauteur &gt; 2 m (toits, nacelles, échafaudages). EN 361.</p>
+      </div>
+      <div class="epi-card conditionnel">
+        <span class="epi-icon">😷</span>
+        <h4>Masque à poussières</h4>
+        <p>Poussières de bois, plâtre, silice. FFP2 minimum. EN 149.</p>
+      </div>
+      <div class="epi-card conditionnel">
+        <span class="epi-icon">🦺</span>
+        <h4>Genouillères</h4>
+        <p>Travaux en position agenouillée prolongée. EN 14404.</p>
+      </div>
+    </div>
+
+    <h4 style="font-family:'Barlow Condensed';font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:14px;margin-bottom:12px;color:var(--sec)">Tableau — Quand porter quoi ?</h4>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Type de travaux</th>
+            <th>Casque</th>
+            <th>Chaussures S3</th>
+            <th>Lunettes</th>
+            <th>Gants</th>
+            <th>Protection auditive</th>
+            <th>Masque poussières</th>
+            <th>Harnais</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Manutention (transport de colis)</td>
+            <td>✓</td><td>✓</td><td>—</td><td>✓</td><td>—</td><td>—</td><td>—</td>
+          </tr>
+          <tr>
+            <td>Débit bois (scie circulaire / sauteuse)</td>
+            <td>—</td><td>✓</td><td>✓</td><td>✓</td><td>✓ (≥ 85 dB)</td><td>✓ FFP2</td><td>—</td>
+          </tr>
+          <tr>
+            <td>Ponçage / rabotage</td>
+            <td>—</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓ FFP2</td><td>—</td>
+          </tr>
+          <tr>
+            <td>Perçage / chevillage</td>
+            <td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>—</td><td>—</td>
+          </tr>
+          <tr>
+            <td>Pose en hauteur (nacelle, échafaudage)</td>
+            <td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>Selon</td><td>—</td><td>✓ si &gt;2 m</td>
+          </tr>
+          <tr>
+            <td>Application produits (lasure, colle)</td>
+            <td>—</td><td>✓</td><td>✓</td><td>✓ chimie</td><td>—</td><td>Selon FDS</td><td>—</td>
+          </tr>
+          <tr>
+            <td>Zone de circulation engins</td>
+            <td>✓</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+          </tr>
+          <tr>
+            <td>Travaux de plaquisterie / placo</td>
+            <td>—</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓ FFP2</td><td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 4.2 Plan de prévention -->
+  <div class="section">
+    <h3><span class="icon">📄</span> Plan de prévention</h3>
+    <div class="grid-2">
+      <div class="card sec-accent">
+        <h4>Définition</h4>
+        <p>Document obligatoire établi lorsqu'une entreprise extérieure intervient dans une entreprise utilisatrice (ERP, usine, bureau…). Il décrit les mesures prises pour prévenir les risques liés à la coactivité.</p>
+        <p style="margin-top:8px;font-size:13px"><strong>Base légale :</strong> Art. R4512-1 à R4512-16 du Code du travail. Décret du 20/02/1992.</p>
+      </div>
+      <div class="card">
+        <h4>Quand est-il obligatoire ?</h4>
+        <ul>
+          <li>Toujours si le travail représente <strong>400 heures de travail</strong> sur 12 mois</li>
+          <li>Toujours si les travaux figurent sur la <strong>liste des travaux dangereux</strong> (arrêté du 19/03/1993), quelle que soit la durée</li>
+          <li>Recommandé dans tous les autres cas</li>
+        </ul>
+      </div>
+    </div>
+    <h4 style="font-family:'Barlow Condensed';font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:14px;margin-bottom:12px;color:var(--sec)">Contenu obligatoire du plan de prévention</h4>
+    <div class="grid-2">
+      <div class="card">
+        <h4>Identification des parties</h4>
+        <ul>
+          <li>Nom et coordonnées de l'entreprise utilisatrice</li>
+          <li>Nom et coordonnées de chaque entreprise extérieure</li>
+          <li>Noms des responsables sécurité désignés</li>
+          <li>Date et durée de l'intervention</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Analyse des risques</h4>
+        <ul>
+          <li>Risques propres à l'entreprise utilisatrice (accès, process)</li>
+          <li>Risques propres aux entreprises extérieures</li>
+          <li>Risques de coactivité (interférences entre entreprises)</li>
+          <li>Risques liés aux installations communes</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Mesures de prévention</h4>
+        <ul>
+          <li>EPI exigés sur le site</li>
+          <li>Zones interdites ou à accès restreint</li>
+          <li>Procédures d'accès et d'évacuation</li>
+          <li>Consignes incendie et premiers secours</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Organisation et suivi</h4>
+        <ul>
+          <li>Planning d'intervention (zones, horaires)</li>
+          <li>Moyens de communication entre entreprises</li>
+          <li>Modalités d'inspection commune préalable</li>
+          <li>Signatures obligatoires des deux parties</li>
+        </ul>
+      </div>
+    </div>
+    <div class="info-box tip">
+      <span class="ib-icon">💡</span>
+      <div>L'<strong>inspection commune préalable</strong> entre l'entreprise utilisatrice et l'entreprise extérieure est obligatoire avant tout démarrage. Elle se tient sur les lieux et ses conclusions alimentent le plan de prévention. Ne jamais commencer sans elle si les travaux durent &gt; 400h ou sont dangereux.</div>
+    </div>
+  </div>
+
+  <!-- 4.3 PPSPS -->
+  <div class="section">
+    <h3><span class="icon">📋</span> PPSPS — Plan Particulier de Sécurité et de Protection de la Santé</h3>
+    <div class="info-box law">
+      <span class="ib-icon">⚖️</span>
+      <div><strong>Décret 94-1159 du 26/12/1994, Art. R4532-58 à R4532-82 du Code du travail.</strong> Obligatoire pour chaque entreprise intervenant sur un chantier soumis à l'obligation de coordination SPS (présence d'un coordonnateur SPS), dès lors que les travaux dépassent certains seuils (volume ≥ 500 hommes-jours ou risques particuliers).</div>
+    </div>
+
+    <div class="highlight sec">
+      Le PPSPS est <strong>propre à chaque entreprise</strong> (chaque sous-traitant fait le sien). Il est transmis au <strong>coordonnateur SPS</strong> avant le démarrage des travaux.
+    </div>
+
+    <h4 style="font-family:'Barlow Condensed';font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:14px;margin-bottom:14px;color:var(--sec)">Structure complète d'un PPSPS</h4>
+
+    <div class="accordion">
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <h5>1 — Renseignements généraux</h5>
+          <span class="arr">▼</span>
+        </div>
+        <div class="acc-body">
+          <ul>
+            <li>Identification de l'opération (adresse, maître d'ouvrage)</li>
+            <li>Identification de l'entreprise (raison sociale, SIRET, effectif)</li>
+            <li>Coordonnées du responsable sécurité de l'entreprise</li>
+            <li>Coordonnées du coordonnateur SPS</li>
+            <li>Période prévisionnelle d'intervention</li>
+            <li>Nature et volume des travaux à réaliser</li>
+          </ul>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <h5>2 — Description des travaux et contraintes du site</h5>
+          <span class="arr">▼</span>
+        </div>
+        <div class="acc-body">
+          <ul>
+            <li>Description précise des tâches à effectuer (pose menuiseries, agencement, etc.)</li>
+            <li>Accès au chantier : voie d'accès, zone de livraison</li>
+            <li>Plan de masse du chantier avec zones de travail</li>
+            <li>Contraintes horaires et activité du site pendant les travaux</li>
+            <li>Interférences avec les autres corps d'état</li>
+            <li>Réseaux existants (électricité, gaz, eau) dans les zones d'intervention</li>
+          </ul>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <h5>3 — Analyse des risques spécifiques</h5>
+          <span class="arr">▼</span>
+        </div>
+        <div class="acc-body">
+          <ul>
+            <li>Tableau de risques : pour chaque tâche, identifier les risques (chute, coupure, bruit…)</li>
+            <li>Risques liés aux matériaux utilisés (colle, solvants, poussières de bois)</li>
+            <li>Risques de coactivité avec les autres entreprises présentes</li>
+            <li>Risques liés aux équipements de travail (machines, engins de levage)</li>
+            <li>Risques liés au travail en hauteur si applicable</li>
+          </ul>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <h5>4 — Mesures de prévention retenues</h5>
+          <span class="arr">▼</span>
+        </div>
+        <div class="acc-body">
+          <ul>
+            <li>Pour chaque risque identifié : mesure de prévention associée</li>
+            <li>Liste des EPI imposés par l'entreprise sur ce chantier</li>
+            <li>Procédures de travail sécurisées (modes opératoires)</li>
+            <li>Mesures collectives : garde-corps, filets, balisage</li>
+            <li>Consignes de sécurité particulières (zones chaudes, produits chimiques)</li>
+            <li>Plan de gestion des déchets</li>
+          </ul>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <h5>5 — Matériels et équipements utilisés</h5>
+          <span class="arr">▼</span>
+        </div>
+        <div class="acc-body">
+          <ul>
+            <li>Liste des machines et outillages (vérification, maintenance à jour)</li>
+            <li>Fiches de vérification périodique des engins et nacelles</li>
+            <li>Matériels d'échafaudage et de travail en hauteur</li>
+            <li>Matériels de levage (sangles, élingues, certification)</li>
+            <li>Vérification de la conformité CE de chaque équipement</li>
+          </ul>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <h5>6 — Formation et habilitations du personnel</h5>
+          <span class="arr">▼</span>
+        </div>
+        <div class="acc-body">
+          <ul>
+            <li>Liste du personnel avec habilitations (CACES, habilitation électrique…)</li>
+            <li>Formation à la sécurité et accueil chantier</li>
+            <li>Désignation du secouriste SST présent sur le chantier</li>
+            <li>Attestation de formation au port du harnais si travail en hauteur</li>
+          </ul>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <h5>7 — Organisation des secours et procédures d'urgence</h5>
+          <span class="arr">▼</span>
+        </div>
+        <div class="acc-body">
+          <ul>
+            <li>Numéros d'urgence affichés (SAMU 15, Pompiers 18, SAMU/Pompiers 112)</li>
+            <li>Localisation de la boîte de premiers secours</li>
+            <li>Localisation du point de rassemblement</li>
+            <li>Procédure en cas d'accident : qui prévenir, dans quel ordre</li>
+            <li>Consignes incendie du chantier (issues de secours, extincteurs)</li>
+            <li>Nom du responsable de l'évacuation désigné</li>
+          </ul>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <h5>8 — Documents annexes</h5>
+          <span class="arr">▼</span>
+        </div>
+        <div class="acc-body">
+          <ul>
+            <li>Plans de situation et plan de masse</li>
+            <li>Fiches de données de sécurité (FDS) des produits utilisés</li>
+            <li>Procédures de travail en hauteur si applicable</li>
+            <li>Attestation d'assurance RC Pro à jour</li>
+            <li>Registre du personnel prévu sur le chantier</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4.4 Risques spécifiques -->
+  <div class="section">
+    <h3><span class="icon">⚠️</span> Risques spécifiques menuiserie / agencement</h3>
+
+    <div class="schema-wrap">
+      <h4>Schéma — Risques principaux en menuiserie / agencement</h4>
+      <svg viewBox="0 0 560 300" xmlns="http://www.w3.org/2000/svg" style="max-width:540px">
+        <rect width="560" height="300" fill="#fdf0ec" rx="8"/>
+        <!-- Centre -->
+        <circle cx="280" cy="150" r="42" fill="#8b2500" />
+        <text x="280" y="145" text-anchor="middle" fill="#fff" font-family="Barlow Condensed" font-size="13" font-weight="900">RISQUES</text>
+        <text x="280" y="162" text-anchor="middle" fill="#fff" font-family="Barlow Condensed" font-size="13" font-weight="900">MENUISERIE</text>
+        <!-- Risque 1 poussières -->
+        <circle cx="100" cy="75" r="36" fill="#c45030" opacity=".15" stroke="#c45030" stroke-width="1.5"/>
+        <text x="100" y="68" text-anchor="middle" fill="#8b2500" font-family="Barlow Condensed" font-size="12" font-weight="800">POUSSIÈRES</text>
+        <text x="100" y="83" text-anchor="middle" fill="#8b2500" font-family="Barlow Condensed" font-size="11">DE BOIS</text>
+        <line x1="132" y1="95" x2="242" y2="130" stroke="#c45030" stroke-width="1" stroke-dasharray="4,3"/>
+        <!-- Risque 2 bruit -->
+        <circle cx="460" cy="75" r="36" fill="#c45030" opacity=".15" stroke="#c45030" stroke-width="1.5"/>
+        <text x="460" y="72" text-anchor="middle" fill="#8b2500" font-family="Barlow Condensed" font-size="12" font-weight="800">BRUIT</text>
+        <text x="460" y="87" text-anchor="middle" fill="#8b2500" font-family="Barlow Condensed" font-size="11">≥ 85 dB(A)</text>
+        <line x1="428" y1="95" x2="318" y2="130" stroke="#c45030" stroke-width="1" stroke-dasharray="4,3"/>
+        <!-- Risque 3 chutes -->
+        <circle cx="80" cy="220" r="36" fill="#c45030" opacity=".15" stroke="#c45030" stroke-width="1.5"/>
+        <text x="80" y="213" text-anchor="middle" fill="#8b2500" font-family="Barlow Condensed" font-size="12" font-weight="800">CHUTES</text>
+        <text x="80" y="228" text-anchor="middle" fill="#8b2500" font-family="Barlow Condensed" font-size="11">hauteur / sol</text>
+        <line x1="114" y1="205" x2="242" y2="168" stroke="#c45030" stroke-width="1" stroke-dasharray="4,3"/>
+        <!-- Risque 4 coupures -->
+        <circle cx="280" cy="270" r="28" fill="#c45030" opacity=".15" stroke="#c45030" stroke-width="1.5"/>
+        <text x="280" y="267" text-anchor="middle" fill="#8b2500" font-family="Barlow Condensed" font-size="12" font-weight="800">COUPURES</text>
+        <text x="280" y="280" text-anchor="middle" fill="#8b2500" font-family="Barlow Condensed" font-size="11">outils tranchants</text>
+        <line x1="280" y1="248" x2="280" y2="194" stroke="#c45030" stroke-width="1" stroke-dasharray="4,3"/>
+        <!-- Risque 5 manutention -->
+        <circle cx="480" cy="220" r="36" fill="#c45030" opacity=".15" stroke="#c45030" stroke-width="1.5"/>
+        <text x="480" y="213" text-anchor="middle" fill="#8b2500" font-family="Barlow Condensed" font-size="12" font-weight="800">MANUTENTION</text>
+        <text x="480" y="228" text-anchor="middle" fill="#8b2500" font-family="Barlow Condensed" font-size="11">TMS / écrasement</text>
+        <line x1="446" y1="205" x2="318" y2="168" stroke="#c45030" stroke-width="1" stroke-dasharray="4,3"/>
+        <!-- Risque 6 produits chimiques -->
+        <circle cx="280" cy="30" r="28" fill="#c45030" opacity=".15" stroke="#c45030" stroke-width="1.5"/>
+        <text x="280" y="27" text-anchor="middle" fill="#8b2500" font-family="Barlow Condensed" font-size="12" font-weight="800">CHIMIQUE</text>
+        <text x="280" y="40" text-anchor="middle" fill="#8b2500" font-family="Barlow Condensed" font-size="11">colles, solvants</text>
+        <line x1="280" y1="57" x2="280" y2="109" stroke="#c45030" stroke-width="1" stroke-dasharray="4,3"/>
+      </svg>
+    </div>
+
+    <div class="grid-2">
+      <div class="card sec-accent">
+        <h4>🌫️ Poussières de bois — cancérigène avéré</h4>
+        <ul>
+          <li>VLEP (valeur limite exposition) : <strong>1 mg/m³</strong> (poussières de bois durs)</li>
+          <li>Masque FFP2 minimum, FFP3 pour bois durs (hêtre, chêne)</li>
+          <li>Aspiration à la source obligatoire (branchement direct machine)</li>
+          <li>Surveillance médicale renforcée pour les exposés chroniques</li>
+          <li>Déclaration CNAM si exposition régulière</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>🔊 Bruit — surdité professionnelle</h4>
+        <ul>
+          <li>Seuil d'action : <strong>80 dB(A)</strong> — EPI mis à disposition</li>
+          <li>Seuil obligatoire : <strong>85 dB(A)</strong> — port EPI obligatoire</li>
+          <li>Valeur limite d'exposition : <strong>87 dB(A)</strong> — jamais dépassé</li>
+          <li>Scie circulaire : 95–105 dB(A) → casque anti-bruit impératif</li>
+          <li>Surveillance audiométrique annuelle si exposition ≥ 85 dB(A)</li>
+        </ul>
+      </div>
+      <div class="card sec-accent">
+        <h4>🦾 Manutention — TMS</h4>
+        <ul>
+          <li>Charge max. recommandée : <strong>25 kg pour 1 personne</strong> (15 kg femmes)</li>
+          <li>Au-delà : aide mécanique obligatoire (diable, chariot)</li>
+          <li>Techniques gestuelles : dos droit, charge près du corps, tête droite</li>
+          <li>Formation PRAP (Prévention des Risques liés à l'Activité Physique)</li>
+          <li>Porter des genouillères pour travaux en position basse prolongée</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>⚗️ Produits chimiques (colles, solvants)</h4>
+        <ul>
+          <li>Consulter la Fiche de Données de Sécurité (FDS) avant utilisation</li>
+          <li>Gants nitrile pour solvants, latex pour colles acryliques</li>
+          <li>Ventilation du local pendant application</li>
+          <li>Stockage produits inflammables : armoire coupe-feu</li>
+          <li>Ne jamais manger, boire, fumer en manipulant des produits</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4.5 Travail en hauteur -->
+  <div class="section">
+    <h3><span class="icon">🪜</span> Travail en hauteur</h3>
+    <div class="info-box law">
+      <span class="ib-icon">⚖️</span>
+      <div><strong>Art. R4323-58 à R4323-90 du Code du travail.</strong> Tout travail en hauteur doit être réalisé depuis un lieu de travail adapté. Priorité aux protections collectives (garde-corps, plateformes) sur les protections individuelles (harnais).</div>
+    </div>
+    <div class="grid-3">
+      <div class="card sec-accent">
+        <h4>Échelle simple</h4>
+        <ul>
+          <li>Dépassement min. 1 m au-delà du point d'appui</li>
+          <li>Inclinaison : 75° (1 unité pour 4 en hauteur)</li>
+          <li>Interdit pour travaux nécessitant les deux mains</li>
+          <li>Stabilisateur ou calage obligatoire</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Escabeau / marchepied</h4>
+        <ul>
+          <li>Portée max. indiquée par le fabricant</li>
+          <li>Surface plane et stable obligatoire</li>
+          <li>Ne jamais se pencher latéralement</li>
+          <li>Escabeau avec barrière ≥ 1 m recommandé</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Échafaudage</h4>
+        <ul>
+          <li>Notice de montage fabricant obligatoire</li>
+          <li>Garde-corps H ≥ 1 m (lisse, sous-lisse, plinthe)</li>
+          <li>Ancrages si H &gt; 3 m</li>
+          <li>Vérification journalière avant utilisation</li>
+          <li>Montage par personne compétente (formation)</li>
+        </ul>
+      </div>
+      <div class="card gold-accent">
+        <h4>Nacelle (PEMP)</h4>
+        <ul>
+          <li>CACES R486 catégorie A ou B selon type</li>
+          <li>Harnais obligatoire dans la nacelle</li>
+          <li>Point d'accrochage dans le panier</li>
+          <li>Vérification annuelle de l'engin (VGP)</li>
+        </ul>
+      </div>
+      <div class="card gold-accent">
+        <h4>Harnais anti-chute</h4>
+        <ul>
+          <li>EN 361 — harnais complet (poitrine + cuissardes)</li>
+          <li>Longe avec absorbeur d'énergie</li>
+          <li>Point d'ancrage résistant ≥ 12 kN</li>
+          <li>Vérification avant chaque utilisation</li>
+          <li>Réforme si choc, si &gt; 10 ans, si altération visible</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Seuil réglementaire</h4>
+        <p style="margin-bottom:8px">Le harnais est obligatoire à partir de <strong>2 m de hauteur</strong> dès lors qu'il n'y a pas de protection collective (garde-corps).</p>
+        <p>En toiture ou en périphérie : garde-corps périphérique obligatoire.</p>
+      </div>
+    </div>
+
+    <!-- Schéma échafaudage -->
+    <div class="schema-wrap">
+      <h4>Schéma — Garde-corps obligatoire sur échafaudage</h4>
+      <svg viewBox="0 0 500 280" xmlns="http://www.w3.org/2000/svg" style="max-width:480px">
+        <defs>
+          <marker id="aS1" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M1,1 L7,4 L1,7 Z" fill="#c45030"/>
+          </marker>
+          <marker id="aS2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse">
+            <path d="M1,1 L7,4 L1,7 Z" fill="#c45030"/>
+          </marker>
+        </defs>
+        <rect width="500" height="280" fill="#fdf8ec" rx="8"/>
+        <!-- sol -->
+        <rect x="0" y="240" width="500" height="40" fill="#ede9e2"/>
+        <text x="50" y="258" fill="#b8b0a4" font-family="Barlow" font-size="11">Sol</text>
+        <!-- montants échafaudage -->
+        <rect x="80" y="100" width="12" height="140" fill="#b8b0a4" rx="2"/>
+        <rect x="320" y="100" width="12" height="140" fill="#b8b0a4" rx="2"/>
+        <!-- platelage -->
+        <rect x="70" y="155" width="274" height="14" fill="#d8d2c8" rx="2"/>
+        <!-- lisse haute (garde-corps) -->
+        <line x1="70" y1="106" x2="344" y2="106" stroke="#c45030" stroke-width="4" stroke-linecap="round"/>
+        <!-- sous-lisse -->
+        <line x1="70" y1="130" x2="344" y2="130" stroke="#c45030" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- plinthe -->
+        <rect x="70" y="154" width="274" height="8" fill="#c45030" opacity=".5" rx="1"/>
+        <!-- cotes garde-corps -->
+        <line x1="350" y1="106" x2="350" y2="169" stroke="#c45030" stroke-width="1.2" stroke-dasharray="3,2" marker-start="url(#aS2)" marker-end="url(#aS1)"/>
+        <text x="365" y="135" fill="#c45030" font-family="Barlow Condensed" font-size="13" font-weight="800">≥ 1,00 m</text>
+        <!-- hauteur totale -->
+        <line x1="400" y1="100" x2="400" y2="240" stroke="#1a4a7a" stroke-width="1.2" stroke-dasharray="3,2" marker-start="url(#aS2)" marker-end="url(#aS1)"/>
+        <text x="415" y="175" fill="#1a4a7a" font-family="Barlow Condensed" font-size="12" font-weight="800">H travail</text>
+        <!-- labels -->
+        <text x="70" y="98" fill="#c45030" font-family="Barlow Condensed" font-size="11" font-weight="700">Lisse haute (H ≥ 1 m)</text>
+        <text x="70" y="146" fill="#c45030" font-family="Barlow Condensed" font-size="11">Sous-lisse (mi-hauteur)</text>
+        <text x="70" y="178" fill="#c45030" font-family="Barlow Condensed" font-size="11">Plinthe (rebord pied)</text>
+        <!-- personne stylisée -->
+        <circle cx="200" cy="120" r="12" fill="#1a4a7a" opacity=".4"/>
+        <line x1="200" y1="132" x2="200" y2="155" stroke="#1a4a7a" stroke-width="3" opacity=".4"/>
+        <line x1="185" y1="143" x2="215" y2="143" stroke="#1a4a7a" stroke-width="2.5" opacity=".4"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- 4.6 Signalisation de chantier -->
+  <div class="section">
+    <h3><span class="icon">🚧</span> Signalisation de chantier</h3>
+    <div class="grid-2">
+      <div class="card sec-accent">
+        <h4>Balisage et clôture</h4>
+        <ul>
+          <li>Barrières rigides (type Vauban) pour chantiers en voie publique</li>
+          <li>Rubalise rouge/blanc pour balisage intérieur</li>
+          <li>Rubalise jaune/noir pour zones de danger</li>
+          <li>Hauteur de clôture : ≥ 1,80 m sur voie publique</li>
+          <li>Pas de stockage débordant sur voie publique</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Panneaux obligatoires</h4>
+        <ul>
+          <li>Panneau de chantier (coordonnées maîtrise d'ouvrage et entreprises)</li>
+          <li>Panneau "Accès interdit au public"</li>
+          <li>Panneau EPI obligatoires (casque, chaussures…)</li>
+          <li>Consignes incendie et numéros d'urgence</li>
+          <li>Plan d'évacuation si effectif &gt; 20 personnes</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Accès et circulation</h4>
+        <ul>
+          <li>Voies piétons séparées des voies engins si possible</li>
+          <li>Signalisation temporaire si impact sur voirie (arrêté voirie obligatoire)</li>
+          <li>Portail ou barrière verrouillable la nuit</li>
+          <li>Éclairage des accès si travaux en période sombre</li>
+        </ul>
+      </div>
+      <div class="card gold-accent">
+        <h4>Chantier en milieu occupé (ERP actif)</h4>
+        <ul>
+          <li>Zone de travaux parfaitement isolée des usagers</li>
+          <li>Pas de stockage dans les dégagements ERP</li>
+          <li>Accès chantier distinct de l'accès public si possible</li>
+          <li>Réduction des nuisances sonores aux heures d'ouverture</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4.7 Conduite à tenir en cas d'accident -->
+  <div class="section">
+    <h3><span class="icon">🚨</span> Conduite à tenir en cas d'accident</h3>
+    <div class="steps">
+      <div class="step step-sec">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h5>Protéger — Sécuriser la zone</h5>
+          <p>Ne jamais se mettre en danger pour porter secours. Couper les alimentations si risque électrique. Baliser la zone pour éviter un sur-accident. Éloigner les témoins si nécessaire.</p>
+        </div>
+      </div>
+      <div class="step step-sec">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h5>Alerter — Appeler les secours</h5>
+          <p>Appeler le <strong>15 (SAMU)</strong>, le <strong>18 (Pompiers)</strong> ou le <strong>112 (numéro unique)</strong>. Donner : localisation précise, nature de l'accident, nombre de blessés, état apparent, mesures déjà prises. Ne pas raccrocher sans l'accord du régulateur.</p>
+        </div>
+      </div>
+      <div class="step step-sec">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h5>Secourir — Gestes de premiers secours</h5>
+          <p>Agir selon sa formation SST : PLS si inconscient et respire, RCP si arrêt cardiaque, compression si hémorragie. Ne pas déplacer une victime suspecte de traumatisme du rachis sauf danger immédiat.</p>
+        </div>
+      </div>
+      <div class="step step-sec">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h5>Informer — Déclaration d'accident du travail</h5>
+          <p>L'employeur déclare l'accident à la <strong>CPAM dans les 48h</strong> (Déclaration d'Accident du Travail — DAT). Le salarié consulte un médecin qui établit le certificat médical initial.</p>
+        </div>
+      </div>
+      <div class="step step-sec">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h5>Analyser — Retour d'expérience</h5>
+          <p>Après l'accident : analyse des causes avec le CSE ou le référent sécurité. Mise en place d'actions correctives pour éviter la récidive. Mise à jour du Document Unique d'Évaluation des Risques (DUER).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Numéros d'urgence -->
+    <div class="urgence-grid">
+      <div class="urgence-card">
+        <div class="num">15</div>
+        <h4>SAMU</h4>
+        <p>Urgences médicales, régulation médicale</p>
+      </div>
+      <div class="urgence-card">
+        <div class="num">18</div>
+        <h4>Pompiers</h4>
+        <p>Incendie, accident, sauvetage</p>
+      </div>
+      <div class="urgence-card">
+        <div class="num">17</div>
+        <h4>Police</h4>
+        <p>Urgences police / gendarmerie</p>
+      </div>
+      <div class="urgence-card">
+        <div class="num">112</div>
+        <h4>Urgence Européen</h4>
+        <p>Numéro unique — fonctionne partout en Europe</p>
+      </div>
+      <div class="urgence-card">
+        <div class="num">114</div>
+        <h4>Urgence Sourds/Muets</h4>
+        <p>SMS / visio — toutes urgences</p>
+      </div>
+      <div class="urgence-card" style="background:#6b3a20">
+        <div class="num" style="font-size:36px">3114</div>
+        <h4>Prévention Suicide</h4>
+        <p>Numéro national — 24h/24</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4.8 Sanctions -->
+  <div class="section">
+    <h3><span class="icon">⚖️</span> Sanctions en cas de non-respect des règles de sécurité</h3>
+    <div class="grid-2">
+      <div class="card sec-accent">
+        <h4>Sanctions pénales — Employeur</h4>
+        <ul>
+          <li>Contravention : amende jusqu'à <strong>3 750 €</strong> par travailleur et par infraction</li>
+          <li>Délit en cas d'accident grave : jusqu'à <strong>75 000 €</strong> et 5 ans d'emprisonnement</li>
+          <li>Mise en demeure de l'inspection du travail</li>
+          <li>Arrêt de chantier possible par l'inspection du travail</li>
+        </ul>
+      </div>
+      <div class="card gold-accent">
+        <h4>Sanctions administratives</h4>
+        <ul>
+          <li>Arrêt temporaire de travaux (ATT) par l'inspecteur du travail</li>
+          <li>Mise en demeure avec délai de mise en conformité</li>
+          <li>Majoration des cotisations AT/MP par la CARSAT</li>
+          <li>Suspension des aides et subventions publiques</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Responsabilité du salarié</h4>
+        <ul>
+          <li>Refus de porter les EPI : sanction disciplinaire</li>
+          <li>Faute inexcusable si la victime connaissait le risque</li>
+          <li>Responsabilité personnelle en cas d'accident causé à un tiers</li>
+        </ul>
+      </div>
+      <div class="card green-accent">
+        <h4>Coût de la non-sécurité</h4>
+        <ul>
+          <li>Coût direct d'un AT : frais médicaux, indemnités</li>
+          <li>Coût indirect (× 3 à 5) : arrêt chantier, retard, remplacement</li>
+          <li>Hausse du taux de cotisation AT/MP</li>
+          <li>Atteinte à la réputation de l'entreprise</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FICHES RÉCAP SÉCURITÉ ── -->
+
+  <!-- Checklist EPI par travaux -->
+  <div class="recap-header" style="background:var(--sec-light);border-color:var(--sec-mid)">
+    <span>⛑️</span>
+    <span class="title" style="color:var(--sec)">Checklist EPI — selon le type de travaux</span>
+  </div>
+  <div class="recap-body">
+    <div class="table-wrap" style="padding:0">
+      <table>
+        <thead>
+          <tr>
+            <th>Travaux</th>
+            <th>Casque</th>
+            <th>Chaussures S3</th>
+            <th>Lunettes</th>
+            <th>Gants</th>
+            <th>Masque</th>
+            <th>Oreilles</th>
+            <th>Harnais</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Manutention / levage</td>
+            <td><span class="tag tag-ok">✓</span></td>
+            <td><span class="tag tag-ok">✓</span></td>
+            <td>—</td>
+            <td><span class="tag tag-ok">✓</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>Débit bois (scie, sauteuse)</td>
+            <td>—</td>
+            <td><span class="tag tag-ok">✓</span></td>
+            <td><span class="tag tag-ok">✓</span></td>
+            <td><span class="tag tag-ok">✓</span></td>
+            <td><span class="tag tag-ok">✓ FFP2</span></td>
+            <td><span class="tag tag-ok">✓</span></td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>Ponçage / fraisage</td>
+            <td>—</td>
+            <td><span class="tag tag-ok">✓</span></td>
+            <td><span class="tag tag-ok">✓</span></td>
+            <td><span class="tag tag-ok">✓</span></td>
+            <td><span class="tag tag-ok">✓ FFP2</span></td>
+            <td><span class="tag tag-ok">✓</span></td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>Perçage / chevillage</td>
+            <td><span class="tag tag-ok">✓</span></td>
+            <td><span class="tag tag-ok">✓</span></td>
+            <td><span class="tag tag-ok">✓</span></td>
+            <td><span class="tag tag-ok">✓</span></td>
+            <td>—</td>
+            <td><span class="tag tag-ok">✓</span></td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>Pose en hauteur (&gt; 2 m)</td>
+            <td><span class="tag tag-ok">✓</span></td>
+            <td><span class="tag tag-ok">✓</span></td>
+            <td><span class="tag tag-ok">✓</span></td>
+            <td><span class="tag tag-ok">✓</span></td>
+            <td>—</td>
+            <td>Selon</td>
+            <td><span class="tag tag-ok">✓</span></td>
+          </tr>
+          <tr>
+            <td>Application produits chimiques</td>
+            <td>—</td>
+            <td><span class="tag tag-ok">✓</span></td>
+            <td><span class="tag tag-ok">✓</span></td>
+            <td><span class="tag tag-ok">✓ chimie</span></td>
+            <td>Selon FDS</td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>Zone circulation engins</td>
+            <td><span class="tag tag-ok">✓</span></td>
+            <td><span class="tag tag-ok">✓</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Checklist démarrage chantier -->
+  <div class="section" style="margin-top:28px">
+    <h3><span class="icon">✅</span> Checklist sécurité avant démarrage chantier</h3>
+    <ul class="checklist">
+      <li onclick="toggleCheck(this,'done-sec')"><span class="ck">✓</span><span>Plan de prévention signé avec l'entreprise utilisatrice (si applicable)</span></li>
+      <li onclick="toggleCheck(this,'done-sec')"><span class="ck">✓</span><span>PPSPS établi et transmis au coordonnateur SPS (si applicable)</span></li>
+      <li onclick="toggleCheck(this,'done-sec')"><span class="ck">✓</span><span>Inspection commune préalable réalisée sur le site</span></li>
+      <li onclick="toggleCheck(this,'done-sec')"><span class="ck">✓</span><span>Tous les EPI nécessaires fournis et vérifiés</span></li>
+      <li onclick="toggleCheck(this,'done-sec')"><span class="ck">✓</span><span>Boîte à pharmacie / trousse de secours présente sur le chantier</span></li>
+      <li onclick="toggleCheck(this,'done-sec')"><span class="ck">✓</span><span>Numéros d'urgence affichés et connus de tous les compagnons</span></li>
+      <li onclick="toggleCheck(this,'done-sec')"><span class="ck">✓</span><span>Secouriste SST identifié parmi le personnel présent</span></li>
+      <li onclick="toggleCheck(this,'done-sec')"><span class="ck">✓</span><span>Balisage et signalisation de la zone de travaux en place</span></li>
+      <li onclick="toggleCheck(this,'done-sec')"><span class="ck">✓</span><span>Machines vérifiées (marquage CE, protections en place, états de lames)</span></li>
+      <li onclick="toggleCheck(this,'done-sec')"><span class="ck">✓</span><span>Matériels de travail en hauteur vérifiés (échafaudage, harnais, nacelle VGP)</span></li>
+      <li onclick="toggleCheck(this,'done-sec')"><span class="ck">✓</span><span>FDS des produits chimiques disponibles sur le chantier</span></li>
+      <li onclick="toggleCheck(this,'done-sec')"><span class="ck">✓</span><span>Extincteurs présents et vérifiés (1 pour 200–300 m²)</span></li>
+      <li onclick="toggleCheck(this,'done-sec')"><span class="ck">✓</span><span>Briefing sécurité fait avec toute l'équipe avant démarrage</span></li>
+      <li onclick="toggleCheck(this,'done-sec')"><span class="ck">✓</span><span>Dossier chantier avec PPSPS, plan de prévention et attestations habilitations sur place</span></li>
+      <li onclick="toggleCheck(this,'done-sec')"><span class="ck">✓</span><span>Zone de stockage propre et organisée (pas de stockage dans dégagements)</span></li>
+    </ul>
+  </div>
+
+  <!-- Numéros urgence recap -->
+  <div class="recap-header" style="background:var(--text);border:none">
+    <span>🚨</span>
+    <span class="title" style="color:#fff">Numéros d'urgence et procédure en cas d'accident</span>
+  </div>
+  <div class="recap-body" style="background:var(--text);border:none;border-radius:0 0 var(--radius) var(--radius)">
+    <div style="padding:20px">
+      <div class="urgence-grid" style="margin-bottom:16px">
+        <div class="urgence-card" style="background:#1a3050">
+          <div class="num">15</div><h4>SAMU</h4><p>Urgences médicales</p>
+        </div>
+        <div class="urgence-card" style="background:#501010">
+          <div class="num">18</div><h4>Pompiers</h4><p>Incendie / accident</p>
+        </div>
+        <div class="urgence-card" style="background:#301a50">
+          <div class="num">17</div><h4>Police</h4><p>Urgences police</p>
+        </div>
+        <div class="urgence-card" style="background:#1a4030">
+          <div class="num">112</div><h4>Urgence EU</h4><p>Numéro universel</p>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:16px;font-size:14px;color:rgba(255,255,255,.8);line-height:1.8">
+        <strong style="color:#f0c020;font-family:'Barlow Condensed';font-size:15px;letter-spacing:.06em;text-transform:uppercase">Procédure en cas d'accident — À afficher sur le chantier</strong><br><br>
+        <strong style="color:#fff">1. PROTÉGER</strong> — Sécuriser la zone, couper les énergies si risque électrique<br>
+        <strong style="color:#fff">2. ALERTER</strong> — Appeler le 15 ou 18 ou 112 — donner lieu précis, nature accident, état victime<br>
+        <strong style="color:#fff">3. SECOURIR</strong> — Gestes de premier secours selon formation SST (ne pas déplacer sauf danger)<br>
+        <strong style="color:#fff">4. DÉCLARER</strong> — DAT à la CPAM dans les 48h par l'employeur<br>
+        <strong style="color:#fff">5. ANALYSER</strong> — Mise à jour du DUER, actions correctives
+      </div>
+    </div>
+  </div>
+
+</div><!-- end sec container -->
+
+<footer>
+  <div class="container">
+    <p style="margin-bottom:6px">BTS ERA — Cours Réglementation : DTU Menuiserie &amp; Sécurité Chantier</p>
+    <p>Sources : NF DTU 36.1/36.2/37.1/68.3 (AFNOR/CSTB) · Code du Travail Art. R4321, R4323, R4512, R4532 · Décret 94-1159 · Code Civil Art. 1792</p>
+  </div>
+</footer>
+
+<script>
+  // Accordéon
+  function toggleAcc(head) {
+    const item = head.parentElement;
+    item.classList.toggle('open');
+  }
+
+  // Tabs DTU contrôles
+  function switchTabDtu(btn, id) {
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      b.classList.remove('active-dtu','active-sec');
+    });
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active-dtu');
+    document.getElementById(id).classList.add('active');
+  }
+
+  // Checklists interactives
+  function toggleCheck(li, cls) {
+    li.classList.toggle(cls);
+  }
+</script>
+</body>
+</html>

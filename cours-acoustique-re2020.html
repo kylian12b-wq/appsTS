@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Normes Acoustiques & RE2020 — Cours Professionnel</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0f14;
+    --bg2: #13141b;
+    --bg3: #1a1c26;
+    --border: #2a2d3e;
+    --text: #e8eaf2;
+    --muted: #8890b0;
+    --accent-a: #5b7fff;
+    --accent-b: #3ecfb2;
+    --accent-c: #f0a04b;
+    --accent-d: #e05c7a;
+    --tag-bg: rgba(91,127,255,0.12);
+    --tag-color: #7da3ff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ───────── HERO ───────── */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: 80px 40px 60px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 20% 40%, rgba(91,127,255,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 80% 60%, rgba(62,207,178,0.14) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--tag-bg);
+    color: var(--tag-color);
+    border: 1px solid rgba(91,127,255,0.25);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 5vw, 58px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+
+  .hero h1 span.grad-a {
+    background: linear-gradient(135deg, #5b7fff, #a78bff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero h1 span.grad-b {
+    background: linear-gradient(135deg, #3ecfb2, #5b7fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-subtitle {
+    color: var(--muted);
+    font-size: 17px;
+    max-width: 600px;
+    margin: 0 auto 40px;
+  }
+
+  /* ───────── NAV PILLS ───────── */
+  .nav-pills {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 24px 40px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-pills a {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 18px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: var(--bg3);
+    white-space: nowrap;
+  }
+
+  .nav-pills a:hover { color: var(--text); border-color: var(--accent-a); }
+  .nav-pills a.p5 { color: #7da3ff; border-color: rgba(91,127,255,0.3); }
+  .nav-pills a.p6 { color: #5dcfbb; border-color: rgba(62,207,178,0.3); }
+
+  /* ───────── MAIN LAYOUT ───────── */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 60px 32px;
+  }
+
+  /* ───────── PART HEADER ───────── */
+  .part-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 52px;
+    padding: 32px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .part-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.06;
+  }
+
+  .part-header.p5::before {
+    background: linear-gradient(135deg, #5b7fff, transparent);
+  }
+  .part-header.p6::before {
+    background: linear-gradient(135deg, #3ecfb2, transparent);
+  }
+
+  .part-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 72px;
+    font-weight: 800;
+    line-height: 1;
+    opacity: 0.12;
+    letter-spacing: -0.03em;
+    flex-shrink: 0;
+  }
+
+  .p5 .part-number { color: var(--accent-a); }
+  .p6 .part-number { color: var(--accent-b); }
+
+  .part-header-text h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .part-header-text p {
+    color: var(--muted);
+    font-size: 15px;
+  }
+
+  /* ───────── SECTIONS ───────── */
+  .section {
+    margin-bottom: 48px;
+    scroll-margin-top: 80px;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-title::before {
+    content: '';
+    display: block;
+    width: 4px;
+    height: 22px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .p5 .section-title::before { background: var(--accent-a); }
+  .p6 .section-title::before { background: var(--accent-b); }
+
+  /* ───────── CARDS ───────── */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+  }
+
+  .card h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card p, .card li {
+    color: #b8bdd6;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .card ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+  }
+
+  .card ul li {
+    padding: 5px 0 5px 20px;
+    position: relative;
+  }
+
+  .card ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent-a);
+    font-size: 13px;
+  }
+
+  .p6 .card ul li::before { color: var(--accent-b); }
+
+  /* ───────── HIGHLIGHT BOX ───────── */
+  .highlight {
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    border-left: 3px solid;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .highlight.blue {
+    background: rgba(91,127,255,0.08);
+    border-color: var(--accent-a);
+    color: #c2caff;
+  }
+
+  .highlight.green {
+    background: rgba(62,207,178,0.08);
+    border-color: var(--accent-b);
+    color: #b3ece3;
+  }
+
+  .highlight.orange {
+    background: rgba(240,160,75,0.08);
+    border-color: var(--accent-c);
+    color: #f5d4a8;
+  }
+
+  .highlight.red {
+    background: rgba(224,92,122,0.08);
+    border-color: var(--accent-d);
+    color: #f2b8c6;
+  }
+
+  .highlight strong {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  /* ───────── TABLE ───────── */
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  thead {
+    background: var(--bg3);
+  }
+
+  th {
+    padding: 12px 16px;
+    text-align: left;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border);
+    color: #b8bdd6;
+    vertical-align: top;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  td.val {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  .val.blue { color: var(--accent-a); }
+  .val.green { color: var(--accent-b); }
+  .val.orange { color: var(--accent-c); }
+
+  /* ───────── DB VISUALIZER ───────── */
+  .db-visual {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+
+  .db-visual h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .db-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+
+  .db-label {
+    font-size: 13px;
+    color: var(--muted);
+    width: 180px;
+    flex-shrink: 0;
+  }
+
+  .db-bar-wrap {
+    flex: 1;
+    background: var(--bg3);
+    border-radius: 4px;
+    height: 10px;
+    overflow: hidden;
+  }
+
+  .db-bar {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 1s ease;
+  }
+
+  .db-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    width: 60px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* ───────── GRID 2 ───────── */
+  .grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 640px) {
+    .grid2 { grid-template-columns: 1fr; }
+  }
+
+  /* ───────── FORMULA BOX ───────── */
+  .formula {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 16px 0;
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0.01em;
+  }
+
+  .formula .formula-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  /* ───────── CHECKLIST ───────── */
+  .checklist {
+    list-style: none;
+    padding: 0;
+  }
+
+  .checklist li {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+    color: #b8bdd6;
+    align-items: flex-start;
+  }
+
+  .checklist li:last-child { border-bottom: none; }
+
+  .check-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .check-icon.blue { background: rgba(91,127,255,0.2); color: var(--accent-a); }
+  .check-icon.green { background: rgba(62,207,178,0.2); color: var(--accent-b); }
+  .check-icon.orange { background: rgba(240,160,75,0.2); color: var(--accent-c); }
+
+  /* ───────── DIVIDER ───────── */
+  .part-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 72px 0;
+  }
+
+  /* ───────── FOOTER ───────── */
+  footer {
+    text-align: center;
+    padding: 40px 32px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  /* ───────── ANIMATIONS ───────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section { animation: fadeUp 0.5s ease both; }
+
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  .tag.blue { background: rgba(91,127,255,0.15); color: var(--accent-a); }
+  .tag.green { background: rgba(62,207,178,0.15); color: var(--accent-b); }
+  .tag.orange { background: rgba(240,160,75,0.15); color: var(--accent-c); }
+
+  .emoji { font-style: normal; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-badge">📐 Cours Professionnel — Menuiserie & Agencement</div>
+  <h1>
+    <span class="grad-a">Normes Acoustiques</span><br>
+    &amp; <span class="grad-b">RE2020</span>
+  </h1>
+  <p class="hero-subtitle">Parties 5 et 6 — Tout ce qu'un conducteur de travaux doit maîtriser sur l'acoustique du bâtiment et la réglementation énergétique.</p>
+</header>
+
+<!-- NAV -->
+<nav class="nav-pills">
+  <a href="#affaiblissement" class="p5">🔇 Affaiblissement</a>
+  <a href="#exigences" class="p5">📋 Exigences</a>
+  <a href="#decibels" class="p5">📊 Décibels</a>
+  <a href="#materiaux-acou" class="p5">🧱 Matériaux acou.</a>
+  <a href="#integration-acou" class="p5">🔧 Intégration</a>
+  <a href="#joints" class="p5">🪛 Joints & désolidarisation</a>
+  <a href="#re2020-def" class="p6">🌿 RE2020</a>
+  <a href="#rt-re" class="p6">↔ RT2012 vs RE2020</a>
+  <a href="#menuiserie-re" class="p6">🪟 Menuiserie</a>
+  <a href="#biosources" class="p6">🌾 Biosourcés</a>
+  <a href="#thermique" class="p6">🌡 Perf. thermique</a>
+  <a href="#integration-re" class="p6">📐 Intégrer RE2020</a>
+  <a href="#conducteur" class="p6">👷 Conducteur travaux</a>
+</nav>
+
+<!-- CONTENT -->
+<main class="container">
+
+  <!-- ════════════════════ PARTIE 5 ════════════════════ -->
+  <div class="part-header p5">
+    <div class="part-number">5</div>
+    <div class="part-header-text">
+      <h2>Normes Acoustiques</h2>
+      <p>Comprendre, mesurer et mettre en œuvre une bonne isolation phonique dans vos projets.</p>
+    </div>
+  </div>
+
+  <!-- 5.1 Affaiblissement acoustique -->
+  <div class="section p5" id="affaiblissement">
+    <div class="section-title">C'est quoi l'affaiblissement acoustique ?</div>
+
+    <div class="highlight blue">
+      <strong>🎯 Définition simple</strong>
+      L'affaiblissement acoustique (ou isolement acoustique) désigne la capacité d'une paroi, d'un plancher ou d'une cloison à réduire la transmission du son d'un espace à un autre. Plus l'affaiblissement est élevé, moins le bruit passe.
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h4>📣 Bruit aérien</h4>
+        <p>Son transmis dans l'air : voix, musique, TV. Il fait vibrer la paroi, qui réémet le son de l'autre côté.</p>
+        <ul>
+          <li>Voix conversation (~60 dB)</li>
+          <li>Musique forte (~80 dB)</li>
+          <li>Principal bruit entre logements</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>👟 Bruit d'impact</h4>
+        <p>Son transmis par contact direct avec la structure : pas, chute d'objet, vibrations.</p>
+        <ul>
+          <li>Chocs sur plancher</li>
+          <li>Marche, talons hauts</li>
+          <li>Se mesure en Ln (niveau de bruit de choc)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>📐 L'indice Rw — l'indicateur clé</h4>
+      <p>L'affaiblissement acoustique d'une paroi se mesure par l'indice <strong style="color:#7da3ff">Rw (dB)</strong>, mesuré en laboratoire. Plus le Rw est élevé, meilleure est l'isolation.</p>
+      <div class="formula">
+        <span class="formula-label">Formule de base</span>
+        R = L₁ — L₂ (en dB)
+      </div>
+      <p style="font-size:14px; color:var(--muted)">L₁ = niveau sonore côté émission / L₂ = niveau sonore côté réception. R exprime la réduction en décibels.</p>
+    </div>
+  </div>
+
+  <!-- 5.2 Exigences -->
+  <div class="section p5" id="exigences">
+    <div class="section-title">Exigences acoustiques selon les types de bâtiments</div>
+
+    <div class="highlight orange">
+      <strong>⚠️ Réglementation de référence</strong>
+      La réglementation acoustique en France est définie par l'arrêté du 30 juin 1999 pour les logements neufs, et complétée par des normes NF spécifiques selon le type d'ouvrage.
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Type de bâtiment</th>
+            <th>Paroi / Élément</th>
+            <th>Exigence min.</th>
+            <th>Indicateur</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Logement collectif</strong></td>
+            <td>Entre 2 logements (mur ou plancher)</td>
+            <td class="val blue">≥ 53 dB</td>
+            <td>DnT,A</td>
+          </tr>
+          <tr>
+            <td><strong>Logement collectif</strong></td>
+            <td>Bruit de choc entre logements</td>
+            <td class="val green">≤ 58 dB</td>
+            <td>LnT,A</td>
+          </tr>
+          <tr>
+            <td><strong>Logement collectif</strong></td>
+            <td>Façade (rue passante)</td>
+            <td class="val blue">≥ 30 à 45 dB</td>
+            <td>DnT,A,tr</td>
+          </tr>
+          <tr>
+            <td><strong>Bureaux / ERP</strong></td>
+            <td>Entre bureaux séparés</td>
+            <td class="val orange">≥ 43 dB</td>
+            <td>DnT,A</td>
+          </tr>
+          <tr>
+            <td><strong>Enseignement</strong></td>
+            <td>Salle de classe / couloir</td>
+            <td class="val blue">≥ 43 dB</td>
+            <td>DnT,A</td>
+          </tr>
+          <tr>
+            <td><strong>Hôtel</strong></td>
+            <td>Entre chambres</td>
+            <td class="val green">≥ 58 dB</td>
+            <td>DnT,A</td>
+          </tr>
+          <tr>
+            <td><strong>Hôpital / santé</strong></td>
+            <td>Chambre / couloir</td>
+            <td class="val blue">≥ 50 dB</td>
+            <td>DnT,A</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h4>💡 DnT,A vs Rw — quelle différence ?</h4>
+      <p><strong style="color:#7da3ff">Rw</strong> = mesuré en laboratoire (conditions idéales, sans ponts phoniques).<br>
+      <strong style="color:#3ecfb2">DnT,A</strong> = mesuré in situ (sur chantier) — toujours inférieur au Rw car tient compte des ponts phoniques réels.<br><br>
+      En pratique : compter une perte de <strong>3 à 5 dB</strong> entre labo et chantier.</p>
+    </div>
+  </div>
+
+  <!-- 5.3 Décibels -->
+  <div class="section p5" id="decibels">
+    <div class="section-title">Décibels — Comment lire et interpréter les valeurs</div>
+
+    <div class="highlight blue">
+      <strong>📏 L'échelle logarithmique</strong>
+      Le décibel n'est pas une échelle linéaire. +10 dB = son perçu 2× plus fort. +3 dB = doublement de la puissance sonore. Une différence de 1–2 dB est imperceptible à l'oreille humaine.
+    </div>
+
+    <div class="db-visual">
+      <h4>Niveaux sonores de référence</h4>
+      <div class="db-row">
+        <span class="db-label">Chambre anéchoïque</span>
+        <div class="db-bar-wrap"><div class="db-bar" style="width:0%; background:#5b7fff"></div></div>
+        <span class="db-val" style="color:#5b7fff">0 dB</span>
+      </div>
+      <div class="db-row">
+        <span class="db-label">Bibliothèque silencieuse</span>
+        <div class="db-bar-wrap"><div class="db-bar" style="width:30%; background:#5b7fff"></div></div>
+        <span class="db-val" style="color:#5b7fff">30 dB</span>
+      </div>
+      <div class="db-row">
+        <span class="db-label">Conversation normale</span>
+        <div class="db-bar-wrap"><div class="db-bar" style="width:60%; background:#3ecfb2"></div></div>
+        <span class="db-val" style="color:#3ecfb2">60 dB</span>
+      </div>
+      <div class="db-row">
+        <span class="db-label">Rue animée / restaurant</span>
+        <div class="db-bar-wrap"><div class="db-bar" style="width:70%; background:#f0a04b"></div></div>
+        <span class="db-val" style="color:#f0a04b">70 dB</span>
+      </div>
+      <div class="db-row">
+        <span class="db-label">Aspirateur / métro</span>
+        <div class="db-bar-wrap"><div class="db-bar" style="width:80%; background:#f0a04b"></div></div>
+        <span class="db-val" style="color:#f0a04b">80 dB</span>
+      </div>
+      <div class="db-row">
+        <span class="db-label">Discothèque / concert</span>
+        <div class="db-bar-wrap"><div class="db-bar" style="width:100%; background:#e05c7a"></div></div>
+        <span class="db-val" style="color:#e05c7a">100 dB</span>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h4>🔇 Affaiblissement perçu</h4>
+        <ul>
+          <li><strong>+3 dB</strong> : doublement puissance (à peine perceptible)</li>
+          <li><strong>+5 dB</strong> : différence nette</li>
+          <li><strong>+10 dB</strong> : son perçu 2× plus fort</li>
+          <li><strong>+20 dB</strong> : son perçu 4× plus fort</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>🧮 Règle des additions</h4>
+        <p>Deux sources identiques à 60 dB chacune = 63 dB (pas 120 !).<br>En acoustique, on additionne des puissances, pas des niveaux.</p>
+        <div class="formula" style="font-size:14px; margin-top:12px">
+          L_total = 10 × log₁₀(10^L1/10 + 10^L2/10)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5.4 Matériaux -->
+  <div class="section p5" id="materiaux-acou">
+    <div class="section-title">Matériaux et solutions pour améliorer l'acoustique</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Matériau / Solution</th>
+            <th>Type d'action</th>
+            <th>Performance indicative</th>
+            <th>Contexte d'usage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Doublage plaque de plâtre (BA13)</strong></td>
+            <td>Masse — bruit aérien</td>
+            <td class="val blue">+3 à 5 dB</td>
+            <td>Doublage mur existant</td>
+          </tr>
+          <tr>
+            <td><strong>Doublage double BA13 sur ossature</strong></td>
+            <td>Masse + lame d'air</td>
+            <td class="val green">45–58 dB Rw</td>
+            <td>Cloison neuve haute perf.</td>
+          </tr>
+          <tr>
+            <td><strong>Laine minérale (50–100 mm)</strong></td>
+            <td>Absorption + masse molle</td>
+            <td class="val blue">+5 à 8 dB</td>
+            <td>Remplissage ossature</td>
+          </tr>
+          <tr>
+            <td><strong>Laine de roche haute densité</strong></td>
+            <td>Absorption acoustique</td>
+            <td class="val green">+8 à 12 dB</td>
+            <td>Parois, plafonds suspendus</td>
+          </tr>
+          <tr>
+            <td><strong>Mur en béton (15 cm)</strong></td>
+            <td>Masse lourde</td>
+            <td class="val orange">~50 dB Rw</td>
+            <td>Structure béton</td>
+          </tr>
+          <tr>
+            <td><strong>Sous-couche résiliente</strong></td>
+            <td>Désolidarisation — impacts</td>
+            <td class="val green">ΔL ≥ 18 dB</td>
+            <td>Sous carrelage, parquet</td>
+          </tr>
+          <tr>
+            <td><strong>Chape flottante</strong></td>
+            <td>Désolidarisation totale</td>
+            <td class="val blue">LnT ≤ 50 dB</td>
+            <td>Plancher entre logements</td>
+          </tr>
+          <tr>
+            <td><strong>Plafond suspendu sur silent-bloc</strong></td>
+            <td>Désolidarisation structure</td>
+            <td class="val green">+10 à 18 dB</td>
+            <td>Isolation bruit d'impact/aérien</td>
+          </tr>
+          <tr>
+            <td><strong>Panneaux absorbants (mousse, textile)</strong></td>
+            <td>Absorption — réverbération</td>
+            <td class="val orange">α = 0,6 à 0,9</td>
+            <td>Traitement acoustique intérieur</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="highlight green">
+      <strong>💡 Loi de masse</strong>
+      La règle fondamentale de l'acoustique : plus une paroi est lourde (kg/m²), meilleure est son isolation aux bruits aériens. Doubler la masse d'une paroi = gain de ~6 dB. C'est pourquoi on empile les plaques de plâtre ou on utilise des matériaux denses.
+    </div>
+  </div>
+
+  <!-- 5.5 Intégration -->
+  <div class="section p5" id="integration-acou">
+    <div class="section-title">Comment intégrer l'acoustique dans un projet d'agencement</div>
+
+    <div class="card">
+      <h4>🗺 Phase conception — les points à traiter</h4>
+      <ul>
+        <li>Identifier les <strong>locaux sources de bruit</strong> (salle de réunion, cuisine, salle de bain) et les <strong>locaux sensibles</strong> (chambre, bureau)</li>
+        <li>Positionner les locaux bruyants en <strong>façade ou en zone tampon</strong> (couloir, placard)</li>
+        <li>Vérifier les <strong>transmissions latérales</strong> (ponts phoniques par plancher ou mur de refend)</li>
+        <li>Choisir les performances de paroi en fonction de l'usage (tableau exigences)</li>
+        <li>Anticiper les <strong>percements</strong> (gaines techniques = chemin de bruit)</li>
+      </ul>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h4>🏗 Pendant le chantier</h4>
+        <ul>
+          <li>Respecter les calfeutrements autour des gaines</li>
+          <li>Ne pas percer les parois sans reboucher</li>
+          <li>Vérifier la continuité des sous-couches résilientes</li>
+          <li>Contrôler les bandes résilientes sous cloisons</li>
+          <li>Éviter de rigidifier des parois désolidarisées</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>📋 À la réception</h4>
+        <ul>
+          <li>Mesures acoustiques in situ (arrêté 1999)</li>
+          <li>Contrôle DnT,A entre locaux</li>
+          <li>Contrôle LnT,A bruits de choc</li>
+          <li>Contrôle bruit des équipements (VMC, plomberie)</li>
+          <li>Levée des réserves si non-conformité</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5.6 Joints & désolidarisation -->
+  <div class="section p5" id="joints">
+    <div class="section-title">Joints acoustiques, masses lourdes, désolidarisation</div>
+
+    <div class="highlight orange">
+      <strong>⚠️ Le principe fondamental</strong>
+      Le son se propage dans les solides 15× plus vite que dans l'air. Une cloison parfaitement isolante devient inutile si elle est rigidement liée à la structure. La désolidarisation coupe les ponts phoniques solides.
+    </div>
+
+    <div class="card">
+      <h4>🔵 Joints acoustiques — les types</h4>
+      <ul>
+        <li><strong>Bande résiliente de pied de cloison</strong> : mousse polyuréthane ou élastomère sous la semelle de l'ossature. Empêche la transmission des vibrations plancher → cloison.</li>
+        <li><strong>Joint mastic acrylique acoustique</strong> : calfeutrement souple des jonctions cloison/mur/plafond. Évite les fissures = chemins de fuite sonore.</li>
+        <li><strong>Silent-blocs</strong> : plots anti-vibratoires pour suspentes de plafond, équipements techniques (VMC, tuyaux).</li>
+        <li><strong>Joint de fractionnement</strong> : coupe les transmissions dans les grandes surfaces de plâtre.</li>
+      </ul>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h4>⚖️ Masse lourde — principe</h4>
+        <p>L'inertie d'une paroi lourde résiste aux vibrations. Solutions :</p>
+        <ul>
+          <li>BA18 ou BA25 au lieu de BA13</li>
+          <li>Plaques plâtres denses (Fermacell, knauf Aquapanel)</li>
+          <li>Double peau avec masse lourde</li>
+          <li>Béton cellulaire haute densité</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>🔗 Désolidarisation — principe</h4>
+        <p>Interrompre mécaniquement la chaîne solide entre source et récepteur :</p>
+        <ul>
+          <li>Ossature métal sur bande résiliente</li>
+          <li>Plafond suspendu découplé de la dalle</li>
+          <li>Chape flottante sur sous-couche</li>
+          <li>Double cloison (deux ossatures indépendantes)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>💀 Les erreurs qui ruinent l'isolation</h4>
+      <ul>
+        <li>Percer une cloison acoustique sans reboucher hermétiquement</li>
+        <li>Poser une prise électrique dos à dos (chemin de fuite direct)</li>
+        <li>Oublier le joint de pied de cloison = pont phonique immédiat</li>
+        <li>Lier mécaniquement une structure désolidarisée (vis qui touche la dalle)</li>
+        <li>Laisser un espace sous une porte (même 1 cm = perte de 15 dB)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- DIVIDER -->
+  <div class="part-divider"></div>
+
+  <!-- ════════════════════ PARTIE 6 ════════════════════ -->
+  <div class="part-header p6">
+    <div class="part-number">6</div>
+    <div class="part-header-text">
+      <h2>RE2020 & Performance Énergétique</h2>
+      <p>La nouvelle réglementation thermique, ses exigences, et comment l'intégrer dans vos projets de menuiserie et d'agencement.</p>
+    </div>
+  </div>
+
+  <!-- 6.1 RE2020 définition -->
+  <div class="section p6" id="re2020-def">
+    <div class="section-title">C'est quoi la RE2020 ?</div>
+
+    <div class="highlight green">
+      <strong>🌿 Définition simple</strong>
+      La RE2020 (Réglementation Environnementale 2020) est la réglementation thermique et environnementale en vigueur en France depuis le 1er janvier 2022. Elle remplace la RT2012. Elle va plus loin que la simple performance énergétique en intégrant l'impact carbone du bâtiment sur tout son cycle de vie.
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h4>⚡ 3 objectifs principaux</h4>
+        <ul>
+          <li><strong>Sobriété énergétique</strong> : réduire les consommations</li>
+          <li><strong>Décarbonation</strong> : réduire les émissions de CO₂ (chauffage, matériaux)</li>
+          <li><strong>Confort d'été</strong> : limiter les surchauffes sans climatisation</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>📅 Calendrier d'application</h4>
+        <ul>
+          <li><strong>Jan 2022</strong> : maisons individuelles & logements collectifs</li>
+          <li><strong>Juil 2022</strong> : bureaux & bâtiments d'enseignement</li>
+          <li><strong>2025–2031</strong> : renforcement progressif des seuils</li>
+          <li>S'applique aux bâtiments neufs uniquement</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>📊 Les 3 indicateurs clés de la RE2020</h4>
+      <div class="table-wrap" style="margin-top:12px">
+        <table>
+          <thead>
+            <tr><th>Indicateur</th><th>Ce qu'il mesure</th><th>Unité</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong style="color:#3ecfb2">Bbio</strong></td>
+              <td>Besoin bioclimatique — bâtiment sans équipements</td>
+              <td class="val green">pts</td>
+            </tr>
+            <tr>
+              <td><strong style="color:#5b7fff">Cep</strong></td>
+              <td>Consommation d'énergie primaire</td>
+              <td class="val blue">kWh/m².an</td>
+            </tr>
+            <tr>
+              <td><strong style="color:#f0a04b">Ic énergie</strong></td>
+              <td>Impact carbone des consommations énergétiques</td>
+              <td class="val orange">kg CO₂eq/m²</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:12px; font-size:14px; color:var(--muted)">Nouveauté RE2020 : l'indicateur <strong style="color:#3ecfb2">Ic construction</strong> mesure le carbone des matériaux eux-mêmes (fabrication, transport, fin de vie).</p>
+    </div>
+  </div>
+
+  <!-- 6.2 RT2012 vs RE2020 -->
+  <div class="section p6" id="rt-re">
+    <div class="section-title">Différence entre RT2012 et RE2020</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Critère</th>
+            <th>RT2012</th>
+            <th>RE2020</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Approche</strong></td>
+            <td>Thermique uniquement</td>
+            <td>Thermique + Carbone + Confort</td>
+          </tr>
+          <tr>
+            <td><strong>Énergie</strong></td>
+            <td>Cep ≤ 50 kWhep/m².an</td>
+            <td>Cep renforcé + Cepnr (non renouvelable)</td>
+          </tr>
+          <tr>
+            <td><strong>Carbone matériaux</strong></td>
+            <td>Non pris en compte</td>
+            <td>Obligatoire (Ic construction)</td>
+          </tr>
+          <tr>
+            <td><strong>Confort d'été</strong></td>
+            <td>Indicateur DH limité</td>
+            <td>DH (Degrés·Heures) strict</td>
+          </tr>
+          <tr>
+            <td><strong>Chauffage fioul</strong></td>
+            <td>Toléré</td>
+            <td>Interdit dans le neuf</td>
+          </tr>
+          <tr>
+            <td><strong>Chauffage gaz</strong></td>
+            <td>Autorisé</td>
+            <td>Très pénalisé (carbone élevé)</td>
+          </tr>
+          <tr>
+            <td><strong>Matériaux biosourcés</strong></td>
+            <td>Non valorisés</td>
+            <td>Valorisés (réduction Ic construction)</td>
+          </tr>
+          <tr>
+            <td><strong>Évolution</strong></td>
+            <td>Seuils fixes</td>
+            <td>Seuils renforcés progressivement 2025–2031</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="highlight green">
+      <strong>🔑 À retenir</strong>
+      La RT2012 demandait de consommer peu. La RE2020 demande de consommer peu ET d'émettre peu de CO₂, dès la construction. C'est un changement de paradigme : les matériaux comptent autant que les équipements.
+    </div>
+  </div>
+
+  <!-- 6.3 Menuiserie RE2020 -->
+  <div class="section p6" id="menuiserie-re">
+    <div class="section-title">Ce que ça implique pour la menuiserie et l'agencement</div>
+
+    <div class="card">
+      <h4>🪟 Impact direct sur les menuiseries extérieures</h4>
+      <ul>
+        <li>Les menuiseries (fenêtres, portes-fenêtres, baies vitrées) ont un impact fort sur le Bbio et le Cep</li>
+        <li>Un vitrage peu performant = déperdition thermique = Cep dégradé</li>
+        <li>Un vitrage trop opaque = moins d'apports solaires = chauffage compensatoire</li>
+        <li>Le dimensionnement des baies vitrées est optimisé selon l'orientation</li>
+        <li>Les protections solaires (volets, brise-soleil) deviennent essentielles pour le confort d'été (DH)</li>
+      </ul>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h4>🔧 Agencement intérieur</h4>
+        <ul>
+          <li>Les cloisons et doublages contribuent à l'isolation thermique globale</li>
+          <li>Les ponts thermiques au niveau des baies doivent être traités</li>
+          <li>Les coffres de volet roulant doivent être isolés</li>
+          <li>Les seuils de portes et les liaisons mur/menuiserie sont des points critiques</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>🌿 Choix des matériaux</h4>
+        <ul>
+          <li>Matériaux à faible Ic construction valorisés</li>
+          <li>Bois massif et panneau bois : carbone stocké</li>
+          <li>MDF/aggloméré : surveiller les émissions (COV)</li>
+          <li>Aluminium : énergivore à fabriquer mais recyclable</li>
+          <li>PVC : bilan carbone modéré, recyclabilité variable</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6.4 Biosourcés -->
+  <div class="section p6" id="biosources">
+    <div class="section-title">Matériaux biosourcés</div>
+
+    <div class="highlight green">
+      <strong>🌱 Définition</strong>
+      Un matériau biosourcé est issu de la biomasse végétale ou animale : plante, forêt, agriculture. Il est renouvelable, capte du CO₂ lors de sa croissance et le stocke pendant la durée de vie du bâtiment. La RE2020 les valorise fortement car ils réduisent l'indicateur Ic construction.
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Matériau</th>
+            <th>Usage en agencement</th>
+            <th>Avantage RE2020</th>
+            <th>Points d'attention</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Bois massif</strong></td>
+            <td>Menuiseries, escaliers, charpente, planchers</td>
+            <td class="val green">Stockage CO₂</td>
+            <td>Entretien, humidité</td>
+          </tr>
+          <tr>
+            <td><strong>Ouate de cellulose</strong></td>
+            <td>Isolation (soufflage, insufflation)</td>
+            <td class="val green">Faible énergie grise</td>
+            <td>Humidité (traitement requis)</td>
+          </tr>
+          <tr>
+            <td><strong>Laine de chanvre</strong></td>
+            <td>Isolation parois, plafonds</td>
+            <td class="val green">Stockage CO₂</td>
+            <td>Coût supérieur</td>
+          </tr>
+          <tr>
+            <td><strong>Laine de lin</strong></td>
+            <td>Isolation légère, doublage</td>
+            <td class="val green">Renouvelable, recyclable</td>
+            <td>Moins performant en λ</td>
+          </tr>
+          <tr>
+            <td><strong>Paille / botte de paille</strong></td>
+            <td>Remplissage ossature</td>
+            <td class="val green">Très faible Ic</td>
+            <td>Nécessite enduit de protection</td>
+          </tr>
+          <tr>
+            <td><strong>Liège expansé</strong></td>
+            <td>Isolation thermique & acoustique</td>
+            <td class="val blue">Biosourcé + imputrescible</td>
+            <td>Coût élevé</td>
+          </tr>
+          <tr>
+            <td><strong>Fibre de bois</strong></td>
+            <td>Panneaux isolation, doublage</td>
+            <td class="val green">Déphasage thermique +++</td>
+            <td>Conductivité λ ≈ 0,038–0,042</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h4>📊 Label Bâtiment Biosourcé</h4>
+      <p>3 niveaux selon la masse de matériaux biosourcés incorporée :</p>
+      <ul>
+        <li><strong>Niveau 1</strong> : ≥ 18 kg/m² de surface de plancher</li>
+        <li><strong>Niveau 2</strong> : ≥ 36 kg/m² de surface de plancher</li>
+        <li><strong>Niveau 3</strong> : ≥ 54 kg/m² de surface de plancher</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 6.5 Performance thermique menuiseries -->
+  <div class="section p6" id="thermique">
+    <div class="section-title">Performance thermique des menuiseries : Uw, Ug, Sw</div>
+
+    <div class="grid2">
+      <div class="card">
+        <h4 style="color:#3ecfb2">🌡 Uw — Fenêtre entière</h4>
+        <p><strong>U-fenêtre</strong> = coefficient de transmission thermique de la menuiserie complète (vitrage + cadre). Exprimé en <strong>W/(m².K)</strong>.</p>
+        <ul>
+          <li>Plus Uw est bas = moins de déperdition</li>
+          <li>Seuil RE2020 typique : <strong>Uw ≤ 1,3 W/m²K</strong></li>
+          <li>Haute performance : Uw ≤ 0,8 W/m²K</li>
+          <li>Inclut le pont thermique du cadre</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4 style="color:#5b7fff">🔵 Ug — Vitrage seul</h4>
+        <p><strong>U-vitrage</strong> = performance thermique du vitrage seul, sans le cadre. Exprimé en <strong>W/(m².K)</strong>.</p>
+        <ul>
+          <li>Double vitrage standard : Ug ≈ 1,1</li>
+          <li>Double vitrage peu émissif : Ug ≈ 0,5–0,7</li>
+          <li>Triple vitrage : Ug ≈ 0,5–0,6</li>
+          <li>Toujours Ug ≤ Uw (cadre moins performant)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4 style="color:#f0a04b">☀️ Sw — Facteur solaire</h4>
+      <p>Le <strong>facteur solaire Sw</strong> (ou g-value) mesure la fraction d'énergie solaire transmise à travers le vitrage. Valeur entre 0 et 1 (ou 0 et 100%).</p>
+      <div class="grid2" style="margin-top: 14px">
+        <div class="highlight orange" style="margin-bottom:0">
+          <strong>Sw élevé (> 0,6)</strong>
+          Plus d'apports solaires → chaud en hiver (bien), surchauffe en été (attention DH)
+        </div>
+        <div class="highlight blue" style="margin-bottom:0">
+          <strong>Sw faible (< 0,3)</strong>
+          Moins d'apports solaires → confort d'été amélioré, mais moins de chauffage gratuit
+        </div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Type de vitrage</th>
+            <th>Ug (W/m²K)</th>
+            <th>Sw</th>
+            <th>Adapté</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Double vitrage standard</td>
+            <td class="val orange">1,1</td>
+            <td>0,6</td>
+            <td>Construction standard</td>
+          </tr>
+          <tr>
+            <td>Double vitrage peu émissif (4/16/4 argon)</td>
+            <td class="val blue">0,5–0,7</td>
+            <td>0,5–0,6</td>
+            <td>RE2020 — usage courant</td>
+          </tr>
+          <tr>
+            <td>Triple vitrage peu émissif</td>
+            <td class="val green">0,5–0,6</td>
+            <td>0,45–0,55</td>
+            <td>RE2020 — zone froide</td>
+          </tr>
+          <tr>
+            <td>Vitrage contrôle solaire</td>
+            <td>0,6–1,0</td>
+            <td class="val orange">0,2–0,35</td>
+            <td>Confort d'été — grandes baies Sud</td>
+          </tr>
+          <tr>
+            <td>Vitrage à isolation renforcée VIR</td>
+            <td class="val green">≤ 1,1</td>
+            <td>≥ 0,5</td>
+            <td>Remplacement simple vitrage</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h4>🏗 Pont thermique de cadre — Ψ (Psi)</h4>
+      <p>L'indice <strong style="color:#3ecfb2">Ψ (W/m.K)</strong> mesure le pont thermique linéique à la jonction cadre/vitrage. À ne pas négliger : sur une fenêtre standard, le cadre représente 15 à 30% de la surface et a un Uf nettement supérieur au Ug.</p>
+      <ul style="margin-top:10px">
+        <li>Cadre PVC : Uf ≈ 1,3–2,0 W/m²K</li>
+        <li>Cadre aluminium à rupture de pont thermique : Uf ≈ 1,0–1,4 W/m²K</li>
+        <li>Cadre bois : Uf ≈ 1,1–1,6 W/m²K</li>
+        <li>Cadre bois/aluminium : Uf ≈ 0,8–1,3 W/m²K</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 6.6 Intégrer RE2020 -->
+  <div class="section p6" id="integration-re">
+    <div class="section-title">Comment intégrer la RE2020 dans un projet</div>
+
+    <div class="card">
+      <h4>🗂 Étape 1 — Phase conception (avec le BET thermique)</h4>
+      <ul>
+        <li>Récupérer l'étude thermique RE2020 (STD — Simulation Thermique Dynamique)</li>
+        <li>Vérifier les valeurs cibles : Bbio max, Cep max, Ic construction max</li>
+        <li>Identifier les performances requises pour chaque menuiserie (Uw, Sw)</li>
+        <li>Vérifier l'impact des protections solaires sur le calcul DH</li>
+        <li>Contrôler les choix de matériaux et leur Ic construction</li>
+      </ul>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h4>🔍 Vérifications clés sur plans</h4>
+        <ul>
+          <li>Orientation des baies vs. protections solaires</li>
+          <li>Continuité de l'isolant (ponts thermiques)</li>
+          <li>Coffres de volets roulants isolés</li>
+          <li>Traitement des seuils et tableaux de fenêtres</li>
+          <li>Nature et épaisseur des isolants prescrits</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>📦 Documents à demander aux fournisseurs</h4>
+        <ul>
+          <li>Fiche de données techniques menuiserie (Uw, Sw certifiés)</li>
+          <li>FDES — Fiche de Déclaration Environnementale et Sanitaire</li>
+          <li>Certificat ACOTHERM (acoustique + thermique)</li>
+          <li>PV d'essai perméabilité à l'air (classe A*E*V*)</li>
+          <li>PV CEKAL (scellement vitrage isolant)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6.7 Conducteur de travaux -->
+  <div class="section p6" id="conducteur">
+    <div class="section-title">Ce qu'un conducteur de travaux doit savoir et vérifier</div>
+
+    <div class="highlight green">
+      <strong>👷 Rôle du conducteur de travaux RE2020</strong>
+      Le conducteur de travaux n'est pas le bureau d'études thermiques — mais il est garant que ce qui est prescrit sur l'étude thermique est bien mis en œuvre sur chantier. Une erreur d'exécution peut faire échouer la conformité RE2020.
+    </div>
+
+    <ul class="checklist">
+      <li>
+        <span class="check-icon green">✓</span>
+        <div><strong>Conformité des menuiseries livrées</strong> — Vérifier que les Uw et Sw correspondent aux fiches techniques validées par le BET thermique. Ne jamais substituer un produit sans validation.</div>
+      </li>
+      <li>
+        <span class="check-icon green">✓</span>
+        <div><strong>Pose des menuiseries</strong> — Contrôler la position (nez de mur, en tunnel, en feuillure), l'isolation en tableau, le calfeutrement périphérique (fond de joint + mastic). La pose impacte directement les ponts thermiques.</div>
+      </li>
+      <li>
+        <span class="check-icon green">✓</span>
+        <div><strong>Perméabilité à l'air</strong> — La RE2020 impose des seuils stricts. Vérifier que les menuiseries ont des joints de compression en bon état, que les calfeutrements sont réalisés, et qu'un test d'infiltrométrie est prévu.</div>
+      </li>
+      <li>
+        <span class="check-icon green">✓</span>
+        <div><strong>Isolation continue</strong> — S'assurer qu'il n'y a pas d'interruption de l'isolant au niveau des tableaux, des linteaux, et des seuils. Faire valider les détails de liaison avec le BET si doute.</div>
+      </li>
+      <li>
+        <span class="check-icon green">✓</span>
+        <div><strong>Protections solaires</strong> — Si des volets roulants, brise-soleil ou stores extérieurs sont prévus dans l'étude thermique (pour le calcul DH), vérifier qu'ils sont bien posés et opérationnels.</div>
+      </li>
+      <li>
+        <span class="check-icon orange">📋</span>
+        <div><strong>FDES des matériaux</strong> — Pour les matériaux contribuant à l'Ic construction (isolants, bois, revêtements), s'assurer que les FDES utilisées dans le calcul correspondent bien aux produits livrés.</div>
+      </li>
+      <li>
+        <span class="check-icon orange">📋</span>
+        <div><strong>Attestation RE2020</strong> — À la fin des travaux, le maître d'ouvrage doit fournir une attestation de prise en compte de la RE2020. Le conducteur de travaux doit avoir conservé tous les justificatifs (fiches techniques, PV de contrôle, photos) pour l'aider à la constituer.</div>
+      </li>
+      <li>
+        <span class="check-icon blue">ℹ</span>
+        <div><strong>Ne pas confondre RT2012 et RE2020</strong> — Sur des chantiers en cours depuis 2022, des projets RT2012 peuvent coexister avec des projets RE2020 (permis de construire antérieur). Vérifier toujours quelle réglementation s'applique en lisant le permis de construire.</div>
+      </li>
+    </ul>
+
+    <div class="grid2" style="margin-top:24px">
+      <div class="highlight blue" style="margin-bottom:0">
+        <strong>📌 Référence réglementaire</strong>
+        Décret n° 2021-1004 du 29 juillet 2021 relatif aux exigences de performance énergétique et environnementale (RE2020). Arrêtés d'application du 4 août 2021.
+      </div>
+      <div class="highlight green" style="margin-bottom:0">
+        <strong>🔗 Outil de calcul officiel</strong>
+        Calcul RE2020 réalisé avec les logiciels STD agréés (DesignBuilder, PLEIADES+COMFIE, Perrenoud...). Le conducteur de travaux n'utilise pas ces logiciels mais doit savoir lire le récapitulatif standardisé (RS).
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <p>Cours Professionnel — Menuiserie & Agencement</p>
+  <p style="margin-top:8px; font-size:12px; color:#555a7a">Parties 5 & 6 — Normes Acoustiques & RE2020 · Réglementation française en vigueur</p>
+</footer>
+
+<script>
+  // Animate DB bars on load
+  document.addEventListener('DOMContentLoaded', () => {
+    const bars = document.querySelectorAll('.db-bar');
+    bars.forEach(b => {
+      const w = b.style.width;
+      b.style.width = '0';
+      setTimeout(() => { b.style.width = w; }, 300);
+    });
+
+    // Scroll fade-in for sections
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.05 });
+
+    document.querySelectorAll('.section').forEach(s => {
+      s.style.opacity = '0';
+      s.style.transform = 'translateY(16px)';
+      s.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      observer.observe(s);
+    });
+  });
+</script>
+
+</body>
+</html>

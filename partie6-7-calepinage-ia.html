@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BTS ERA — Parties 6 & 7 : Calepinage & IA</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0f13;
+    --surface: #16181f;
+    --surface2: #1e2029;
+    --border: #2a2d3a;
+    --accent1: #f0a500;
+    --accent2: #3b82f6;
+    --accent3: #10b981;
+    --accent4: #f43f5e;
+    --accent5: #8b5cf6;
+    --text: #e8eaf0;
+    --text-muted: #7c8097;
+    --text-dim: #4a4f66;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lora', Georgia, serif;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 24px;
+    position: relative;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(240,165,0,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(59,130,246,0.06) 0%, transparent 60%);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.25;
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent1);
+    border: 1px solid rgba(240,165,0,0.3);
+    padding: 6px 18px;
+    border-radius: 999px;
+    margin-bottom: 28px;
+    background: rgba(240,165,0,0.05);
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.4rem, 6vw, 5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    max-width: 820px;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent1);
+  }
+
+  .hero-sub {
+    margin-top: 20px;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 560px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-nav {
+    display: flex;
+    gap: 16px;
+    margin-top: 48px;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-nav a {
+    text-decoration: none;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 12px 28px;
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+
+  .btn-p6 {
+    background: var(--accent1);
+    color: #0e0f13;
+  }
+
+  .btn-p6:hover { background: #ffc107; transform: translateY(-2px); }
+
+  .btn-p7 {
+    background: transparent;
+    color: var(--accent2);
+    border: 1.5px solid var(--accent2);
+  }
+
+  .btn-p7:hover { background: rgba(59,130,246,0.1); transform: translateY(-2px); }
+
+  /* ─── LAYOUT ─── */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ─── PART HEADERS ─── */
+  .part-header {
+    padding: 100px 24px 60px;
+    text-align: center;
+    position: relative;
+  }
+
+  .part-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+  }
+
+  .part-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.1;
+  }
+
+  .part-title.gold em { color: var(--accent1); font-style: normal; }
+  .part-title.blue em { color: var(--accent2); font-style: normal; }
+
+  .part-divider {
+    width: 60px;
+    height: 3px;
+    border-radius: 2px;
+    margin: 28px auto 0;
+  }
+
+  .gold-div { background: var(--accent1); }
+  .blue-div { background: var(--accent2); }
+
+  /* ─── SECTIONS ─── */
+  .section {
+    padding: 70px 24px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .section + .section {
+    border-top: 1px solid var(--border);
+  }
+
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+  }
+
+  .section h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    margin-bottom: 28px;
+    color: var(--text);
+  }
+
+  .section h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 32px 0 12px;
+    color: var(--accent1);
+  }
+
+  .section.blue-accent h3 { color: var(--accent2); }
+
+  .section p {
+    color: #c5c8d8;
+    margin-bottom: 16px;
+    font-size: 1rem;
+  }
+
+  /* ─── DEFINITION BOX ─── */
+  .def-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent1);
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin: 28px 0;
+  }
+
+  .def-box.blue { border-left-color: var(--accent2); }
+  .def-box.green { border-left-color: var(--accent3); }
+  .def-box.red { border-left-color: var(--accent4); }
+  .def-box.purple { border-left-color: var(--accent5); }
+
+  .def-box .def-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent1);
+    margin-bottom: 10px;
+  }
+
+  .def-box.blue .def-label { color: var(--accent2); }
+  .def-box.green .def-label { color: var(--accent3); }
+  .def-box.red .def-label { color: var(--accent4); }
+  .def-box.purple .def-label { color: var(--accent5); }
+
+  .def-box p {
+    margin-bottom: 0;
+    font-size: 1rem;
+    color: var(--text);
+  }
+
+  /* ─── SCHEMA ─── */
+  .schema-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px 24px;
+    margin: 28px 0;
+    overflow: hidden;
+  }
+
+  .schema-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  /* ─── SVG SCHEMAS ─── */
+  svg { display: block; margin: 0 auto; }
+
+  /* ─── STEPS ─── */
+  .steps {
+    counter-reset: step;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .step-item {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    transition: border-color 0.2s;
+  }
+
+  .step-item:hover { border-color: var(--accent1); }
+  .blue-accent .step-item:hover { border-color: var(--accent2); }
+
+  .step-num {
+    counter-increment: step;
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--accent1);
+    min-width: 36px;
+    line-height: 1;
+    padding-top: 2px;
+  }
+
+  .blue-accent .step-num { color: var(--accent2); }
+
+  .step-content strong {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .step-content p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  /* ─── GRID 2COL ─── */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  @media (max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 22px;
+  }
+
+  .card-icon {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+  }
+
+  .card h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .card p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  /* ─── TABLE ─── */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 24px 0;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+
+  thead {
+    background: var(--surface2);
+  }
+
+  thead th {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 14px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  tbody td {
+    padding: 13px 20px;
+    border-bottom: 1px solid var(--border);
+    color: #c5c8d8;
+    vertical-align: top;
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+
+  tbody tr:hover { background: var(--surface); }
+
+  .tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+
+  .tag-green { background: rgba(16,185,129,0.12); color: var(--accent3); }
+  .tag-orange { background: rgba(240,165,0,0.12); color: var(--accent1); }
+  .tag-red { background: rgba(244,63,94,0.12); color: var(--accent4); }
+  .tag-blue { background: rgba(59,130,246,0.12); color: var(--accent2); }
+  .tag-purple { background: rgba(139,92,246,0.12); color: var(--accent5); }
+
+  /* ─── FORMULA ─── */
+  .formula {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 24px;
+    margin: 20px 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 1rem;
+    color: var(--accent1);
+    text-align: center;
+  }
+
+  .formula span {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    display: block;
+    margin-top: 6px;
+    font-family: 'Lora', serif;
+    font-style: italic;
+  }
+
+  /* ─── TIPS ─── */
+  .tip {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: rgba(16,185,129,0.06);
+    border: 1px solid rgba(16,185,129,0.2);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 16px 0;
+  }
+
+  .tip-icon { font-size: 1.2rem; line-height: 1.5; }
+
+  .tip p { margin: 0; font-size: 0.9rem; color: #c5c8d8; }
+
+  .warning {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: rgba(244,63,94,0.06);
+    border: 1px solid rgba(244,63,94,0.2);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 16px 0;
+  }
+
+  .warning p { margin: 0; font-size: 0.9rem; color: #c5c8d8; }
+
+  .info {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: rgba(59,130,246,0.06);
+    border: 1px solid rgba(59,130,246,0.2);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 16px 0;
+  }
+
+  .info p { margin: 0; font-size: 0.9rem; color: #c5c8d8; }
+
+  /* ─── CODE BLOCK ─── */
+  .code-block {
+    background: #0a0b0e;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin: 20px 0;
+    overflow-x: auto;
+  }
+
+  .code-block .code-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+  }
+
+  .code-block code {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.88rem;
+    line-height: 1.8;
+    color: #a8b3cf;
+    white-space: pre;
+  }
+
+  .code-block code .k { color: var(--accent2); }
+  .code-block code .s { color: var(--accent3); }
+  .code-block code .c { color: var(--text-dim); }
+  .code-block code .f { color: var(--accent1); }
+  .code-block code .n { color: #f8c85d; }
+
+  /* ─── SEPARATOR ─── */
+  .part-sep {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 40px auto;
+    max-width: 600px;
+  }
+
+  /* ─── FLOW CHART ─── */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin: 28px 0;
+  }
+
+  .flow-item {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 28px;
+    text-align: center;
+    min-width: 240px;
+    max-width: 360px;
+    width: 100%;
+  }
+
+  .flow-item strong {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text);
+    display: block;
+  }
+
+  .flow-item span {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  .flow-arrow {
+    font-size: 1.2rem;
+    color: var(--text-dim);
+    margin: 6px 0;
+    line-height: 1;
+  }
+
+  .flow-item.gold { border-color: rgba(240,165,0,0.4); background: rgba(240,165,0,0.05); }
+  .flow-item.blue2 { border-color: rgba(59,130,246,0.4); background: rgba(59,130,246,0.05); }
+  .flow-item.green2 { border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.05); }
+  .flow-item.red2 { border-color: rgba(244,63,94,0.4); background: rgba(244,63,94,0.05); }
+
+  /* ─── STAT CARDS ─── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+    margin: 28px 0;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 18px;
+    text-align: center;
+  }
+
+  .stat-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent1);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  /* ─── AI BADGE ─── */
+  .ai-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(139,92,246,0.1);
+    border: 1px solid rgba(139,92,246,0.25);
+    border-radius: 999px;
+    padding: 5px 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent5);
+    margin-bottom: 20px;
+  }
+
+  /* ─── PROMPT BOX ─── */
+  .prompt-box {
+    background: #08090c;
+    border: 1px solid rgba(139,92,246,0.3);
+    border-radius: 12px;
+    padding: 24px 26px;
+    margin: 20px 0;
+    position: relative;
+  }
+
+  .prompt-box .prompt-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent5);
+    margin-bottom: 12px;
+  }
+
+  .prompt-box p {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.88rem;
+    color: #b8c0dc;
+    line-height: 1.7;
+    margin: 0;
+    white-space: pre-wrap;
+  }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 48px 24px;
+    text-align: center;
+    color: var(--text-dim);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── STICKY TOC ─── */
+  .toc {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(14,15,19,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+  }
+
+  .toc-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .toc-inner::-webkit-scrollbar { display: none; }
+
+  .toc-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: 14px 18px;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+
+  .toc-link:hover { color: var(--text); }
+  .toc-link.p6 { color: var(--accent1); border-bottom-color: var(--accent1); }
+  .toc-link.p7 { color: var(--accent2); border-bottom-color: var(--accent2); }
+
+  /* ─── SECTION BAND ─── */
+  .band {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 24px;
+  }
+
+  /* list style */
+  ul.styled { list-style: none; padding: 0; margin: 16px 0; display: flex; flex-direction: column; gap: 8px; }
+  ul.styled li { display: flex; gap: 10px; align-items: flex-start; font-size: 0.95rem; color: #c5c8d8; }
+  ul.styled li::before { content: '→'; color: var(--accent1); font-family: 'DM Mono', monospace; flex-shrink: 0; margin-top: 2px; }
+  .blue-accent ul.styled li::before { color: var(--accent2); }
+
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════
+     HERO
+══════════════════════════════ -->
+<section class="hero">
+  <div class="hero-badge">BTS ERA — Cours Complet</div>
+  <h1>Calepinage &amp; <em>Intelligence Artificielle</em></h1>
+  <p class="hero-sub">Deux parties indispensables pour maîtriser l'optimisation matière et utiliser les outils IA efficacement dans ton métier.</p>
+  <div class="hero-nav">
+    <a href="#partie6" class="btn-p6">Partie 6 — Calepinage</a>
+    <a href="#partie7" class="btn-p7">Partie 7 — Utiliser l'IA</a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     TOC
+══════════════════════════════ -->
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#p6-def" class="toc-link">Définition</a>
+    <a href="#p6-manuel" class="toc-link">Méthode manuelle</a>
+    <a href="#p6-logiciels" class="toc-link">Logiciels</a>
+    <a href="#p6-taux" class="toc-link">Taux de chute</a>
+    <a href="#p6-pertes" class="toc-link">Réduire les pertes</a>
+    <a href="#p6-commandes" class="toc-link">Commandes</a>
+    <a href="#p6-cout" class="toc-link">Coût & calepinage</a>
+    <a href="#p7-calculs" class="toc-link">IA & calculs</a>
+    <a href="#p7-excel" class="toc-link">Formules Excel</a>
+    <a href="#p7-devis" class="toc-link">Devis auto</a>
+    <a href="#p7-debit" class="toc-link">Listes de débit</a>
+    <a href="#p7-limites" class="toc-link">Limites IA</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════
+     PARTIE 6
+══════════════════════════════ -->
+<section id="partie6">
+  <div class="part-header">
+    <div class="part-number">Partie 06</div>
+    <h1 class="part-title gold">Optimisation &amp; <em>Calepinage</em></h1>
+    <div class="part-divider gold-div"></div>
+  </div>
+</section>
+
+<!-- 6.1 — DÉFINITION -->
+<div id="p6-def" class="section">
+  <div class="section-tag">6.1</div>
+  <h2>C'est quoi le calepinage ?</h2>
+
+  <div class="def-box">
+    <div class="def-label">Définition</div>
+    <p><strong>Le calepinage</strong> (ou <em>optimisation de débit</em>) est la technique qui consiste à placer les pièces à découper sur les panneaux ou les barres de bois de la façon la plus économique possible, afin de réduire au maximum les chutes inutilisables.</p>
+  </div>
+
+  <p>En menuiserie/agencement, chaque chantier génère une <strong>liste de débit</strong> : une liste de toutes les pièces nécessaires avec leurs dimensions exactes. Le calepinage répond à la question :</p>
+
+  <div class="def-box blue">
+    <div class="def-label">La question centrale</div>
+    <p>Comment répartir ces pièces sur mes panneaux bruts pour commander le moins de matière possible et gaspiller le moins possible ?</p>
+  </div>
+
+  <h3>Pourquoi c'est important ?</h3>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-icon">💰</div>
+      <h4>Impact financier direct</h4>
+      <p>Un bon calepinage peut représenter 10 à 25% d'économie sur le coût matière d'un chantier. Sur un projet à 8 000 € de matériaux, ça fait 800 à 2 000 €.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">♻️</div>
+      <h4>Moins de déchets</h4>
+      <p>Moins de chutes = moins de panneaux inutilisés = moins de transport, de tri, de déchetterie. Un argument écologique et pratique.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📦</div>
+      <h4>Commandes précises</h4>
+      <p>Un calepinage rigoureux permet de commander exactement le bon nombre de panneaux, ni trop ni trop peu. Pas de surplus en stock.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">⏱️</div>
+      <h4>Gain de temps atelier</h4>
+      <p>Quand le plan de découpe est bien préparé, les opérateurs travaillent vite et sans erreur. Moins de réflexion sur la scie = plus de productivité.</p>
+    </div>
+  </div>
+
+  <!-- SCHÉMA — AVANT / APRÈS -->
+  <div class="schema-wrap">
+    <div class="schema-title">Schéma — Calepinage : sans vs avec optimisation</div>
+    <svg width="100%" viewBox="0 0 700 220" style="max-width:700px;">
+      <!-- Panneau sans opt -->
+      <rect x="20" y="30" width="300" height="160" fill="#1e2029" stroke="#2a2d3a" stroke-width="1.5" rx="4"/>
+      <text x="170" y="18" fill="#7c8097" font-family="monospace" font-size="11" text-anchor="middle">SANS OPTIMISATION</text>
+      <!-- pièces mal placées -->
+      <rect x="30" y="40" width="120" height="70" fill="#3b82f620" stroke="#3b82f6" stroke-width="1" rx="2"/>
+      <text x="90" y="78" fill="#3b82f6" font-family="monospace" font-size="10" text-anchor="middle">P1 600×350</text>
+      <rect x="30" y="120" width="120" height="60" fill="#3b82f620" stroke="#3b82f6" stroke-width="1" rx="2"/>
+      <text x="90" y="153" fill="#3b82f6" font-family="monospace" font-size="10" text-anchor="middle">P2 600×300</text>
+      <rect x="160" y="40" width="150" height="70" fill="#3b82f620" stroke="#3b82f6" stroke-width="1" rx="2"/>
+      <text x="235" y="78" fill="#3b82f6" font-family="monospace" font-size="10" text-anchor="middle">P3 750×350</text>
+      <!-- chutes -->
+      <rect x="160" y="120" width="150" height="60" fill="#f43f5e15" stroke="#f43f5e50" stroke-width="1" rx="2" stroke-dasharray="4"/>
+      <text x="235" y="153" fill="#f43f5e" font-family="monospace" font-size="10" text-anchor="middle">CHUTE !</text>
+      <text x="170" y="205" fill="#f43f5e" font-family="monospace" font-size="10" text-anchor="middle">Taux de chute ≈ 32%</text>
+
+      <!-- Arrow -->
+      <text x="342" y="118" fill="#4a4f66" font-family="monospace" font-size="22" text-anchor="middle">→</text>
+
+      <!-- Panneau avec opt -->
+      <rect x="360" y="30" width="300" height="160" fill="#1e2029" stroke="#2a2d3a" stroke-width="1.5" rx="4"/>
+      <text x="510" y="18" fill="#7c8097" font-family="monospace" font-size="11" text-anchor="middle">AVEC OPTIMISATION</text>
+      <!-- pièces bien placées -->
+      <rect x="370" y="40" width="120" height="70" fill="#10b98120" stroke="#10b981" stroke-width="1" rx="2"/>
+      <text x="430" y="78" fill="#10b981" font-family="monospace" font-size="10" text-anchor="middle">P1 600×350</text>
+      <rect x="370" y="120" width="120" height="60" fill="#10b98120" stroke="#10b981" stroke-width="1" rx="2"/>
+      <text x="430" y="153" fill="#10b981" font-family="monospace" font-size="10" text-anchor="middle">P2 600×300</text>
+      <rect x="500" y="40" width="150" height="70" fill="#10b98120" stroke="#10b981" stroke-width="1" rx="2"/>
+      <text x="575" y="78" fill="#10b981" font-family="monospace" font-size="10" text-anchor="middle">P3 750×350</text>
+      <rect x="500" y="120" width="80" height="60" fill="#10b98120" stroke="#10b981" stroke-width="1" rx="2"/>
+      <text x="540" y="153" fill="#10b981" font-family="monospace" font-size="10" text-anchor="middle">P4</text>
+      <rect x="590" y="120" width="60" height="60" fill="#f0a50010" stroke="#f0a50040" stroke-width="1" rx="2" stroke-dasharray="4"/>
+      <text x="620" y="153" fill="#f0a500" font-family="monospace" font-size="9" text-anchor="middle">ch.</text>
+      <text x="510" y="205" fill="#10b981" font-family="monospace" font-size="10" text-anchor="middle">Taux de chute ≈ 11%</text>
+    </svg>
+  </div>
+</div>
+
+<!-- 6.2 — MÉTHODE MANUELLE -->
+<div id="p6-manuel" class="section band">
+  <div class="section-tag">6.2</div>
+  <h2>Optimisation manuelle — étape par étape</h2>
+
+  <p>Avant les logiciels, le calepinage se fait à la main, sur papier ou dans Excel. C'est la méthode de base que tu dois maîtriser pour comprendre ce que font les logiciels ensuite.</p>
+
+  <div class="steps">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <strong>Établir la liste de débit complète</strong>
+        <p>Recense toutes les pièces du projet : référence, longueur, largeur, épaisseur, matière, nombre d'exemplaires. Trie-les du plus grand au plus petit.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <strong>Choisir le format des panneaux bruts</strong>
+        <p>Format standard : 2800×2070 mm (voire 3050×1220 mm selon le fournisseur). Note le trait de scie : entre 3 et 4 mm par coupe — il enlève de la matière !</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <strong>Placer les grandes pièces en premier (règle du First Fit Decreasing)</strong>
+        <p>Commence toujours par les pièces les plus grandes. Elles sont les plus contraignantes. Les petites pièces viennent remplir les espaces restants.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <strong>Respecter le sens du fil (si matière avec fil)</strong>
+        <p>Pour les mélaminés, chêne, placages... le sens du fil visible doit être cohérent. Une porte avec le fil horizontal c'est acceptable ; un mélange entre vantaux du même meuble, non.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <strong>Maximiser les bandes complètes</strong>
+        <p>Plutôt que de découper en zigzag, cherche à faire des bandes horizontales ou verticales complètes sur le panneau. Ça simplifie les coupes et réduit les erreurs.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">6</div>
+      <div class="step-content">
+        <strong>Calculer la surface utile et les chutes</strong>
+        <p>Surface panneau brut − Σ surfaces pièces = surface de chute. Exprime la chute en % pour évaluer la qualité de ton plan.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">7</div>
+      <div class="step-content">
+        <strong>Itérer jusqu'à un taux acceptable</strong>
+        <p>Si le taux de chute est trop élevé, réarrange les pièces, essaie une autre disposition ou groupe différentes pièces sur un même panneau.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>Exemple concret — Cuisine simple</h3>
+
+  <div class="def-box">
+    <div class="def-label">Données de l'exemple</div>
+    <p>Panneau mélaminé blanc 2800×2070 mm — 4 portes 700×500, 3 côtés 700×800, 2 dessus/dessous 900×500, 6 étagères 800×300. Trait de scie : 3 mm.</p>
+  </div>
+
+  <div class="schema-wrap">
+    <div class="schema-title">Plan de découpe — Panneau n°1 (2800×2070 mm)</div>
+    <svg width="100%" viewBox="0 0 680 340" style="max-width:680px;">
+      <!-- Contour panneau -->
+      <rect x="10" y="10" width="660" height="320" fill="#16181f" stroke="#2a2d3a" stroke-width="2" rx="4"/>
+      <!-- Bande 1 — 3 côtés 700x800 -->
+      <rect x="10" y="10" width="660" height="132" fill="#3b82f608" stroke="#3b82f630" stroke-width="0"/>
+      <rect x="14" y="14" width="155" height="124" fill="#3b82f620" stroke="#3b82f6" stroke-width="1" rx="2"/>
+      <text x="91" y="79" fill="#3b82f6" font-family="monospace" font-size="9" text-anchor="middle">CÔTÉ 1</text>
+      <text x="91" y="91" fill="#7c8097" font-family="monospace" font-size="8" text-anchor="middle">700×800</text>
+      <rect x="173" y="14" width="155" height="124" fill="#3b82f620" stroke="#3b82f6" stroke-width="1" rx="2"/>
+      <text x="250" y="79" fill="#3b82f6" font-family="monospace" font-size="9" text-anchor="middle">CÔTÉ 2</text>
+      <text x="250" y="91" fill="#7c8097" font-family="monospace" font-size="8" text-anchor="middle">700×800</text>
+      <rect x="332" y="14" width="155" height="124" fill="#3b82f620" stroke="#3b82f6" stroke-width="1" rx="2"/>
+      <text x="409" y="79" fill="#3b82f6" font-family="monospace" font-size="9" text-anchor="middle">CÔTÉ 3</text>
+      <text x="409" y="91" fill="#7c8097" font-family="monospace" font-size="8" text-anchor="middle">700×800</text>
+      <!-- chute droite bande 1 -->
+      <rect x="491" y="14" width="175" height="124" fill="#f43f5e08" stroke="#f43f5e30" stroke-width="1" rx="2" stroke-dasharray="4"/>
+      <text x="578" y="79" fill="#f43f5e60" font-family="monospace" font-size="9" text-anchor="middle">chute</text>
+      <!-- Trait scie H -->
+      <line x1="10" y1="142" x2="670" y2="142" stroke="#f0a500" stroke-width="1" stroke-dasharray="6,4" opacity="0.4"/>
+      <!-- Bande 2 — portes -->
+      <rect x="14" y="146" width="92" height="82" fill="#10b98120" stroke="#10b981" stroke-width="1" rx="2"/>
+      <text x="60" y="190" fill="#10b981" font-family="monospace" font-size="9" text-anchor="middle">PORTE 1</text>
+      <text x="60" y="202" fill="#7c8097" font-family="monospace" font-size="8" text-anchor="middle">700×500</text>
+      <rect x="110" y="146" width="92" height="82" fill="#10b98120" stroke="#10b981" stroke-width="1" rx="2"/>
+      <text x="156" y="190" fill="#10b981" font-family="monospace" font-size="9" text-anchor="middle">PORTE 2</text>
+      <text x="156" y="202" fill="#7c8097" font-family="monospace" font-size="8" text-anchor="middle">700×500</text>
+      <rect x="206" y="146" width="92" height="82" fill="#10b98120" stroke="#10b981" stroke-width="1" rx="2"/>
+      <text x="252" y="190" fill="#10b981" font-family="monospace" font-size="9" text-anchor="middle">PORTE 3</text>
+      <text x="252" y="202" fill="#7c8097" font-family="monospace" font-size="8" text-anchor="middle">700×500</text>
+      <rect x="302" y="146" width="92" height="82" fill="#10b98120" stroke="#10b981" stroke-width="1" rx="2"/>
+      <text x="348" y="190" fill="#10b981" font-family="monospace" font-size="9" text-anchor="middle">PORTE 4</text>
+      <text x="348" y="202" fill="#7c8097" font-family="monospace" font-size="8" text-anchor="middle">700×500</text>
+      <!-- Bande 2 — dessus/dessous -->
+      <rect x="398" y="146" width="130" height="82" fill="#8b5cf620" stroke="#8b5cf6" stroke-width="1" rx="2"/>
+      <text x="463" y="190" fill="#8b5cf6" font-family="monospace" font-size="9" text-anchor="middle">DESSUS 1</text>
+      <text x="463" y="202" fill="#7c8097" font-family="monospace" font-size="8" text-anchor="middle">900×500</text>
+      <rect x="532" y="146" width="130" height="82" fill="#8b5cf620" stroke="#8b5cf6" stroke-width="1" rx="2"/>
+      <text x="597" y="190" fill="#8b5cf6" font-family="monospace" font-size="9" text-anchor="middle">DESSUS 2</text>
+      <text x="597" y="202" fill="#7c8097" font-family="monospace" font-size="8" text-anchor="middle">900×500</text>
+      <!-- Trait scie H -->
+      <line x1="10" y1="232" x2="670" y2="232" stroke="#f0a500" stroke-width="1" stroke-dasharray="6,4" opacity="0.4"/>
+      <!-- Bande 3 — étagères -->
+      <rect x="14" y="236" width="100" height="42" fill="#f0a50020" stroke="#f0a500" stroke-width="1" rx="2"/>
+      <text x="64" y="261" fill="#f0a500" font-family="monospace" font-size="9" text-anchor="middle">ETG 1</text>
+      <rect x="118" y="236" width="100" height="42" fill="#f0a50020" stroke="#f0a500" stroke-width="1" rx="2"/>
+      <text x="168" y="261" fill="#f0a500" font-family="monospace" font-size="9" text-anchor="middle">ETG 2</text>
+      <rect x="222" y="236" width="100" height="42" fill="#f0a50020" stroke="#f0a500" stroke-width="1" rx="2"/>
+      <text x="272" y="261" fill="#f0a500" font-family="monospace" font-size="9" text-anchor="middle">ETG 3</text>
+      <rect x="326" y="236" width="100" height="42" fill="#f0a50020" stroke="#f0a500" stroke-width="1" rx="2"/>
+      <text x="376" y="261" fill="#f0a500" font-family="monospace" font-size="9" text-anchor="middle">ETG 4</text>
+      <rect x="430" y="236" width="100" height="42" fill="#f0a50020" stroke="#f0a500" stroke-width="1" rx="2"/>
+      <text x="480" y="261" fill="#f0a500" font-family="monospace" font-size="9" text-anchor="middle">ETG 5</text>
+      <rect x="534" y="236" width="100" height="42" fill="#f0a50020" stroke="#f0a500" stroke-width="1" rx="2"/>
+      <text x="584" y="261" fill="#f0a500" font-family="monospace" font-size="9" text-anchor="middle">ETG 6</text>
+      <!-- Reste chute bas -->
+      <rect x="14" y="282" width="640" height="40" fill="#f43f5e08" stroke="#f43f5e30" stroke-width="1" stroke-dasharray="4" rx="2"/>
+      <text x="334" y="305" fill="#f43f5e60" font-family="monospace" font-size="9" text-anchor="middle">Chute restante — 2800×220 mm</text>
+      <!-- Légende -->
+      <text x="14" y="328" fill="#f0a500" font-family="monospace" font-size="9">— Trait de scie</text>
+      <text x="200" y="328" fill="#f43f5e80" font-family="monospace" font-size="9">▪ Chute</text>
+      <text x="300" y="328" fill="#7c8097" font-family="monospace" font-size="9">Taux de chute ≈ 14%</text>
+    </svg>
+  </div>
+
+  <div class="formula">
+    Taux de chute = (Surface chutes ÷ Surface totale panneau) × 100
+    <span>Exemple : (0,616 m² ÷ 5,796 m²) × 100 = 10,6%</span>
+  </div>
+</div>
+
+<!-- 6.3 — LOGICIELS -->
+<div id="p6-logiciels" class="section">
+  <div class="section-tag">6.3</div>
+  <h2>Logiciels de calepinage</h2>
+
+  <p>Aujourd'hui, personne ne fait plus du calepinage à la main sur un projet complet. Les logiciels font ça en quelques secondes et cherchent la solution optimale automatiquement.</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-icon">🪟</div>
+      <h4>CutList Plus</h4>
+      <p>Logiciel référence pour la menuiserie. Très utilisé dans les ateliers pro. Interface simple, export PDF du plan de coupe. Version gratuite limitée.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📐</div>
+      <h4>OptiCut / OptimaPro</h4>
+      <p>Logiciels professionnels pour les entreprises d'agencement. Intégration avec les scies à commande numérique (SCIAGE). Très puissants, mais coûteux.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌐</div>
+      <h4>Cutlist Optimizer (web)</h4>
+      <p>Outil gratuit en ligne sur cutlistoptimizer.com. Parfait pour apprendre et pour des projets simples. Aucune installation nécessaire.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📊</div>
+      <h4>Excel + Solver</h4>
+      <p>Solution DIY pour ceux qui maîtrisent Excel. Avec le complément Solver, on peut créer un calepinage automatique basique mais fonctionnel.</p>
+    </div>
+  </div>
+
+  <h3>Utilisation de base — Cutlist Optimizer (exemple)</h3>
+
+  <div class="steps">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <strong>Entrer les dimensions du panneau brut</strong>
+        <p>Section "Stock" → ajouter un panneau : 2800 × 2070 mm. Indiquer le trait de scie (kerf) : 3 mm.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <strong>Saisir la liste des pièces</strong>
+        <p>Section "Parts" → entrer chaque pièce : longueur, largeur, quantité, nom. Cocher "grain direction" si le fil doit être respecté.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <strong>Lancer l'optimisation</strong>
+        <p>Clic sur "Optimize". Le logiciel teste des centaines de dispositions différentes et choisit celle qui minimise les chutes.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <strong>Lire les résultats</strong>
+        <p>Le logiciel affiche : nombre de panneaux nécessaires, taux de chute, et le plan visuel de coupe. Il donne aussi la liste des coupes dans l'ordre.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <strong>Exporter le plan de coupe</strong>
+        <p>Export PDF ou image à transmettre à l'atelier. Chaque panneau a un numéro et chaque pièce est identifiée.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip">
+    <div class="tip-icon">💡</div>
+    <p><strong>Conseil terrain :</strong> Les logiciels donnent un résultat théorique parfait. En pratique, prévoir toujours +5% de matière pour les erreurs de coupe, les lés abîmés, et les récupérations impossibles. C'est ce qu'on appelle le coefficient de marge sécurité.</p>
+  </div>
+</div>
+
+<!-- 6.4 — TAUX DE CHUTE -->
+<div id="p6-taux" class="section band">
+  <div class="section-tag">6.4</div>
+  <h2>Calculer un taux de chute acceptable</h2>
+
+  <p>Le taux de chute n'est jamais zéro. L'objectif n'est pas la perfection, mais de rester dans une fourchette <strong>acceptable selon le type de projet</strong>.</p>
+
+  <div class="formula">
+    Taux de chute (%) = (Surface totale des chutes ÷ Surface totale panneaux achetés) × 100
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-value" style="color:var(--accent3)">5–10%</div>
+      <div class="stat-label">Projets avec grandes pièces répétitives (placards, dressings)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" style="color:var(--accent1)">10–18%</div>
+      <div class="stat-label">Projets standards (cuisines, bibliothèques)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" style="color:var(--accent4)">18–25%</div>
+      <div class="stat-label">Projets complexes (formes, angles, petites pièces nombreuses)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" style="color:var(--accent4)">+25%</div>
+      <div class="stat-label">Trop élevé — à revoir sauf contrainte exceptionnelle</div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Type de projet</th>
+          <th>Taux de chute normal</th>
+          <th>Taux acceptable max</th>
+          <th>Facteurs aggravants</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Dressing / Placard</td>
+          <td><span class="tag tag-green">5–12%</span></td>
+          <td>15%</td>
+          <td>Pièces de hauteurs différentes</td>
+        </tr>
+        <tr>
+          <td>Cuisine standard</td>
+          <td><span class="tag tag-orange">10–18%</span></td>
+          <td>22%</td>
+          <td>Angles, tiroirs nombreux</td>
+        </tr>
+        <tr>
+          <td>Menuiseries intérieures</td>
+          <td><span class="tag tag-orange">12–20%</span></td>
+          <td>25%</td>
+          <td>Plinthes, tableaux, petites pièces</td>
+        </tr>
+        <tr>
+          <td>Agencement commercial</td>
+          <td><span class="tag tag-red">15–25%</span></td>
+          <td>28%</td>
+          <td>Formes sur-mesure, angles non standards</td>
+        </tr>
+        <tr>
+          <td>Mobilier sur-mesure</td>
+          <td><span class="tag tag-red">18–28%</span></td>
+          <td>30%</td>
+          <td>Formes complexes, matériaux précieux</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Comment calculer le taux en pratique</h3>
+
+  <div class="code-block">
+    <div class="code-label">Exemple de calcul</div>
+    <code><span class="c">// Projet : bibliothèque, 2 panneaux 2800×2070 mm</span>
+
+<span class="k">Surface totale achetée</span> = 2 × (2,800 × 2,070) = 2 × 5,796 = <span class="n">11,592 m²</span>
+
+<span class="k">Surface des pièces</span> (somme liste de débit) = <span class="n">9,840 m²</span>
+
+<span class="k">Surface chutes</span> = 11,592 − 9,840 = <span class="n">1,752 m²</span>
+
+<span class="f">Taux de chute</span> = (1,752 ÷ 11,592) × 100 = <span class="s">15,1%</span>
+
+<span class="c">→ Acceptable pour une bibliothèque ✓</span></code>
+  </div>
+
+  <div class="warning">
+    <div class="tip-icon">⚠️</div>
+    <p><strong>Attention aux petits morceaux :</strong> Un morceau de chute n'a de valeur que s'il peut être réutilisé sur un autre projet. Une chute de 800×200 mm peut servir pour des étagères ou des tiroirs futurs. Mais une chute de 150×80 mm ne sert à rien — elle part directement à la benne.</p>
+  </div>
+</div>
+
+<!-- 6.5 — RÉDUIRE LES PERTES -->
+<div id="p6-pertes" class="section">
+  <div class="section-tag">6.5</div>
+  <h2>Réduire les pertes matière</h2>
+
+  <h3>Techniques principales</h3>
+
+  <div class="steps">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <strong>Standardiser les dimensions</strong>
+        <p>Si possible, concevoir les meubles avec des hauteurs et largeurs de pièces qui sont des diviseurs exacts du panneau. Ex. : 4 pièces de 700 mm = 2800 mm (zéro perte en hauteur).</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <strong>Regrouper les projets similaires</strong>
+        <p>Calepin plusieurs meubles ensemble sur les mêmes panneaux si les matières sont identiques. Ce qu'on ne place pas pour le meuble A peut servir pour le meuble B.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <strong>Valoriser les chutes récupérables</strong>
+        <p>Créer un stock de chutes étiquetées (dimension + matière). Les chutes "nobles" (grandes, sans défaut) peuvent couvrir des petites pièces sur de futurs projets.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <strong>Utiliser des formats de panneaux alternatifs</strong>
+        <p>Si le fournisseur propose du 2500×1250 mm ou du 3050×1530 mm, simuler le calepinage sur les deux formats et comparer les taux. Le "grand" format n'est pas toujours le plus économique.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <strong>Revoir la conception si le taux est trop élevé</strong>
+        <p>En BTS ERA, tu peux proposer au client de modifier légèrement les dimensions (ex. +20 mm sur une largeur) pour mieux rentabiliser les panneaux. À condition que ça ne nuise pas à la fonctionnalité.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="def-box green" style="margin:0">
+      <div class="def-label">Bonne pratique</div>
+      <p>Toujours calculer le coût de la chute. Si un panneau coûte 45 €, une chute de 15% coûte 6,75 €. Sur 20 panneaux, c'est 135 € perdus. Ça motive à optimiser !</p>
+    </div>
+    <div class="def-box red" style="margin:0">
+      <div class="def-label">Erreur courante</div>
+      <p>Oublier le trait de scie dans les calculs. Sur 10 coupes de 3 mm chacune, on perd 30 mm. Sur une pièce de 600 mm, c'est 5% de dérive — une erreur de découpe assurée.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 6.6 — COMMANDES -->
+<div id="p6-commandes" class="section band">
+  <div class="section-tag">6.6</div>
+  <h2>Optimiser les commandes fournisseurs</h2>
+
+  <p>Le calepinage ne sert pas qu'à l'atelier — il sert aussi à <strong>passer une commande fournisseur précise et économique</strong>.</p>
+
+  <div class="flow">
+    <div class="flow-item gold">
+      <strong>Étape 1 — Calepinage finalisé</strong>
+      <span>Nombre exact de panneaux = X panneaux de référence Y</span>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-item">
+      <strong>Étape 2 — Coefficient de sécurité</strong>
+      <span>Ajouter 5 à 10% selon le risque projet (matière délicate → 10%)</span>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-item">
+      <strong>Étape 3 — Vérifier le colisage fournisseur</strong>
+      <span>Les panneaux sont vendus par lots (ex. colis de 36). Arrondir à la unité supérieure du colis.</span>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-item blue2">
+      <strong>Étape 4 — Calculer le coût matière</strong>
+      <span>Nb panneaux × Prix unitaire HT = Coût matière HT</span>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-item green2">
+      <strong>Étape 5 — Comparer les offres</strong>
+      <span>Simuler sur 2 ou 3 fournisseurs avec leurs formats et tarifs</span>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-item">
+      <strong>Étape 6 — Passer la commande</strong>
+      <span>Avec référence précise, quantité, délai, livraison ou enlèvement</span>
+    </div>
+  </div>
+
+  <h3>Les pièges à éviter</h3>
+
+  <ul class="styled">
+    <li>Commander sur la base d'une liste de débit incomplète (sans les fond de tiroirs, les dos d'armoire, etc.)</li>
+    <li>Oublier de différencier les matières (un mélaminé blanc ≠ un mélaminé blanc grain lisse ≠ grain structure)</li>
+    <li>Confondre dimension utile et dimension brute (un panneau 2800 ne donne pas 2800 mm utiles)</li>
+    <li>Ne pas tenir compte du délai fournisseur dans le planning chantier</li>
+    <li>Commander juste sans stock de sécurité sur les projets complexes</li>
+  </ul>
+
+  <div class="tip">
+    <div class="tip-icon">💡</div>
+    <p><strong>Astuce pro :</strong> Sur un projet avec plusieurs matières, établir un récapitulatif de commande par matière. Une ligne = une référence fournisseur. C'est ce document qui part au chargé d'achat ou directement au fournisseur.</p>
+  </div>
+</div>
+
+<!-- 6.7 — COÛT -->
+<div id="p6-cout" class="section">
+  <div class="section-tag">6.7</div>
+  <h2>Lien entre calepinage et coût du projet</h2>
+
+  <p>Le calepinage est un <strong>levier direct sur la rentabilité d'un chantier</strong>. Voici comment le comprendre chiffres à l'appui.</p>
+
+  <h3>Décomposition du coût matière d'un projet type</h3>
+
+  <div class="schema-wrap">
+    <div class="schema-title">Répartition des coûts — Agencement cuisine (exemple)</div>
+    <svg width="100%" viewBox="0 0 600 200" style="max-width:600px;">
+      <!-- Barre de décomposition -->
+      <rect x="20" y="60" width="560" height="50" fill="#16181f" stroke="#2a2d3a" rx="4"/>
+      <!-- Pièces utiles -->
+      <rect x="20" y="60" width="336" height="50" fill="#3b82f630" stroke="#3b82f6" stroke-width="1" rx="4 0 0 4"/>
+      <text x="188" y="90" fill="#3b82f6" font-family="monospace" font-size="10" text-anchor="middle" font-weight="600">Pièces utiles : 60%</text>
+      <!-- Chutes -->
+      <rect x="356" y="60" width="112" height="50" fill="#f0a50030" stroke="#f0a500" stroke-width="1"/>
+      <text x="412" y="90" fill="#f0a500" font-family="monospace" font-size="10" text-anchor="middle" font-weight="600">Chutes : 20%</text>
+      <!-- Sécurité -->
+      <rect x="468" y="60" width="56" height="50" fill="#10b98130" stroke="#10b981" stroke-width="1"/>
+      <text x="496" y="90" fill="#10b981" font-family="monospace" font-size="9" text-anchor="middle">Stock : 10%</text>
+      <!-- Trait de scie -->
+      <rect x="524" y="60" width="56" height="50" fill="#f43f5e30" stroke="#f43f5e" stroke-width="1" rx="0 4 4 0"/>
+      <text x="552" y="90" fill="#f43f5e" font-family="monospace" font-size="9" text-anchor="middle">Scie : 10%</text>
+      <!-- Labels bas -->
+      <text x="188" y="130" fill="#3b82f6" font-family="monospace" font-size="9" text-anchor="middle">Valeur réelle du projet</text>
+      <text x="412" y="130" fill="#f0a500" font-family="monospace" font-size="9" text-anchor="middle">Optimisable !</text>
+      <text x="496" y="130" fill="#10b981" font-family="monospace" font-size="9" text-anchor="middle">Prudence</text>
+      <text x="552" y="130" fill="#f43f5e" font-family="monospace" font-size="9" text-anchor="middle">Incompressible</text>
+      <!-- Titre -->
+      <text x="300" y="175" fill="#7c8097" font-family="monospace" font-size="9" text-anchor="middle">Réduire les chutes de 20% → 12% = économie de 8% sur la matière = ~640€ sur 8 000€ de matériaux</text>
+    </svg>
+  </div>
+
+  <h3>Simulation d'impact financier</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Scénario</th>
+          <th>Taux de chute</th>
+          <th>Panneaux achetés</th>
+          <th>Coût matière</th>
+          <th>Économie vs scénario 1</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Sans optimisation</td>
+          <td><span class="tag tag-red">28%</span></td>
+          <td>22 panneaux</td>
+          <td>990 €</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>Optimisation manuelle</td>
+          <td><span class="tag tag-orange">18%</span></td>
+          <td>18 panneaux</td>
+          <td>810 €</td>
+          <td><span class="tag tag-green">−180 €</span></td>
+        </tr>
+        <tr>
+          <td>Logiciel de calepinage</td>
+          <td><span class="tag tag-green">11%</span></td>
+          <td>16 panneaux</td>
+          <td>720 €</td>
+          <td><span class="tag tag-green">−270 €</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="def-box">
+    <div class="def-label">À retenir pour l'examen BTS</div>
+    <p>Le calepinage impacte directement : le coût matière, le nombre de panneaux commandés, le temps de découpe en atelier, et donc la marge bénéficiaire de l'entreprise. Un conducteur de travaux qui maîtrise le calepinage est un atout financier concret pour son employeur.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     PARTIE 7
+══════════════════════════════ -->
+<section id="partie7" style="background: linear-gradient(180deg, var(--bg) 0%, rgba(59,130,246,0.03) 100%);">
+  <div class="part-header">
+    <div class="part-number">Partie 07</div>
+    <h1 class="part-title blue">Utiliser l'IA <em>Intelligemment</em></h1>
+    <div class="part-divider blue-div"></div>
+  </div>
+</section>
+
+<!-- 7.1 — IA & CALCULS -->
+<div id="p7-calculs" class="section blue-accent">
+  <div class="ai-badge">🤖 Intelligence Artificielle</div>
+  <div class="section-tag">7.1</div>
+  <h2>Utiliser Claude pour vérifier et accélérer ses calculs</h2>
+
+  <p>L'IA comme Claude n'est pas un remplaçant de ta réflexion — c'est un <strong>assistant de vérification rapide</strong> qui peut traiter des calculs répétitifs en quelques secondes.</p>
+
+  <h3>Ce que l'IA peut faire pour toi</h3>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-icon">✅</div>
+      <h4>Vérifier un calcul de quantité</h4>
+      <p>Tu calcules manuellement, puis tu demandes à l'IA de refaire le calcul différemment pour confirmer. Si les deux résultats concordent → tu es sûr.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔢</div>
+      <h4>Calculer des métrés complexes</h4>
+      <p>Surfaces avec découpes, volumes, longueurs de linéaires avec angles — l'IA gère ça sans se fatiguer.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔄</div>
+      <h4>Convertir des unités</h4>
+      <p>m² → nombre de panneaux, ml → barres de profil, unités → prix HT/TTC. Rapide et sans erreur.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📋</div>
+      <h4>Vérifier une liste de débit</h4>
+      <p>Coller ta liste dans Claude pour qu'il identifie les doublons, les pièces manquantes, ou les incohérences de dimensions.</p>
+    </div>
+  </div>
+
+  <h3>Comment formuler une demande efficace</h3>
+
+  <div class="prompt-box">
+    <div class="prompt-label">Exemple de prompt — Vérification de calcul</div>
+    <p>J'ai une liste de débit pour une bibliothèque.
+Voici les pièces en mélaminé blanc 18 mm :
+- 2 côtés 2200×300 mm
+- 4 étagères 800×280 mm
+- 1 fond 2200×800 mm (CP 8 mm)
+- 2 joues hautes 300×100 mm
+
+Mes panneaux font 2800×2070 mm.
+Calcule la surface totale des pièces, le nombre minimum de panneaux nécessaires et le taux de chute estimé. Tiens compte d'un trait de scie de 3 mm.</p>
+  </div>
+
+  <div class="tip">
+    <div class="tip-icon">💡</div>
+    <p><strong>Règle d'or :</strong> Toujours fournir à l'IA <strong>toutes les données</strong> dont elle a besoin dans une seule demande. Pas de "devine la dimension" ou "tu te souviens de ce qu'on a dit". L'IA part à zéro à chaque conversation.</p>
+  </div>
+</div>
+
+<!-- 7.2 — EXCEL -->
+<div id="p7-excel" class="section band blue-accent">
+  <div class="section-tag">7.2</div>
+  <h2>Créer des formules Excel automatiques avec l'IA</h2>
+
+  <p>L'IA est excellente pour générer des formules Excel que tu n'aurais pas su écrire toi-même. Tu décris ce que tu veux, elle te donne la formule prête à coller.</p>
+
+  <h3>Méthode en 3 étapes</h3>
+
+  <div class="steps">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <strong>Décrire précisément ce que tu veux calculer</strong>
+        <p>Explique la logique métier, pas la formule. "Je veux que si la quantité dépasse 10 unités, le prix unitaire baisse de 5%" → l'IA traduit ça en formule.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <strong>Préciser la structure de ton tableau</strong>
+        <p>"Les quantités sont en colonne B (B2:B50), les prix unitaires en colonne C, et je veux le résultat en colonne D." La formule sera adaptée à tes colonnes exactes.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <strong>Tester et corriger avec l'IA</strong>
+        <p>Si la formule ne marche pas, copie le message d'erreur Excel et dis à l'IA "j'ai cette erreur", elle corrige.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>Formules Excel utiles en agencement</h3>
+
+  <div class="code-block">
+    <div class="code-label">Formules pratiques pour listes de débit et devis</div>
+    <code><span class="c">— Calcul surface d'une pièce (en m²) :</span>
+<span class="f">=B2/1000*C2/1000</span>  <span class="c">(B2=longueur mm, C2=largeur mm)</span>
+
+<span class="c">— Nombre de panneaux nécessaires (arrondi au sup) :</span>
+<span class="f">=ARRONDI.SUP(SOMME(D2:D20)/5.796;0)</span>  <span class="c">(5.796 = surface panneau 2800×2070)</span>
+
+<span class="c">— Coût total matière avec coefficient de perte :</span>
+<span class="f">=E2*F2*1.15</span>  <span class="c">(E2=nb panneaux, F2=prix unitaire, 1.15=+15% sécurité)</span>
+
+<span class="c">— Ligne qui se colore en rouge si taux de chute > 20% :</span>
+<span class="c">→ Mise en forme conditionnelle : formule =(D2>0.20) → fond rouge</span>
+
+<span class="c">— Prix de vente HT à partir du coût et de la marge :</span>
+<span class="f">=B2/(1-C2)</span>  <span class="c">(B2=coût, C2=taux marge ex. 0.35 pour 35%)</span>
+
+<span class="c">— TVA 20% :</span>
+<span class="f">=B2*1.20</span>  <span class="c">(B2=montant HT)</span></code>
+  </div>
+
+  <div class="prompt-box">
+    <div class="prompt-label">Exemple de prompt — Formule Excel</div>
+    <p>Dans mon tableau Excel de liste de débit :
+- Colonne A : nom de la pièce
+- Colonne B : longueur en mm
+- Colonne C : largeur en mm
+- Colonne D : quantité
+- Colonne E : résultat (surface totale en m²)
+
+Donne-moi la formule à mettre en E2 pour calculer la surface totale (longueur × largeur × quantité) en m², en tenant compte que B et C sont en mm.</p>
+  </div>
+
+  <div class="info">
+    <div class="tip-icon">ℹ️</div>
+    <p><strong>Formats de données :</strong> L'IA peut aussi t'aider à créer des tableaux Excel entiers — structure de devis, tableau de suivi de chantier, bordereau de prix unitaires. Décris le tableau que tu veux et elle te donne la structure à construire.</p>
+  </div>
+</div>
+
+<!-- 7.3 — DEVIS AUTO -->
+<div id="p7-devis" class="section blue-accent">
+  <div class="section-tag">7.3</div>
+  <h2>Générer des devis automatiquement</h2>
+
+  <p>L'IA peut t'aider à générer un devis <strong>à partir d'une liste de données brutes</strong>. Tu lui donnes la liste des travaux, des matériaux et des prix — elle structure le document.</p>
+
+  <h3>Ce que l'IA peut générer</h3>
+
+  <ul class="styled">
+    <li>Un devis structuré par lot (menuiserie, pose, finitions…)</li>
+    <li>Les lignes avec désignation, quantité, unité, PU HT, montant HT</li>
+    <li>Les sous-totaux par lot + total général HT + TVA + TTC</li>
+    <li>Les conditions de règlement, délais, validité du devis</li>
+    <li>Une formulation professionnelle des libellés techniques</li>
+  </ul>
+
+  <div class="prompt-box">
+    <div class="prompt-label">Exemple de prompt — Génération de devis</div>
+    <p>Voici les éléments pour établir un devis d'agencement bureau :
+- Fourniture et pose d'un caisson bas 600×600×870 mm, 4 portes MDF laqué blanc : 3 unités à 320 € HT l'unité
+- Fourniture et pose plan de travail stratifié gris 3000×600×38 mm : 1 unité à 280 € HT
+- Fourniture et pose colonne 600×600×2200 mm avec 4 tablettes : 1 unité à 480 € HT
+- Main d'oeuvre pose agencement, forfait : 6 heures à 48 €/h HT
+
+Structure ces éléments sous forme de devis professionnel avec désignation, quantité, PU HT, montant HT. Calcule le total HT, la TVA 20% et le TTC.</p>
+  </div>
+
+  <h3>Limites à connaître</h3>
+
+  <div class="warning">
+    <div class="tip-icon">⚠️</div>
+    <p><strong>L'IA ne connaît pas tes prix :</strong> Elle ne peut pas deviner les tarifs de tes fournisseurs ni tes coefficients de marge. Tu dois lui fournir les données. Elle structure et calcule — la donnée de base vient de toi.</p>
+  </div>
+
+  <div class="warning">
+    <div class="tip-icon">⚠️</div>
+    <p><strong>Toujours vérifier les montants :</strong> Même si l'IA calcule bien, relis chaque ligne du devis. Une faute de frappe dans les données que tu fournis donne un résultat faux mais "beau". Un devis envoyé avec une erreur de prix, c'est toi qui portes la responsabilité.</p>
+  </div>
+</div>
+
+<!-- 7.4 — LISTES DE DÉBIT -->
+<div id="p7-debit" class="section band blue-accent">
+  <div class="section-tag">7.4</div>
+  <h2>Utiliser l'IA pour optimiser ses listes de débit</h2>
+
+  <p>La liste de débit est un document critique — une erreur coûte cher. L'IA peut t'aider à la <strong>vérifier, enrichir et structurer</strong>.</p>
+
+  <h3>Ce que l'IA peut faire sur une liste de débit</h3>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-icon">🔍</div>
+      <h4>Vérification des incohérences</h4>
+      <p>Détecter des pièces dont les dimensions ne sont pas compatibles avec un panneau standard, ou des pièces en double.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📏</div>
+      <h4>Ajout des marges de délignage</h4>
+      <p>Si tu oublies d'ajouter 5 mm pour le délignage sur certaines pièces, l'IA peut le signaler et recalculer.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📊</div>
+      <h4>Regroupement par matière</h4>
+      <p>Organiser la liste par type de matière (mélaminé blanc, mélaminé chêne, CP, MDF…) pour faciliter la commande.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚖️</div>
+      <h4>Calcul de masse pour livraison</h4>
+      <p>En donnant la densité de la matière, l'IA peut estimer le poids total du lot — utile pour prévoir le transport et la pose.</p>
+    </div>
+  </div>
+
+  <div class="prompt-box">
+    <div class="prompt-label">Exemple de prompt — Vérification liste de débit</div>
+    <p>Voici ma liste de débit pour un dressing. Vérifie :
+1. Que toutes les pièces rentrent dans un panneau 2800×2070 mm (pas de pièce trop grande)
+2. S'il y a des pièces en double avec des noms différents
+3. Le total de surface en m² pour chaque matière
+4. Le nombre minimum de panneaux nécessaires pour chaque matière
+
+Liste :
+- CL001 : 2× côté 2200×580 mm (mélaminé blanc)
+- CL002 : 4× tablette 880×560 mm (mélaminé blanc)
+- CL003 : 1× fond 2200×900 mm (CP 8 mm)
+- CL004 : 2× côté intermédiaire 2200×290 mm (mélaminé blanc)
+- CL005 : 2× tablette 880×275 mm (mélaminé blanc)</p>
+  </div>
+</div>
+
+<!-- 7.5 — LIMITES IA -->
+<div id="p7-limites" class="section blue-accent">
+  <div class="section-tag">7.5</div>
+  <h2>Les limites de l'IA</h2>
+
+  <div class="def-box red">
+    <div class="def-label">Principe fondamental</div>
+    <p>L'IA amplifie ce que tu sais faire. Si tu ne comprends pas le calcul, tu ne pourras pas détecter une erreur de l'IA. Elle te donne confiance à tort et tu livres un dossier faux.</p>
+  </div>
+
+  <h3>Ce que l'IA ne sait pas faire (et ne fera jamais)</h3>
+
+  <ul class="styled">
+    <li>Connaître la réalité du chantier (contraintes de place, matériaux locaux, habitudes de l'atelier)</li>
+    <li>Négocier avec un fournisseur, juger la qualité d'un matériau, lire un plan physique</li>
+    <li>S'engager juridiquement sur un devis ou un délai</li>
+    <li>Remplacer le regard expérimenté d'un conducteur de travaux sur le terrain</li>
+    <li>Inventer les données que tu ne lui fournis pas (elle fait des hypothèses qui peuvent être fausses)</li>
+  </ul>
+
+  <h3>Les erreurs typiques de l'IA sur les calculs métier</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Type d'erreur IA</th>
+          <th>Comment elle se produit</th>
+          <th>Comment la détecter</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Confusion mm / cm / m</td>
+          <td>Si tu mélanges les unités dans ta demande, l'IA peut faire une erreur de conversion silencieuse</td>
+          <td>Toujours indiquer l'unité explicitement sur chaque dimension</td>
+        </tr>
+        <tr>
+          <td>Oubli du trait de scie</td>
+          <td>Par défaut, l'IA peut ne pas tenir compte du kerf si tu ne le précises pas</td>
+          <td>Toujours préciser "trait de scie de X mm" dans ta demande</td>
+        </tr>
+        <tr>
+          <td>Arrondi défavorable</td>
+          <td>L'IA peut arrondir à l'inférieur plutôt qu'au supérieur pour le nombre de panneaux</td>
+          <td>Vérifier manuellement la logique d'arrondi</td>
+        </tr>
+        <tr>
+          <td>Mauvaise hypothèse de format</td>
+          <td>Si tu ne précises pas le format de panneau, l'IA choisit un format standard qui n'est peut-être pas le tien</td>
+          <td>Toujours préciser tes formats exacts</td>
+        </tr>
+        <tr>
+          <td>Hallucination de prix</td>
+          <td>Si tu demandes le coût sans donner les prix, l'IA peut inventer des tarifs "plausibles" mais faux</td>
+          <td>Ne jamais utiliser des prix générés par l'IA sans vérification fournisseur</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 7.6 — VÉRIFIER LES RÉSULTATS -->
+<div id="p7-verif" class="section band blue-accent">
+  <div class="section-tag">7.6</div>
+  <h2>Vérifier les résultats de l'IA</h2>
+
+  <p>Utiliser l'IA sans vérification, c'est comme utiliser une calculatrice sans jamais regarder si l'ordre de grandeur est cohérent. Le professionnel compétent <strong>sait juger le résultat</strong>.</p>
+
+  <h3>Les 3 niveaux de vérification</h3>
+
+  <div class="steps">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <strong>Vérification de l'ordre de grandeur</strong>
+        <p>Avant de lire le détail, pose-toi la question : "Est-ce que le résultat est dans l'ordre de grandeur attendu ?" Si tu commandes 20 panneaux pour une petite cuisine → quelque chose cloche.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <strong>Vérification d'un calcul représentatif</strong>
+        <p>Reprends 2 ou 3 lignes du tableau ou 2 ou 3 calculs du résultat et refais-les toi-même à la main ou sur calculatrice. Si ça concorde, le reste est probablement bon.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <strong>Vérification logique métier</strong>
+        <p>Le résultat a-t-il un sens dans la réalité du chantier ? Un taux de chute de 3% sur un projet complexe → suspect. Un devis inférieur au coût des matériaux → erreur.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="schema-wrap">
+    <div class="schema-title">Workflow — Utilisation saine de l'IA</div>
+    <svg width="100%" viewBox="0 0 640 120" style="max-width:640px;">
+      <rect x="10" y="30" width="110" height="50" fill="#1e2029" stroke="#3b82f650" stroke-width="1.5" rx="6"/>
+      <text x="65" y="54" fill="#e8eaf0" font-family="monospace" font-size="9" text-anchor="middle" font-weight="600">Tu comprends</text>
+      <text x="65" y="68" fill="#7c8097" font-family="monospace" font-size="9" text-anchor="middle">le calcul</text>
+      <polygon points="125,55 140,45 140,65" fill="#4a4f66"/>
+      <rect x="145" y="30" width="110" height="50" fill="#1e2029" stroke="#3b82f650" stroke-width="1.5" rx="6"/>
+      <text x="200" y="54" fill="#e8eaf0" font-family="monospace" font-size="9" text-anchor="middle" font-weight="600">Tu demandes</text>
+      <text x="200" y="68" fill="#7c8097" font-family="monospace" font-size="9" text-anchor="middle">à l'IA</text>
+      <polygon points="260,55 275,45 275,65" fill="#4a4f66"/>
+      <rect x="280" y="30" width="110" height="50" fill="#1e2029" stroke="#3b82f650" stroke-width="1.5" rx="6"/>
+      <text x="335" y="54" fill="#e8eaf0" font-family="monospace" font-size="9" text-anchor="middle" font-weight="600">Tu lis le</text>
+      <text x="335" y="68" fill="#7c8097" font-family="monospace" font-size="9" text-anchor="middle">résultat</text>
+      <polygon points="395,55 410,45 410,65" fill="#4a4f66"/>
+      <rect x="415" y="30" width="110" height="50" fill="#1e2029" stroke="#10b98150" stroke-width="1.5" rx="6"/>
+      <text x="470" y="54" fill="#10b981" font-family="monospace" font-size="9" text-anchor="middle" font-weight="600">Tu VÉRIFIES</text>
+      <text x="470" y="68" fill="#7c8097" font-family="monospace" font-size="9" text-anchor="middle">par toi-même</text>
+      <polygon points="530,55 545,45 545,65" fill="#4a4f66"/>
+      <rect x="550" y="30" width="80" height="50" fill="#1e2029" stroke="#10b98150" stroke-width="1.5" rx="6"/>
+      <text x="590" y="54" fill="#10b981" font-family="monospace" font-size="9" text-anchor="middle" font-weight="600">Tu utilises</text>
+      <text x="590" y="68" fill="#7c8097" font-family="monospace" font-size="9" text-anchor="middle">le résultat</text>
+      <!-- Label CRITIQUE -->
+      <rect x="415" y="90" width="110" height="20" fill="#10b98110" rx="4"/>
+      <text x="470" y="104" fill="#10b981" font-family="monospace" font-size="8" text-anchor="middle">Étape non négociable</text>
+    </svg>
+  </div>
+</div>
+
+<!-- 7.7 — GAGNER DU TEMPS -->
+<div id="p7-temps" class="section blue-accent">
+  <div class="section-tag">7.7</div>
+  <h2>Gagner du temps sans perdre la maîtrise</h2>
+
+  <p>L'objectif final est de <strong>travailler plus vite et mieux</strong> — pas de déléguer ta réflexion à une machine. Voici comment trouver le bon équilibre.</p>
+
+  <h3>Ce que tu confies à l'IA</h3>
+
+  <ul class="styled">
+    <li>Les calculs répétitifs que tu sais faire mais qui prennent du temps (Σ surfaces, conversions, arrondis)</li>
+    <li>La mise en forme d'un document (structurer un devis, reformuler une désignation)</li>
+    <li>La génération de formules Excel que tu comprendras et vérifieras</li>
+    <li>La relecture d'une liste de débit pour détecter les erreurs évidentes</li>
+    <li>La recherche d'informations (normes, dimensions standard, processus)</li>
+  </ul>
+
+  <h3>Ce que tu gardes pour toi</h3>
+
+  <ul class="styled">
+    <li>Le jugement final sur un devis avant envoi au client</li>
+    <li>La validation d'un plan de coupe avant lancement en atelier</li>
+    <li>Toute décision qui engage ta responsabilité professionnelle</li>
+    <li>La relation client et la compréhension des besoins réels</li>
+    <li>L'adaptation aux contraintes terrain non formalisables</li>
+  </ul>
+
+  <h3>Routine efficace — Conducteur de travaux en agencement</h3>
+
+  <div class="flow">
+    <div class="flow-item gold">
+      <strong>Réception du dossier client</strong>
+      <span>Plans + cahier des charges → tu lis et comprends tout</span>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-item">
+      <strong>Établir la liste de débit manuellement</strong>
+      <span>Relever les dimensions sur les plans, noter chaque pièce</span>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-item blue2">
+      <strong>IA — Vérification et calcul des quantités</strong>
+      <span>Coller la liste dans Claude pour vérifier les totaux et surfaces</span>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-item">
+      <strong>Logiciel de calepinage</strong>
+      <span>Optimiser la découpe, obtenir le nombre exact de panneaux</span>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-item blue2">
+      <strong>IA — Structure du devis</strong>
+      <span>Donner les données à Claude pour structurer le devis HT/TTC</span>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-item green2">
+      <strong>Vérification et validation par toi</strong>
+      <span>Relire chaque ligne, vérifier les totaux, contrôler la marge</span>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-item gold">
+      <strong>Envoi au client</strong>
+      <span>Tu signes — tu assumes — tu maîtrises</span>
+    </div>
+  </div>
+
+  <div class="def-box purple">
+    <div class="def-label">À retenir pour le BTS ERA et ta carrière</div>
+    <p>Un conducteur de travaux qui utilise l'IA intelligemment peut traiter <strong>2 à 3 fois plus de projets</strong> qu'un collègue qui travaille encore entièrement à la main. Mais ce gain de vitesse ne vaut que si la qualité reste impeccable. L'IA est ton copilote — toi, tu restes aux commandes.</p>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-value" style="color:var(--accent2)">×3</div>
+      <div class="stat-label">Vitesse de rédaction d'un devis avec IA vs sans</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" style="color:var(--accent3)">−80%</div>
+      <div class="stat-label">Erreurs de calcul quand on vérifie avec l'IA</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" style="color:var(--accent1)">100%</div>
+      <div class="stat-label">Ta responsabilité sur les documents envoyés</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     FOOTER
+══════════════════════════════ -->
+<footer class="footer">
+  <p>BTS ERA — Parties 6 & 7 / Cours de préparation / Kylian — Compagnons du Tour de France</p>
+  <p style="margin-top:8px; color: #2a2d3a">Optimisation &amp; Calepinage · Utiliser l'IA Intelligemment</p>
+</footer>
+
+</body>
+</html>

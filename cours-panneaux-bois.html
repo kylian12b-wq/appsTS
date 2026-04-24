@@ -1,0 +1,2353 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cours Complet — Panneaux & Bois Massif</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&family=Fraunces:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0c0e;
+    --bg2: #111114;
+    --bg3: #18181d;
+    --bg4: #1f1f27;
+    --border: #2a2a35;
+    --border2: #35354a;
+    --text: #e8e8f0;
+    --muted: #7a7a9a;
+    --accent: #c8a96e;
+    --accent2: #8b6f3e;
+    --accent3: #e8c484;
+    --green: #4ecb8a;
+    --blue: #5b8df5;
+    --red: #e05c6a;
+    --purple: #9b7fe8;
+    --orange: #e87f3a;
+    --radius: 8px;
+    --radius2: 14px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .site-header {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    height: 60px;
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  .nav {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+  }
+
+  .nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: 6px;
+    white-space: nowrap;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+  }
+
+  .nav a:hover {
+    color: var(--text);
+    background: var(--bg3);
+    border-color: var(--border);
+  }
+
+  /* LAYOUT */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 32px;
+  }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: 80px 0 60px;
+    position: relative;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 300px;
+    background: radial-gradient(ellipse, rgba(200,169,110,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent2);
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(36px, 5vw, 62px);
+    line-height: 1.05;
+    margin-bottom: 20px;
+    color: var(--text);
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+  }
+
+  .hero p {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* PARTS NAV */
+  .parts-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 80px;
+  }
+
+  .part-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius2);
+    padding: 28px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .part-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+
+  .part-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .part-card:hover::after { transform: scaleX(1); }
+
+  .part-card .num {
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+
+  .part-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .part-card p { color: var(--muted); font-size: 12px; }
+
+  /* SECTION TITLES */
+  .part-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 48px;
+    padding-top: 60px;
+  }
+
+  .part-header .part-num {
+    font-family: 'Fraunces', serif;
+    font-size: 80px;
+    font-weight: 300;
+    color: var(--border2);
+    line-height: 1;
+    font-style: italic;
+  }
+
+  .part-header-text h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+  }
+
+  .part-header-text span {
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 64px;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent3);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-title::before {
+    content: '';
+    display: block;
+    width: 4px;
+    height: 20px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  /* MATERIAL CARDS */
+  .material-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  .mat-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius2);
+    padding: 24px;
+    transition: border-color 0.2s;
+  }
+
+  .mat-card:hover { border-color: var(--border2); }
+
+  .mat-card .mat-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .mat-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .mat-badge {
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  .badge-eco { background: rgba(78,203,138,0.1); color: var(--green); border: 1px solid rgba(78,203,138,0.2); }
+  .badge-tech { background: rgba(91,141,245,0.1); color: var(--blue); border: 1px solid rgba(91,141,245,0.2); }
+  .badge-resist { background: rgba(232,127,58,0.1); color: var(--orange); border: 1px solid rgba(232,127,58,0.2); }
+  .badge-struct { background: rgba(155,127,232,0.1); color: var(--purple); border: 1px solid rgba(155,127,232,0.2); }
+  .badge-brut { background: rgba(224,92,106,0.1); color: var(--red); border: 1px solid rgba(224,92,106,0.2); }
+
+  .mat-desc {
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  .mat-props {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .prop-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .prop-row:last-child { border-bottom: none; }
+
+  .prop-label { color: var(--muted); }
+
+  .prop-val { color: var(--text); font-weight: 500; }
+
+  .rating {
+    display: flex;
+    gap: 3px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border2);
+  }
+
+  .dot.filled { background: var(--accent); }
+  .dot.half { background: var(--accent2); }
+
+  /* SCHEMA BOXES */
+  .schema-box {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius2);
+    padding: 32px;
+    margin: 24px 0;
+    position: relative;
+  }
+
+  .schema-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  /* THICKNESS VIZ */
+  .thickness-viz {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+    padding: 20px 0;
+  }
+
+  .thick-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .thick-bar {
+    width: 50px;
+    background: var(--accent);
+    border-radius: 3px 3px 0 0;
+    transition: height 0.3s;
+    position: relative;
+  }
+
+  .thick-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent3);
+  }
+
+  .thick-use {
+    font-size: 10px;
+    color: var(--muted);
+    text-align: center;
+    max-width: 70px;
+    line-height: 1.3;
+  }
+
+  /* TABLES */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 20px 0;
+    border-radius: var(--radius2);
+    border: 1px solid var(--border);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  thead {
+    background: var(--bg4);
+    border-bottom: 1px solid var(--border);
+  }
+
+  th {
+    padding: 12px 16px;
+    text-align: left;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .td-good { color: var(--green); }
+  .td-bad { color: var(--red); }
+  .td-mid { color: var(--orange); }
+  .td-neutral { color: var(--muted); }
+
+  /* INFO BOXES */
+  .info-box {
+    background: rgba(200,169,110,0.06);
+    border: 1px solid rgba(200,169,110,0.15);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-size: 13px;
+    color: var(--text);
+  }
+
+  .info-box.blue {
+    background: rgba(91,141,245,0.06);
+    border-color: rgba(91,141,245,0.15);
+    border-left-color: var(--blue);
+  }
+
+  .info-box.green {
+    background: rgba(78,203,138,0.06);
+    border-color: rgba(78,203,138,0.15);
+    border-left-color: var(--green);
+  }
+
+  .info-box.red {
+    background: rgba(224,92,106,0.06);
+    border-color: rgba(224,92,106,0.15);
+    border-left-color: var(--red);
+  }
+
+  .info-box strong {
+    color: var(--accent3);
+    display: block;
+    margin-bottom: 6px;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* GRID LAYOUTS */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+  /* BRAND CARDS */
+  .brand-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius2);
+    padding: 22px;
+  }
+
+  .brand-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .brand-country {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .brand-gammes {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .gamme-item {
+    font-size: 11px;
+    color: var(--text);
+    display: flex;
+    gap: 8px;
+  }
+
+  .gamme-item::before {
+    content: '→';
+    color: var(--accent2);
+    flex-shrink: 0;
+  }
+
+  /* HUMIDITY CLASSES */
+  .humid-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .humid-card {
+    border-radius: var(--radius2);
+    padding: 20px;
+    border: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .humid-card.sec { background: rgba(78,203,138,0.06); border-color: rgba(78,203,138,0.2); }
+  .humid-card.humide { background: rgba(91,141,245,0.06); border-color: rgba(91,141,245,0.2); }
+  .humid-card.ext { background: rgba(155,127,232,0.06); border-color: rgba(155,127,232,0.2); }
+
+  .humid-class {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+
+  .humid-card.sec .humid-class { color: var(--green); }
+  .humid-card.humide .humid-class { color: var(--blue); }
+  .humid-card.ext .humid-class { color: var(--purple); }
+
+  .humid-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .humid-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+  /* CHECKLIST */
+  .checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 16px 0;
+  }
+
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--text);
+  }
+
+  .check-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(78,203,138,0.15);
+    border: 1px solid rgba(78,203,138,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--green);
+    font-size: 11px;
+  }
+
+  .check-icon.warn { background: rgba(232,127,58,0.15); border-color: rgba(232,127,58,0.3); color: var(--orange); }
+  .check-icon.bad { background: rgba(224,92,106,0.15); border-color: rgba(224,92,106,0.3); color: var(--red); }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 48px 0;
+  }
+
+  /* FICHE RECAP */
+  .recap-header {
+    background: linear-gradient(135deg, var(--bg3), var(--bg4));
+    border: 1px solid var(--border2);
+    border-radius: var(--radius2);
+    padding: 24px 32px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .recap-icon {
+    font-size: 32px;
+  }
+
+  .recap-header h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .recap-header p {
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  /* PROJECT USE CARDS */
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .project-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius2);
+    padding: 18px;
+  }
+
+  .project-type {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent3);
+  }
+
+  .project-reco {
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .project-reco span { display: flex; gap: 6px; }
+  .project-reco span::before { content: '▸'; color: var(--accent); }
+
+  /* ESSENCE CARDS */
+  .essence-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius2);
+    padding: 24px;
+    border-top: 3px solid var(--border);
+    transition: all 0.2s;
+  }
+
+  .essence-card:hover { border-top-color: var(--accent); }
+
+  .essence-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .essence-latin {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  .essence-props {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .eprop {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .eprop:last-child { border-bottom: none; }
+  .eprop-k { color: var(--muted); }
+  .eprop-v { color: var(--text); font-weight: 500; }
+
+  .dureté-bar {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+  }
+
+  .db { width: 12px; height: 6px; border-radius: 2px; background: var(--border2); }
+  .db.on { background: var(--accent); }
+
+  /* PRICE TAG */
+  .price-range {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .euro { font-size: 12px; color: var(--accent); }
+  .euro.grey { color: var(--border2); }
+
+  /* DEFAUTS */
+  .defaut-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+  }
+
+  .defaut-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+  }
+
+  .defaut-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+
+  .defaut-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+  /* SECHAGE VIZ */
+  .sechage-steps {
+    display: flex;
+    gap: 0;
+    margin: 20px 0;
+    overflow-x: auto;
+  }
+
+  .sechage-step {
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+    position: relative;
+    padding: 20px 12px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    margin-right: -1px;
+  }
+
+  .sechage-step:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+  .sechage-step:last-child { border-radius: 0 var(--radius) var(--radius) 0; margin-right: 0; }
+
+  .sechage-pct {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .sechage-label { font-size: 11px; color: var(--muted); }
+
+  /* FOOTER */
+  .site-footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 40px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 80px;
+  }
+
+  .scroll-top {
+    display: inline-block;
+    margin-top: 16px;
+    color: var(--accent);
+    cursor: pointer;
+    text-decoration: none;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius2);
+    padding: 28px;
+    margin-bottom: 60px;
+  }
+
+  .toc-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+
+  .toc-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 32px;
+  }
+
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text);
+    text-decoration: none;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--accent); }
+  .toc-item .toc-num { color: var(--muted); font-size: 11px; min-width: 24px; }
+
+  @media (max-width: 768px) {
+    .container { padding: 32px 16px; }
+    .two-col, .three-col, .toc-list, .parts-nav { grid-template-columns: 1fr; }
+    .material-grid { grid-template-columns: 1fr; }
+    .humid-grid { grid-template-columns: 1fr; }
+    .site-header { padding: 0 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER NAV -->
+<header class="site-header">
+  <div class="logo">🪵 BOISLAB</div>
+  <nav class="nav">
+    <a href="#panneaux">Panneaux & Matériaux</a>
+    <a href="#epaisseurs">Épaisseurs</a>
+    <a href="#formats">Formats</a>
+    <a href="#humidite">Classes d'humidité</a>
+    <a href="#marques">Marques</a>
+    <a href="#fiche-technique">Fiche technique</a>
+    <a href="#bois-massif">Bois massif</a>
+    <a href="#essences">Essences</a>
+    <a href="#sechage">Séchage</a>
+    <a href="#defauts">Défauts</a>
+    <a href="#fiches">Fiches récap</a>
+  </nav>
+</header>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="badge">Cours Professionnel — Menuiserie & Agencement</div>
+    <h1>Panneaux &<br><em>Bois Massif</em></h1>
+    <p>Cours complet pour maîtriser les matériaux, choisir les bonnes épaisseurs, lire les fiches techniques et comprendre les essences de bois.</p>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc">
+    <div class="toc-title">Sommaire</div>
+    <div class="toc-list">
+      <a href="#panneaux" class="toc-item"><span class="toc-num">01</span>Les 6 types de panneaux</a>
+      <a href="#bois-massif" class="toc-item"><span class="toc-num">06</span>Le bois massif</a>
+      <a href="#epaisseurs" class="toc-item"><span class="toc-num">02</span>Épaisseurs & usages</a>
+      <a href="#essences" class="toc-item"><span class="toc-num">07</span>Les essences principales</a>
+      <a href="#formats" class="toc-item"><span class="toc-num">03</span>Formats standards</a>
+      <a href="#sechage" class="toc-item"><span class="toc-num">08</span>Séchage du bois</a>
+      <a href="#humidite" class="toc-item"><span class="toc-num">04</span>Classes d'humidité</a>
+      <a href="#defauts" class="toc-item"><span class="toc-num">09</span>Défauts du bois</a>
+      <a href="#marques" class="toc-item"><span class="toc-num">05</span>Grandes marques</a>
+      <a href="#fiches" class="toc-item"><span class="toc-num">10</span>Fiches récapitulatives</a>
+    </div>
+  </div>
+
+  <!-- ======== PARTIE 1 ======== -->
+  <div class="part-header" id="panneaux">
+    <div class="part-num">01</div>
+    <div class="part-header-text">
+      <h2>Panneaux & Matériaux</h2>
+      <span>Mélaminé, MDF, contreplaqué, aggloméré, OSB, medium — tout comprendre</span>
+    </div>
+  </div>
+
+  <!-- 6 MATÉRIAUX -->
+  <div class="section">
+    <div class="section-title">Les 6 types de panneaux dérivés du bois</div>
+
+    <div class="info-box">
+      <strong>Principe de base</strong>
+      Les panneaux dérivés du bois sont fabriqués à partir de fibres, de copeaux ou de placages de bois assemblés avec des liants (colles, résines). Chaque type offre des propriétés mécaniques, esthétiques et de résistance différentes selon sa fabrication.
+    </div>
+
+    <div class="material-grid">
+
+      <!-- MELAMINE -->
+      <div class="mat-card">
+        <div class="mat-header">
+          <div class="mat-name">Mélaminé</div>
+          <span class="mat-badge badge-tech">Revêtu</span>
+        </div>
+        <div class="mat-desc">
+          Ce n'est pas un matériau en soi, mais un traitement de surface. Une âme en aggloméré ou MDF est recouverte d'un papier décor imprégné de résine mélamine, puis pressé à chaud. Il représente la grande majorité des panneaux utilisés en menuiserie d'agencement.
+        </div>
+        <div class="mat-props">
+          <div class="prop-row">
+            <span class="prop-label">Âme</span>
+            <span class="prop-val">Aggloméré ou MDF</span>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Résistance mécanique</span>
+            <div class="rating">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div>
+            </div>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Résistance humidité</span>
+            <div class="rating">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+            </div>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Facilité d'usinage</span>
+            <div class="rating">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div>
+            </div>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Prix indicatif (19mm)</span>
+            <span class="prop-val">~15–35 €/m²</span>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Usages typiques</span>
+            <span class="prop-val">Cuisine, dressing, mobilier</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MDF -->
+      <div class="mat-card">
+        <div class="mat-header">
+          <div class="mat-name">MDF</div>
+          <span class="mat-badge badge-eco">Fibres</span>
+        </div>
+        <div class="mat-desc">
+          Medium Density Fiberboard — panneau de fibres de bois (résidu de scierie) agglomérées avec de la résine urée-formaldéhyde sous haute pression et température. Surface parfaitement lisse, sans grain, idéale pour la peinture. Homogène à cœur, le chant s'usine aussi bien que la face.
+        </div>
+        <div class="mat-props">
+          <div class="prop-row">
+            <span class="prop-label">Densité</span>
+            <span class="prop-val">650–800 kg/m³</span>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Résistance mécanique</span>
+            <div class="rating">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div>
+            </div>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Résistance humidité</span>
+            <div class="rating">
+              <div class="dot filled"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+            </div>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Facilité d'usinage</span>
+            <div class="rating">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+            </div>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Prix indicatif (19mm)</span>
+            <span class="prop-val">~10–22 €/m²</span>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Usages typiques</span>
+            <span class="prop-val">Façades peintes, profilés, fraisage CNC</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTREPLAQUE -->
+      <div class="mat-card">
+        <div class="mat-header">
+          <div class="mat-name">Contreplaqué</div>
+          <span class="mat-badge badge-resist">Structurel</span>
+        </div>
+        <div class="mat-desc">
+          Assemblage de feuilles de bois déroulé (plis) collées en alternant le sens des fibres à 90°. Cette structure croisée lui confère une excellente résistance mécanique et une grande stabilité dimensionnelle. Disponible en différentes qualités de face (BB, CP, B/BB…).
+        </div>
+        <div class="mat-props">
+          <div class="prop-row">
+            <span class="prop-label">Structure</span>
+            <span class="prop-val">Plis croisés (3, 5, 7, 9…)</span>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Résistance mécanique</span>
+            <div class="rating">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+            </div>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Résistance humidité</span>
+            <div class="rating">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div>
+            </div>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Rigidité</span>
+            <div class="rating">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+            </div>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Prix indicatif (18mm)</span>
+            <span class="prop-val">~20–55 €/m²</span>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Usages typiques</span>
+            <span class="prop-val">Fond de caisson, structure, plancher bateau</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- AGGLOMERE -->
+      <div class="mat-card">
+        <div class="mat-header">
+          <div class="mat-name">Aggloméré (PB)</div>
+          <span class="mat-badge badge-eco">Particules</span>
+        </div>
+        <div class="mat-desc">
+          Particleboard — fabriqué à partir de copeaux et de sciure de bois compressés avec de la résine. Les particules plus fines en surface donnent un aspect lisse, plus grossières au cœur pour la résistance. Matériau le plus économique, largement utilisé dans le mobilier de grande distribution.
+        </div>
+        <div class="mat-props">
+          <div class="prop-row">
+            <span class="prop-label">Densité</span>
+            <span class="prop-val">600–750 kg/m³</span>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Résistance mécanique</span>
+            <div class="rating">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+            </div>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Résistance humidité</span>
+            <div class="rating">
+              <div class="dot filled"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+            </div>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Tenue des vis</span>
+            <div class="rating">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+            </div>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Prix indicatif (19mm)</span>
+            <span class="prop-val">~8–18 €/m²</span>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Usages typiques</span>
+            <span class="prop-val">Mobilier intérieur sec, tablettes</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- OSB -->
+      <div class="mat-card">
+        <div class="mat-header">
+          <div class="mat-name">OSB</div>
+          <span class="mat-badge badge-struct">Structurel</span>
+        </div>
+        <div class="mat-desc">
+          Oriented Strand Board — grandes lamelles de bois orientées et croisées, collées avec des résines. L'aspect brut et caractéristique des lamelles apparentes lui donne un look industriel apprécié en architecture. Très résistant mécaniquement, utilisé en construction ossature bois.
+        </div>
+        <div class="mat-props">
+          <div class="prop-row">
+            <span class="prop-label">Structure</span>
+            <span class="prop-val">Lamelles croisées 3 couches</span>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Résistance mécanique</span>
+            <div class="rating">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div>
+            </div>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Résistance humidité</span>
+            <div class="rating">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div>
+            </div>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Aspect brut / design</span>
+            <div class="rating">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div>
+            </div>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Prix indicatif (18mm)</span>
+            <span class="prop-val">~10–20 €/m²</span>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Usages typiques</span>
+            <span class="prop-val">Construction, coffrage, loft design</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MEDIUM HDF -->
+      <div class="mat-card">
+        <div class="mat-header">
+          <div class="mat-name">HDF / Medium fin</div>
+          <span class="mat-badge badge-brut">Haute densité</span>
+        </div>
+        <div class="mat-desc">
+          High Density Fiberboard — version haute densité du MDF (> 800 kg/m³). Surface encore plus lisse et dure. Utilisé principalement en faible épaisseur pour les fonds de tiroir, lambris, panneaux de porte. Le terme "medium" désigne couramment le MDF standard en France.
+        </div>
+        <div class="mat-props">
+          <div class="prop-row">
+            <span class="prop-label">Densité</span>
+            <span class="prop-val">> 800 kg/m³</span>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Résistance mécanique</span>
+            <div class="rating">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div>
+            </div>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Épaisseurs courantes</span>
+            <span class="prop-val">3 / 5 / 6 mm</span>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Finition surface</span>
+            <div class="rating">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+            </div>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Prix indicatif (3mm)</span>
+            <span class="prop-val">~4–9 €/m²</span>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Usages typiques</span>
+            <span class="prop-val">Fond tiroir, dos armoire, lambris</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box blue" style="margin-top:24px;">
+      <strong>Différence MDF / Aggloméré — L'essentiel</strong>
+      Le MDF est fabriqué à partir de <em>fibres</em> (très fines), l'aggloméré à partir de <em>particules</em> (copeaux). Le MDF a une surface bien plus homogène et une meilleure tenue au fraisage. L'aggloméré est plus léger et moins cher. Pour peindre ou fraiser : MDF. Pour le budget : aggloméré.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- EPAISSEURS -->
+  <div class="section" id="epaisseurs">
+    <div class="section-title">Épaisseurs et leurs usages</div>
+
+    <div class="schema-box">
+      <div class="schema-title">Visualisation comparative des épaisseurs (proportionnelle)</div>
+      <div class="thickness-viz">
+        <div class="thick-item">
+          <div class="thick-bar" style="height:20px; background: rgba(91,141,245,0.6);"></div>
+          <div class="thick-label">3mm</div>
+          <div class="thick-use">Fond tiroir, dos armoire</div>
+        </div>
+        <div class="thick-item">
+          <div class="thick-bar" style="height:30px; background: rgba(91,141,245,0.65);"></div>
+          <div class="thick-label">5mm</div>
+          <div class="thick-use">Fond léger, HDF</div>
+        </div>
+        <div class="thick-item">
+          <div class="thick-bar" style="height:42px; background: rgba(200,169,110,0.6);"></div>
+          <div class="thick-label">8mm</div>
+          <div class="thick-use">Panneau décoratif, séparation</div>
+        </div>
+        <div class="thick-item">
+          <div class="thick-bar" style="height:65px; background: rgba(200,169,110,0.7);"></div>
+          <div class="thick-label">12mm</div>
+          <div class="thick-use">Petits caissons, tablettes légères</div>
+        </div>
+        <div class="thick-item">
+          <div class="thick-bar" style="height:100px; background: rgba(200,169,110,0.8);"></div>
+          <div class="thick-label">16mm</div>
+          <div class="thick-use">Caissons cuisine, dos de meuble</div>
+        </div>
+        <div class="thick-item">
+          <div class="thick-bar" style="height:130px; background: var(--accent);"></div>
+          <div class="thick-label">19mm</div>
+          <div class="thick-use">Standard universel, caissons, tablettes</div>
+        </div>
+        <div class="thick-item">
+          <div class="thick-bar" style="height:160px; background: rgba(232,127,58,0.8);"></div>
+          <div class="thick-label">22mm</div>
+          <div class="thick-use">Tablettes longues portée, plan de travail</div>
+        </div>
+        <div class="thick-item">
+          <div class="thick-bar" style="height:200px; background: rgba(224,92,106,0.7);"></div>
+          <div class="thick-label">25mm+</div>
+          <div class="thick-use">Plans de travail, pièces structurelles</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Épaisseur</th>
+            <th>Matériaux courants</th>
+            <th>Usage principal</th>
+            <th>Charge max approximative</th>
+            <th>Remarques</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--blue);">3 – 6 mm</td>
+            <td>HDF, contreplaqué</td>
+            <td>Fond de tiroir, dos d'armoire</td>
+            <td class="td-neutral">Charge nulle</td>
+            <td class="td-neutral">Uniquement structurel secondaire, jamais porteur</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--accent);">8 mm</td>
+            <td>MDF, contreplaqué</td>
+            <td>Panneaux décoratifs, cloisons légères</td>
+            <td class="td-neutral">Très faible</td>
+            <td class="td-neutral">Décoratif avant tout, faible rigidité</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--accent);">12 mm</td>
+            <td>MDF, aggloméré, CP</td>
+            <td>Petits caissons, façades légères</td>
+            <td class="td-mid">Légère</td>
+            <td class="td-neutral">Portée max ~50 cm sans déflexion</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--accent);">16 mm</td>
+            <td>Mélaminé, MDF, CP</td>
+            <td>Caissons cuisine bas et hauts</td>
+            <td class="td-mid">Moyenne</td>
+            <td class="td-neutral">Standard industrie cuisine. Portée max ~80 cm</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--green);">19 mm ★</td>
+            <td>Mélaminé, MDF, aggloméré</td>
+            <td>Usage universel : caissons, tablettes, dressings</td>
+            <td class="td-good">Bonne</td>
+            <td style="color:var(--green);">Standard professionnel le plus utilisé</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--orange);">22 mm</td>
+            <td>MDF, contreplaqué, massif</td>
+            <td>Tablettes longues portée, étagères bibliothèque</td>
+            <td class="td-mid">Élevée</td>
+            <td class="td-neutral">Portée jusqu'à 120 cm sans déflexion visible</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--red);">25 – 40 mm</td>
+            <td>Massif, CP multiplis, stratifié</td>
+            <td>Plans de travail, comptoirs, pièces maîtresses</td>
+            <td class="td-good">Très élevée</td>
+            <td class="td-neutral">Chants traités impérativement, poids important</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="info-box green">
+      <strong>Pourquoi le 19mm est le standard universel ?</strong>
+      Le 19mm offre le meilleur compromis résistance / poids / coût. Il correspond aux dimensions des ferrures de cuisine et dressing (charnières Blum, coulisses Grass…), qui sont calibrées pour cette épaisseur. Passer en dessous = perdre en résistance. Passer au-dessus = surcoût et poids inutiles dans la majorité des cas.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- FORMATS -->
+  <div class="section" id="formats">
+    <div class="section-title">Formats standards des panneaux</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Format (L × l)</th>
+            <th>Désignation courante</th>
+            <th>Matériaux disponibles</th>
+            <th>Marché cible</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;">2800 × 2070 mm</td>
+            <td>Format professionnel EU</td>
+            <td>Mélaminé, MDF, aggloméré</td>
+            <td class="td-good">Professionnel principal</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;">2440 × 1220 mm</td>
+            <td>Format UK / contreplaqué</td>
+            <td>Contreplaqué, OSB, MDF</td>
+            <td class="td-neutral">Construction, CP import</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;">2500 × 1250 mm</td>
+            <td>Format standard international</td>
+            <td>Aggloméré, mélaminé, MDF</td>
+            <td class="td-neutral">Grande distribution</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;">3660 × 1830 mm</td>
+            <td>Grand format jumbo</td>
+            <td>Contreplaqué, OSB, MDF</td>
+            <td class="td-neutral">Chantier, structure</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;">2100 × 600 mm</td>
+            <td>Demi-panneau coupé</td>
+            <td>Mélaminé, MDF</td>
+            <td class="td-neutral">Bricolage, dépannage</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;">2800 × 2100 mm</td>
+            <td>Format long pro</td>
+            <td>Mélaminé Egger/Unilin</td>
+            <td class="td-neutral">Portes hautes, façades</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="info-box">
+      <strong>Astuce de débit</strong>
+      Le format 2800×2070 mm est le plus courant chez les négoces. Pour optimiser votre débit, planifiez vos coupes en tenant compte des chutes. Un panneau de 2800×2070 permet de débiter : 4 pièces de 700×2070 mm, ou 3 étagères de 600×2070 mm avec une chute utile. Toujours prévoir 5–10 mm de perte par coupe scie.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- HUMIDITE -->
+  <div class="section" id="humidite">
+    <div class="section-title">Classes d'humidité — Choisir le bon panneau</div>
+
+    <div class="humid-grid">
+      <div class="humid-card sec">
+        <div class="humid-class">E1</div>
+        <div class="humid-title">Intérieur sec</div>
+        <div class="humid-desc">
+          Ambiance sèche &lt;65% HR. Pièces à vivre, bureaux, dressings, chambres. Aggloméré et MDF standard suffisent. Toute la gamme de mélaminés classiques.
+        </div>
+      </div>
+      <div class="humid-card humide">
+        <div class="humid-class">P3 / CT</div>
+        <div class="humid-title">Intérieur humide</div>
+        <div class="humid-desc">
+          Cuisine, salle de bain, buanderie. HR jusqu'à 85%. Utiliser MDF hydro (vert), aggloméré hydrofuge (teinte verte à cœur), ou contreplaqué WBP/CTB-X.
+        </div>
+      </div>
+      <div class="humid-card ext">
+        <div class="humid-class">EXT</div>
+        <div class="humid-title">Extérieur</div>
+        <div class="humid-desc">
+          Exposition pluie, froid, UV. Contreplaqué Okoumé WBP ou maritime, OSB3/4 encollé phénolique, bois massif traité classe 3 ou 4.
+        </div>
+      </div>
+    </div>
+
+    <div class="schema-box">
+      <div class="schema-title">Repères visuels sur les panneaux hydrofuges</div>
+      <div class="checklist">
+        <div class="check-item">
+          <div class="check-icon">✓</div>
+          <span><strong>MDF Hydro :</strong> teinte verte caractéristique à cœur — visible à la coupe. Résine mélamine ajoutée. Épaisseurs : 9, 12, 16, 19, 22 mm.</span>
+        </div>
+        <div class="check-item">
+          <div class="check-icon">✓</div>
+          <span><strong>Aggloméré P3 :</strong> particules avec additifs hydrofuges — teinte légèrement verdâtre. Gonflement limité à 8% (contre 15% pour le standard).</span>
+        </div>
+        <div class="check-item">
+          <div class="check-icon">✓</div>
+          <span><strong>Contreplaqué CTB-X / WBP :</strong> collage à la résine phénolique (imperméable à l'eau bouillante). Mention obligatoire sur l'étiquette.</span>
+        </div>
+        <div class="check-item">
+          <div class="check-icon warn">!</div>
+          <span>Un mélaminé "cuisine" ne signifie pas que le panneau est hydrofuge — il s'agit du décor. Vérifier l'âme du panneau.</span>
+        </div>
+        <div class="check-item">
+          <div class="check-icon bad">✗</div>
+          <span>N'utiliser jamais un aggloméré standard (P2) ou MDF standard en zone humide — ils gonflent et se délitent rapidement.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- MARQUES -->
+  <div class="section" id="marques">
+    <div class="section-title">Les grandes marques européennes</div>
+
+    <div class="three-col">
+      <div class="brand-card">
+        <div class="brand-name">EGGER</div>
+        <div class="brand-country">🇦🇹 Autriche — Leader mondial</div>
+        <div class="brand-gammes">
+          <div class="gamme-item"><strong>Eurodekor</strong> — gamme standard mélaminé, + de 200 décors</div>
+          <div class="gamme-item"><strong>DecoBoard</strong> — décors tendance avec matière, Feelwood</div>
+          <div class="gamme-item"><strong>Performance</strong> — panneaux techniques et structurels</div>
+          <div class="gamme-item"><strong>DHF</strong> — panneaux pour la construction</div>
+          <div class="gamme-item">✦ Référence en termes de constance couleur et qualité de surface</div>
+          <div class="gamme-item">✦ Catalogue de couleurs harmonisé avec ABS disponible</div>
+        </div>
+      </div>
+
+      <div class="brand-card">
+        <div class="brand-name">KRONOSPAN</div>
+        <div class="brand-country">🇦🇹 Autriche — Très grande capacité</div>
+        <div class="brand-gammes">
+          <div class="gamme-item"><strong>Kronodesign</strong> — mélaminés décors bois et unis</div>
+          <div class="gamme-item"><strong>Kronofix</strong> — panneaux de construction</div>
+          <div class="gamme-item"><strong>Cleanboard</strong> — panneaux antibactériens</div>
+          <div class="gamme-item"><strong>Fibreboard</strong> — gamme MDF et HDF</div>
+          <div class="gamme-item">✦ Prix plus compétitifs qu'Egger sur les standards</div>
+          <div class="gamme-item">✦ Très large réseau de distribution européen</div>
+        </div>
+      </div>
+
+      <div class="brand-card">
+        <div class="brand-name">UNILIN</div>
+        <div class="brand-country">🇧🇪 Belgique — Innovation surface</div>
+        <div class="brand-gammes">
+          <div class="gamme-item"><strong>Evola</strong> — mélaminés haut de gamme, surfaces spéciales</div>
+          <div class="gamme-item"><strong>SupraGloss</strong> — surfaces ultra-brillantes laquées</div>
+          <div class="gamme-item"><strong>Structurés</strong> — textures synchronisées avec décor</div>
+          <div class="gamme-item"><strong>Moisture resistant</strong> — gamme humide performante</div>
+          <div class="gamme-item">✦ Spécialiste des surfaces premium et effets matière</div>
+          <div class="gamme-item">✦ Finitions synchronisées (texture = décor visuel)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="three-col" style="margin-top:16px;">
+      <div class="brand-card">
+        <div class="brand-name">SONAE</div>
+        <div class="brand-country">🇵🇹 Portugal — Bon rapport Q/P</div>
+        <div class="brand-gammes">
+          <div class="gamme-item"><strong>Innovus</strong> — mélaminés et surfaces décoratives</div>
+          <div class="gamme-item"><strong>Glunz</strong> — MDF et panneaux fibres (filiale)</div>
+          <div class="gamme-item">✦ Présence forte sur le marché sud-européen</div>
+          <div class="gamme-item">✦ Gamme MDF étendue en plusieurs densités</div>
+        </div>
+      </div>
+
+      <div class="brand-card">
+        <div class="brand-name">PFLEIDERER</div>
+        <div class="brand-country">🇩🇪 Allemagne — Qualité allemande</div>
+        <div class="brand-gammes">
+          <div class="gamme-item"><strong>Duropal</strong> — stratifiés compact HPL</div>
+          <div class="gamme-item"><strong>Q-Design</strong> — mélaminés décors exclusifs</div>
+          <div class="gamme-item">✦ Référence pour les stratifiés compact plans de travail</div>
+          <div class="gamme-item">✦ Marque premium avec finitions ultra-mates</div>
+        </div>
+      </div>
+
+      <div class="brand-card">
+        <div class="brand-name">FINSA</div>
+        <div class="brand-country">🇪🇸 Espagne — MDF spécialiste</div>
+        <div class="brand-gammes">
+          <div class="gamme-item"><strong>MDF Standard</strong> — MDF nu économique</div>
+          <div class="gamme-item"><strong>Superpan</strong> — panneaux de particules</div>
+          <div class="gamme-item"><strong>Finsa Hydro</strong> — gamme humide</div>
+          <div class="gamme-item">✦ Excellent rapport qualité-prix sur le MDF nu</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>Comment comparer les fournisseurs ?</strong>
+      Au-delà de la marque, comparer sur : prix au m² livré (HT), délai de livraison, stock disponible, MOQ (minimum de commande), qualité de coupe proposée, gamme de chants ABS assortis, SAV et reprise des malfaçons. Un négoce local fiable vaut souvent plus qu'un grand fabricant lointain.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- FICHE TECHNIQUE -->
+  <div class="section" id="fiche-technique">
+    <div class="section-title">Comment lire une fiche technique fournisseur</div>
+
+    <div class="schema-box">
+      <div class="schema-title">Structure d'une fiche technique type — Panneau mélaminé 19mm</div>
+      <div class="table-wrap" style="margin:0; border-radius:var(--radius);">
+        <table>
+          <thead>
+            <tr>
+              <th>Rubrique fiche</th>
+              <th>Ce qu'il faut chercher</th>
+              <th>Valeur de référence</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Désignation produit</strong></td>
+              <td>Âme (P2, P3, MDF, CP) + revêtement (mélamine, HPL, vernis)</td>
+              <td>Ex : "Panneau P2 mélaminé 2 faces E1"</td>
+            </tr>
+            <tr>
+              <td><strong>Norme</strong></td>
+              <td>EN 312 (particules), EN 622 (fibres), EN 636 (CP)</td>
+              <td>Type P2 = usage intérieur sec standard</td>
+            </tr>
+            <tr>
+              <td><strong>Classe E / émission</strong></td>
+              <td>Taux de formaldéhyde (E1, E0.5, CARB)</td>
+              <td>E1 = standard EU. E0.5 ou NF = plus sain</td>
+            </tr>
+            <tr>
+              <td><strong>Module d'élasticité (E)</strong></td>
+              <td>Rigidité en flexion en MPa</td>
+              <td>&gt; 2500 MPa = bon. Aggloméré : ~1600 MPa</td>
+            </tr>
+            <tr>
+              <td><strong>Résistance à la traction ⊥</strong></td>
+              <td>Cohésion interne du panneau</td>
+              <td>P2 = min 0.35 N/mm²</td>
+            </tr>
+            <tr>
+              <td><strong>Gonflement 24h</strong></td>
+              <td>% d'épaisseur gagné après immersion 24h</td>
+              <td>P2 = max 15%. P3 hydro = max 8%</td>
+            </tr>
+            <tr>
+              <td><strong>Masse surfacique</strong></td>
+              <td>Poids en kg/m² à l'épaisseur indiquée</td>
+              <td>Aggloméré 19mm ≈ 11.4 kg/m²</td>
+            </tr>
+            <tr>
+              <td><strong>Finition surface</strong></td>
+              <td>Brillance (mat, satin, brillant), texture (lisse, bois, relief)</td>
+              <td>Vérifier correspondance avec chants ABS</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- CRITERES DE CHOIX -->
+  <div class="section">
+    <div class="section-title">Critères de choix selon le projet</div>
+
+    <div class="project-grid">
+      <div class="project-card">
+        <div class="project-type">🍳 Cuisine</div>
+        <div class="project-reco">
+          <span>Aggloméré P3 hydrofuge 16/19mm corps de caissons</span>
+          <span>MDF hydro ou CP pour façades exposées</span>
+          <span>Plan de travail : stratifié HPL 38mm ou pierre</span>
+          <span>Toujours E1 ou E0.5 minimum (pièce de vie)</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-type">👔 Dressing</div>
+        <div class="project-reco">
+          <span>Mélaminé P2 19mm — intérieur sec</span>
+          <span>HDF 3–5mm pour fonds de tiroir</span>
+          <span>MDF 16mm pour façades si peintes</span>
+          <span>Contreplaqué si très grande portée (&gt;1.2m)</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-type">💻 Bureau / Bibliothèque</div>
+        <div class="project-reco">
+          <span>MDF 19mm pour tablettes peintes</span>
+          <span>22mm si portée &gt; 90cm sans support</span>
+          <span>Mélaminé si décor bois souhaité</span>
+          <span>CP multiplis si look premium attendu</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-type">🏪 Commerce / Agencement</div>
+        <div class="project-reco">
+          <span>MDF laqué ou HPL pour durabilité surface</span>
+          <span>Structure CP ou tubulaire métal si charges</span>
+          <span>Norme anti-feu M1 si ERP (lieu public)</span>
+          <span>Préférer E1 / E0.5 pour label qualité air</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-type">🛁 Salle de bain</div>
+        <div class="project-reco">
+          <span>MDF Hydro 16/19mm impératif</span>
+          <span>Peinture acrylique ou HPL en finition</span>
+          <span>Éviter les chants papier — chants PVC étanches</span>
+          <span>Vider les caissons du sol (siphon accessible)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ======== PARTIE 2 ======== -->
+  <div class="part-header" id="bois-massif">
+    <div class="part-num">02</div>
+    <div class="part-header-text">
+      <h2>Bois Massif</h2>
+      <span>Essences, séchage, défauts, classement et guide de choix</span>
+    </div>
+  </div>
+
+  <!-- ESSENCES -->
+  <div class="section" id="essences">
+    <div class="section-title">Les essences principales</div>
+
+    <div class="info-box blue">
+      <strong>Comprendre les essences</strong>
+      Une essence est une espèce botanique de bois. Chaque essence a des caractéristiques mécaniques (dureté, module d'élasticité), esthétiques (grain, fil, couleur) et pratiques (stabilité, disponibilité, prix) qui déterminent ses usages. La classe de dureté Brinell (HB) est la référence principale.
+    </div>
+
+    <div class="material-grid">
+
+      <div class="essence-card">
+        <div class="essence-name">Chêne</div>
+        <div class="essence-latin">Quercus robur / petraea</div>
+        <div class="essence-props">
+          <div class="eprop"><span class="eprop-k">Dureté Brinell</span><div class="dureté-bar"><div class="db on"></div><div class="db on"></div><div class="db on"></div><div class="db on"></div><div class="db"></div></div></div>
+          <div class="eprop"><span class="eprop-k">Stabilité</span><span class="eprop-v td-mid">Moyenne (nécessite séchage rigoureux)</span></div>
+          <div class="eprop"><span class="eprop-k">Aspect</span><span class="eprop-v">Grain prononcé, rayons médullaires visibles</span></div>
+          <div class="eprop"><span class="eprop-k">Couleur</span><span class="eprop-v">Beige à brun doré, se patine en ambré</span></div>
+          <div class="eprop"><span class="eprop-k">Usages</span><span class="eprop-v">Parquet, escalier, menuiserie, mobilier noble</span></div>
+          <div class="eprop"><span class="eprop-k">Classe emploi extérieur</span><span class="eprop-v td-good">Classe 3–4 (naturellement résistant)</span></div>
+          <div class="eprop"><span class="eprop-k">Prix</span><div class="price-range"><span class="euro">€</span><span class="euro">€</span><span class="euro">€</span><span class="euro grey">€</span></div></div>
+        </div>
+      </div>
+
+      <div class="essence-card">
+        <div class="essence-name">Hêtre</div>
+        <div class="essence-latin">Fagus sylvatica</div>
+        <div class="essence-props">
+          <div class="eprop"><span class="eprop-k">Dureté Brinell</span><div class="dureté-bar"><div class="db on"></div><div class="db on"></div><div class="db on"></div><div class="db on"></div><div class="db"></div></div></div>
+          <div class="eprop"><span class="eprop-k">Stabilité</span><span class="eprop-v td-bad">Faible — très sensible à l'humidité</span></div>
+          <div class="eprop"><span class="eprop-k">Aspect</span><span class="eprop-v">Grain fin, homogène, sans fil apparent</span></div>
+          <div class="eprop"><span class="eprop-k">Couleur</span><span class="eprop-v">Blanc rosé, peut être étuvé (brun rosé)</span></div>
+          <div class="eprop"><span class="eprop-k">Usages</span><span class="eprop-v">Chaises, pieds de table, jouets, usinage CNC</span></div>
+          <div class="eprop"><span class="eprop-k">Classe emploi extérieur</span><span class="eprop-v td-bad">Non adapté extérieur (classe 1–2)</span></div>
+          <div class="eprop"><span class="eprop-k">Prix</span><div class="price-range"><span class="euro">€</span><span class="euro">€</span><span class="euro grey">€</span><span class="euro grey">€</span></div></div>
+        </div>
+      </div>
+
+      <div class="essence-card">
+        <div class="essence-name">Pin sylvestre</div>
+        <div class="essence-latin">Pinus sylvestris</div>
+        <div class="essence-props">
+          <div class="eprop"><span class="eprop-k">Dureté Brinell</span><div class="dureté-bar"><div class="db on"></div><div class="db on"></div><div class="db"></div><div class="db"></div><div class="db"></div></div></div>
+          <div class="eprop"><span class="eprop-k">Stabilité</span><span class="eprop-v td-mid">Moyenne (mouvements selon HR)</span></div>
+          <div class="eprop"><span class="eprop-k">Aspect</span><span class="eprop-v">Nœuds caractéristiques, fil droit</span></div>
+          <div class="eprop"><span class="eprop-k">Couleur</span><span class="eprop-v">Bois de cœur rouge-brun, aubier blanc</span></div>
+          <div class="eprop"><span class="eprop-k">Usages</span><span class="eprop-v">Charpente, lambris, mobilier campagne, menuiserie</span></div>
+          <div class="eprop"><span class="eprop-k">Classe emploi extérieur</span><span class="eprop-v td-mid">Classe 3 (cœur), classe 1 (aubier)</span></div>
+          <div class="eprop"><span class="eprop-k">Prix</span><div class="price-range"><span class="euro">€</span><span class="euro grey">€</span><span class="euro grey">€</span><span class="euro grey">€</span></div></div>
+        </div>
+      </div>
+
+      <div class="essence-card">
+        <div class="essence-name">Noyer</div>
+        <div class="essence-latin">Juglans regia</div>
+        <div class="essence-props">
+          <div class="eprop"><span class="eprop-k">Dureté Brinell</span><div class="dureté-bar"><div class="db on"></div><div class="db on"></div><div class="db on"></div><div class="db on"></div><div class="db"></div></div></div>
+          <div class="eprop"><span class="eprop-k">Stabilité</span><span class="eprop-v td-good">Bonne une fois séché</span></div>
+          <div class="eprop"><span class="eprop-k">Aspect</span><span class="eprop-v">Grain fin, fil légèrement ondulé, aspects très nobles</span></div>
+          <div class="eprop"><span class="eprop-k">Couleur</span><span class="eprop-v">Brun chocolat à brun grisé, très apprécié</span></div>
+          <div class="eprop"><span class="eprop-k">Usages</span><span class="eprop-v">Mobilier haut de gamme, placage, crosse de fusil</span></div>
+          <div class="eprop"><span class="eprop-k">Classe emploi extérieur</span><span class="eprop-v td-mid">Classe 2</span></div>
+          <div class="eprop"><span class="eprop-k">Prix</span><div class="price-range"><span class="euro">€</span><span class="euro">€</span><span class="euro">€</span><span class="euro">€</span></div></div>
+        </div>
+      </div>
+
+      <div class="essence-card">
+        <div class="essence-name">Frêne</div>
+        <div class="essence-latin">Fraxinus excelsior</div>
+        <div class="essence-props">
+          <div class="eprop"><span class="eprop-k">Dureté Brinell</span><div class="dureté-bar"><div class="db on"></div><div class="db on"></div><div class="db on"></div><div class="db on"></div><div class="db"></div></div></div>
+          <div class="eprop"><span class="eprop-k">Stabilité</span><span class="eprop-v td-mid">Bonne, légèrement inférieure au chêne</span></div>
+          <div class="eprop"><span class="eprop-k">Aspect</span><span class="eprop-v">Grain ouvert, fil droit, aspect clair élégant</span></div>
+          <div class="eprop"><span class="eprop-k">Couleur</span><span class="eprop-v">Blanc crème à beige légèrement grisé</span></div>
+          <div class="eprop"><span class="eprop-k">Usages</span><span class="eprop-v">Parquet, escalier, mobilier contemporain, manches d'outils</span></div>
+          <div class="eprop"><span class="eprop-k">Remarque</span><span class="eprop-v td-bad">Menacé par la chalarose (maladie)</span></div>
+          <div class="eprop"><span class="eprop-k">Prix</span><div class="price-range"><span class="euro">€</span><span class="euro">€</span><span class="euro">€</span><span class="euro grey">€</span></div></div>
+        </div>
+      </div>
+
+      <div class="essence-card">
+        <div class="essence-name">Peuplier</div>
+        <div class="essence-latin">Populus sp.</div>
+        <div class="essence-props">
+          <div class="eprop"><span class="eprop-k">Dureté Brinell</span><div class="dureté-bar"><div class="db on"></div><div class="db"></div><div class="db"></div><div class="db"></div><div class="db"></div></div></div>
+          <div class="eprop"><span class="eprop-k">Stabilité</span><span class="eprop-v td-mid">Faible à moyenne</span></div>
+          <div class="eprop"><span class="eprop-k">Aspect</span><span class="eprop-v">Grain très fin, aspect très blanc, nervures légères</span></div>
+          <div class="eprop"><span class="eprop-k">Couleur</span><span class="eprop-v">Blanc nacré à crème pâle</span></div>
+          <div class="eprop"><span class="eprop-k">Usages</span><span class="eprop-v">Âme de contreplaqué, caisses légères, jouets, emballage</span></div>
+          <div class="eprop"><span class="eprop-k">Avantage</span><span class="eprop-v td-good">Très léger, rapide de croissance, facile à travailler</span></div>
+          <div class="eprop"><span class="eprop-k">Prix</span><div class="price-range"><span class="euro">€</span><span class="euro grey">€</span><span class="euro grey">€</span><span class="euro grey">€</span></div></div>
+        </div>
+      </div>
+
+      <div class="essence-card">
+        <div class="essence-name">Sapin / Épicéa</div>
+        <div class="essence-latin">Abies alba / Picea abies</div>
+        <div class="essence-props">
+          <div class="eprop"><span class="eprop-k">Dureté Brinell</span><div class="dureté-bar"><div class="db on"></div><div class="db on"></div><div class="db"></div><div class="db"></div><div class="db"></div></div></div>
+          <div class="eprop"><span class="eprop-k">Stabilité</span><span class="eprop-v td-mid">Moyenne (mouvements limités si bien séché)</span></div>
+          <div class="eprop"><span class="eprop-k">Aspect</span><span class="eprop-v">Nœuds fréquents, fil droit, aspect rustique</span></div>
+          <div class="eprop"><span class="eprop-k">Couleur</span><span class="eprop-v">Blanc jaunâtre à brun clair selon espèce</span></div>
+          <div class="eprop"><span class="eprop-k">Usages</span><span class="eprop-v">Charpente, lambris, menuiseries intérieures, caisserie</span></div>
+          <div class="eprop"><span class="eprop-k">Remarque</span><span class="eprop-v td-neutral">Nœuds sains acceptables en charpente</span></div>
+          <div class="eprop"><span class="eprop-k">Prix</span><div class="price-range"><span class="euro">€</span><span class="euro grey">€</span><span class="euro grey">€</span><span class="euro grey">€</span></div></div>
+        </div>
+      </div>
+
+      <div class="essence-card">
+        <div class="essence-name">Hévéa (Rubber Wood)</div>
+        <div class="essence-latin">Hevea brasiliensis</div>
+        <div class="essence-props">
+          <div class="eprop"><span class="eprop-k">Dureté Brinell</span><div class="dureté-bar"><div class="db on"></div><div class="db on"></div><div class="db on"></div><div class="db"></div><div class="db"></div></div></div>
+          <div class="eprop"><span class="eprop-k">Stabilité</span><span class="eprop-v td-good">Bonne — très homogène</span></div>
+          <div class="eprop"><span class="eprop-k">Aspect</span><span class="eprop-v">Grain fin, uni, peu de nœuds</span></div>
+          <div class="eprop"><span class="eprop-k">Couleur</span><span class="eprop-v">Crème uniforme, légère teinte rosée</span></div>
+          <div class="eprop"><span class="eprop-k">Usages</span><span class="eprop-v">Mobilier à peindre, plans de travail, jouets (sans traitement)</span></div>
+          <div class="eprop"><span class="eprop-k">Avantage</span><span class="eprop-v td-good">Issu d'arbres à latex en fin de vie — éco-responsable</span></div>
+          <div class="eprop"><span class="eprop-k">Prix</span><div class="price-range"><span class="euro">€</span><span class="euro">€</span><span class="euro grey">€</span><span class="euro grey">€</span></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SECHAGE -->
+  <div class="section" id="sechage">
+    <div class="section-title">Séchage du bois — Comprendre l'humidité</div>
+
+    <div class="info-box blue">
+      <strong>Le bois et l'eau — Principe fondamental</strong>
+      Le bois est un matériau hygroscopique : il échange constamment de l'humidité avec l'air ambiant jusqu'à atteindre un équilibre (humidité d'équilibre). Les mouvements qui en résultent (gonflement / retrait) sont la principale cause des désordres dans les ouvrages en bois massif.
+    </div>
+
+    <div class="sechage-steps">
+      <div class="sechage-step">
+        <div class="sechage-pct">&gt;35%</div>
+        <div class="sechage-label">Bois vert<br/>Fraîchement abattu</div>
+      </div>
+      <div class="sechage-step">
+        <div class="sechage-pct">20–30%</div>
+        <div class="sechage-label">Séchage<br/>air naturel</div>
+      </div>
+      <div class="sechage-step" style="background:rgba(200,169,110,0.05); border-color:rgba(200,169,110,0.2);">
+        <div class="sechage-pct" style="color:var(--accent);">12–18%</div>
+        <div class="sechage-label" style="color:var(--accent);">Séché air<br/><strong>Usage ext.</strong></div>
+      </div>
+      <div class="sechage-step" style="background:rgba(78,203,138,0.05); border-color:rgba(78,203,138,0.2);">
+        <div class="sechage-pct" style="color:var(--green);">8–12%</div>
+        <div class="sechage-label" style="color:var(--green);">Étuvé<br/><strong>Usage int. ★</strong></div>
+      </div>
+      <div class="sechage-step">
+        <div class="sechage-pct">&lt;8%</div>
+        <div class="sechage-label">Sur-séché<br/>Risque refente</div>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-top:20px;">
+      <div class="schema-box">
+        <div class="schema-title">Séchage à l'air</div>
+        <div class="checklist">
+          <div class="check-item">
+            <div class="check-icon">✓</div>
+            <span>Empilage à plat avec tasseaux espacés tous les ~60 cm</span>
+          </div>
+          <div class="check-item">
+            <div class="check-icon">✓</div>
+            <span>À l'abri de la pluie mais aéré (hangar, appentis)</span>
+          </div>
+          <div class="check-item">
+            <div class="check-icon">✓</div>
+            <span>Durée : environ 1 an par cm d'épaisseur</span>
+          </div>
+          <div class="check-item">
+            <div class="check-icon warn">!</div>
+            <span>Humidité résiduelle 15–20% — insuffisant pour l'intérieur chauffé</span>
+          </div>
+        </div>
+      </div>
+      <div class="schema-box">
+        <div class="schema-title">Séchage en étuve (artificiel)</div>
+        <div class="checklist">
+          <div class="check-item">
+            <div class="check-icon">✓</div>
+            <span>Chambre de séchage contrôlée (T°, HR, ventilation)</span>
+          </div>
+          <div class="check-item">
+            <div class="check-icon">✓</div>
+            <span>Durée réduite : quelques jours à 2–3 semaines</span>
+          </div>
+          <div class="check-item">
+            <div class="check-icon">✓</div>
+            <span>Humidité finale 8–12% — idéal pour mobilier intérieur</span>
+          </div>
+          <div class="check-item">
+            <div class="check-icon warn">!</div>
+            <span>Séchage trop rapide = fentes et contraintes internes si mal conduit</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-wrap" style="margin-top:20px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Usage</th>
+            <th>Taux d'humidité cible</th>
+            <th>Type de séchage</th>
+            <th>Ambiance d'équilibre</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Menuiserie extérieure</td>
+            <td style="color:var(--blue);">15–18%</td>
+            <td>Air naturel</td>
+            <td>Extérieur France ≈ 15–18%</td>
+          </tr>
+          <tr>
+            <td>Parquet / plancher</td>
+            <td style="color:var(--accent);">8–10%</td>
+            <td>Étuvé</td>
+            <td>Intérieur chauffé ≈ 8–10%</td>
+          </tr>
+          <tr>
+            <td>Mobilier intérieur</td>
+            <td style="color:var(--green);">8–12%</td>
+            <td>Étuvé</td>
+            <td>Pièce à vivre ≈ 9–11%</td>
+          </tr>
+          <tr>
+            <td>Sculpture / tournage</td>
+            <td style="color:var(--muted);">8–15%</td>
+            <td>Air ou étuvé</td>
+            <td>Variable selon destination finale</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="info-box green">
+      <strong>Règle d'or : Toujours laisser le bois s'acclimater</strong>
+      Après livraison, stocker le bois massif au moins 5–10 jours dans l'ambiance d'utilisation avant mise en œuvre. Cette étape évite les déformations après montage et garantit la stabilité de l'ouvrage.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- DEFAUTS -->
+  <div class="section" id="defauts">
+    <div class="section-title">Défauts du bois — Identifier et classer</div>
+
+    <div class="defaut-grid">
+      <div class="defaut-card">
+        <div class="defaut-title">Nœuds</div>
+        <div class="defaut-desc">
+          Résidu de branches dans le tronc. <strong>Nœud sain</strong> = adhérent, dur (acceptable). <strong>Nœud mort / black</strong> = non adhérent, risque de chute. Quantité et taille définissent les classes (A, B, C en bois massif).
+        </div>
+      </div>
+      <div class="defaut-card">
+        <div class="defaut-title">Fentes</div>
+        <div class="defaut-desc">
+          Craquelures dues au séchage trop rapide ou aux contraintes naturelles. <strong>Fente de bout</strong> = toujours présente, débitée. <strong>Fente de face / roulure</strong> = plus grave, affaiblit la pièce mécaniquement.
+        </div>
+      </div>
+      <div class="defaut-card">
+        <div class="defaut-title">Fil dévié / contrefil</div>
+        <div class="defaut-desc">
+          Fibres non parallèles à l'axe de la pièce. Rend le sciage difficile et fragilise la résistance en flexion. Le contrefil en placage donne des effets chatoyants (acajou, sycomore).
+        </div>
+      </div>
+      <div class="defaut-card">
+        <div class="defaut-title">Roulure</div>
+        <div class="defaut-desc">
+          Séparation entre couches de croissance (cernes). Invisible avant débit, c'est un défaut rédhibitoire découvert à la coupe. Affaiblit fortement la cohésion de la pièce.
+        </div>
+      </div>
+      <div class="defaut-card">
+        <div class="defaut-title">Gélivure</div>
+        <div class="defaut-desc">
+          Fente radiale due au gel — l'eau dans l'arbre gèle et écarte les fibres. Se repère par une fente allant du cœur vers l'extérieur. Fréquent chez le chêne en zones froides.
+        </div>
+      </div>
+      <div class="defaut-card">
+        <div class="defaut-title">Loupe / Ronce</div>
+        <div class="defaut-card">
+        </div>
+        <div class="defaut-desc">
+          Ce n'est pas vraiment un défaut en ébénisterie — les loupe et ronces du noyer ou du thuya sont très recherchées pour leurs figures décoratives exceptionnelles. Mais elles rendent l'usinage imprévisible.
+        </div>
+      </div>
+      <div class="defaut-card">
+        <div class="defaut-title">Aubier</div>
+        <div class="defaut-desc">
+          Zone périphérique jeune du tronc, moins dense et moins résistante que le bois de cœur. Généralement éliminé au débit, mais parfois conservé pour l'esthétique (live edge). Sensible aux insectes et champignons.
+        </div>
+      </div>
+      <div class="defaut-card">
+        <div class="defaut-title">Bleuissement</div>
+        <div class="defaut-desc">
+          Coloration bleue-grise causée par des champignons chromogènes sur le pin et le sapin. N'affecte pas les propriétés mécaniques mais déprécie l'aspect. Traitement fongicide ou usage en structure cachée.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- CLASSEMENT QUALITE -->
+  <div class="section">
+    <div class="section-title">Classement et qualité du bois massif</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Classe</th>
+            <th>Nœuds admis</th>
+            <th>Fentes</th>
+            <th>Aubier</th>
+            <th>Usage recommandé</th>
+            <th>Prix relatif</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--green);">Extra / A</td>
+            <td class="td-good">Aucun ou très petits sains</td>
+            <td class="td-good">Aucune</td>
+            <td class="td-good">Interdit</td>
+            <td>Mobilier visible, escalier prestige</td>
+            <td class="td-neutral">+++ cher</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--accent);">1er choix / B</td>
+            <td class="td-mid">Petits nœuds sains admis</td>
+            <td class="td-mid">Légères de bout</td>
+            <td class="td-mid">Limité</td>
+            <td>Menuiserie fine, parquet tradition</td>
+            <td class="td-neutral">++ cher</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--orange);">2e choix / C</td>
+            <td class="td-mid">Nœuds sains de taille moyenne</td>
+            <td class="td-mid">Admises si limitées</td>
+            <td class="td-mid">Possible sur une face</td>
+            <td>Menuiserie courante, mobilier économique</td>
+            <td class="td-neutral">+ cher</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--red);">Charpente / D</td>
+            <td class="td-bad">Nœuds importants admis</td>
+            <td class="td-bad">Admises</td>
+            <td class="td-bad">Admis</td>
+            <td>Charpente, construction, usage caché</td>
+            <td class="td-good">Économique</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="info-box">
+      <strong>Bois massif contrecollé (BMC / LAMELLÉ)</strong>
+      Le bois contrecollé assemble plusieurs lamelles séchées et collées. Il offre une bien meilleure stabilité que le bois massif un seul tenant (les mouvements des lamelles se compensent). Idéal pour les plans de travail, plateaux de table et éléments larges. Légèrement plus cher que le massif équivalent mais bien plus stable.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ======= FICHES RÉCAP ======= -->
+  <div class="part-header" id="fiches">
+    <div class="part-num">03</div>
+    <div class="part-header-text">
+      <h2>Fiches Récapitulatives</h2>
+      <span>Tableaux synthétiques pour décider rapidement</span>
+    </div>
+  </div>
+
+  <!-- FICHE 1 : TABLEAU COMPARATIF PANNEAUX -->
+  <div class="section">
+    <div class="recap-header">
+      <div class="recap-icon">📋</div>
+      <div>
+        <h3>Fiche 1 — Tableau comparatif des panneaux</h3>
+        <p>Synthèse des 6 matériaux sur 8 critères clés</p>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Matériau</th>
+            <th>Résistance mécanique</th>
+            <th>Résistance humidité</th>
+            <th>Usinabilité</th>
+            <th>Surface prête</th>
+            <th>Poids</th>
+            <th>Coût</th>
+            <th>Meilleur usage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;">Aggloméré P2</td>
+            <td class="td-mid">★★☆☆☆</td>
+            <td class="td-bad">★☆☆☆☆</td>
+            <td class="td-good">★★★★☆</td>
+            <td class="td-good">Mélaminé disponible</td>
+            <td class="td-mid">Moyen</td>
+            <td class="td-good">€</td>
+            <td>Mobilier intérieur sec</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;">Aggloméré P3</td>
+            <td class="td-mid">★★☆☆☆</td>
+            <td class="td-mid">★★★☆☆</td>
+            <td class="td-good">★★★★☆</td>
+            <td class="td-good">Mélaminé hydro</td>
+            <td class="td-mid">Moyen</td>
+            <td class="td-mid">€€</td>
+            <td>Cuisine, salle de bain</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;">MDF standard</td>
+            <td class="td-mid">★★★☆☆</td>
+            <td class="td-bad">★☆☆☆☆</td>
+            <td class="td-good">★★★★★</td>
+            <td class="td-good">Idéal pour peinture</td>
+            <td class="td-bad">Lourd</td>
+            <td class="td-mid">€€</td>
+            <td>Façades, profils CNC</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;">MDF Hydro</td>
+            <td class="td-mid">★★★☆☆</td>
+            <td class="td-mid">★★★☆☆</td>
+            <td class="td-good">★★★★★</td>
+            <td class="td-good">Peinture, laqué</td>
+            <td class="td-bad">Lourd</td>
+            <td class="td-mid">€€€</td>
+            <td>Façades cuisine/bain</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;">Contreplaqué</td>
+            <td class="td-good">★★★★★</td>
+            <td class="td-good">★★★★☆ (CTB-X)</td>
+            <td class="td-mid">★★★☆☆</td>
+            <td class="td-mid">Finition nécessaire</td>
+            <td class="td-good">Léger</td>
+            <td class="td-mid">€€€</td>
+            <td>Structure, fond caisson, extérieur</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;">OSB</td>
+            <td class="td-good">★★★★☆</td>
+            <td class="td-mid">★★★☆☆ (OSB3)</td>
+            <td class="td-mid">★★★☆☆</td>
+            <td class="td-mid">Aspect brut design</td>
+            <td class="td-good">Léger</td>
+            <td class="td-good">€</td>
+            <td>Construction, loft design</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;">HDF / Medium</td>
+            <td class="td-mid">★★★☆☆</td>
+            <td class="td-bad">★☆☆☆☆</td>
+            <td class="td-good">★★★★★</td>
+            <td class="td-good">Très lisse</td>
+            <td class="td-mid">Variable</td>
+            <td class="td-good">€</td>
+            <td>Fond tiroir, dos armoire</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FICHE 2 : ESSENCES BOIS MASSIF -->
+  <div class="section">
+    <div class="recap-header">
+      <div class="recap-icon">🌳</div>
+      <div>
+        <h3>Fiche 2 — Tableau comparatif des essences</h3>
+        <p>Synthèse pour choisir rapidement selon les critères projet</p>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Essence</th>
+            <th>Dureté Brinell</th>
+            <th>Stabilité</th>
+            <th>Extérieur</th>
+            <th>Parquet</th>
+            <th>Mobilier</th>
+            <th>Peindre</th>
+            <th>Prix</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;">Chêne</td>
+            <td class="td-good">★★★★☆ (3.7 HB)</td>
+            <td class="td-mid">Moyenne</td>
+            <td class="td-good">Cl. 3–4</td>
+            <td class="td-good">★★★★★</td>
+            <td class="td-good">★★★★★</td>
+            <td class="td-mid">Possible</td>
+            <td class="td-mid">€€€</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;">Hêtre</td>
+            <td class="td-good">★★★★☆ (3.5 HB)</td>
+            <td class="td-bad">Faible</td>
+            <td class="td-bad">Non</td>
+            <td class="td-mid">★★★☆☆</td>
+            <td class="td-good">★★★★☆</td>
+            <td class="td-mid">Possible</td>
+            <td class="td-mid">€€</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;">Pin</td>
+            <td class="td-mid">★★☆☆☆ (1.7 HB)</td>
+            <td class="td-mid">Moyenne</td>
+            <td class="td-mid">Cl. 3 (cœur)</td>
+            <td class="td-mid">★★★☆☆</td>
+            <td class="td-mid">★★★☆☆</td>
+            <td class="td-good">Très bien</td>
+            <td class="td-good">€</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;">Sapin</td>
+            <td class="td-mid">★★☆☆☆ (1.5 HB)</td>
+            <td class="td-mid">Moyenne</td>
+            <td class="td-bad">Non</td>
+            <td class="td-bad">★☆☆☆☆</td>
+            <td class="td-mid">★★☆☆☆</td>
+            <td class="td-good">Très bien</td>
+            <td class="td-good">€</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;">Noyer</td>
+            <td class="td-good">★★★★☆ (3.4 HB)</td>
+            <td class="td-good">Bonne</td>
+            <td class="td-mid">Cl. 2</td>
+            <td class="td-mid">★★★☆☆</td>
+            <td class="td-good">★★★★★</td>
+            <td class="td-bad">Dommage</td>
+            <td class="td-bad">€€€€</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;">Frêne</td>
+            <td class="td-good">★★★★☆ (4.0 HB)</td>
+            <td class="td-good">Bonne</td>
+            <td class="td-mid">Cl. 2</td>
+            <td class="td-good">★★★★☆</td>
+            <td class="td-good">★★★★☆</td>
+            <td class="td-mid">Possible</td>
+            <td class="td-mid">€€€</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;">Peuplier</td>
+            <td class="td-bad">★☆☆☆☆ (1.0 HB)</td>
+            <td class="td-mid">Faible</td>
+            <td class="td-bad">Non</td>
+            <td class="td-bad">Non adapté</td>
+            <td class="td-bad">★★☆☆☆</td>
+            <td class="td-good">Oui (léger)</td>
+            <td class="td-good">€</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Syne',sans-serif;font-weight:700;">Hévéa</td>
+            <td class="td-mid">★★★☆☆ (2.5 HB)</td>
+            <td class="td-good">Bonne</td>
+            <td class="td-bad">Non</td>
+            <td class="td-mid">★★★☆☆</td>
+            <td class="td-mid">★★★☆☆</td>
+            <td class="td-good">Idéal</td>
+            <td class="td-mid">€€</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FICHE 3 : CHECKLIST CHOIX MATERIAU -->
+  <div class="section">
+    <div class="recap-header">
+      <div class="recap-icon">✅</div>
+      <div>
+        <h3>Fiche 3 — Checklist de choix du bon matériau</h3>
+        <p>Posez-vous ces questions avant de commander</p>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="schema-box">
+        <div class="schema-title">Questions essentielles — Panneaux dérivés</div>
+        <div class="checklist">
+          <div class="check-item">
+            <div class="check-icon">?</div>
+            <span><strong>Quelle est la classe d'humidité ?</strong> Intérieur sec → P2 standard. Cuisine/bain → P3 hydrofuge ou MDF Hydro. Extérieur → CP CTB-X ou OSB3.</span>
+          </div>
+          <div class="check-item">
+            <div class="check-icon">?</div>
+            <span><strong>Quelle finition souhaitée ?</strong> Décor bois → mélaminé. Peinture → MDF nu. Aspect brut industriel → OSB. Vernissage → contreplaqué ou massif.</span>
+          </div>
+          <div class="check-item">
+            <div class="check-icon">?</div>
+            <span><strong>Quelle charge ?</strong> Tablette &gt;90cm → 22mm minimum. Caisson standard → 19mm. Fond de tiroir → 3–5mm HDF.</span>
+          </div>
+          <div class="check-item">
+            <div class="check-icon">?</div>
+            <span><strong>Quel environnement réglementaire ?</strong> ERP (lieu public) → vérifier réaction au feu M1. Habitat sensible → E0.5 ou E1 minimum.</span>
+          </div>
+          <div class="check-item">
+            <div class="check-icon">?</div>
+            <span><strong>Quel budget ?</strong> Entrée de gamme → aggloméré P2. Standard pro → mélaminé P3 19mm. Premium → MDF hydro + façades laquées.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="schema-box">
+        <div class="schema-title">Questions essentielles — Bois massif</div>
+        <div class="checklist">
+          <div class="check-item">
+            <div class="check-icon">?</div>
+            <span><strong>Intérieur ou extérieur ?</strong> Extérieur → chêne, mélèze, pin maritime traité (cl. 3–4). Intérieur → toutes essences.</span>
+          </div>
+          <div class="check-item">
+            <div class="check-icon">?</div>
+            <span><strong>Zone de frottement ?</strong> Sol, escalier, table → essence dure (chêne HB&gt;3.5). Mobilier non soumis → essences tendres acceptables.</span>
+          </div>
+          <div class="check-item">
+            <div class="check-icon">?</div>
+            <span><strong>Finition prévue ?</strong> Huilé ou verni → chêne, noyer, frêne. Peint → pin, sapin, hévéa, peuplier. Invisible → toutes.</span>
+          </div>
+          <div class="check-item">
+            <div class="check-icon">?</div>
+            <span><strong>Grande largeur nécessaire ?</strong> Privilégier contrecollé (BMC) pour éviter les mouvements. Massif un seul tenant = déconseillé au-delà de 15–20 cm.</span>
+          </div>
+          <div class="check-item">
+            <div class="check-icon">?</div>
+            <span><strong>Le bois est-il bien séché ?</strong> Exiger 8–12% pour intérieur chauffé. Toujours acclimater avant pose.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ERREURS À ÉVITER -->
+    <div style="margin-top:24px;">
+      <div class="section-title">Les erreurs classiques à éviter</div>
+      <div class="checklist">
+        <div class="check-item">
+          <div class="check-icon bad">✗</div>
+          <span><strong>Utiliser de l'aggloméré P2 en cuisine</strong> — il gonfle et se délite irrémédiablement au contact de l'humidité. Toujours spécifier P3 hydrofuge pour les zones humides.</span>
+        </div>
+        <div class="check-item">
+          <div class="check-icon bad">✗</div>
+          <span><strong>Confondre "mélaminé cuisine" et "panneau hydrofuge"</strong> — le décor mélaminé protège la surface, pas l'âme. Vérifier systématiquement le type de panneau de base.</span>
+        </div>
+        <div class="check-item">
+          <div class="check-icon bad">✗</div>
+          <span><strong>Utiliser un 16mm sur une grande portée</strong> — une tablette de 100 cm en aggloméré 16mm va fléchir sous charge. Passer au 19mm ou 22mm, ou ajouter un renfort central.</span>
+        </div>
+        <div class="check-item">
+          <div class="check-icon bad">✗</div>
+          <span><strong>Commander du bois massif vert pour un usage intérieur</strong> — sans séchage approprié, fentes, déformations et jeux dans les assemblages sont inévitables.</span>
+        </div>
+        <div class="check-item">
+          <div class="check-icon bad">✗</div>
+          <span><strong>Négliger l'acclimatation du bois massif</strong> — même un bois bien séché doit passer 5 à 10 jours dans l'ambiance du chantier avant la pose ou l'usinage.</span>
+        </div>
+        <div class="check-item">
+          <div class="check-icon bad">✗</div>
+          <span><strong>Choisir une essence tendre pour un parquet</strong> — le pin et le peuplier se rayent et s'abîment rapidement. Minimum HB 3.0 pour un usage parquet résidentiel.</span>
+        </div>
+        <div class="check-item">
+          <div class="check-icon bad">✗</div>
+          <span><strong>Oublier de vérifier la classe d'émission E</strong> — en cuisine, chambre d'enfant ou pièce fermée, une émission E1 est le minimum légal. Préférer E0.5 pour les projets sensibles.</span>
+        </div>
+        <div class="check-item">
+          <div class="check-icon bad">✗</div>
+          <span><strong>Utiliser du MDF standard en extérieur</strong> — le MDF gonfle, se délite et perd toute résistance en cas d'exposition à l'humidité ou à la pluie, même avec peinture.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div>Cours Complet — Panneaux & Bois Massif</div>
+  <div style="margin-top:8px; font-size:11px; color:var(--border2);">Document pédagogique — Menuiserie & Agencement professionnel</div>
+  <a class="scroll-top" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ RETOUR EN HAUT</a>
+</footer>
+
+</body>
+</html>

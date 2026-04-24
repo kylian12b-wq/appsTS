@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BTS ERA — Documents de Chantier & Appels d'Offres</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap');
+  :root {
+    --blue: #1a56db; --blue-light: #e8f0fe; --dark: #0f172a; --mid: #334155;
+    --light: #f8fafc; --border: #e2e8f0; --green: #16a34a; --orange: #ea580c; --red: #dc2626; --purple: #7c3aed;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Sora', sans-serif; background: var(--light); color: var(--dark); line-height: 1.7; }
+  header { background: var(--dark); color: white; padding: 2rem; text-align: center; }
+  header .badge { background: var(--purple); display: inline-block; padding: .3rem 1rem; border-radius: 999px; font-size: .8rem; margin-bottom: .8rem; }
+  header h1 { font-size: 1.8rem; font-weight: 700; }
+  header p { color: #94a3b8; margin-top: .5rem; }
+  nav { background: white; border-bottom: 1px solid var(--border); padding: .8rem 2rem; display: flex; gap: 1rem; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; }
+  nav a { text-decoration: none; color: var(--mid); font-size: .82rem; font-weight: 600; padding: .3rem .7rem; border-radius: 6px; }
+  nav a:hover { background: var(--blue-light); color: var(--blue); }
+  main { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+  section { margin-bottom: 3rem; }
+  h2 { font-size: 1.4rem; color: var(--blue); border-left: 4px solid var(--blue); padding-left: 1rem; margin-bottom: 1.5rem; }
+  h3 { font-size: 1.05rem; font-weight: 700; margin: 1.5rem 0 .8rem; }
+  p { margin-bottom: .8rem; color: var(--mid); }
+  .card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .card.blue { border-left: 4px solid var(--blue); }
+  .card.green { border-left: 4px solid var(--green); }
+  .card.orange { border-left: 4px solid var(--orange); }
+  .card.red { border-left: 4px solid var(--red); }
+  .card.purple { border-left: 4px solid var(--purple); }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .88rem; }
+  th { background: var(--dark); color: white; padding: .8rem; text-align: left; }
+  td { padding: .7rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:nth-child(even) td { background: var(--blue-light); }
+  .modele { background: white; border: 2px solid var(--border); border-radius: 12px; padding: 1.5rem; margin: 1rem 0; font-size: .88rem; }
+  .modele-header { background: var(--dark); color: white; padding: .8rem 1rem; border-radius: 8px 8px 0 0; margin: -1.5rem -1.5rem 1rem; font-weight: 700; display: flex; justify-content: space-between; }
+  .modele-champ { border-bottom: 1px solid var(--border); padding: .4rem 0; margin: .3rem 0; }
+  .modele-champ span { color: var(--blue); font-weight: 600; }
+  .modele-champ .valeur { color: #666; font-style: italic; }
+  .etape-list { list-style: none; }
+  .etape-item { display: flex; gap: 1rem; padding: .8rem 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .etape-item:last-child { border-bottom: none; }
+  .etape-num { background: var(--blue); color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .8rem; flex-shrink: 0; margin-top: .1rem; }
+  .etape-num.orange { background: var(--orange); }
+  .etape-num.green { background: var(--green); }
+  .checklist { list-style: none; }
+  .checklist li { padding: .35rem 0; display: flex; gap: .6rem; font-size: .9rem; }
+  .checklist li::before { content: "✅"; }
+  .checklist.danger li::before { content: "⚠️"; }
+  .checklist.info li::before { content: "📋"; }
+  .exercice { background: white; border: 2px solid var(--blue); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .exercice h3 { color: var(--blue); margin-top: 0; }
+  .corrige { background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px; padding: 1rem; margin-top: 1rem; }
+  .corrige h4 { color: var(--green); margin-bottom: .5rem; }
+  .qcm { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
+  .question { margin-bottom: 1.5rem; }
+  .question p { font-weight: 600; margin-bottom: .5rem; }
+  .options label { display: block; padding: .4rem; cursor: pointer; font-size: .9rem; }
+  .options input { margin-right: .5rem; }
+  .btn { background: var(--blue); color: white; border: none; padding: .7rem 1.5rem; border-radius: 8px; cursor: pointer; font-family: 'Sora', sans-serif; font-weight: 600; }
+  .resultat { margin-top: 1rem; padding: 1rem; border-radius: 8px; font-weight: 600; display: none; }
+  .delai-box { background: #fef9c3; border: 2px solid #fbbf24; border-radius: 10px; padding: 1rem 1.5rem; margin: 1rem 0; }
+  .delai-box h4 { color: #92400e; margin-bottom: .5rem; }
+  .partie-title { background: var(--dark); color: white; padding: 1rem 1.5rem; border-radius: 10px; margin: 2rem 0 1.5rem; font-size: 1.2rem; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">BTS ERA — Gestion de Chantier</div>
+  <h1>📋 Documents de Chantier & Appels d'Offres</h1>
+  <p>Maîtrise les documents administratifs et la réponse aux appels d'offres</p>
+</header>
+
+<nav>
+  <a href="#ppsps">PPSPS</a>
+  <a href="#pic">Plan chantier</a>
+  <a href="#cr">Compte-rendu</a>
+  <a href="#nc">Non-conformité</a>
+  <a href="#reception">Réception</a>
+  <a href="#doe">DOE</a>
+  <a href="#recap-docs">Récap docs</a>
+  <a href="#ao-intro">Appels d'offres</a>
+  <a href="#dce">DCE</a>
+  <a href="#memoire">Mémoire technique</a>
+  <a href="#exercices">Exercices</a>
+  <a href="#qcm">QCM</a>
+</nav>
+
+<main>
+
+<div class="partie-title">📁 PARTIE 3 — DOCUMENTS DE CHANTIER</div>
+
+<!-- PPSPS -->
+<section id="ppsps">
+  <h2>1. PPSPS — Plan Particulier de Sécurité et de Protection de la Santé</h2>
+  <div class="card blue">
+    <h3>C'est quoi ?</h3>
+    <p>Document obligatoire qui liste toutes les mesures de sécurité prévues pour le chantier. Il analyse les risques et décrit comment les prévenir.</p>
+    <p><strong>Qui le rédige ?</strong> L'entreprise principale (ou chaque entreprise si plusieurs intervenants). Obligatoire dès que le chantier dépasse certains seuils.</p>
+    <p><strong>Quand ?</strong> Avant le démarrage du chantier, transmis au Coordonnateur SPS (CSPS).</p>
+  </div>
+  <h3>Contenu obligatoire du PPSPS</h3>
+  <table>
+    <tr><th>Section</th><th>Contenu</th></tr>
+    <tr><td>Identification</td><td>Nom de l'entreprise, chantier, maître d'ouvrage, CSPS</td></tr>
+    <tr><td>Description des travaux</td><td>Nature, durée, effectif prévu, phasage</td></tr>
+    <tr><td>Risques identifiés</td><td>Chute, bruit, poussières, manutention, coactivité</td></tr>
+    <tr><td>Mesures de prévention</td><td>EPI requis, procédures de sécurité, formations</td></tr>
+    <tr><td>Matériels</td><td>Engins, échafaudages, outillage spécifique</td></tr>
+    <tr><td>Premiers secours</td><td>Localisation trousse de secours, numéros d'urgence</td></tr>
+    <tr><td>Plan d'installation</td><td>Circulation, zones de stockage, accès</td></tr>
+  </table>
+</section>
+
+<!-- PLAN D'INSTALLATION -->
+<section id="pic">
+  <h2>2. Plan d'Installation de Chantier (PIC)</h2>
+  <p>Document graphique montrant l'organisation physique du chantier. Obligatoire pour tout chantier significatif.</p>
+  <table>
+    <tr><th>Élément obligatoire</th><th>Détail</th></tr>
+    <tr><td>Clôture et accès</td><td>Portail, gardiennage, entrée livraisons séparée</td></tr>
+    <tr><td>Base vie</td><td>Vestiaires, sanitaires, réfectoire, bureau de chantier</td></tr>
+    <tr><td>Zones de stockage</td><td>Matériaux, déchets (benne), produits dangereux</td></tr>
+    <tr><td>Circulation</td><td>Sens de circulation engins, zones piétons séparées</td></tr>
+    <tr><td>Réseaux provisoires</td><td>Électricité, eau, éclairage chantier</td></tr>
+    <tr><td>Grue / Engins</td><td>Rayon de grue, zone d'évolution, balancement</td></tr>
+    <tr><td>Signalisation</td><td>Panneaux de sécurité, limitation de vitesse</td></tr>
+  </table>
+</section>
+
+<!-- COMPTE-RENDU -->
+<section id="cr">
+  <h2>3. Compte-rendu de réunion de chantier</h2>
+  <div class="modele">
+    <div class="modele-header"><span>📄 MODÈLE — Compte-rendu de réunion de chantier</span><span>CR N°___</span></div>
+    <div class="modele-champ"><span>Chantier :</span> <span class="valeur">Aménagement cuisine — M. et Mme Dupont, 12 rue des Lilas, 75015 Paris</span></div>
+    <div class="modele-champ"><span>Date / Heure :</span> <span class="valeur">19/04/2026 — 14h00</span></div>
+    <div class="modele-champ"><span>Lieu :</span> <span class="valeur">Sur chantier</span></div>
+    <div class="modele-champ"><span>Présents :</span> <span class="valeur">M. Dupont (MO), Mme Leblanc (Architecte), M. Martin (Menuisier ERA)</span></div>
+    <div class="modele-champ"><span>Absents excusés :</span> <span class="valeur">M. Electricien (excusé)</span></div>
+    <br>
+    <strong>1. AVANCEMENT DES TRAVAUX</strong>
+    <div class="modele-champ">Menuiserie : <span class="valeur">Caissons posés à 80% — Façades en attente (livraison 22/04)</span></div>
+    <div class="modele-champ">Plomberie : <span class="valeur">Terminée</span></div>
+    <br>
+    <strong>2. POINTS BLOQUANTS</strong>
+    <div class="modele-champ"><span class="valeur">⚠️ Retard façades MDF laqué — fournisseur repoussé au 22/04. Impact : pose plan de travail repoussée.</span></div>
+    <br>
+    <strong>3. DÉCISIONS / ACTIONS</strong>
+    <table style="margin:0;">
+      <tr><th>Action</th><th>Responsable</th><th>Délai</th></tr>
+      <tr><td>Confirmer livraison façades</td><td>M. Martin</td><td>20/04</td></tr>
+      <tr><td>Validation coloris plan de travail</td><td>M. Dupont</td><td>20/04</td></tr>
+    </table>
+    <br>
+    <div class="modele-champ"><span>Prochaine réunion :</span> <span class="valeur">22/04/2026 — 14h00 — sur chantier</span></div>
+    <div class="modele-champ"><span>Rédigé par :</span> <span class="valeur">M. Martin — Diffusé à tous les présents dans les 24h</span></div>
+  </div>
+</section>
+
+<!-- NON-CONFORMITÉ -->
+<section id="nc">
+  <h2>4. Fiche de Non-Conformité (FNC)</h2>
+  <p>Utilisée quand un élément ne correspond pas aux plans, au CCTP ou aux normes. Elle trace le problème et impose une action corrective.</p>
+  <div class="modele">
+    <div class="modele-header"><span>📄 MODÈLE — Fiche de Non-Conformité</span><span>FNC N°___</span></div>
+    <div class="modele-champ"><span>Chantier :</span> <span class="valeur">__________________</span></div>
+    <div class="modele-champ"><span>Date de constat :</span> <span class="valeur">__________________</span></div>
+    <div class="modele-champ"><span>Constaté par :</span> <span class="valeur">__________________</span></div>
+    <div class="modele-champ"><span>Entreprise concernée :</span> <span class="valeur">__________________</span></div>
+    <div class="modele-champ"><span>Description du problème :</span> <span class="valeur">Ex : Façade cuisine posée 3mm trop haute par rapport au plan — cote 718mm au lieu de 715mm</span></div>
+    <div class="modele-champ"><span>Référence document (plan, CCTP) :</span> <span class="valeur">Plan façade cuisine Ind. B — §3.2.1</span></div>
+    <div class="modele-champ"><span>Action corrective demandée :</span> <span class="valeur">Reprendre le calage et reposer la façade à la cote exacte</span></div>
+    <div class="modele-champ"><span>Délai de correction :</span> <span class="valeur">__________________</span></div>
+    <div class="modele-champ"><span>Levée de la FNC (signature) :</span> <span class="valeur">__________________</span></div>
+  </div>
+</section>
+
+<!-- RÉCEPTION & RÉSERVES -->
+<section id="reception">
+  <h2>5. PV de Réception & Réserves</h2>
+  <div class="card orange">
+    <h3>Comment se passe la réception ?</h3>
+    <ul class="etape-list">
+      <li class="etape-item"><div class="etape-num orange">1</div><div>Le maître d'ouvrage visite le chantier avec l'entreprise</div></li>
+      <li class="etape-item"><div class="etape-num orange">2</div><div>Chaque point est vérifié par rapport aux plans et au CCTP</div></li>
+      <li class="etape-item"><div class="etape-num orange">3</div><div>Les défauts constatés sont notés comme <strong>réserves</strong></div></li>
+      <li class="etape-item"><div class="etape-num orange">4</div><div>Le PV est signé par les deux parties — c'est la date officielle de réception</div></li>
+    </ul>
+  </div>
+  <h3>Comment rédiger une réserve clairement</h3>
+  <div class="card green">
+    <p><strong>❌ Mauvaise réserve :</strong> "Porte mal posée"</p>
+    <p><strong>✅ Bonne réserve :</strong> "Porte de chambre 1 : jeu entre porte et dormant côté serrure = 8mm au lieu de 3mm prévu. Réglage des paumelles à effectuer."</p>
+    <p style="margin-top:.5rem;"><strong>Règle :</strong> Une réserve = un problème précis + sa localisation + ce qui est attendu.</p>
+  </div>
+  <div class="modele">
+    <div class="modele-header"><span>📄 MODÈLE — PV de Réception avec réserves</span></div>
+    <div class="modele-champ"><span>Chantier :</span> <span class="valeur">__________________</span></div>
+    <div class="modele-champ"><span>Date de réception :</span> <span class="valeur">__________________</span></div>
+    <div class="modele-champ"><span>Présents :</span> <span class="valeur">Maître d'ouvrage + Entreprise</span></div>
+    <br>
+    <strong>RÉSERVES CONSTATÉES :</strong>
+    <table style="margin:.5rem 0;">
+      <tr><th>N°</th><th>Localisation</th><th>Description précise</th><th>Délai levée</th></tr>
+      <tr><td>1</td><td>Cuisine — meuble bas gauche</td><td>Façade désalignée de 2mm / façade voisine</td><td>7 jours</td></tr>
+      <tr><td>2</td><td>Dressing — penderie</td><td>Tringle mal fixée — jeu perceptible</td><td>7 jours</td></tr>
+    </table>
+    <div class="modele-champ"><span>Signature MO :</span> <span class="valeur">__________________</span></div>
+    <div class="modele-champ"><span>Signature Entreprise :</span> <span class="valeur">__________________</span></div>
+  </div>
+
+  <div class="delai-box">
+    <h4>⏱️ Délais légaux à connaître</h4>
+    <table style="font-size:.85rem;margin:0;">
+      <tr><th>Situation</th><th>Délai légal</th></tr>
+      <tr><td>Levée des réserves après réception</td><td>Délai fixé dans le PV (généralement 8 à 30 jours)</td></tr>
+      <tr><td>Garantie de parfait achèvement</td><td>1 an après réception</td></tr>
+      <tr><td>Garantie biennale (bon fonctionnement)</td><td>2 ans après réception</td></tr>
+      <tr><td>Garantie décennale</td><td>10 ans après réception</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- DOE -->
+<section id="doe">
+  <h2>6. DOE — Dossier des Ouvrages Exécutés</h2>
+  <p>Document remis au maître d'ouvrage à la fin du chantier. Il contient tout ce qui a été réellement réalisé (pas ce qui était prévu, mais ce qui a été fait).</p>
+  <table>
+    <tr><th>Document</th><th>Contenu pour menuiserie/agencement</th></tr>
+    <tr><td>Plans de récolement</td><td>Plans finaux tels que construits (avec cotes réelles)</td></tr>
+    <tr><td>Fiches techniques</td><td>Fiches matériaux utilisés (mélaminé, quincaillerie, finitions)</td></tr>
+    <tr><td>Notices d'entretien</td><td>Comment entretenir : bois, laque, charnières, coulisseaux</td></tr>
+    <tr><td>Certificats et garanties</td><td>Garanties fabricant quincaillerie, certificats conformité</td></tr>
+    <tr><td>Photos</td><td>Photos avant/pendant/après travaux</td></tr>
+    <tr><td>PV de réception</td><td>PV signé avec levée de réserves</td></tr>
+    <tr><td>Attestations</td><td>Assurances décennale et RC pro</td></tr>
+  </table>
+</section>
+
+<!-- FICHE RÉCAP DOCUMENTS -->
+<section id="recap-docs">
+  <h2>📌 Fiche Récap — Documents de chantier</h2>
+  <table>
+    <tr><th>Document</th><th>Qui rédige</th><th>Quand</th><th>Qui signe</th></tr>
+    <tr><td>PPSPS</td><td>Entreprise</td><td>Avant démarrage</td><td>Chef d'entreprise + CSPS</td></tr>
+    <tr><td>Plan d'installation</td><td>Entreprise principale</td><td>Avant démarrage</td><td>Entreprise + MO</td></tr>
+    <tr><td>Compte-rendu réunion</td><td>Conducteur de travaux</td><td>Après chaque réunion</td><td>Rédacteur (diffusé à tous)</td></tr>
+    <tr><td>Fiche non-conformité</td><td>Celui qui constate</td><td>Dès constat</td><td>Constatant + entreprise concernée</td></tr>
+    <tr><td>PV de réception</td><td>MO ou son représentant</td><td>Fin de chantier</td><td>MO + Entreprise</td></tr>
+    <tr><td>DOE</td><td>Entreprise</td><td>À la réception</td><td>Remis au MO</td></tr>
+  </table>
+  <div class="card blue" style="margin-top:1rem;">
+    <h3>✅ Checklist documents de chantier</h3>
+    <ul class="checklist">
+      <li>PPSPS rédigé et transmis au CSPS avant démarrage</li>
+      <li>Plan d'installation affiché sur le chantier</li>
+      <li>Compte-rendu diffusé dans les 24h après chaque réunion</li>
+      <li>Fiches NC numérotées et archivées</li>
+      <li>PV de réception signé par les deux parties</li>
+      <li>Réserves levées dans les délais et confirmées par écrit</li>
+      <li>DOE complet remis au MO à la réception</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PARTIE 4 ===================== -->
+<div class="partie-title">📊 PARTIE 4 — APPELS D'OFFRES</div>
+
+<!-- INTRO AO -->
+<section id="ao-intro">
+  <h2>1. C'est quoi un appel d'offres ?</h2>
+  <div class="card purple">
+    <p>Un appel d'offres est une procédure par laquelle un client (maître d'ouvrage) sollicite plusieurs entreprises pour réaliser des travaux. Chaque entreprise soumet une offre, et le client choisit la meilleure selon des critères définis.</p>
+    <p><strong>En résumé :</strong> Le client dit "j'ai ce projet à faire" → les entreprises répondent avec leur prix et leur méthode → le client choisit.</p>
+  </div>
+
+  <h3>Appel d'offres public vs privé</h3>
+  <table>
+    <tr><th>Critère</th><th>Public</th><th>Privé</th></tr>
+    <tr><td>Qui lance ?</td><td>État, mairies, hôpitaux, écoles...</td><td>Entreprises, particuliers, promoteurs</td></tr>
+    <tr><td>Règles</td><td>Code de la commande publique — très strict</td><td>Libre, négociable</td></tr>
+    <tr><td>Publication</td><td>BOAMP, JOUE, journaux officiels</td><td>Réseau, bouche à oreille, plateformes</td></tr>
+    <tr><td>Délai réponse</td><td>Fixé réglementairement (min. 25 jours)</td><td>Variable selon le client</td></tr>
+    <tr><td>Critères sélection</td><td>Obligatoirement publiés à l'avance</td><td>Libres et non forcément publiés</td></tr>
+    <tr><td>Recours</td><td>Possible (tribunal administratif)</td><td>Limité</td></tr>
+  </table>
+</section>
+
+<!-- DCE -->
+<section id="dce">
+  <h2>2. Comment lire un DCE (Dossier de Consultation des Entreprises)</h2>
+  <table>
+    <tr><th>Document du DCE</th><th>Contenu</th><th>Ce qu'il faut regarder en premier</th></tr>
+    <tr><td>RC — Règlement de Consultation</td><td>Règles du jeu de l'AO</td><td>Date limite de remise, critères de sélection, pièces à fournir</td></tr>
+    <tr><td>CCTP — Cahier des Clauses Techniques</td><td>Description technique des travaux</td><td>Prestations demandées, matériaux imposés, normes</td></tr>
+    <tr><td>CCAP — Clauses Administratives</td><td>Conditions contractuelles</td><td>Délais, pénalités, modalités de paiement</td></tr>
+    <tr><td>Plans</td><td>Plans de l'ouvrage à réaliser</td><td>Dimensions, surfaces, complexité</td></tr>
+    <tr><td>BPU/DQE — Bordereau de Prix</td><td>Liste des prestations à chiffrer</td><td>Ce qu'il faut exactement remplir avec vos prix</td></tr>
+  </table>
+  <div class="card orange">
+    <h3>⚠️ Les pièges classiques dans un DCE</h3>
+    <ul class="checklist danger">
+      <li>Ne pas lire le CCTP en entier → on rate des prestations et on sous-chiffre</li>
+      <li>Rater la date limite de remise → disqualification automatique</li>
+      <li>Oublier une pièce administrative → dossier irrecevable</li>
+      <li>Ne pas poser de questions en phase de consultation → incompréhension coûteuse</li>
+    </ul>
+  </div>
+
+  <h3>Les étapes d'un appel d'offres de A à Z</h3>
+  <ul class="etape-list">
+    <li class="etape-item"><div class="etape-num">1</div><div><strong>Réception du DCE</strong> — Téléchargement ou envoi postal</div></li>
+    <li class="etape-item"><div class="etape-num">2</div><div><strong>Analyse du DCE</strong> — Lecture RC, CCTP, plans. Décision de répondre ou non.</div></li>
+    <li class="etape-item"><div class="etape-num">3</div><div><strong>Visite de site</strong> — Obligatoire ou facultative selon le RC. Toujours y aller si possible.</div></li>
+    <li class="etape-item"><div class="etape-num">4</div><div><strong>Questions au MO</strong> — Poser ses questions avant la date limite via la plateforme officielle</div></li>
+    <li class="etape-item"><div class="etape-num">5</div><div><strong>Chiffrage</strong> — Métrés, prix matériaux, main d'œuvre, sous-traitants, marges</div></li>
+    <li class="etape-item"><div class="etape-num">6</div><div><strong>Rédaction du mémoire technique</strong> — Présenter sa méthode, ses références, ses atouts</div></li>
+    <li class="etape-item"><div class="etape-num">7</div><div><strong>Constitution du dossier</strong> — Toutes les pièces demandées dans le RC</div></li>
+    <li class="etape-item"><div class="etape-num green">8</div><div><strong>Remise de l'offre</strong> — Avant la date limite, via la plateforme ou en main propre</div></li>
+    <li class="etape-item"><div class="etape-num green">9</div><div><strong>Analyse et attribution</strong> — Le MO analyse, peut négocier (privé), attribue le marché</div></li>
+    <li class="etape-item"><div class="etape-num green">10</div><div><strong>Notification et démarrage</strong> — Ordre de service de démarrage = début officiel</div></li>
+  </ul>
+</section>
+
+<!-- MÉMOIRE TECHNIQUE -->
+<section id="memoire">
+  <h2>3. Le mémoire technique — Comment convaincre</h2>
+  <p>Le mémoire technique est souvent noté sur 40 à 60% de la note finale (autant que le prix !). C'est là que tu montres que tu as compris le projet et que tu es la meilleure entreprise.</p>
+  <table>
+    <tr><th>Section</th><th>Contenu attendu</th><th>Conseil</th></tr>
+    <tr><td>Présentation entreprise</td><td>Effectif, spécialités, zone d'intervention</td><td>Mettre en avant l'expérience en menuiserie/agencement</td></tr>
+    <tr><td>Compréhension du projet</td><td>Résumé du chantier avec tes mots</td><td>Montre que tu as lu et compris le CCTP</td></tr>
+    <tr><td>Méthodologie</td><td>Comment tu vas réaliser les travaux étape par étape</td><td>Sois précis : phases, planning, moyens humains/matériels</td></tr>
+    <tr><td>Matériaux et produits</td><td>Marques, références, fiches techniques</td><td>Proposer mieux que le minimum demandé valorise</td></tr>
+    <tr><td>Références similaires</td><td>Chantiers comparables réalisés</td><td>Photos + surfaces + clients si accord</td></tr>
+    <tr><td>Démarche qualité/sécurité</td><td>Certifications, PPSPS, formation personnel</td><td>Qualibat, RGE, ISO si disponibles</td></tr>
+    <tr><td>Planning prévisionnel</td><td>Durée des travaux, jalons clés</td><td>Être réaliste — pas trop optimiste</td></tr>
+  </table>
+
+  <div class="card green">
+    <h3>✅ Critères de sélection typiques</h3>
+    <table>
+      <tr><th>Critère</th><th>Poids typique</th></tr>
+      <tr><td>Prix (offre financière)</td><td>40 à 60%</td></tr>
+      <tr><td>Valeur technique (mémoire)</td><td>30 à 50%</td></tr>
+      <tr><td>Délai d'exécution</td><td>5 à 10%</td></tr>
+      <tr><td>Références / certifications</td><td>5 à 10%</td></tr>
+    </table>
+  </div>
+
+  <div class="card red">
+    <h3>⚠️ Pièges à éviter</h3>
+    <ul class="checklist danger">
+      <li>Répondre à tous les AO sans sélectionner — perte de temps sur des affaires non adaptées</li>
+      <li>Faire un mémoire générique copié-collé — le MO le voit immédiatement</li>
+      <li>Sous-estimer son prix pour "gagner" — dangereux pour la rentabilité</li>
+      <li>Oublier de mettre à jour son attestation d'assurance décennale</li>
+      <li>Remettre en retard — disqualification automatique sans exception</li>
+    </ul>
+  </div>
+</section>
+
+<!-- EXERCICES -->
+<section id="exercices">
+  <h2>🛠️ Exercices Pratiques</h2>
+
+  <div class="exercice">
+    <h3>Exercice 1 — Analyser un appel d'offres</h3>
+    <p><strong>Situation :</strong> Tu reçois un AO d'une mairie pour l'aménagement d'une salle de réunion (mobilier sur-mesure, 18 000€ HT estimé). DCE disponible, date limite dans 15 jours.</p>
+    <p>Réponds aux questions :</p>
+    <ol style="margin-left:1.5rem;font-size:.9rem;line-height:2;">
+      <li>Quel type d'AO est-ce ? Public ou privé ?</li>
+      <li>Quel document lires-tu en premier et pourquoi ?</li>
+      <li>Quels sont les 3 premiers réflexes à avoir ?</li>
+      <li>Tu ne comprends pas une clause du CCTP — que fais-tu ?</li>
+    </ol>
+    <div class="corrige">
+      <h4>✅ Corrigé</h4>
+      <ol style="margin-left:1.5rem;font-size:.88rem;line-height:1.8;">
+        <li>Public — client = mairie (collectivité)</li>
+        <li>Le RC (Règlement de Consultation) — il contient les règles du jeu : date limite, pièces à fournir, critères de sélection</li>
+        <li>Note la date limite → Programme une visite de site → Identifie les pièces à fournir</li>
+        <li>Poser la question officiellement via la plateforme avant la date limite de questions — la réponse sera transmise à toutes les entreprises</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="exercice">
+    <h3>Exercice 2 — Préparer les pièces d'un dossier</h3>
+    <p><strong>Le RC demande les pièces suivantes. Explique ce qu'est chaque document :</strong></p>
+    <ol style="margin-left:1.5rem;font-size:.9rem;line-height:2;">
+      <li>DC1 — Lettre de candidature</li>
+      <li>DC2 — Déclaration du candidat</li>
+      <li>Attestations fiscales et sociales (moins de 6 mois)</li>
+      <li>Attestation assurance décennale</li>
+      <li>Références de chantiers similaires</li>
+    </ol>
+    <div class="corrige">
+      <h4>✅ Corrigé</h4>
+      <ol style="margin-left:1.5rem;font-size:.88rem;line-height:1.8;">
+        <li>DC1 : formulaire officiel qui identifie l'entreprise candidate (téléchargeable sur economie.gouv.fr)</li>
+        <li>DC2 : déclaration sur l'honneur que l'entreprise n'est pas en liquidation, pas exclue des marchés publics</li>
+        <li>Attestation URSSAF + attestation des impôts — prouvent que tu es à jour de tes cotisations</li>
+        <li>Document de ton assureur prouvant ta couverture décennale pour les travaux concernés</li>
+        <li>Liste de 3 à 5 chantiers comparables avec surface, montant, client et contact de référence</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="exercice">
+    <h3>Exercice 3 — Rédiger un mémoire technique</h3>
+    <p><strong>Situation :</strong> AO pour aménagement de 6 salles de classe (mobilier bois sur-mesure). Budget 45 000€ HT. Le mémoire technique est noté sur 40 points.</p>
+    <p>Rédige le plan détaillé de ton mémoire technique en listant ce que tu mets dans chaque section :</p>
+    <div class="corrige">
+      <h4>✅ Structure attendue</h4>
+      <ol style="margin-left:1.5rem;font-size:.88rem;line-height:1.8;">
+        <li><strong>Présentation :</strong> 8 ans d'expérience, 5 compagnons menuisiers, spécialité mobilier scolaire et tertiaire, zone Île-de-France</li>
+        <li><strong>Compréhension :</strong> "Votre projet porte sur la réalisation de 6 salles avec mobilier adapté PMR, finition résistante, livraison avant rentrée scolaire..."</li>
+        <li><strong>Méthodologie :</strong> Phase 1 relevés (j1-j5) → Phase 2 fabrication atelier (j6-j35) → Phase 3 pose (j36-j50) par salle pour maintenir l'activité scolaire</li>
+        <li><strong>Matériaux :</strong> Mélaminé Egger classe E1, chant ABS 2mm, quincaillerie Hettich — fiches techniques jointes</li>
+        <li><strong>Références :</strong> École primaire Montrouge 2024 (32 000€), Lycée Créteil 2023 (68 000€)</li>
+        <li><strong>Planning :</strong> Livraison en 50 jours ouvrés, intervention salle par salle le week-end</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- QCM -->
+<section id="qcm">
+  <h2>🎯 QCM — Documents & Appels d'offres</h2>
+  <div class="qcm">
+    <div class="question">
+      <p>1. Qui rédige le PPSPS ?</p>
+      <div class="options">
+        <label><input type="radio" name="q1" value="a"> Le maître d'ouvrage</label>
+        <label><input type="radio" name="q1" value="b"> L'entreprise intervenante</label>
+        <label><input type="radio" name="q1" value="c"> L'architecte</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>2. La garantie décennale couvre combien d'années après la réception ?</p>
+      <div class="options">
+        <label><input type="radio" name="q2" value="a"> 1 an</label>
+        <label><input type="radio" name="q2" value="b"> 2 ans</label>
+        <label><input type="radio" name="q2" value="c"> 10 ans</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>3. Dans un DCE, quel document contient les règles du jeu de l'appel d'offres ?</p>
+      <div class="options">
+        <label><input type="radio" name="q3" value="a"> CCTP</label>
+        <label><input type="radio" name="q3" value="b"> RC (Règlement de Consultation)</label>
+        <label><input type="radio" name="q3" value="c"> CCAP</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>4. Quelle est la part typique du mémoire technique dans la notation d'un AO public ?</p>
+      <div class="options">
+        <label><input type="radio" name="q4" value="a"> 5 à 10%</label>
+        <label><input type="radio" name="q4" value="b"> 30 à 50%</label>
+        <label><input type="radio" name="q4" value="c"> 80 à 90%</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>5. Qu'est-ce que le DOE ?</p>
+      <div class="options">
+        <label><input type="radio" name="q5" value="a"> Un document de sécurité rédigé avant le chantier</label>
+        <label><input type="radio" name="q5" value="b"> Le dossier remis au MO à la fin avec plans réels, fiches techniques et notices</label>
+        <label><input type="radio" name="q5" value="c"> Le devis initial de l'entreprise</label>
+      </div>
+    </div>
+    <button class="btn" onclick="verifierQCM()">Vérifier mes réponses</button>
+    <div class="resultat" id="resultat"></div>
+  </div>
+</section>
+
+</main>
+
+<footer style="background:var(--dark);color:#94a3b8;text-align:center;padding:2rem;margin-top:3rem;">
+  <p>BTS ERA — Documents de Chantier & Appels d'Offres</p>
+  <p style="font-size:.85rem;margin-top:.3rem;">Apprenti menuisier → Conducteur de travaux</p>
+</footer>
+
+<script>
+function verifierQCM() {
+  const reponses = { q1: 'b', q2: 'c', q3: 'b', q4: 'b', q5: 'b' };
+  let score = 0, total = Object.keys(reponses).length;
+  for (let q in reponses) {
+    const s = document.querySelector(`input[name="${q}"]:checked`);
+    if (s && s.value === reponses[q]) score++;
+  }
+  const r = document.getElementById('resultat');
+  r.style.display = 'block';
+  if (score === total) { r.style.background='#dcfce7'; r.style.color='#16a34a'; r.textContent=`🎉 Parfait ! ${score}/${total} — Tu maîtrises les documents et AO !`; }
+  else if (score >= total/2) { r.style.background='#fef9c3'; r.style.color='#ca8a04'; r.textContent=`👍 Bien ! ${score}/${total} — Relis les points ratés.`; }
+  else { r.style.background='#fee2e2'; r.style.color='#dc2626'; r.textContent=`📚 ${score}/${total} — Reprends le cours !`; }
+}
+</script>
+</body>
+</html>

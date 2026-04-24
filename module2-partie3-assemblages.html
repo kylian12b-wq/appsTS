@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BTS ERA — Module 2 | Partie 3 : Assemblages</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap');
+  :root {
+    --blue: #1a56db; --blue-light: #e8f0fe; --dark: #0f172a; --mid: #334155;
+    --light: #f8fafc; --border: #e2e8f0; --green: #16a34a; --orange: #ea580c; --red: #dc2626;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Sora', sans-serif; background: var(--light); color: var(--dark); line-height: 1.7; }
+  header { background: var(--dark); color: white; padding: 2rem; text-align: center; }
+  header .badge { background: var(--orange); display: inline-block; padding: .3rem 1rem; border-radius: 999px; font-size: .8rem; margin-bottom: .8rem; }
+  header h1 { font-size: 2rem; font-weight: 700; }
+  header p { color: #94a3b8; margin-top: .5rem; }
+  nav { background: white; border-bottom: 1px solid var(--border); padding: .8rem 2rem; display: flex; gap: 1rem; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; }
+  nav a { text-decoration: none; color: var(--mid); font-size: .85rem; font-weight: 600; padding: .3rem .8rem; border-radius: 6px; transition: all .2s; }
+  nav a:hover { background: var(--blue-light); color: var(--blue); }
+  main { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+  section { margin-bottom: 3rem; }
+  h2 { font-size: 1.5rem; color: var(--blue); border-left: 4px solid var(--blue); padding-left: 1rem; margin-bottom: 1.5rem; }
+  h3 { font-size: 1.1rem; font-weight: 700; margin: 1.5rem 0 .8rem; }
+  p { margin-bottom: .8rem; color: var(--mid); }
+  .card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .card.blue { border-left: 4px solid var(--blue); }
+  .card.green { border-left: 4px solid var(--green); }
+  .card.orange { border-left: 4px solid var(--orange); }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .88rem; }
+  th { background: var(--dark); color: white; padding: .8rem; text-align: left; }
+  td { padding: .7rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:nth-child(even) td { background: var(--blue-light); }
+  .schema { background: white; border: 2px solid var(--border); border-radius: 12px; padding: 1.5rem; margin: 1rem 0; }
+  .assemblage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0; }
+  .assemblage-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1rem; text-align: center; }
+  .assemblage-schema { width: 100%; height: 100px; margin-bottom: .8rem; }
+  .assemblage-card h4 { font-size: .9rem; margin-bottom: .4rem; }
+  .assemblage-card p { font-size: .78rem; }
+  .exercice { background: white; border: 2px solid var(--blue); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .exercice h3 { color: var(--blue); margin-top: 0; }
+  .corrige { background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px; padding: 1rem; margin-top: 1rem; }
+  .corrige h4 { color: var(--green); margin-bottom: .5rem; }
+  .qcm { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
+  .question { margin-bottom: 1.5rem; }
+  .question p { font-weight: 600; margin-bottom: .5rem; }
+  .options label { display: block; padding: .4rem; cursor: pointer; }
+  .options input { margin-right: .5rem; }
+  .btn { background: var(--blue); color: white; border: none; padding: .7rem 1.5rem; border-radius: 8px; cursor: pointer; font-family: 'Sora', sans-serif; font-weight: 600; }
+  .resultat { margin-top: 1rem; padding: 1rem; border-radius: 8px; font-weight: 600; display: none; }
+  .checklist { list-style: none; }
+  .checklist li { padding: .3rem 0; display: flex; gap: .6rem; }
+  .checklist li::before { content: "✅"; }
+  .niveau { display: inline-block; padding: .15rem .5rem; border-radius: 4px; font-size: .72rem; font-weight: 700; }
+  .niveau.fort { background: #dcfce7; color: var(--green); }
+  .niveau.moyen { background: #fef9c3; color: #ca8a04; }
+  .niveau.faible { background: #fee2e2; color: var(--red); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">BTS ERA — Module 2</div>
+  <h1>🔩 Partie 3 : Assemblages</h1>
+  <p>Maîtrise tous les types d'assemblages en menuiserie et agencement</p>
+</header>
+
+<nav>
+  <a href="#mecanique">Assemblages mécaniques</a>
+  <a href="#bois">Bois massif</a>
+  <a href="#comparatif">Comparatif</a>
+  <a href="#colles">Colles</a>
+  <a href="#recap">Fiche Récap</a>
+  <a href="#exercices">Exercices</a>
+  <a href="#qcm">QCM</a>
+</nav>
+
+<main>
+
+<!-- ASSEMBLAGES MÉCANIQUES -->
+<section id="mecanique">
+  <h2>1. Assemblages mécaniques pour panneaux</h2>
+
+  <h3>🟡 Tourillons</h3>
+  <div class="schema">
+    <svg width="100%" height="80" viewBox="0 0 400 80">
+      <rect x="10" y="10" width="150" height="60" fill="#f5deb3" stroke="#8b6914" stroke-width="2" rx="3"/>
+      <rect x="240" y="10" width="150" height="60" fill="#f5deb3" stroke="#8b6914" stroke-width="2" rx="3"/>
+      <ellipse cx="160" cy="40" rx="8" ry="5" fill="#8b6914"/>
+      <ellipse cx="240" cy="40" rx="8" ry="5" fill="#8b6914"/>
+      <rect x="152" y="35" width="96" height="10" fill="#6b4a10" rx="3"/>
+      <text x="50" y="78" font-size="11" fill="#333" text-anchor="middle">Panneau A</text>
+      <text x="315" y="78" font-size="11" fill="#333" text-anchor="middle">Panneau B</text>
+      <text x="200" y="28" font-size="10" fill="#6b4a10" text-anchor="middle">Tourillon Ø8</text>
+    </svg>
+  </div>
+  <table>
+    <tr><th>Diamètre</th><th>Usage</th><th>Longueur standard</th></tr>
+    <tr><td>Ø 6 mm</td><td>Assemblages légers, petits panneaux</td><td>30 à 40 mm</td></tr>
+    <tr><td>Ø 8 mm</td><td>Usage standard caissons, meubles</td><td>35 à 50 mm</td></tr>
+    <tr><td>Ø 10 mm</td><td>Assemblages lourds, grandes pièces</td><td>50 à 60 mm</td></tr>
+  </table>
+  <p><strong>Règle :</strong> Le tourillon doit entrer sur 1/3 de l'épaisseur de chaque panneau. Pour du 19mm → tourillon Ø8 de 40mm (20mm de chaque côté).</p>
+
+  <h3>🟠 Lamello (biscuit) et Domino</h3>
+  <table>
+    <tr><th>Système</th><th>Forme</th><th>Avantages</th><th>Inconvénients</th><th>Usage idéal</th></tr>
+    <tr><td><strong>Lamello / Biscuit</strong></td><td>Ovale plat en bois compressé</td><td>Rapide, bon alignement</td><td>Résistance traction limitée</td><td>Plans de travail, assemblage de chants</td></tr>
+    <tr><td><strong>Domino (Festool)</strong></td><td>Rectangle arrondi</td><td>Très solide, précis</td><td>Machine coûteuse</td><td>Bois massif, meubles haut de gamme</td></tr>
+  </table>
+
+  <h3>🔴 Confirmat (vis à panneau)</h3>
+  <div class="card orange">
+    <p><strong>C'est quoi :</strong> Une vis spéciale avec filetage large, conçue pour assembler les panneaux de particules et MDF sans risque d'éclatement.</p>
+    <p><strong>Taille standard :</strong> Ø 7 x 50 mm pour panneau 19mm</p>
+    <p><strong>Comment poser :</strong></p>
+    <ol style="margin-left:1.5rem;font-size:.9rem;">
+      <li>Percer un avant-trou fraisé avec la mèche confirmat spéciale</li>
+      <li>Insérer le confirmat à la visseuse (embout hexagonal 4mm)</li>
+      <li>Ne pas trop serrer (risque d'éclater le panneau)</li>
+    </ol>
+  </div>
+
+  <h3>🔵 Visserie standard</h3>
+  <table>
+    <tr><th>Type de vis</th><th>Diamètre</th><th>Longueur</th><th>Usage</th></tr>
+    <tr><td>Vis à bois tête fraisée</td><td>Ø 3.5 à 4 mm</td><td>20 à 50 mm</td><td>Assemblage général bois/panneau</td></tr>
+    <tr><td>Vis pour aggloméré</td><td>Ø 4 à 5 mm</td><td>30 à 60 mm</td><td>Fixation dans panneau de particules</td></tr>
+    <tr><td>Vis autoperceuse</td><td>Ø 3.5 mm</td><td>13 à 25 mm</td><td>Fixation métal, ferrure</td></tr>
+    <tr><td>Confirmat</td><td>Ø 7 mm</td><td>50 à 70 mm</td><td>Assemblage caissons panneau</td></tr>
+  </table>
+  <p><strong>Règle générale :</strong> La vis doit traverser la première pièce et pénétrer dans la seconde sur <strong>2/3 de son épaisseur minimum</strong>.</p>
+</section>
+
+<!-- ASSEMBLAGES BOIS MASSIF -->
+<section id="bois">
+  <h2>2. Assemblages bois massif</h2>
+
+  <div class="assemblage-grid">
+    <div class="assemblage-card">
+      <svg class="assemblage-schema" viewBox="0 0 200 100">
+        <rect x="10" y="30" width="80" height="40" fill="#deb887" stroke="#8b6914" stroke-width="2"/>
+        <rect x="70" y="40" width="30" height="20" fill="#c8a06a" stroke="#8b6914" stroke-width="1"/>
+        <rect x="100" y="40" width="90" height="20" fill="#deb887" stroke="#8b6914" stroke-width="2"/>
+        <rect x="100" y="20" width="40" height="60" fill="#deb887" stroke="#8b6914" stroke-width="2"/>
+        <text x="100" y="95" font-size="10" fill="#333" text-anchor="middle">Tenon-Mortaise</text>
+      </svg>
+      <h4>Tenon-Mortaise</h4>
+      <p>Assemblage traditionnel très solide. Idéal pour cadres, portes, chaises.</p>
+      <span class="niveau fort">Résistance : Forte</span>
+    </div>
+
+    <div class="assemblage-card">
+      <svg class="assemblage-schema" viewBox="0 0 200 100">
+        <rect x="10" y="10" width="180" height="35" fill="#deb887" stroke="#8b6914" stroke-width="2"/>
+        <rect x="10" y="55" width="180" height="35" fill="#c8a06a" stroke="#8b6914" stroke-width="2"/>
+        <polygon points="40,45 60,45 60,55 40,55" fill="#8b6914"/>
+        <polygon points="80,45 100,45 100,55 80,55" fill="#8b6914"/>
+        <polygon points="120,45 140,45 140,55 120,55" fill="#8b6914"/>
+        <text x="100" y="98" font-size="10" fill="#333" text-anchor="middle">Queue d'aronde</text>
+      </svg>
+      <h4>Queue d'aronde</h4>
+      <p>Très solide en traction. Tiroirs haut de gamme, coins de caissons massif.</p>
+      <span class="niveau fort">Résistance : Très forte</span>
+    </div>
+
+    <div class="assemblage-card">
+      <svg class="assemblage-schema" viewBox="0 0 200 100">
+        <rect x="10" y="10" width="90" height="80" fill="#deb887" stroke="#8b6914" stroke-width="2"/>
+        <rect x="100" y="10" width="90" height="80" fill="#c8a06a" stroke="#8b6914" stroke-width="2"/>
+        <rect x="55" y="10" width="45" height="40" fill="#c8a06a" stroke="#8b6914" stroke-width="1"/>
+        <rect x="100" y="50" width="45" height="40" fill="#deb887" stroke="#8b6914" stroke-width="1"/>
+        <text x="100" y="98" font-size="10" fill="#333" text-anchor="middle">Mi-bois</text>
+      </svg>
+      <h4>Mi-bois</h4>
+      <p>Croisement de deux pièces à mi-épaisseur. Facile à réaliser, utilisé en ossature.</p>
+      <span class="niveau moyen">Résistance : Moyenne</span>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARATIF -->
+<section id="comparatif">
+  <h2>3. Comparatif général des assemblages</h2>
+  <table>
+    <tr><th>Assemblage</th><th>Résistance</th><th>Difficulté</th><th>Outillage</th><th>Usage principal</th></tr>
+    <tr><td>Tourillon Ø8</td><td><span class="niveau moyen">Moyen</span></td><td>Facile</td><td>Perceuse + gabarit</td><td>Caissons mélaminé</td></tr>
+    <tr><td>Confirmat</td><td><span class="niveau moyen">Moyen</span></td><td>Très facile</td><td>Perceuse + mèche confirmat</td><td>Caissons panneau</td></tr>
+    <tr><td>Lamello</td><td><span class="niveau moyen">Moyen</span></td><td>Facile</td><td>Lamelleuse</td><td>Plans de travail, chants</td></tr>
+    <tr><td>Domino</td><td><span class="niveau fort">Fort</span></td><td>Facile (machine)</td><td>Domino Festool</td><td>Bois massif, haut de gamme</td></tr>
+    <tr><td>Tenon-Mortaise</td><td><span class="niveau fort">Très fort</span></td><td>Difficile</td><td>Toupie, ciseau</td><td>Cadres, portes massif</td></tr>
+    <tr><td>Queue d'aronde</td><td><span class="niveau fort">Très fort</span></td><td>Très difficile</td><td>Défonceuse + gabarit</td><td>Tiroirs haut de gamme</td></tr>
+    <tr><td>Mi-bois</td><td><span class="niveau moyen">Moyen</span></td><td>Moyen</td><td>Scie + ciseau</td><td>Ossatures, croisements</td></tr>
+    <tr><td>Vis standard</td><td><span class="niveau faible">Faible</span></td><td>Très facile</td><td>Visseuse</td><td>Fixations secondaires</td></tr>
+  </table>
+</section>
+
+<!-- COLLES -->
+<section id="colles">
+  <h2>4. Colles adaptées à chaque assemblage</h2>
+  <table>
+    <tr><th>Assemblage</th><th>Colle recommandée</th><th>Temps séchage</th></tr>
+    <tr><td>Tourillon bois massif</td><td>Colle PVA (vinylique)</td><td>30 min serrage, 24h résistance</td></tr>
+    <tr><td>Lamello / Domino</td><td>Colle PVA</td><td>30 min serrage, 24h résistance</td></tr>
+    <tr><td>Chant ABS sur panneau</td><td>Colle thermofusible</td><td>Immédiat (machine à chanter)</td></tr>
+    <tr><td>Stratifié sur panneau</td><td>Colle contact néoprène</td><td>Immédiat (contact)</td></tr>
+    <tr><td>Assemblage bois humide/extérieur</td><td>Colle polyuréthane PU</td><td>2h serrage, 24h résistance</td></tr>
+    <tr><td>Confirmat / vis</td><td>Sans colle (mécanique)</td><td>—</td></tr>
+  </table>
+</section>
+
+<!-- FICHE RÉCAP -->
+<section id="recap">
+  <h2>📌 Fiche Récap — Assemblages</h2>
+  <div class="card blue">
+    <h3>Guide de choix rapide</h3>
+    <table>
+      <tr><th>Situation</th><th>Assemblage recommandé</th></tr>
+      <tr><td>Caisson cuisine mélaminé standard</td><td>Tourillon Ø8 + colle PVA</td></tr>
+      <tr><td>Caisson MDF peint rapide</td><td>Confirmat Ø7x50</td></tr>
+      <tr><td>Porte intérieure bois massif</td><td>Tenon-Mortaise + colle PVA</td></tr>
+      <tr><td>Tiroir haut de gamme</td><td>Queue d'aronde + colle PVA</td></tr>
+      <tr><td>Plan de travail bout à bout</td><td>Lamello + colle PVA + boulon</td></tr>
+      <tr><td>Ossature bâti</td><td>Mi-bois + vis + colle PU</td></tr>
+      <tr><td>Fixation rapide ferrure</td><td>Vis autoperceuse</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- EXERCICES -->
+<section id="exercices">
+  <h2>🛠️ Exercices Pratiques</h2>
+
+  <div class="exercice">
+    <h3>Exercice 1 — Choisir le bon assemblage</h3>
+    <p>Pour chaque situation, indique l'assemblage le plus adapté et justifie :</p>
+    <ol style="margin-left:1.5rem;font-size:.9rem;line-height:2;">
+      <li>Fabriquer un caisson de cuisine en mélaminé 19mm</li>
+      <li>Assembler un cadre de porte en chêne massif</li>
+      <li>Réaliser un tiroir haut de gamme visible</li>
+      <li>Assembler rapidement un meuble de bureau en MDF</li>
+      <li>Joindre deux plans de travail côte à côte</li>
+    </ol>
+    <div class="corrige">
+      <h4>✅ Corrigé</h4>
+      <ol style="margin-left:1.5rem;font-size:.88rem;line-height:1.8;">
+        <li>Tourillon Ø8 + colle PVA — solide, invisible, standard industrie</li>
+        <li>Tenon-Mortaise + colle PVA — résistance maximale, traditionnel</li>
+        <li>Queue d'aronde — très solide en traction, esthétique visible</li>
+        <li>Confirmat Ø7x50 — rapide, pas de gabarit nécessaire</li>
+        <li>Lamello + boulons d'assemblage — alignement parfait + solidarisation</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="exercice">
+    <h3>Exercice 2 — Concevoir les assemblages d'un caisson complet</h3>
+    <p><strong>Caisson à concevoir :</strong> Meuble bas de cuisine 600x600x870mm, mélaminé blanc 19mm.</p>
+    <p>Indique pour chaque liaison quel assemblage utiliser :</p>
+    <ul style="margin-left:1.5rem;font-size:.9rem;line-height:2;">
+      <li>Joues latérales + fond</li>
+      <li>Joues latérales + tablette intermédiaire</li>
+      <li>Joues latérales + dessus/dessous</li>
+      <li>Fixation du dos (contre-plaqué 8mm)</li>
+    </ul>
+    <div class="corrige">
+      <h4>✅ Corrigé</h4>
+      <ul style="margin-left:1.5rem;font-size:.88rem;line-height:1.8;">
+        <li>Fond : rainure 8mm fraisée dans les joues + colle PVA</li>
+        <li>Tablette : tourillon Ø8 tous les 200mm + colle PVA</li>
+        <li>Dessus/dessous : tourillon Ø8 + confirmat pour raidissement</li>
+        <li>Dos : cloué ou vissé (vis 3.5x16) dans une feuillure de 8mm</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="exercice">
+    <h3>Exercice 3 — Choisir la colle adaptée</h3>
+    <p>Pour chaque opération, quelle colle utilises-tu et pourquoi ?</p>
+    <ol style="margin-left:1.5rem;font-size:.9rem;line-height:2;">
+      <li>Coller un chant ABS sur un plateau mélaminé (machine à chanter)</li>
+      <li>Assembler un cadre de fenêtre en pin (extérieur)</li>
+      <li>Poser un stratifié HPL sur un plan de travail</li>
+      <li>Coller des tourillons dans un caisson de cuisine</li>
+    </ol>
+    <div class="corrige">
+      <h4>✅ Corrigé</h4>
+      <ol style="margin-left:1.5rem;font-size:.88rem;line-height:1.8;">
+        <li>Colle thermofusible — séchage instantané, spécial machine à chanter</li>
+        <li>Colle polyuréthane PU — résistante à l'humidité et aux variations</li>
+        <li>Colle contact néoprène — prise immédiate au contact, idéale grand format</li>
+        <li>Colle PVA (vinylique) — standard bois intérieur, solide et économique</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- QCM -->
+<section id="qcm">
+  <h2>🎯 QCM — Assemblages</h2>
+  <div class="qcm">
+    <div class="question">
+      <p>1. Quel tourillon utilise-t-on en standard pour assembler du panneau 19mm ?</p>
+      <div class="options">
+        <label><input type="radio" name="q1" value="a"> Ø 6 mm</label>
+        <label><input type="radio" name="q1" value="b"> Ø 8 mm</label>
+        <label><input type="radio" name="q1" value="c"> Ø 12 mm</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>2. Quel assemblage est le plus adapté pour un tiroir haut de gamme visible ?</p>
+      <div class="options">
+        <label><input type="radio" name="q2" value="a"> Confirmat</label>
+        <label><input type="radio" name="q2" value="b"> Tourillon</label>
+        <label><input type="radio" name="q2" value="c"> Queue d'aronde</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>3. Quelle colle utiliser pour assembler du bois extérieur soumis à l'humidité ?</p>
+      <div class="options">
+        <label><input type="radio" name="q3" value="a"> Colle PVA vinylique</label>
+        <label><input type="radio" name="q3" value="b"> Colle polyuréthane PU</label>
+        <label><input type="radio" name="q3" value="c"> Colle thermofusible</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>4. Le confirmat est vissé avec quel embout ?</p>
+      <div class="options">
+        <label><input type="radio" name="q4" value="a"> Cruciforme Philips</label>
+        <label><input type="radio" name="q4" value="b"> Torx</label>
+        <label><input type="radio" name="q4" value="c"> Hexagonal 4mm</label>
+      </div>
+    </div>
+    <button class="btn" onclick="verifierQCM()">Vérifier mes réponses</button>
+    <div class="resultat" id="resultat"></div>
+  </div>
+</section>
+
+</main>
+
+<footer style="background:var(--dark);color:#94a3b8;text-align:center;padding:2rem;margin-top:3rem;">
+  <p>BTS ERA — Module 2 | Partie 3 : Assemblages</p>
+</footer>
+
+<script>
+function verifierQCM() {
+  const reponses = { q1: 'b', q2: 'c', q3: 'b', q4: 'c' };
+  let score = 0, total = Object.keys(reponses).length;
+  for (let q in reponses) {
+    const s = document.querySelector(`input[name="${q}"]:checked`);
+    if (s && s.value === reponses[q]) score++;
+  }
+  const r = document.getElementById('resultat');
+  r.style.display = 'block';
+  if (score === total) { r.style.background='#dcfce7'; r.style.color='#16a34a'; r.textContent=`🎉 Parfait ! ${score}/${total}`; }
+  else if (score >= total/2) { r.style.background='#fef9c3'; r.style.color='#ca8a04'; r.textContent=`👍 Bien ! ${score}/${total} — Relis les points ratés.`; }
+  else { r.style.background='#fee2e2'; r.style.color='#dc2626'; r.textContent=`📚 ${score}/${total} — Reprends le cours !`; }
+}
+</script>
+</body>
+</html>

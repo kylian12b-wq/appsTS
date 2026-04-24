@@ -1,0 +1,52 @@
+{
+  "name": "bts-era-cours",
+  "version": "1.0.0",
+  "description": "Application de cours BTS ERA - Menuiserie & Aménagement",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win --x64",
+    "build:dir": "electron-builder --win --dir"
+  },
+  "build": {
+    "appId": "com.btseracours.app",
+    "productName": "BTS ERA Cours",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "app/**/*",
+      "!dist/**",
+      "!node_modules/.bin/**",
+      "!.claude/**"
+    ],
+    "extraResources": [
+      {
+        "from": ".",
+        "to": "courses",
+        "filter": ["*.html", "*.HTML"]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "BTS ERA Cours"
+    }
+  },
+  "devDependencies": {
+    "electron": "^29.4.0",
+    "electron-builder": "^24.13.3"
+  }
+}

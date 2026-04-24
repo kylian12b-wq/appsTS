@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BTS ERA — Management d'Équipe</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap');
+  :root {
+    --blue: #1a56db; --blue-light: #e8f0fe; --dark: #0f172a; --mid: #334155;
+    --light: #f8fafc; --border: #e2e8f0; --green: #16a34a; --orange: #ea580c;
+    --red: #dc2626; --purple: #7c3aed; --teal: #0d9488;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Sora', sans-serif; background: var(--light); color: var(--dark); line-height: 1.7; }
+  header { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 2.5rem 2rem; text-align: center; }
+  header .badge { background: var(--teal); display: inline-block; padding: .3rem 1rem; border-radius: 999px; font-size: .8rem; margin-bottom: .8rem; }
+  header h1 { font-size: 2rem; font-weight: 700; }
+  header p { color: #94a3b8; margin-top: .5rem; }
+  nav { background: white; border-bottom: 1px solid var(--border); padding: .8rem 2rem; display: flex; gap: .8rem; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; }
+  nav a { text-decoration: none; color: var(--mid); font-size: .8rem; font-weight: 600; padding: .3rem .7rem; border-radius: 6px; transition: all .15s; }
+  nav a:hover { background: var(--blue-light); color: var(--blue); }
+  main { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+  section { margin-bottom: 3rem; }
+  h2 { font-size: 1.4rem; color: var(--blue); border-left: 4px solid var(--blue); padding-left: 1rem; margin-bottom: 1.5rem; }
+  h3 { font-size: 1.05rem; font-weight: 700; margin: 1.5rem 0 .8rem; }
+  p { margin-bottom: .8rem; color: var(--mid); }
+  .card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .card.blue { border-left: 4px solid var(--blue); }
+  .card.green { border-left: 4px solid var(--green); }
+  .card.orange { border-left: 4px solid var(--orange); }
+  .card.red { border-left: 4px solid var(--red); }
+  .card.purple { border-left: 4px solid var(--purple); }
+  .card.teal { border-left: 4px solid var(--teal); }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .87rem; }
+  th { background: var(--dark); color: white; padding: .8rem; text-align: left; }
+  td { padding: .7rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:nth-child(even) td { background: var(--blue-light); }
+  .checklist { list-style: none; }
+  .checklist li { padding: .35rem 0; display: flex; gap: .6rem; font-size: .9rem; align-items: flex-start; }
+  .checklist li::before { content: "✅"; flex-shrink: 0; }
+  .checklist.danger li::before { content: "❌"; }
+  .checklist.warning li::before { content: "⚠️"; }
+  .checklist.star li::before { content: "⭐"; }
+
+  /* Briefing timer */
+  .briefing-schema { background: white; border: 2px solid var(--border); border-radius: 12px; overflow: hidden; margin: 1rem 0; }
+  .briefing-header { background: var(--dark); color: white; padding: .8rem 1.2rem; font-weight: 700; font-size: .9rem; display: flex; justify-content: space-between; }
+  .briefing-steps { display: grid; }
+  .briefing-step { display: flex; align-items: stretch; }
+  .b-time { background: var(--dark); color: white; padding: .8rem 1rem; font-size: .8rem; font-weight: 700; min-width: 70px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .b-content { padding: .8rem 1.2rem; border-bottom: 1px solid var(--border); flex: 1; }
+  .b-content strong { display: block; font-size: .9rem; }
+  .b-content span { font-size: .82rem; color: var(--mid); }
+  .b-bar { width: 6px; flex-shrink: 0; }
+
+  /* Personnalités */
+  .perso-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin: 1rem 0; }
+  .perso-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem; }
+  .perso-card .emoji { font-size: 2rem; display: block; margin-bottom: .5rem; }
+  .perso-card h4 { font-size: .95rem; font-weight: 700; margin-bottom: .5rem; }
+  .perso-card .trait { font-size: .82rem; color: var(--mid); margin-bottom: .8rem; }
+  .perso-card .strategie { background: var(--blue-light); border-radius: 6px; padding: .6rem .8rem; font-size: .82rem; }
+  .perso-card .strategie strong { color: var(--blue); }
+
+  /* Dialogue exemples */
+  .dialogue { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem; margin: 1rem 0; }
+  .dialogue-title { font-weight: 700; margin-bottom: 1rem; font-size: .9rem; color: var(--mid); }
+  .msg { display: flex; gap: .8rem; margin-bottom: .8rem; align-items: flex-start; }
+  .msg-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+  .msg-avatar.chef { background: var(--blue); color: white; }
+  .msg-avatar.employe { background: #e2e8f0; color: var(--mid); }
+  .msg-bubble { border-radius: 10px; padding: .6rem .9rem; font-size: .85rem; max-width: 80%; }
+  .msg-bubble.chef { background: var(--blue); color: white; }
+  .msg-bubble.employe { background: #f1f5f9; color: var(--dark); }
+  .msg-label { font-size: .7rem; font-weight: 700; margin-bottom: .2rem; }
+
+  /* Méthode DESC */
+  .desc-box { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 1rem 0; }
+  .desc-item { background: white; border-radius: 10px; padding: 1rem; text-align: center; border: 2px solid var(--border); }
+  .desc-letter { font-size: 2rem; font-weight: 700; }
+  .desc-item h4 { font-size: .85rem; font-weight: 700; margin: .3rem 0; }
+  .desc-item p { font-size: .78rem; }
+  .desc-item.d { border-color: var(--blue); }
+  .desc-item.d .desc-letter { color: var(--blue); }
+  .desc-item.e { border-color: var(--orange); }
+  .desc-item.e .desc-letter { color: var(--orange); }
+  .desc-item.s { border-color: var(--green); }
+  .desc-item.s .desc-letter { color: var(--green); }
+  .desc-item.c { border-color: var(--purple); }
+  .desc-item.c .desc-letter { color: var(--purple); }
+
+  /* Leader styles */
+  .style-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1rem 0; }
+  .style-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem; text-align: center; }
+  .style-card .icon { font-size: 2rem; margin-bottom: .5rem; }
+  .style-card h4 { font-size: .9rem; font-weight: 700; margin-bottom: .4rem; }
+  .style-card p { font-size: .78rem; }
+  .style-card.recommande { border: 2px solid var(--green); }
+  .style-card.recommande::after { content: "✅ Recommandé"; display: block; margin-top: .5rem; font-size: .7rem; font-weight: 700; color: var(--green); }
+
+  /* Compétences radar */
+  .competence-list { display: grid; gap: .6rem; margin: 1rem 0; }
+  .comp-item { display: flex; align-items: center; gap: 1rem; background: white; border: 1px solid var(--border); border-radius: 8px; padding: .7rem 1rem; }
+  .comp-name { font-size: .85rem; font-weight: 600; min-width: 150px; }
+  .comp-bar-bg { flex: 1; background: var(--border); border-radius: 999px; height: 8px; }
+  .comp-bar { height: 8px; border-radius: 999px; background: var(--blue); }
+  .comp-label { font-size: .75rem; color: var(--mid); min-width: 50px; text-align: right; }
+
+  .qcm { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
+  .question { margin-bottom: 1.5rem; }
+  .question p { font-weight: 600; margin-bottom: .5rem; }
+  .options label { display: block; padding: .4rem; cursor: pointer; font-size: .9rem; }
+  .options input { margin-right: .5rem; }
+  .btn { background: var(--blue); color: white; border: none; padding: .7rem 1.5rem; border-radius: 8px; cursor: pointer; font-family: 'Sora', sans-serif; font-weight: 600; }
+  .resultat { margin-top: 1rem; padding: 1rem; border-radius: 8px; font-weight: 600; display: none; }
+  .principe-box { background: linear-gradient(135deg, var(--blue-light), #f0fdf4); border: 2px solid var(--blue); border-radius: 12px; padding: 1.5rem; margin: 1rem 0; text-align: center; }
+  .principe-box .chiffre { font-size: 2.5rem; font-weight: 700; color: var(--blue); }
+  .principe-box p { margin: 0; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">BTS ERA — Management</div>
+  <h1>👷 Partie 6 : Management d'Équipe</h1>
+  <p>Deviens le conducteur de travaux que ton équipe respecte et suit</p>
+</header>
+
+<nav>
+  <a href="#briefing">Briefing</a>
+  <a href="#repartition">Répartition</a>
+  <a href="#motivation">Motivation</a>
+  <a href="#conflits">Conflits</a>
+  <a href="#evaluation">Évaluation</a>
+  <a href="#recadrage">Recadrage</a>
+  <a href="#leader">Leadership</a>
+  <a href="#persos">Personnalités</a>
+  <a href="#qcm">QCM</a>
+</nav>
+
+<main>
+
+<!-- BRIEFING -->
+<section id="briefing">
+  <h2>1. Le Briefing du matin — Structure et efficacité</h2>
+  <div class="card teal">
+    <p>Le briefing du matin est le moment où tu aligns toute ton équipe sur la journée. Bien fait, il évite les malentendus, les temps morts et les erreurs. Mal fait, il crée de la confusion et de la frustration.</p>
+    <p><strong>Durée idéale : 5 à 10 minutes maximum.</strong> Au-delà, tu perds l'attention.</p>
+  </div>
+
+  <div class="briefing-schema">
+    <div class="briefing-header"><span>⏱️ Structure d'un briefing de chantier efficace</span><span>Durée totale : 8 min</span></div>
+    <div class="briefing-steps">
+      <div class="briefing-step">
+        <div class="b-time" style="background:#1a56db;">0-1 min</div>
+        <div class="b-bar" style="background:#1a56db;"></div>
+        <div class="b-content">
+          <strong>🎯 Rappel de l'objectif du jour</strong>
+          <span>"Ce soir on doit avoir fini la pose des caissons hauts de la cuisine A et commencé le plan de travail."</span>
+        </div>
+      </div>
+      <div class="briefing-step">
+        <div class="b-time" style="background:#0d9488;">1-3 min</div>
+        <div class="b-bar" style="background:#0d9488;"></div>
+        <div class="b-content">
+          <strong>👥 Répartition des tâches</strong>
+          <span>"Pierre et Marc : meubles hauts. Julien : débit plan de travail. Kevin : nettoyage et préparation zone dressing."</span>
+        </div>
+      </div>
+      <div class="briefing-step">
+        <div class="b-time" style="background:#ea580c;">3-5 min</div>
+        <div class="b-bar" style="background:#ea580c;"></div>
+        <div class="b-content">
+          <strong>⚠️ Points de vigilance</strong>
+          <span>"Attention au plafond bas dans le coin gauche — vérifier les cotes avant de couper. La livraison façades arrive à 14h, prévoir de la place."</span>
+        </div>
+      </div>
+      <div class="briefing-step">
+        <div class="b-time" style="background:#7c3aed;">5-7 min</div>
+        <div class="b-bar" style="background:#7c3aed;"></div>
+        <div class="b-content">
+          <strong>🔒 Sécurité du jour</strong>
+          <span>"Lunettes obligatoires pour le débit. EPI complets. Bruit : bouchons d'oreilles dès que la scie tourne."</span>
+        </div>
+      </div>
+      <div class="briefing-step">
+        <div class="b-time" style="background:#16a34a;">7-8 min</div>
+        <div class="b-bar" style="background:#16a34a;"></div>
+        <div class="b-content">
+          <strong>❓ Questions / Informations</strong>
+          <span>"Des questions ? Quelque chose à signaler ? RDV à 12h pour le point d'avancement."</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h3>✅ Les règles d'or du briefing</h3>
+    <ul class="checklist">
+      <li>Toujours debout, jamais assis — ça reste court et dynamique</li>
+      <li>Tout le monde présent avant de commencer</li>
+      <li>Parler de façon claire et directe — pas de jargon inutile</li>
+      <li>Laisser la parole pour les questions à la fin seulement</li>
+      <li>Terminer sur une note positive ("On a du bon boulot aujourd'hui")</li>
+    </ul>
+  </div>
+</section>
+
+<!-- RÉPARTITION DES TÂCHES -->
+<section id="repartition">
+  <h2>2. Répartir les tâches efficacement</h2>
+  <p>Bien répartir les tâches c'est mettre la bonne personne sur le bon travail au bon moment. Ni trop facile (ennui), ni trop difficile (échec).</p>
+
+  <table>
+    <tr><th>Profil compagnon</th><th>Tâches adaptées</th><th>À éviter</th></tr>
+    <tr><td><strong>Expérimenté, autonome</strong></td><td>Travaux complexes, prise de cotes, formation des autres</td><td>Tâches répétitives et simples — démotivation</td></tr>
+    <tr><td><strong>Bon technicien, peu d'initiative</strong></td><td>Exécution de qualité sur des tâches bien définies</td><td>Décisions autonomes sans consigne claire</td></tr>
+    <tr><td><strong>Apprenti / Junior</strong></td><td>Aide, préparation, tâches simples + observation</td><td>Travaux de précision seul sans supervision</td></tr>
+    <tr><td><strong>Polyvalent</strong></td><td>Renfort là où c'est nécessaire, jonction entre équipes</td><td>Être toujours sur la même tâche — perd son intérêt</td></tr>
+  </table>
+
+  <div class="card blue">
+    <h3>Méthode simple de répartition en 3 étapes</h3>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:.5rem;">
+      <div style="text-align:center;background:var(--blue-light);border-radius:8px;padding:1rem;">
+        <div style="font-size:1.5rem;font-weight:700;color:var(--blue);">1</div>
+        <strong style="font-size:.85rem;">Lister</strong>
+        <p style="font-size:.78rem;">Toutes les tâches du jour par priorité</p>
+      </div>
+      <div style="text-align:center;background:var(--blue-light);border-radius:8px;padding:1rem;">
+        <div style="font-size:1.5rem;font-weight:700;color:var(--blue);">2</div>
+        <strong style="font-size:.85rem;">Matcher</strong>
+        <p style="font-size:.78rem;">Chaque tâche avec le bon profil</p>
+      </div>
+      <div style="text-align:center;background:var(--blue-light);border-radius:8px;padding:1rem;">
+        <div style="font-size:1.5rem;font-weight:700;color:var(--blue);">3</div>
+        <strong style="font-size:.85rem;">Annoncer</strong>
+        <p style="font-size:.78rem;">Clairement au briefing avec les critères de réussite</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="principe-box">
+    <div class="chiffre">70 / 20 / 10</div>
+    <p>70% du travail fait par les compagnons autonomes — 20% supervisé — 10% en formation</p>
+  </div>
+</section>
+
+<!-- MOTIVATION -->
+<section id="motivation">
+  <h2>3. Motiver son équipe au quotidien</h2>
+  <p>La motivation ne vient pas uniquement de l'argent. Sur un chantier, les leviers du quotidien sont souvent plus puissants.</p>
+
+  <table>
+    <tr><th>Levier</th><th>Comment l'activer concrètement</th><th>Impact</th></tr>
+    <tr><td>🏆 <strong>Reconnaissance</strong></td><td>"Bon boulot sur les caissons hier, c'est propre" — dit devant l'équipe</td><td>Très fort — besoin fondamental</td></tr>
+    <tr><td>🎯 <strong>Sens de l'objectif</strong></td><td>Expliquer pourquoi on fait ça, pas juste comment</td><td>Fort — engagement durable</td></tr>
+    <tr><td>📈 <strong>Progression</strong></td><td>Confier des tâches plus complexes quand la personne progresse</td><td>Fort — développement personnel</td></tr>
+    <tr><td>🤝 <strong>Cohésion d'équipe</strong></td><td>Café partagé, blague, repas ensemble — créer du lien</td><td>Moyen — ambiance positive</td></tr>
+    <tr><td>🛠️ <strong>Bons outils</strong></td><td>Matériel entretenu, fournitures disponibles — ne pas faire perdre de temps</td><td>Moyen — frustration évitée</td></tr>
+    <tr><td>💬 <strong>Écoute</strong></td><td>Demander l'avis de l'équipe sur une méthode — les impliquer</td><td>Fort — sentiment d'appartenance</td></tr>
+  </table>
+
+  <div class="dialogue">
+    <div class="dialogue-title">💬 Exemple de reconnaissance bien faite</div>
+    <div class="msg">
+      <div class="msg-avatar chef">CT</div>
+      <div>
+        <div class="msg-label" style="color:var(--blue);">Conducteur de travaux</div>
+        <div class="msg-bubble chef">"Marc, j'ai vu le travail sur les façades ce matin. C'est vraiment bien aligné, les joints sont nickel. C'est le genre de finition qui fait la différence pour le client."</div>
+      </div>
+    </div>
+    <div class="msg" style="flex-direction:row-reverse;">
+      <div class="msg-avatar employe">M</div>
+      <div style="text-align:right;">
+        <div class="msg-label" style="color:var(--mid);">Marc</div>
+        <div class="msg-bubble employe">"Merci chef, j'ai pris le temps de bien faire."</div>
+      </div>
+    </div>
+    <p style="font-size:.8rem;color:var(--mid);margin-top:.5rem;">✅ Spécifique (quoi exactement), positif, dit devant les autres si possible.</p>
+  </div>
+</section>
+
+<!-- CONFLITS -->
+<section id="conflits">
+  <h2>4. Gérer les conflits entre collègues sur chantier</h2>
+  <div class="card orange">
+    <p>Les conflits sur chantier sont normaux — pression, fatigue, coactivité. Ton rôle n'est pas de les ignorer ni de prendre parti, mais de les résoudre rapidement avant qu'ils s'enveniment.</p>
+  </div>
+
+  <h3>Les types de conflits les plus fréquents</h3>
+  <table>
+    <tr><th>Type</th><th>Cause fréquente</th><th>Solution</th></tr>
+    <tr><td>Conflit de territoire</td><td>"C'est pas mon boulot" / "tu empiètes sur ma zone"</td><td>Clarifier les périmètres dès le briefing</td></tr>
+    <tr><td>Conflit de rythme</td><td>L'un travaille vite, l'autre lentement — frustration mutuelle</td><td>Adapter les binômes et les objectifs individuels</td></tr>
+    <tr><td>Conflit de méthode</td><td>"Moi je fais comme ça depuis 10 ans"</td><td>Écouter les deux, trancher techniquement et expliquer</td></tr>
+    <tr><td>Conflit de personnalités</td><td>Antipathie, caractères incompatibles</td><td>Séparer les deux dans les tâches si possible</td></tr>
+    <tr><td>Conflit lié au stress</td><td>Retard, client difficile, pression — tensions qui explosent</td><td>Identifier la vraie cause (le stress) et la traiter</td></tr>
+  </table>
+
+  <h3>Protocole de gestion de conflit en 4 étapes</h3>
+  <div class="card blue">
+    <ul class="etape-list" style="list-style:none;">
+      <li style="display:flex;gap:1rem;padding:.7rem 0;border-bottom:1px solid var(--border);">
+        <div style="background:var(--blue);color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;flex-shrink:0;">1</div>
+        <div><strong>Séparer immédiatement</strong> les deux parties si le ton monte — "OK on s'arrête là, on reprend dans 10 minutes"</div>
+      </li>
+      <li style="display:flex;gap:1rem;padding:.7rem 0;border-bottom:1px solid var(--border);">
+        <div style="background:var(--blue);color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;flex-shrink:0;">2</div>
+        <div><strong>Écouter chaque partie séparément</strong> — sans jugement, juste des faits</div>
+      </li>
+      <li style="display:flex;gap:1rem;padding:.7rem 0;border-bottom:1px solid var(--border);">
+        <div style="background:var(--blue);color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;flex-shrink:0;">3</div>
+        <div><strong>Réunir les deux</strong> pour trouver une solution ensemble — tu arbitres, tu ne décides pas à leur place</div>
+      </li>
+      <li style="display:flex;gap:1rem;padding:.7rem 0;">
+        <div style="background:var(--green);color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;flex-shrink:0;">4</div>
+        <div><strong>Formaliser l'accord</strong> et faire un point 2 jours après pour vérifier que c'est résolu</div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ÉVALUATION -->
+<section id="evaluation">
+  <h2>5. Évaluer le travail réalisé</h2>
+  <p>Évaluer c'est mesurer l'écart entre ce qui était prévu et ce qui a été fait — en quantité, qualité et délai.</p>
+
+  <table>
+    <tr><th>Critère</th><th>Comment mesurer</th><th>Questions à se poser</th></tr>
+    <tr><td><strong>Quantité</strong></td><td>Nb de meubles posés vs prévu, ml de plan de travail...</td><td>Est-on dans les temps ? Quel rythme ?</td></tr>
+    <tr><td><strong>Qualité</strong></td><td>Vérification visuelle, mesure des jeux, aplombs, niveaux</td><td>Est-ce conforme au CCTP ? Le client serait satisfait ?</td></tr>
+    <tr><td><strong>Délai</strong></td><td>Comparaison planning prévu vs réel</td><td>A-t-on du retard ? Pourquoi ? Récupérable ?</td></tr>
+    <tr><td><strong>Sécurité</strong></td><td>Incidents, presque-accidents, EPI portés</td><td>Y a-t-il eu des comportements à risque ?</td></tr>
+    <tr><td><strong>Comportement</strong></td><td>Ponctualité, communication, esprit d'équipe</td><td>La personne contribue-t-elle positivement ?</td></tr>
+  </table>
+
+  <div class="card green">
+    <h3>Point d'avancement quotidien — 5 min à midi</h3>
+    <ul class="checklist">
+      <li>Où en est-on par rapport à l'objectif du matin ?</li>
+      <li>Y a-t-il des blocages à lever maintenant ?</li>
+      <li>Faut-il réajuster la répartition des tâches pour l'après-midi ?</li>
+      <li>Y a-t-il besoin de matériel ou d'informations supplémentaires ?</li>
+    </ul>
+  </div>
+</section>
+
+<!-- RECADRAGE -->
+<section id="recadrage">
+  <h2>6. Recadrer sans créer de tension — La méthode DESC</h2>
+  <p>Recadrer quelqu'un c'est lui signaler un comportement ou un résultat qui ne convient pas, en préservant la relation et la dignité de la personne.</p>
+
+  <div class="desc-box">
+    <div class="desc-item d">
+      <div class="desc-letter">D</div>
+      <h4>Décrire</h4>
+      <p>Les faits précis, sans interprétation</p>
+    </div>
+    <div class="desc-item e">
+      <div class="desc-letter">E</div>
+      <h4>Exprimer</h4>
+      <p>L'impact que ça a, en "je"</p>
+    </div>
+    <div class="desc-item s">
+      <div class="desc-letter">S</div>
+      <h4>Spécifier</h4>
+      <p>Ce qu'on attend concrètement</p>
+    </div>
+    <div class="desc-item c">
+      <div class="desc-letter">C</div>
+      <h4>Conséquences</h4>
+      <p>Positives si changement, négatives si non</p>
+    </div>
+  </div>
+
+  <div class="dialogue">
+    <div class="dialogue-title">💬 Exemple de recadrage avec la méthode DESC — Retard répété</div>
+    <div class="msg">
+      <div class="msg-avatar chef">CT</div>
+      <div>
+        <div class="msg-label" style="color:var(--blue);">Conducteur (D — Décrire)</div>
+        <div class="msg-bubble chef">"Kevin, cette semaine tu es arrivé à 8h20 lundi et 8h30 mercredi. Le chantier commence à 8h."</div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="msg-avatar chef">CT</div>
+      <div>
+        <div class="msg-label" style="color:var(--blue);">Conducteur (E — Exprimer)</div>
+        <div class="msg-bubble chef">"Ça me met en difficulté pour organiser le briefing, et ça crée une inégalité avec les autres qui arrivent à l'heure."</div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="msg-avatar chef">CT</div>
+      <div>
+        <div class="msg-label" style="color:var(--blue);">Conducteur (S — Spécifier)</div>
+        <div class="msg-bubble chef">"Ce que j'attends, c'est d'être là à 8h précises — si tu as un problème ponctuel, tu me préviens."</div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="msg-avatar chef">CT</div>
+      <div>
+        <div class="msg-label" style="color:var(--blue);">Conducteur (C — Conséquences)</div>
+        <div class="msg-bubble chef">"Si c'est réglé, aucun problème, on passe à autre chose. Si ça continue, je serai obligé d'en parler au chef d'entreprise."</div>
+      </div>
+    </div>
+    <div class="msg" style="flex-direction:row-reverse;">
+      <div class="msg-avatar employe">K</div>
+      <div style="text-align:right;">
+        <div class="msg-label" style="color:var(--mid);">Kevin</div>
+        <div class="msg-bubble employe">"Ok, j'avais des problèmes de transport, je vais m'organiser différemment."</div>
+      </div>
+    </div>
+    <p style="font-size:.8rem;color:var(--mid);margin-top:.5rem;">✅ Toujours en privé — jamais devant l'équipe. Rester calme et factuel.</p>
+  </div>
+
+  <div class="card red">
+    <h3>❌ Ce qu'il ne faut JAMAIS faire lors d'un recadrage</h3>
+    <ul class="checklist danger">
+      <li>Recadrer devant l'équipe — humiliation = perte d'autorité</li>
+      <li>Attaquer la personne ("t'es nul") au lieu du comportement ("ce résultat ne convient pas")</li>
+      <li>Laisser passer plusieurs fois avant de réagir — plus c'est long, plus c'est difficile</li>
+      <li>S'emporter ou hausser la voix — tu perds immédiatement le contrôle de la situation</li>
+      <li>Faire des généralités ("t'es toujours comme ça") — rester sur les faits précis</li>
+    </ul>
+  </div>
+</section>
+
+<!-- LEADERSHIP -->
+<section id="leader">
+  <h2>7. Être un leader respecté sans être autoritaire</h2>
+
+  <div class="style-grid">
+    <div class="style-card">
+      <div class="icon">👊</div>
+      <h4>Autoritaire</h4>
+      <p>Impose ses décisions sans explication. Efficace à court terme, crée du ressentiment.</p>
+    </div>
+    <div class="style-card recommande">
+      <div class="icon">🤝</div>
+      <h4>Participatif</h4>
+      <p>Consulte l'équipe, explique les décisions, reste le décideur final. Crée l'adhésion.</p>
+    </div>
+    <div class="style-card">
+      <div class="icon">😴</div>
+      <h4>Laisser-faire</h4>
+      <p>Délègue tout sans suivi. Crée du désordre et de l'inquiétude chez l'équipe.</p>
+    </div>
+  </div>
+
+  <h3>Les 8 qualités d'un leader respecté sur chantier</h3>
+  <div class="competence-list">
+    <div class="comp-item"><span class="comp-name">🎯 Clarté des consignes</span><div class="comp-bar-bg"><div class="comp-bar" style="width:95%;"></div></div><span class="comp-label">Essentiel</span></div>
+    <div class="comp-item"><span class="comp-name">🤝 Équité</span><div class="comp-bar-bg"><div class="comp-bar" style="width:95%;"></div></div><span class="comp-label">Essentiel</span></div>
+    <div class="comp-item"><span class="comp-name">🛠️ Compétence technique</span><div class="comp-bar-bg"><div class="comp-bar" style="width:85%;background:var(--green);"></div></div><span class="comp-label">Fort</span></div>
+    <div class="comp-item"><span class="comp-name">💬 Écoute active</span><div class="comp-bar-bg"><div class="comp-bar" style="width:85%;background:var(--green);"></div></div><span class="comp-label">Fort</span></div>
+    <div class="comp-item"><span class="comp-name">⚡ Réactivité</span><div class="comp-bar-bg"><div class="comp-bar" style="width:80%;background:var(--green);"></div></div><span class="comp-label">Fort</span></div>
+    <div class="comp-item"><span class="comp-name">😤 Gestion du stress</span><div class="comp-bar-bg"><div class="comp-bar" style="width:80%;background:var(--orange);"></div></div><span class="comp-label">Fort</span></div>
+    <div class="comp-item"><span class="comp-name">📋 Organisation</span><div class="comp-bar-bg"><div class="comp-bar" style="width:75%;background:var(--orange);"></div></div><span class="comp-label">Moyen</span></div>
+    <div class="comp-item"><span class="comp-name">🌱 Développement équipe</span><div class="comp-bar-bg"><div class="comp-bar" style="width:70%;background:var(--orange);"></div></div><span class="comp-label">Moyen</span></div>
+  </div>
+
+  <div class="card teal">
+    <h3>💡 Le principe du "Faire faire, pas faire à la place"</h3>
+    <p>Un bon conducteur de travaux ne fait pas lui-même ce que son équipe peut faire. Il organise, vérifie, lève les blocages. S'il passe sa journée à poser des caissons, personne ne pilote.</p>
+    <p><strong>Exception :</strong> Montrer le geste une fois pour former un apprenti — c'est du management, pas de la déroute.</p>
+  </div>
+</section>
+
+<!-- PERSONNALITÉS DIFFICILES -->
+<section id="persos">
+  <h2>8. Gérer les personnalités difficiles</h2>
+  <div class="perso-grid">
+    <div class="perso-card">
+      <span class="emoji">😤</span>
+      <h4>Le râleur chronique</h4>
+      <p class="trait">Se plaint de tout — la météo, le client, les outils, les autres...</p>
+      <div class="strategie"><strong>Stratégie :</strong> Ne pas rentrer dans le jeu. Écouter une fois, lui demander des solutions. "Ok tu vois le problème — quelle solution tu proposes ?"</div>
+    </div>
+    <div class="perso-card">
+      <span class="emoji">🦁</span>
+      <h4>Le "j'ai 20 ans de métier"</h4>
+      <p class="trait">Résiste aux nouvelles méthodes, conteste les décisions, veut imposer sa façon de faire.</p>
+      <div class="strategie"><strong>Stratégie :</strong> Valoriser son expérience, l'impliquer dans les décisions techniques. Expliquer le pourquoi des nouvelles méthodes — jamais imposer sans justifier.</div>
+    </div>
+    <div class="perso-card">
+      <span class="emoji">🐢</span>
+      <h4>Le lent</h4>
+      <p class="trait">Travaille soigneusement mais trop lentement — crée des retards en chaîne.</p>
+      <div class="strategie"><strong>Stratégie :</strong> Fixer des mini-objectifs intermédiaires ("à 10h tu dois avoir fini ça"). Vérifier s'il a un problème technique ou personnel qui le freine.</div>
+    </div>
+    <div class="perso-card">
+      <span class="emoji">🚀</span>
+      <h4>Le fonçeur imprudent</h4>
+      <p class="trait">Travaille vite mais bâcle, prend des risques sécurité, n'écoute pas les consignes.</p>
+      <div class="strategie"><strong>Stratégie :</strong> Insister sur les conséquences des malfaçons (retouches = temps perdu). Vérifier son travail plus souvent jusqu'à ce qu'il intègre les standards.</div>
+    </div>
+    <div class="perso-card">
+      <span class="emoji">😶</span>
+      <h4>Le mutique</h4>
+      <p class="trait">Ne communique pas, ne signale pas les problèmes, fait sans demander.</p>
+      <div class="strategie"><strong>Stratégie :</strong> Créer des moments d'échange en tête-à-tête. "Comment tu trouves cette tâche ?" Valoriser chaque prise de parole pour l'encourager.</div>
+    </div>
+    <div class="perso-card">
+      <span class="emoji">🌪️</span>
+      <h4>Le conflictuel</h4>
+      <p class="trait">Cherche le conflit, monte les autres contre certains, crée des clans.</p>
+      <div class="strategie"><strong>Stratégie :</strong> Recadrage rapide et ferme. Isoler du groupe si nécessaire. Si ça continue, escalade RH/direction. Ne pas laisser pourrir.</div>
+    </div>
+  </div>
+
+  <div class="card purple">
+    <h3>🧠 Règle d'or avec les personnalités difficiles</h3>
+    <p>Un comportement difficile cache presque toujours quelque chose : fatigue, problème personnel, sentiment d'injustice, manque de reconnaissance, incompréhension de la consigne.</p>
+    <p><strong>Avant de recadrer, demande-toi :</strong> "Est-ce que j'ai bien compris pourquoi cette personne se comporte ainsi ?"</p>
+  </div>
+</section>
+
+<!-- QCM -->
+<section id="qcm">
+  <h2>🎯 QCM — Management d'équipe</h2>
+  <div class="qcm">
+    <div class="question">
+      <p>1. Quelle est la durée idéale d'un briefing de chantier le matin ?</p>
+      <div class="options">
+        <label><input type="radio" name="q1" value="a"> 30 à 45 minutes</label>
+        <label><input type="radio" name="q1" value="b"> 5 à 10 minutes</label>
+        <label><input type="radio" name="q1" value="c"> 1 à 2 minutes</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>2. Que signifie le "D" dans la méthode DESC ?</p>
+      <div class="options">
+        <label><input type="radio" name="q2" value="a"> Décider</label>
+        <label><input type="radio" name="q2" value="b"> Décrire les faits précis</label>
+        <label><input type="radio" name="q2" value="c"> Discuter avec l'équipe</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>3. Où doit se faire un recadrage ?</p>
+      <div class="options">
+        <label><input type="radio" name="q3" value="a"> Devant l'équipe pour que tout le monde comprenne</label>
+        <label><input type="radio" name="q3" value="b"> En privé, loin de l'équipe</label>
+        <label><input type="radio" name="q3" value="c"> Par message écrit uniquement</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>4. Quel style de leadership est recommandé sur chantier ?</p>
+      <div class="options">
+        <label><input type="radio" name="q4" value="a"> Autoritaire — décisions rapides sans explication</label>
+        <label><input type="radio" name="q4" value="b"> Participatif — consulte l'équipe, explique, reste le décideur final</label>
+        <label><input type="radio" name="q4" value="c"> Laisser-faire — l'équipe s'organise seule</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>5. Face à un compagnon qui répond "j'ai 20 ans de métier" pour refuser une nouvelle méthode, que fais-tu ?</p>
+      <div class="options">
+        <label><input type="radio" name="q5" value="a"> Tu lui imposes la méthode sans explication</label>
+        <label><input type="radio" name="q5" value="b"> Tu le laisses faire à sa façon pour éviter le conflit</label>
+        <label><input type="radio" name="q5" value="c"> Tu valorises son expérience et expliques le pourquoi de la nouvelle méthode</label>
+      </div>
+    </div>
+    <button class="btn" onclick="verifierQCM()">Vérifier mes réponses</button>
+    <div class="resultat" id="resultat"></div>
+  </div>
+</section>
+
+</main>
+
+<footer style="background:var(--dark);color:#94a3b8;text-align:center;padding:2rem;margin-top:3rem;">
+  <p>BTS ERA — Partie 6 : Management d'Équipe</p>
+  <p style="font-size:.85rem;margin-top:.3rem;">Apprenti menuisier → Conducteur de travaux</p>
+</footer>
+
+<script>
+function verifierQCM() {
+  const reponses = { q1: 'b', q2: 'b', q3: 'b', q4: 'b', q5: 'c' };
+  let score = 0, total = Object.keys(reponses).length;
+  for (let q in reponses) {
+    const s = document.querySelector(`input[name="${q}"]:checked`);
+    if (s && s.value === reponses[q]) score++;
+  }
+  const r = document.getElementById('resultat');
+  r.style.display = 'block';
+  if (score === total) { r.style.background='#dcfce7'; r.style.color='#16a34a'; r.textContent=`🎉 Parfait ! ${score}/${total} — Tu es prêt à manager ton équipe !`; }
+  else if (score >= total/2) { r.style.background='#fef9c3'; r.style.color='#ca8a04'; r.textContent=`👍 Bien ! ${score}/${total} — Relis les points ratés.`; }
+  else { r.style.background='#fee2e2'; r.style.color='#dc2626'; r.textContent=`📚 ${score}/${total} — Reprends le cours !`; }
+}
+</script>
+</body>
+</html>

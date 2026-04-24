@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BTS ERA — Module 1 | Partie 3 : Raccourcis Clavier</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap');
+  :root {
+    --blue: #1a56db; --blue-light: #e8f0fe; --dark: #0f172a; --mid: #334155;
+    --light: #f8fafc; --border: #e2e8f0; --green: #16a34a; --orange: #ea580c; --purple: #7c3aed;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Sora', sans-serif; background: var(--light); color: var(--dark); line-height: 1.7; }
+  header { background: var(--dark); color: white; padding: 2rem; text-align: center; }
+  header .badge { background: var(--purple); display: inline-block; padding: .3rem 1rem; border-radius: 999px; font-size: .8rem; margin-bottom: .8rem; }
+  header h1 { font-size: 2rem; font-weight: 700; }
+  header p { color: #94a3b8; margin-top: .5rem; }
+  nav { background: white; border-bottom: 1px solid var(--border); padding: .8rem 2rem; display: flex; gap: 1rem; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; }
+  nav a { text-decoration: none; color: var(--mid); font-size: .85rem; font-weight: 600; padding: .3rem .8rem; border-radius: 6px; transition: all .2s; }
+  nav a:hover { background: var(--blue-light); color: var(--blue); }
+  main { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+  section { margin-bottom: 3rem; }
+  h2 { font-size: 1.5rem; color: var(--blue); border-left: 4px solid var(--blue); padding-left: 1rem; margin-bottom: 1.5rem; }
+  h3 { font-size: 1.1rem; font-weight: 700; margin: 1.5rem 0 .8rem; }
+  p { margin-bottom: .8rem; color: var(--mid); }
+  .card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .card.blue { border-left: 4px solid var(--blue); }
+  .card.green { border-left: 4px solid var(--green); }
+  .card.purple { border-left: 4px solid var(--purple); }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .9rem; }
+  th { background: var(--dark); color: white; padding: .8rem; text-align: left; }
+  td { padding: .7rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  tr:nth-child(even) td { background: var(--blue-light); }
+  .kbd { display: inline-flex; gap: 3px; align-items: center; font-family: 'JetBrains Mono', monospace; }
+  .key { background: white; border: 2px solid #333; border-bottom: 4px solid #333; border-radius: 6px; padding: 3px 8px; font-size: .8rem; font-weight: 600; color: #1a1a1a; white-space: nowrap; box-shadow: 0 1px 2px rgba(0,0,0,.1); }
+  .key.blue { border-color: var(--blue); border-bottom-color: #0f2d6b; color: var(--blue); }
+  .plus { font-weight: 700; color: #666; font-size: .75rem; }
+  .top10 { display: grid; gap: 1rem; }
+  .top10-item { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1rem; }
+  .top10-num { background: var(--blue); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+  .top10-info { flex: 1; }
+  .top10-info strong { display: block; font-size: .9rem; }
+  .top10-info span { font-size: .8rem; color: var(--mid); }
+  .methode { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
+  .methode-step { display: flex; gap: 1rem; padding: .8rem 0; border-bottom: 1px solid var(--border); }
+  .methode-step:last-child { border-bottom: none; }
+  .step-icon { font-size: 1.5rem; }
+  .qcm { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
+  .question { margin-bottom: 1.5rem; }
+  .question p { font-weight: 600; margin-bottom: .5rem; }
+  .options label { display: block; padding: .4rem; cursor: pointer; font-size: .9rem; }
+  .options input { margin-right: .5rem; }
+  .btn { background: var(--blue); color: white; border: none; padding: .7rem 1.5rem; border-radius: 8px; cursor: pointer; font-family: 'Sora', sans-serif; font-weight: 600; }
+  .btn:hover { background: #1340a8; }
+  .resultat { margin-top: 1rem; padding: 1rem; border-radius: 8px; font-weight: 600; display: none; }
+  .categorie-header { display: flex; align-items: center; gap: .8rem; margin-bottom: 1rem; }
+  .categorie-icon { font-size: 1.5rem; }
+  .niveau { display: inline-block; padding: .2rem .6rem; border-radius: 4px; font-size: .7rem; font-weight: 700; }
+  .niveau.essentiel { background: #dcfce7; color: var(--green); }
+  .niveau.utile { background: var(--blue-light); color: var(--blue); }
+  .niveau.pro { background: #faf5ff; color: var(--purple); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">BTS ERA — Module 1</div>
+  <h1>⌨️ Partie 3 : Raccourcis Clavier Essentiels</h1>
+  <p>Gagne du temps chaque jour avec les raccourcis indispensables</p>
+</header>
+
+<nav>
+  <a href="#windows">Windows</a>
+  <a href="#excel">Excel</a>
+  <a href="#word">Word</a>
+  <a href="#top10">Top 10</a>
+  <a href="#methode">Méthode</a>
+  <a href="#qcm">QCM</a>
+</nav>
+
+<main>
+
+<div class="card blue" style="margin-bottom:2rem;">
+  <h3>💡 Pourquoi apprendre les raccourcis ?</h3>
+  <p>Un conducteur de travaux passe des heures sur ordinateur. Maîtriser les raccourcis, c'est gagner <strong>30 à 60 minutes par jour</strong>. Sur une année, ça représente plusieurs semaines de travail économisées.</p>
+</div>
+
+<!-- WINDOWS -->
+<section id="windows">
+  <h2>1. Raccourcis Windows indispensables</h2>
+  <table>
+    <tr><th>Raccourci</th><th>Action</th><th>Niveau</th></tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">C</span></span></td>
+      <td>Copier</td>
+      <td><span class="niveau essentiel">Essentiel</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">V</span></span></td>
+      <td>Coller</td>
+      <td><span class="niveau essentiel">Essentiel</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">X</span></span></td>
+      <td>Couper</td>
+      <td><span class="niveau essentiel">Essentiel</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">Z</span></span></td>
+      <td>Annuler la dernière action</td>
+      <td><span class="niveau essentiel">Essentiel</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">S</span></span></td>
+      <td>Enregistrer</td>
+      <td><span class="niveau essentiel">Essentiel</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">A</span></span></td>
+      <td>Tout sélectionner</td>
+      <td><span class="niveau essentiel">Essentiel</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Alt</span><span class="plus">+</span><span class="key">F4</span></span></td>
+      <td>Fermer la fenêtre active</td>
+      <td><span class="niveau utile">Utile</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Win</span><span class="plus">+</span><span class="key">D</span></span></td>
+      <td>Afficher/masquer le bureau</td>
+      <td><span class="niveau utile">Utile</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Win</span><span class="plus">+</span><span class="key">E</span></span></td>
+      <td>Ouvrir l'explorateur de fichiers</td>
+      <td><span class="niveau utile">Utile</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Win</span><span class="plus">+</span><span class="key">L</span></span></td>
+      <td>Verrouiller l'écran</td>
+      <td><span class="niveau utile">Utile</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Alt</span><span class="plus">+</span><span class="key">Tab</span></span></td>
+      <td>Basculer entre les fenêtres ouvertes</td>
+      <td><span class="niveau utile">Utile</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">F</span></span></td>
+      <td>Rechercher (dans n'importe quelle appli)</td>
+      <td><span class="niveau utile">Utile</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Win</span><span class="plus">+</span><span class="key">→</span></span></td>
+      <td>Ancrer la fenêtre à droite (partage écran)</td>
+      <td><span class="niveau pro">Pro</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Prt Sc</span></span></td>
+      <td>Capture d'écran</td>
+      <td><span class="niveau utile">Utile</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Win</span><span class="plus">+</span><span class="key">Shift</span><span class="plus">+</span><span class="key">S</span></span></td>
+      <td>Capture d'écran partielle</td>
+      <td><span class="niveau pro">Pro</span></td>
+    </tr>
+  </table>
+</section>
+
+<!-- EXCEL -->
+<section id="excel">
+  <h2>2. Raccourcis Excel les plus utiles</h2>
+  <table>
+    <tr><th>Raccourci</th><th>Action</th><th>Niveau</th></tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">S</span></span></td>
+      <td>Enregistrer</td>
+      <td><span class="niveau essentiel">Essentiel</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">Z</span></span></td>
+      <td>Annuler</td>
+      <td><span class="niveau essentiel">Essentiel</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">C</span></span> / <span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">V</span></span></td>
+      <td>Copier / Coller</td>
+      <td><span class="niveau essentiel">Essentiel</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">Entrée</span></span></td>
+      <td>Valider sans descendre d'une cellule</td>
+      <td><span class="niveau utile">Utile</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">D</span></span></td>
+      <td>Recopier vers le bas</td>
+      <td><span class="niveau utile">Utile</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">R</span></span></td>
+      <td>Recopier vers la droite</td>
+      <td><span class="niveau utile">Utile</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">Shift</span><span class="plus">+</span><span class="key">L</span></span></td>
+      <td>Activer/désactiver les filtres automatiques</td>
+      <td><span class="niveau utile">Utile</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">1</span></span></td>
+      <td>Ouvrir Format de cellule</td>
+      <td><span class="niveau utile">Utile</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">Fin</span></span></td>
+      <td>Aller à la dernière cellule utilisée</td>
+      <td><span class="niveau pro">Pro</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">F2</span></span></td>
+      <td>Modifier le contenu d'une cellule</td>
+      <td><span class="niveau utile">Utile</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">F4</span></span></td>
+      <td>Figer une référence ($A$1)</td>
+      <td><span class="niveau pro">Pro</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Alt</span><span class="plus">+</span><span class="key">=</span></span></td>
+      <td>Insérer la fonction SOMME automatique</td>
+      <td><span class="niveau pro">Pro</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">P</span></span></td>
+      <td>Imprimer / Aperçu avant impression</td>
+      <td><span class="niveau essentiel">Essentiel</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">Home</span></span></td>
+      <td>Aller à la cellule A1</td>
+      <td><span class="niveau utile">Utile</span></td>
+    </tr>
+  </table>
+</section>
+
+<!-- WORD -->
+<section id="word">
+  <h2>3. Raccourcis Word les plus utiles</h2>
+  <table>
+    <tr><th>Raccourci</th><th>Action</th><th>Niveau</th></tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">S</span></span></td>
+      <td>Enregistrer</td>
+      <td><span class="niveau essentiel">Essentiel</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">B</span></span></td>
+      <td>Gras</td>
+      <td><span class="niveau essentiel">Essentiel</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">I</span></span></td>
+      <td>Italique</td>
+      <td><span class="niveau essentiel">Essentiel</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">U</span></span></td>
+      <td>Souligné</td>
+      <td><span class="niveau essentiel">Essentiel</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">Entrée</span></span></td>
+      <td>Saut de page</td>
+      <td><span class="niveau essentiel">Essentiel</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">F</span></span></td>
+      <td>Rechercher dans le document</td>
+      <td><span class="niveau utile">Utile</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">H</span></span></td>
+      <td>Rechercher et remplacer</td>
+      <td><span class="niveau utile">Utile</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">F7</span></span></td>
+      <td>Vérifier l'orthographe</td>
+      <td><span class="niveau essentiel">Essentiel</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">F12</span></span></td>
+      <td>Enregistrer sous</td>
+      <td><span class="niveau utile">Utile</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">P</span></span></td>
+      <td>Imprimer</td>
+      <td><span class="niveau essentiel">Essentiel</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">E</span></span></td>
+      <td>Centrer le texte</td>
+      <td><span class="niveau utile">Utile</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">J</span></span></td>
+      <td>Justifier le texte</td>
+      <td><span class="niveau utile">Utile</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">Shift</span><span class="plus">+</span><span class="key">G</span></span></td>
+      <td>Compteur de mots</td>
+      <td><span class="niveau pro">Pro</span></td>
+    </tr>
+    <tr>
+      <td><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">Alt</span><span class="plus">+</span><span class="key">1</span></span></td>
+      <td>Appliquer le style Titre 1</td>
+      <td><span class="niveau pro">Pro</span></td>
+    </tr>
+  </table>
+</section>
+
+<!-- TOP 10 -->
+<section id="top10">
+  <h2>🏆 Top 10 des raccourcis qui font gagner le plus de temps</h2>
+  <div class="top10">
+    <div class="top10-item">
+      <div class="top10-num">1</div>
+      <div class="top10-info">
+        <strong><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">S</span></span> — Enregistrer</strong>
+        <span>À faire toutes les 5 minutes. Évite de tout perdre.</span>
+      </div>
+    </div>
+    <div class="top10-item">
+      <div class="top10-num">2</div>
+      <div class="top10-info">
+        <strong><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">Z</span></span> — Annuler</strong>
+        <span>Le raccourci qui sauve la vie. Toujours disponible.</span>
+      </div>
+    </div>
+    <div class="top10-item">
+      <div class="top10-num">3</div>
+      <div class="top10-info">
+        <strong><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">C</span></span> / <span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">V</span></span> — Copier / Coller</strong>
+        <span>Indispensable partout, tout le temps.</span>
+      </div>
+    </div>
+    <div class="top10-item">
+      <div class="top10-num">4</div>
+      <div class="top10-info">
+        <strong><span class="kbd"><span class="key">Alt</span><span class="plus">+</span><span class="key">Tab</span></span> — Basculer entre fenêtres</strong>
+        <span>Passe de Word à Excel à ton navigateur en 1 seconde.</span>
+      </div>
+    </div>
+    <div class="top10-item">
+      <div class="top10-num">5</div>
+      <div class="top10-info">
+        <strong><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">F</span></span> — Rechercher</strong>
+        <span>Trouve n'importe quoi dans un document en 2 secondes.</span>
+      </div>
+    </div>
+    <div class="top10-item">
+      <div class="top10-num">6</div>
+      <div class="top10-info">
+        <strong><span class="kbd"><span class="key">F4</span></span> dans Excel — Figer une référence</strong>
+        <span>Essentiel pour les formules avec références absolues.</span>
+      </div>
+    </div>
+    <div class="top10-item">
+      <div class="top10-num">7</div>
+      <div class="top10-info">
+        <strong><span class="kbd"><span class="key">Alt</span><span class="plus">+</span><span class="key">=</span></span> dans Excel — SOMME automatique</strong>
+        <span>Additionne une colonne en un clin d'œil.</span>
+      </div>
+    </div>
+    <div class="top10-item">
+      <div class="top10-num">8</div>
+      <div class="top10-info">
+        <strong><span class="kbd"><span class="key">Ctrl</span><span class="plus">+</span><span class="key">Entrée</span></span> dans Word — Saut de page</strong>
+        <span>Commence une nouvelle page proprement.</span>
+      </div>
+    </div>
+    <div class="top10-item">
+      <div class="top10-num">9</div>
+      <div class="top10-info">
+        <strong><span class="kbd"><span class="key">Win</span><span class="plus">+</span><span class="key">E</span></span> — Explorateur Windows</strong>
+        <span>Accède à tes fichiers instantanément.</span>
+      </div>
+    </div>
+    <div class="top10-item">
+      <div class="top10-num">10</div>
+      <div class="top10-info">
+        <strong><span class="kbd"><span class="key">F7</span></span> dans Word — Orthographe</strong>
+        <span>Vérifie ton document avant d'envoyer. Toujours.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MÉTHODE -->
+<section id="methode">
+  <h2>🧠 Comment apprendre les raccourcis efficacement</h2>
+  <div class="methode">
+    <div class="methode-step">
+      <div class="step-icon">1️⃣</div>
+      <div><strong>Commence par 3 raccourcis par semaine</strong><br><span style="color:var(--mid);font-size:.9rem;">Pas plus. Mieux vaut en maîtriser 3 que d'en connaître 30 sans les utiliser.</span></div>
+    </div>
+    <div class="methode-step">
+      <div class="step-icon">2️⃣</div>
+      <div><strong>Utilise-les OBLIGATOIREMENT à la place de la souris</strong><br><span style="color:var(--mid);font-size:.9rem;">Interdit de faire clic droit → Copier tant que Ctrl+C n'est pas automatique.</span></div>
+    </div>
+    <div class="methode-step">
+      <div class="step-icon">3️⃣</div>
+      <div><strong>Colle une fiche récap sur ton bureau</strong><br><span style="color:var(--mid);font-size:.9rem;">Impression A5 des raccourcis de la semaine. Tu regardes, tu mémorises.</span></div>
+    </div>
+    <div class="methode-step">
+      <div class="step-icon">4️⃣</div>
+      <div><strong>Après 2 semaines, tu ne penses plus à les chercher</strong><br><span style="color:var(--mid);font-size:.9rem;">La mémoire musculaire fait le travail. C'est automatique.</span></div>
+    </div>
+    <div class="methode-step">
+      <div class="step-icon">5️⃣</div>
+      <div><strong>Priorité aux raccourcis que tu utilises le plus</strong><br><span style="color:var(--mid);font-size:.9rem;">Ctrl+S, Ctrl+Z, Ctrl+C/V d'abord. Le reste ensuite.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- QCM -->
+<section id="qcm">
+  <h2>🎯 QCM — Raccourcis clavier</h2>
+  <div class="qcm">
+    <div class="question">
+      <p>1. Quel raccourci permet de faire une SOMME automatique dans Excel ?</p>
+      <div class="options">
+        <label><input type="radio" name="q1" value="a"> Ctrl + S</label>
+        <label><input type="radio" name="q1" value="b"> Alt + =</label>
+        <label><input type="radio" name="q1" value="c"> F4</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>2. Comment ouvrir rapidement l'explorateur de fichiers Windows ?</p>
+      <div class="options">
+        <label><input type="radio" name="q2" value="a"> Alt + F4</label>
+        <label><input type="radio" name="q2" value="b"> Ctrl + F</label>
+        <label><input type="radio" name="q2" value="c"> Win + E</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>3. Dans Excel, à quoi sert F4 ?</p>
+      <div class="options">
+        <label><input type="radio" name="q3" value="a"> Fermer Excel</label>
+        <label><input type="radio" name="q3" value="b"> Figer une référence de cellule ($A$1)</label>
+        <label><input type="radio" name="q3" value="c"> Vérifier l'orthographe</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>4. Quel raccourci permet de basculer rapidement entre plusieurs fenêtres ouvertes ?</p>
+      <div class="options">
+        <label><input type="radio" name="q4" value="a"> Ctrl + Tab</label>
+        <label><input type="radio" name="q4" value="b"> Alt + Tab</label>
+        <label><input type="radio" name="q4" value="c"> Win + Tab</label>
+      </div>
+    </div>
+    <button class="btn" onclick="verifierQCM()">Vérifier mes réponses</button>
+    <div class="resultat" id="resultat"></div>
+  </div>
+</section>
+
+</main>
+
+<footer style="background:var(--dark);color:#94a3b8;text-align:center;padding:2rem;margin-top:3rem;">
+  <p>BTS ERA — Module 1 | Partie 3 : Raccourcis Clavier</p>
+  <p style="font-size:.85rem;margin-top:.3rem;">Module 1 terminé ✅ — Passe au Module 2 : Technique & Matériaux</p>
+</footer>
+
+<script>
+function verifierQCM() {
+  const reponses = { q1: 'b', q2: 'c', q3: 'b', q4: 'b' };
+  let score = 0;
+  let total = Object.keys(reponses).length;
+  for (let q in reponses) {
+    const selected = document.querySelector(`input[name="${q}"]:checked`);
+    if (selected && selected.value === reponses[q]) score++;
+  }
+  const r = document.getElementById('resultat');
+  r.style.display = 'block';
+  if (score === total) {
+    r.style.background = '#dcfce7';
+    r.style.color = '#16a34a';
+    r.textContent = `🎉 Parfait ! ${score}/${total} — Tu maîtrises les raccourcis !`;
+  } else if (score >= total/2) {
+    r.style.background = '#fef9c3';
+    r.style.color = '#ca8a04';
+    r.textContent = `👍 Bien ! ${score}/${total} — Encore un peu de pratique !`;
+  } else {
+    r.style.background = '#fee2e2';
+    r.style.color = '#dc2626';
+    r.textContent = `📚 ${score}/${total} — Reprends le cours et pratique !`;
+  }
+}
+</script>
+</body>
+</html>

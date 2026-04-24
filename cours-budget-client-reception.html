@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cours — Budget, Relation Client & Réception de Chantier</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Jost:wght@300;400;500;600;700&family=Jost:ital@1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #09090b;
+  --bg2:      #0e0e11;
+  --bg3:      #141417;
+  --bg4:      #1a1a1f;
+  --bg5:      #202027;
+  --border:   #26262e;
+  --border2:  #333340;
+  --text:     #d8d8e8;
+  --muted:    #5e5e78;
+  --dim:      #353545;
+
+  --emerald:  #34d88a;
+  --em2:      #0f6840;
+
+  --rose:     #f06292;
+  --rose2:    #7a1f40;
+
+  --sky:      #60b8f0;
+  --sky2:     #1a4a70;
+
+  --gold:     #e8c060;
+  --gold2:    #c49a30;
+  --gold3:    #6a4a10;
+
+  --violet:   #a078e8;
+  --violet2:  #4a2880;
+
+  --orange:   #f09040;
+  --orange2:  #7a3a10;
+
+  --slate:    #7890b0;
+
+  --r:  8px;
+  --r2: 16px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Jost', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+/* ── NAV ── */
+.nav {
+  position: sticky; top: 0; z-index: 300;
+  background: rgba(9,9,11,0.96);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+  height: 54px;
+  display: flex;
+  align-items: center;
+  padding: 0 32px;
+  gap: 0;
+}
+.nav-brand {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--emerald);
+  padding-right: 24px;
+  margin-right: 18px;
+  border-right: 1px solid var(--border);
+  white-space: nowrap;
+  letter-spacing: .02em;
+}
+.nav-links { display: flex; gap: 2px; overflow-x: auto; }
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .03em;
+  padding: 5px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: .2s;
+}
+.nav-links a:hover { color: var(--text); background: var(--bg4); }
+
+/* ── LAYOUT ── */
+.wrap { max-width: 1140px; margin: 0 auto; padding: 0 32px 80px; }
+
+/* ── HERO ── */
+.hero {
+  padding: 80px 0 60px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 800px 400px at 10% 60%, rgba(52,216,138,.05) 0%, transparent 60%),
+    radial-gradient(ellipse 600px 300px at 80% 30%, rgba(240,98,146,.04) 0%, transparent 60%),
+    radial-gradient(ellipse 500px 250px at 50% 80%, rgba(96,184,240,.03) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--emerald);
+  border: 1px solid var(--em2);
+  border-radius: 100px;
+  padding: 5px 18px;
+  margin-bottom: 28px;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(44px, 6vw, 80px);
+  line-height: 1.05;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+.hero h1 em { font-style: italic; color: var(--emerald); }
+.hero-sub {
+  color: var(--muted);
+  font-size: 15px;
+  max-width: 560px;
+  margin-bottom: 36px;
+  font-weight: 300;
+}
+.hero-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 5px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+/* ── PART SEP ── */
+.psep {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: end;
+  gap: 24px;
+  padding: 60px 0 36px;
+  position: relative;
+}
+.psep::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, var(--border2), transparent);
+}
+.psep-num {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 88px;
+  line-height: 1;
+  color: var(--border2);
+}
+.psep-text { padding-bottom: 10px; }
+.psep-text h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+.psep-text h2 em { font-style: italic; color: var(--emerald); }
+.psep-text p { color: var(--muted); font-size: 13px; }
+
+/* ── SECTIONS ── */
+.section { margin-bottom: 56px; }
+
+.sec-h {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.sec-h::before {
+  content: '';
+  width: 3px; height: 22px;
+  background: var(--emerald);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* ── INFO BOXES ── */
+.ib {
+  border-left: 3px solid var(--emerald);
+  border-top: 1px solid rgba(52,216,138,.12);
+  border-right: 1px solid rgba(52,216,138,.12);
+  border-bottom: 1px solid rgba(52,216,138,.12);
+  background: rgba(52,216,138,.04);
+  border-radius: 0 var(--r) var(--r) 0;
+  padding: 14px 20px;
+  margin: 16px 0;
+  font-size: 13.5px;
+}
+.ib.rose   { border-left-color:var(--rose);  border-top-color:rgba(240,98,146,.12); border-right-color:rgba(240,98,146,.12); border-bottom-color:rgba(240,98,146,.12); background:rgba(240,98,146,.04); }
+.ib.sky    { border-left-color:var(--sky);   border-top-color:rgba(96,184,240,.12); border-right-color:rgba(96,184,240,.12); border-bottom-color:rgba(96,184,240,.12); background:rgba(96,184,240,.04); }
+.ib.gold   { border-left-color:var(--gold);  border-top-color:rgba(232,192,96,.12); border-right-color:rgba(232,192,96,.12); border-bottom-color:rgba(232,192,96,.12); background:rgba(232,192,96,.04); }
+.ib.orange { border-left-color:var(--orange);border-top-color:rgba(240,144,64,.12); border-right-color:rgba(240,144,64,.12); border-bottom-color:rgba(240,144,64,.12); background:rgba(240,144,64,.04); }
+.ib.violet { border-left-color:var(--violet);border-top-color:rgba(160,120,232,.12);border-right-color:rgba(160,120,232,.12);border-bottom-color:rgba(160,120,232,.12);background:rgba(160,120,232,.04); }
+
+.ib strong {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--emerald);
+  margin-bottom: 5px;
+}
+.ib.rose   strong { color: var(--rose); }
+.ib.sky    strong { color: var(--sky); }
+.ib.gold   strong { color: var(--gold); }
+.ib.orange strong { color: var(--orange); }
+.ib.violet strong { color: var(--violet); }
+
+/* ── CARDS ── */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+
+.card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 22px;
+  transition: border-color .2s, transform .15s;
+}
+.card:hover { border-color: var(--border2); transform: translateY(-2px); }
+
+.card-h {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--text);
+  display: flex; align-items: center; gap: 8px;
+}
+.card-body { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+/* ── CHECKLIST ── */
+.chk-list { display: flex; flex-direction: column; gap: 9px; margin: 12px 0; }
+.chk {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13.5px;
+}
+.ci {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.ci-ok   { background: rgba(52,216,138,.1); border: 1px solid rgba(52,216,138,.25); color: var(--emerald); }
+.ci-warn { background: rgba(232,192,96,.1); border: 1px solid rgba(232,192,96,.25); color: var(--gold); }
+.ci-bad  { background: rgba(240,98,146,.1); border: 1px solid rgba(240,98,146,.25); color: var(--rose); }
+.ci-info { background: rgba(96,184,240,.1); border: 1px solid rgba(96,184,240,.25); color: var(--sky); }
+
+/* ── TABLES ── */
+.tbl-wrap {
+  overflow-x: auto;
+  border-radius: var(--r2);
+  border: 1px solid var(--border);
+  margin: 16px 0;
+}
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead { background: var(--bg4); border-bottom: 1px solid var(--border); }
+th {
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.55;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,.012); }
+
+.c-em   { color: var(--emerald); font-weight: 600; }
+.c-rose { color: var(--rose); }
+.c-sky  { color: var(--sky); }
+.c-gold { color: var(--gold); font-weight: 600; }
+.c-dim  { color: var(--muted); }
+.c-or   { color: var(--orange); }
+.c-vio  { color: var(--violet); }
+
+/* ── STATUS ── */
+.st {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+.st-ok   { background: rgba(52,216,138,.1); color: var(--emerald); border: 1px solid rgba(52,216,138,.2); }
+.st-warn { background: rgba(232,192,96,.1);  color: var(--gold);    border: 1px solid rgba(232,192,96,.2); }
+.st-bad  { background: rgba(240,98,146,.1);  color: var(--rose);    border: 1px solid rgba(240,98,146,.2); }
+.st-todo { background: rgba(94,94,120,.1);   color: var(--muted);   border: 1px solid rgba(94,94,120,.2); }
+.st-info { background: rgba(96,184,240,.1);  color: var(--sky);     border: 1px solid rgba(96,184,240,.2); }
+
+/* ── DOCUMENT MODEL ── */
+.doc {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  overflow: hidden;
+  margin: 18px 0;
+}
+.doc-head {
+  background: var(--bg4);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 24px;
+}
+.doc-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--gold); }
+.doc-meta  { font-size: 12px; color: var(--muted); margin-top: 3px; }
+.doc-body  { padding: 22px 24px; }
+
+.doc-sec { margin-bottom: 20px; }
+.doc-sec-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--emerald);
+  margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.doc-sec-title::before { content: ''; width: 10px; height: 2px; background: var(--emerald); border-radius: 1px; }
+
+.doc-field {
+  background: var(--bg4);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 10px 14px;
+  font-size: 12.5px;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.55;
+}
+.doc-field-lbl {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+.ph { color: var(--dim); font-style: italic; }
+
+/* ── SCHEMA BOX ── */
+.schema {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 24px;
+  margin: 16px 0;
+}
+.schema-lbl {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+/* ── RECAP BANNER ── */
+.rb {
+  background: linear-gradient(135deg, var(--bg3), var(--bg4));
+  border: 1px solid var(--border2);
+  border-radius: var(--r2);
+  padding: 20px 26px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.rb-ico { font-size: 28px; }
+.rb-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; }
+.rb-sub   { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+/* ── 2 / 3 COL ── */
+.two-col   { display: grid; grid-template-columns: 1fr 1fr;     gap: 18px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+/* ── FORMULA BOX ── */
+.formula {
+  background: var(--bg4);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  padding: 16px 20px;
+  margin: 12px 0;
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  color: var(--gold);
+  text-align: center;
+  letter-spacing: .02em;
+}
+.formula small { display: block; font-family: 'Jost', sans-serif; font-size: 11px; color: var(--muted); margin-top: 5px; font-style: normal; }
+
+/* ── BUDGET ROWS ── */
+.brows { display: flex; flex-direction: column; }
+.brow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 16px;
+}
+.brow:last-child { border-bottom: none; }
+.brow-k { color: var(--muted); }
+.brow-v { font-weight: 600; color: var(--text); text-align: right; }
+.brow-total {
+  border-top: 2px solid var(--emerald) !important;
+  margin-top: 4px;
+  padding-top: 12px;
+}
+.brow-total .brow-k { color: var(--text); font-weight: 700; }
+.brow-total .brow-v { color: var(--emerald); font-size: 16px; }
+
+/* ── PROGRESS BAR ── */
+.pbar-wrap { display: flex; flex-direction: column; gap: 10px; margin: 12px 0; }
+.pbar-item { display: flex; flex-direction: column; gap: 5px; }
+.pbar-header { display: flex; justify-content: space-between; font-size: 12px; }
+.pbar-label { color: var(--muted); }
+.pbar-val { font-weight: 600; color: var(--text); }
+.pbar-track {
+  height: 8px;
+  background: var(--bg5);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.pbar-fill { height: 100%; border-radius: 100px; transition: width .5s; }
+
+/* ── TIMELINE ── */
+.tl { display: flex; flex-direction: column; gap: 0; }
+.tl-item { display: grid; grid-template-columns: 38px 1fr; gap: 0 18px; }
+.tl-line { display: flex; flex-direction: column; align-items: center; }
+.tl-dot {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--bg4);
+  border: 2px solid var(--emerald);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--emerald);
+  flex-shrink: 0;
+  z-index: 1;
+}
+.tl-conn { flex: 1; width: 2px; background: var(--border); margin: 0 auto; min-height: 20px; }
+.tl-item:last-child .tl-conn { display: none; }
+.tl-body { padding-bottom: 26px; padding-top: 4px; }
+.tl-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; margin-bottom: 5px; }
+.tl-desc  { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.tl-sub   { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
+.tl-si    { display: flex; gap: 8px; font-size: 12.5px; color: var(--text); }
+.tl-si::before { content: '→'; color: var(--emerald); flex-shrink: 0; }
+
+/* ── GARANTIES ── */
+.gar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+.gar-card {
+  border-radius: var(--r2);
+  padding: 22px;
+  border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+.gar-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.gar-dec  { background: rgba(52,216,138,.05); border-color: rgba(52,216,138,.15); }
+.gar-bien { background: rgba(96,184,240,.05);  border-color: rgba(96,184,240,.15); }
+.gar-pa   { background: rgba(232,192,96,.05); border-color: rgba(232,192,96,.15); }
+.gar-dec::before   { background: var(--emerald); }
+.gar-bien::before  { background: var(--sky); }
+.gar-pa::before    { background: var(--gold); }
+
+.gar-dur {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.gar-dec  .gar-dur { color: var(--emerald); }
+.gar-bien .gar-dur { color: var(--sky); }
+.gar-pa   .gar-dur { color: var(--gold); }
+
+.gar-name { font-weight: 700; font-size: 16px; margin-bottom: 8px; }
+.gar-body { font-size: 12.5px; color: var(--muted); line-height: 1.65; }
+.gar-item { margin-top: 8px; font-size: 12px; display: flex; gap: 6px; color: var(--text); }
+.gar-item::before { content: '·'; flex-shrink: 0; color: var(--muted); }
+
+/* ── TECHNIQUE CLIENT ── */
+.tech-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.tech-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 20px;
+  transition: border-color .2s;
+}
+.tech-card:hover { border-color: var(--border2); }
+.tech-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+.tech-tag  { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 10px; }
+.tech-body { font-size: 12.5px; color: var(--muted); line-height: 1.65; }
+
+/* ── RECEPTION STEPS ── */
+.recep-step {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 20px 22px;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  transition: border-color .2s;
+}
+.recep-step:hover { border-color: var(--border2); }
+.recep-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-style: italic;
+  color: var(--border2);
+  flex-shrink: 0;
+  width: 44px;
+  line-height: 1;
+}
+.recep-body .recep-title { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+.recep-body .recep-desc  { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ── PV MODELE ── */
+.pv-section-title {
+  background: var(--bg4);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 16px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 32px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+footer a {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--emerald);
+  text-decoration: none;
+}
+
+hr.div { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+@media (max-width: 768px) {
+  .wrap { padding: 0 16px 60px; }
+  .two-col, .three-col { grid-template-columns: 1fr; }
+  .nav { padding: 0 16px; }
+  .psep-num { font-size: 60px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="nav-brand">Chantier Pro</div>
+  <nav class="nav-links">
+    <a href="#budget">Budget</a>
+    <a href="#suivi-dep">Suivi dépenses</a>
+    <a href="#ecarts">Écarts</a>
+    <a href="#imprevus">Imprévus</a>
+    <a href="#situations">Situations</a>
+    <a href="#avenants">Avenants</a>
+    <a href="#rentabilite">Rentabilité</a>
+    <a href="#relation">Relation client</a>
+    <a href="#modifications">Modifications</a>
+    <a href="#mecontent">Client mécontent</a>
+    <a href="#reception">Réception</a>
+    <a href="#reserves">Réserves</a>
+    <a href="#garanties">Garanties</a>
+    <a href="#modeles">Modèles</a>
+  </nav>
+</header>
+
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-tag">Cours Professionnel · Menuiserie & Agencement</div>
+  <h1>Budget, <em>Relation Client</em><br>&amp; Réception de Chantier</h1>
+  <p class="hero-sub">Maîtriser les finances du chantier, entretenir une relation client de qualité et livrer un ouvrage irréprochable — de la première facture à la levée des réserves.</p>
+  <div class="hero-chips">
+    <div class="chip">Parties 3, 4 &amp; 5</div>
+    <div class="chip">Suivi budgétaire temps réel</div>
+    <div class="chip">Rentabilité chantier</div>
+    <div class="chip">Gestion des conflits client</div>
+    <div class="chip">PV de réception</div>
+    <div class="chip">Garanties légales</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PARTIE 3 — GESTION DU BUDGET
+══════════════════════════════════════ -->
+<div class="psep" id="budget">
+  <div class="psep-num">3</div>
+  <div class="psep-text">
+    <h2>Gestion du <em>Budget</em></h2>
+    <p>Lire, suivre, piloter et optimiser les finances de chaque chantier</p>
+  </div>
+</div>
+
+<!-- LIRE UN BUDGET -->
+<div class="section">
+  <div class="sec-h">Lire et comprendre un budget de chantier</div>
+
+  <div class="ib gold">
+    <strong>Définition</strong>
+    Le budget de chantier est la prévision financière complète d'un chantier : il détaille l'ensemble des revenus attendus (prix de vente) et des coûts prévus (matériaux, main-d'œuvre, sous-traitance, frais généraux). La différence est la marge brute prévue. Piloter un chantier sans budget, c'est naviguer sans carte.
+  </div>
+
+  <div class="two-col">
+    <div class="schema">
+      <div class="schema-lbl">Structure type d'un budget de chantier menuiserie</div>
+      <div class="brows">
+        <div class="brow"><span class="brow-k">💰 Prix de vente HT total</span><span class="brow-v c-em">38 500 €</span></div>
+        <div class="brow" style="padding-left:16px;"><span class="brow-k">Matériaux (panneaux, quincaillerie, chants…)</span><span class="brow-v">12 800 €</span></div>
+        <div class="brow" style="padding-left:16px;"><span class="brow-k">Façades &amp; éléments sous-traités</span><span class="brow-v">4 200 €</span></div>
+        <div class="brow" style="padding-left:16px;"><span class="brow-k">Plan de travail</span><span class="brow-v">2 900 €</span></div>
+        <div class="brow" style="padding-left:16px;"><span class="brow-k">Main-d'œuvre (fabrication + pose)</span><span class="brow-v">9 600 €</span></div>
+        <div class="brow" style="padding-left:16px;"><span class="brow-k">Transport &amp; livraison</span><span class="brow-v">480 €</span></div>
+        <div class="brow" style="padding-left:16px;"><span class="brow-k">Frais généraux affectés (8%)</span><span class="brow-v">2 320 €</span></div>
+        <div class="brow brow-total"><span class="brow-k">= MARGE BRUTE PRÉVUE</span><span class="brow-v">6 200 € (16,1%)</span></div>
+      </div>
+    </div>
+    <div class="schema">
+      <div class="schema-lbl">Les composantes du coût — Ce qu'elles incluent</div>
+      <div class="chk-list" style="margin-top:8px;">
+        <div class="chk"><div class="ci ci-info">M</div><span><strong>Matériaux :</strong> panneaux, quincaillerie, chants ABS, colles, vis, chevilles, produits de finition</span></div>
+        <div class="chk"><div class="ci ci-info">MO</div><span><strong>Main-d'œuvre :</strong> salaires bruts + charges patronales (≈ ×1.5 le salaire net) + heures supplémentaires</span></div>
+        <div class="chk"><div class="ci ci-info">ST</div><span><strong>Sous-traitance :</strong> laqueur, pierre, électricien, tout ce qu'on achète "fini" à l'extérieur</span></div>
+        <div class="chk"><div class="ci ci-info">FG</div><span><strong>Frais généraux :</strong> loyer atelier, assurances, véhicules, outillage, comptabilité, administration (affectés au prorata)</span></div>
+        <div class="chk"><div class="ci ci-warn">!</div><span>La marge brute ≠ bénéfice. Il faut encore déduire les frais généraux non affectés et l'impôt.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ib">
+    <strong>Comment lire un budget — Les ratios clés</strong>
+    En menuiserie d'agencement, les ratios indicatifs sont : Matériaux 30–40% du CA · Main-d'œuvre 25–35% · Sous-traitance 10–20% · Frais généraux 10–15% · Marge brute cible 15–25%. Un chantier sous 10% de marge brute est à risque. Sous 5%, il est déficitaire dès le premier imprévu.
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- SUIVI DES DÉPENSES -->
+<div class="section" id="suivi-dep">
+  <div class="sec-h">Suivre les dépenses en temps réel</div>
+
+  <div class="ib sky">
+    <strong>Pourquoi le suivi en temps réel change tout</strong>
+    Un chantier qui dérive de 5% de son budget est récupérable si détecté en semaine 2. Le même chantier détecté en semaine 10 sur 12 = perte certaine. Le suivi en temps réel transforme un problème en ajustement.
+  </div>
+
+  <div class="two-col">
+    <div class="schema">
+      <div class="schema-lbl">Méthode de suivi hebdomadaire</div>
+      <div class="tl" style="margin-top:8px;">
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot" style="font-size:12px;">1</div><div class="tl-conn"></div></div>
+          <div class="tl-body" style="padding-bottom:18px;">
+            <div class="tl-title" style="font-size:14px;">Collecter les bons de livraison</div>
+            <div class="tl-desc" style="font-size:12px;">Chaque livraison de matériaux = bon saisi dans le tableau de suivi le jour même</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot" style="font-size:12px;">2</div><div class="tl-conn"></div></div>
+          <div class="tl-body" style="padding-bottom:18px;">
+            <div class="tl-title" style="font-size:14px;">Pointer les heures réelles</div>
+            <div class="tl-desc" style="font-size:12px;">Chaque compagnon note ses heures par chantier — à consolider chaque vendredi</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot" style="font-size:12px;">3</div><div class="tl-conn"></div></div>
+          <div class="tl-body" style="padding-bottom:18px;">
+            <div class="tl-title" style="font-size:14px;">Calculer le reste à dépenser</div>
+            <div class="tl-desc" style="font-size:12px;">Budget prévu — Dépenses engagées = enveloppe restante. Est-elle suffisante ?</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot" style="font-size:12px;">4</div><div class="tl-conn"></div></div>
+          <div class="tl-body">
+            <div class="tl-title" style="font-size:14px;">Projeter la marge finale</div>
+            <div class="tl-desc" style="font-size:12px;">À la cadence actuelle, quelle sera la marge en fin de chantier ? Alert si &lt;10%.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="schema">
+      <div class="schema-lbl">Exemple — Suivi budgétaire S5/12 d'un chantier</div>
+      <div class="pbar-wrap" style="margin-top:8px;">
+        <div class="pbar-item">
+          <div class="pbar-header">
+            <span class="pbar-label">Matériaux</span>
+            <span class="pbar-val" style="color:var(--emerald);">9 800 € / 12 800 € — 76%</span>
+          </div>
+          <div class="pbar-track">
+            <div class="pbar-fill" style="width:76%;background:var(--emerald);"></div>
+          </div>
+        </div>
+        <div class="pbar-item">
+          <div class="pbar-header">
+            <span class="pbar-label">Main-d'œuvre</span>
+            <span class="pbar-val" style="color:var(--gold);">7 200 € / 9 600 € — 75%</span>
+          </div>
+          <div class="pbar-track">
+            <div class="pbar-fill" style="width:75%;background:var(--gold);"></div>
+          </div>
+        </div>
+        <div class="pbar-item">
+          <div class="pbar-header">
+            <span class="pbar-label">Sous-traitance</span>
+            <span class="pbar-val" style="color:var(--emerald);">4 200 € / 7 100 € — 59%</span>
+          </div>
+          <div class="pbar-track">
+            <div class="pbar-fill" style="width:59%;background:var(--emerald);"></div>
+          </div>
+        </div>
+        <div class="pbar-item">
+          <div class="pbar-header">
+            <span class="pbar-label">Avancement travaux réel</span>
+            <span class="pbar-val" style="color:var(--sky);">42% des travaux finis</span>
+          </div>
+          <div class="pbar-track">
+            <div class="pbar-fill" style="width:42%;background:var(--sky);"></div>
+          </div>
+        </div>
+      </div>
+      <div class="ib rose" style="margin-top:14px;margin-bottom:0;">
+        <strong>Alerte</strong>
+        76% du budget matériaux consommé pour seulement 42% des travaux. Risque de dépassement = analyser immédiatement.
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- ÉCARTS -->
+<div class="section" id="ecarts">
+  <div class="sec-h">Gérer les écarts budget prévu / réel</div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Type d'écart</th><th>Cause fréquente</th><th>Seuil d'alerte</th><th>Action corrective</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="c-rose">Dépassement matériaux</td>
+          <td>Métré sous-estimé, casse, sur-commande, oublis</td>
+          <td class="c-gold">&gt; 5% du budget matériaux</td>
+          <td>Analyser les bons, auditer les chutes, revoir le plan de débit</td>
+        </tr>
+        <tr>
+          <td class="c-rose">Dépassement main-d'œuvre</td>
+          <td>Retravail, difficultés techniques, travaux supplémentaires</td>
+          <td class="c-gold">&gt; 10% des heures prévues</td>
+          <td>Analyser les fiches heures, identifier les tâches chronophages, ajouter ressources si nécessaire</td>
+        </tr>
+        <tr>
+          <td class="c-rose">Dépassement sous-traitance</td>
+          <td>Devis incomplet, modification, hausse prix matières</td>
+          <td class="c-gold">&gt; 8% du montant sous-traité</td>
+          <td>Avenant sous-traitant si justifié + répercussion sur le client</td>
+        </tr>
+        <tr>
+          <td class="c-em">Économie matériaux</td>
+          <td>Bon plan de débit, négociation, prix baissé</td>
+          <td class="c-dim">—</td>
+          <td>Conserver en réserve (ne pas relâcher la vigilance)</td>
+        </tr>
+        <tr>
+          <td class="c-em">Économie main-d'œuvre</td>
+          <td>Équipe efficace, bonne préparation</td>
+          <td class="c-dim">—</td>
+          <td>Reporter sur chantier suivant, bonus d'équipe</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ib">
+    <strong>Règle des 3 seuils d'alerte</strong>
+    Vert = écart &lt;5% : surveiller. Orange = écart 5–10% : analyser et agir. Rouge = écart &gt;10% : réunion d'urgence, plan de correction immédiat. Ne jamais laisser un rouge sans plan d'action sous 48h.
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- IMPRÉVUS FINANCIERS -->
+<div class="section" id="imprevus">
+  <div class="sec-h">Les imprévus financiers — Anticiper et gérer</div>
+
+  <div class="two-col">
+    <div class="schema">
+      <div class="schema-lbl">Anticiper — Provisions pour aléas</div>
+      <div class="chk-list" style="margin-top:8px;">
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Provision systématique :</strong> intégrer 5–10% du budget total en "provision pour aléas" dans tout devis</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Chantier neuf :</strong> 5% suffit généralement (peu de surprises structurelles)</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Rénovation / bâtiment ancien :</strong> 10–15% minimum — les surprises sont quasi certaines</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Chantier PMR ou ERP :</strong> + 5% supplémentaires (contraintes réglementaires non anticipées)</span></div>
+        <div class="chk"><div class="ci ci-warn">!</div><span>La provision est une réserve — elle n'est pas dépensée si tout se passe bien = améliore la marge finale</span></div>
+        <div class="chk"><div class="ci ci-bad">✗</div><span>Ne jamais comprimer la provision pour être moins cher. Elle protège votre rentabilité, pas le prix du client.</span></div>
+      </div>
+    </div>
+    <div class="schema">
+      <div class="schema-lbl">Gérer un imprévu financier — Protocole</div>
+      <div class="tl" style="margin-top:8px;">
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot" style="width:28px;height:28px;font-size:12px;">1</div><div class="tl-conn"></div></div>
+          <div class="tl-body" style="padding-bottom:14px;"><div class="tl-title" style="font-size:13px;">Identifier et quantifier</div><div class="tl-desc" style="font-size:12px;">Chiffrer précisément le coût supplémentaire avant toute communication au client</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot" style="width:28px;height:28px;font-size:12px;">2</div><div class="tl-conn"></div></div>
+          <div class="tl-body" style="padding-bottom:14px;"><div class="tl-title" style="font-size:13px;">Déterminer l'origine</div><div class="tl-desc" style="font-size:12px;">Imprévu du client = avenant. Erreur interne = à absorber. Cas fortuit = négociation.</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot" style="width:28px;height:28px;font-size:12px;">3</div><div class="tl-conn"></div></div>
+          <div class="tl-body" style="padding-bottom:14px;"><div class="tl-title" style="font-size:13px;">Informer le client</div><div class="tl-desc" style="font-size:12px;">Toujours avant de faire le travail supplémentaire — jamais après. Accord écrit.</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot" style="width:28px;height:28px;font-size:12px;">4</div><div class="tl-conn"></div></div>
+          <div class="tl-body"><div class="tl-title" style="font-size:13px;">Formaliser l'avenant</div><div class="tl-desc" style="font-size:12px;">Document signé des deux parties avant exécution = protection légale absolue</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- SITUATIONS DE TRAVAUX -->
+<div class="section" id="situations">
+  <div class="sec-h">Situations de travaux — Facturer par avancement</div>
+
+  <div class="ib sky">
+    <strong>Qu'est-ce qu'une situation de travaux ?</strong>
+    Une situation de travaux (ou "situation") est une facture partielle établie en cours de chantier, proportionnellement à l'avancement des travaux. Elle permet de ne pas attendre la fin du chantier pour encaisser et d'éviter les problèmes de trésorerie. Légalement, elle est soumise à l'acceptation du maître d'ouvrage.
+  </div>
+
+  <div class="two-col">
+    <div class="schema">
+      <div class="schema-lbl">Structure d'une situation de travaux</div>
+      <div class="brows">
+        <div class="brow"><span class="brow-k">Montant du marché HT</span><span class="brow-v">38 500,00 €</span></div>
+        <div class="brow"><span class="brow-k">Avenants approuvés</span><span class="brow-v">+ 1 200,00 €</span></div>
+        <div class="brow"><span class="brow-k">= Marché actualisé HT</span><span class="brow-v">39 700,00 €</span></div>
+        <div class="brow"><span class="brow-k">Avancement cumulé situation N°2</span><span class="brow-v">65 %</span></div>
+        <div class="brow"><span class="brow-k">= Montant cumulé facturable</span><span class="brow-v">25 805,00 €</span></div>
+        <div class="brow"><span class="brow-k">Situation N°1 déjà facturée</span><span class="brow-v">– 15 880,00 €</span></div>
+        <div class="brow brow-total"><span class="brow-k">= Situation N°2 à facturer HT</span><span class="brow-v c-em">9 925,00 €</span></div>
+        <div class="brow"><span class="brow-k">TVA 20%</span><span class="brow-v">1 985,00 €</span></div>
+        <div class="brow"><span class="brow-k">Retenue de garantie (5%)</span><span class="brow-v c-rose">– 496,25 €</span></div>
+        <div class="brow brow-total"><span class="brow-k">= Net à payer TTC</span><span class="brow-v c-em">11 413,75 €</span></div>
+      </div>
+    </div>
+    <div class="schema">
+      <div class="schema-lbl">Comment mesurer l'avancement</div>
+      <div class="tbl-wrap" style="margin:0;border-radius:var(--r);">
+        <table>
+          <thead><tr><th>Poste</th><th>% prévu</th><th>% réel</th></tr></thead>
+          <tbody>
+            <tr><td>Fabrication caissons bas</td><td>25%</td><td class="c-em">25%</td></tr>
+            <tr><td>Fabrication caissons hauts</td><td>20%</td><td class="c-em">20%</td></tr>
+            <tr><td>Pose caissons + équerre</td><td>15%</td><td class="c-gold">10%</td></tr>
+            <tr><td>Plan de travail</td><td>10%</td><td class="c-em">10%</td></tr>
+            <tr><td>Façades + quincaillerie</td><td>20%</td><td class="c-dim">0%</td></tr>
+            <tr><td>Finitions + réglages</td><td>10%</td><td class="c-dim">0%</td></tr>
+            <tr><td style="font-weight:700;">TOTAL</td><td style="font-weight:700;">100%</td><td class="c-em" style="font-weight:700;">65%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ib" style="margin-top:12px;margin-bottom:0;">
+        <strong>Retenue de garantie</strong>
+        5% du montant HT peuvent être retenus par le client jusqu'à la levée des réserves (légale en marchés publics, contractuelle en privé). Ces 5% sont libérés après le PV de réception sans réserves.
+      </div>
+    </div>
+  </div>
+
+  <div class="schema" style="margin-top:20px;">
+    <div class="schema-lbl">Planning de facturation type — Chantier 38 500 € HT</div>
+    <div class="tbl-wrap" style="margin:0;border-radius:var(--r);">
+      <table>
+        <thead><tr><th>Situation</th><th>Moment</th><th>Avancement cumulé</th><th>Montant HT</th><th>Délai paiement</th></tr></thead>
+        <tbody>
+          <tr><td class="c-gold">Acompte à la commande</td><td>Signature du marché</td><td>0%</td><td class="c-em">7 700 € (20%)</td><td>Immédiat</td></tr>
+          <tr><td class="c-gold">Situation n°1</td><td>Livraison matériaux / Démarrage fabrication</td><td>40%</td><td class="c-em">8 140 €</td><td>30 jours</td></tr>
+          <tr><td class="c-gold">Situation n°2</td><td>Fin de fabrication / Démarrage pose</td><td>70%</td><td class="c-em">11 550 €</td><td>30 jours</td></tr>
+          <tr><td class="c-gold">Situation n°3</td><td>Fin de pose / Avant finitions</td><td>90%</td><td class="c-em">7 700 €</td><td>30 jours</td></tr>
+          <tr><td class="c-gold">Solde final</td><td>PV de réception signé</td><td>100%</td><td class="c-em">3 410 €</td><td>30 jours</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- AVENANTS -->
+<div class="section" id="avenants">
+  <div class="sec-h">Gestion des avenants budgétaires</div>
+
+  <div class="ib rose">
+    <strong>Règle absolue des avenants</strong>
+    Un avenant doit toujours être rédigé, signé et accepté AVANT l'exécution des travaux supplémentaires. Tout travail exécuté sans avenant signé est difficile à facturer et impossible à défendre en cas de litige. "On s'est mis d'accord oralement" ne vaut rien juridiquement.
+  </div>
+
+  <div class="two-col">
+    <div class="schema">
+      <div class="schema-lbl">Quand rédiger un avenant ?</div>
+      <div class="chk-list" style="margin-top:8px;">
+        <div class="chk"><div class="ci ci-ok">✓</div><span>Modification demandée par le client (dimensions, matériaux, finition)</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span>Travaux supplémentaires découverts sur chantier non prévus au marché</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span>Retard imputable au client (locaux non prêts, retard d'autre corps de métier à sa charge)</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span>Hausse significative des matériaux entre devis et réalisation (clause de révision)</span></div>
+        <div class="chk"><div class="ci ci-warn">!</div><span>Même pour un petit montant (50–100€) : rédiger un avenant simplifié par mail avec confirmation écrite du client</span></div>
+        <div class="chk"><div class="ci ci-bad">✗</div><span>Un avenant ne peut pas modifier rétroactivement un travail déjà réalisé sans accord préalable</span></div>
+      </div>
+    </div>
+    <div class="schema">
+      <div class="schema-lbl">Contenu obligatoire d'un avenant</div>
+      <div class="tbl-wrap" style="margin:0;border-radius:var(--r);">
+        <table>
+          <thead><tr><th>Élément</th><th>Détail</th></tr></thead>
+          <tbody>
+            <tr><td>Référence</td><td>N° avenant + N° marché d'origine</td></tr>
+            <tr><td>Date</td><td>Date de rédaction</td></tr>
+            <tr><td>Description</td><td>Ce qui change — précis et factuel</td></tr>
+            <tr><td>Montant HT</td><td>Coût supplémentaire ou économie</td></tr>
+            <tr><td>Nouveau total marché</td><td>Marché initial + tous avenants</td></tr>
+            <tr><td>Impact délai</td><td>Jours supplémentaires si applicable</td></tr>
+            <tr><td>Signatures</td><td>Les deux parties avec date</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- RENTABILITE -->
+<div class="section" id="rentabilite">
+  <div class="sec-h">Rentabilité d'un chantier — Comment la calculer</div>
+
+  <div class="formula">
+    Marge brute = Prix de vente HT − Coût de revient total
+    <small>Taux de marge brute = Marge brute ÷ Prix de vente × 100</small>
+  </div>
+
+  <div class="formula" style="border-color:var(--sky);">
+    Coût horaire réel = Charges totales entreprise ÷ Heures productives annuelles
+    <small>Exemple : 280 000€ de charges ÷ 3 500h productives = 80€/h de coût horaire</small>
+  </div>
+
+  <div class="formula" style="border-color:var(--rose);">
+    Seuil de rentabilité chantier = Coûts fixes affectés ÷ Taux de marge sur coûts variables
+    <small>Un chantier est rentable quand son CA couvre tous ses coûts directs ET sa quote-part de frais généraux</small>
+  </div>
+
+  <div class="two-col" style="margin-top:20px;">
+    <div class="schema">
+      <div class="schema-lbl">Analyse de rentabilité — Chantier cuisine exemple</div>
+      <div class="tbl-wrap" style="margin:0;border-radius:var(--r);">
+        <table>
+          <thead><tr><th>Poste</th><th>Prévu</th><th>Réel</th><th>Écart</th></tr></thead>
+          <tbody>
+            <tr><td>Prix de vente HT</td><td>38 500 €</td><td class="c-em">40 200 €</td><td class="c-em">+1 700 € (avenant)</td></tr>
+            <tr><td>Matériaux</td><td>12 800 €</td><td class="c-rose">13 640 €</td><td class="c-rose">−840 €</td></tr>
+            <tr><td>Main-d'œuvre</td><td>9 600 €</td><td class="c-rose">10 800 €</td><td class="c-rose">−1 200 €</td></tr>
+            <tr><td>Sous-traitance</td><td>7 100 €</td><td class="c-em">7 100 €</td><td class="c-dim">0 €</td></tr>
+            <tr><td>Transport</td><td>480 €</td><td class="c-em">380 €</td><td class="c-em">+100 €</td></tr>
+            <tr><td>Frais généraux</td><td>2 320 €</td><td class="c-gold">2 420 €</td><td class="c-gold">−100 €</td></tr>
+            <tr style="font-weight:700;"><td>MARGE BRUTE</td><td>6 200 € (16,1%)</td><td class="c-em">5 860 € (14,6%)</td><td class="c-gold">−340 €</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ib" style="margin-top:12px;margin-bottom:0;">
+        <strong>Lecture</strong>
+        14,6% de marge brute = acceptable. Le dépassement MO (−1 200€) a été partiellement compensé par l'avenant (+1 700€). Sans l'avenant : marge = 10,1% = zone de risque.
+      </div>
+    </div>
+    <div class="schema">
+      <div class="schema-lbl">Indicateurs de rentabilité à surveiller</div>
+      <div class="brows" style="margin-top:8px;">
+        <div class="brow"><span class="brow-k">Marge brute cible</span><span class="brow-v c-em">&gt; 15% = Objectif</span></div>
+        <div class="brow"><span class="brow-k">Marge brute acceptable</span><span class="brow-v c-gold">10–15% = Vigilance</span></div>
+        <div class="brow"><span class="brow-k">Marge brute risquée</span><span class="brow-v c-rose">&lt; 10% = Alerte</span></div>
+        <div class="brow"><span class="brow-k">Rendement MO (CA/heure)</span><span class="brow-v">Objectif : 2× le coût horaire</span></div>
+        <div class="brow"><span class="brow-k">Part matériaux / CA</span><span class="brow-v">Max 40% — au-delà, revoir le devis</span></div>
+        <div class="brow"><span class="brow-k">Délai de règlement client</span><span class="brow-v">Objectif : &lt; 45 jours</span></div>
+        <div class="brow brow-total"><span class="brow-k">BFR chantier (trésorerie)</span><span class="brow-v">Acompte = couverture semaines 1–3</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PARTIE 4 — RELATION CLIENT
+══════════════════════════════════════ -->
+<div class="psep" id="relation">
+  <div class="psep-num">4</div>
+  <div class="psep-text">
+    <h2>Relation <em>Client</em> sur Chantier</h2>
+    <p>Communiquer, gérer les modifications, les tensions et les conflits</p>
+  </div>
+</div>
+
+<!-- COMMUNICATION RÉGULIÈRE -->
+<div class="section">
+  <div class="sec-h">Communication régulière avec le client</div>
+
+  <div class="two-col">
+    <div class="schema">
+      <div class="schema-lbl">Fréquence et supports recommandés</div>
+      <div class="tbl-wrap" style="margin:0;border-radius:var(--r);">
+        <table>
+          <thead><tr><th>Moment</th><th>Format</th><th>Contenu</th></tr></thead>
+          <tbody>
+            <tr><td class="c-gold">Démarrage chantier</td><td>Réunion + CR écrit</td><td>Présentation équipe, planning, règles d'accès</td></tr>
+            <tr><td class="c-gold">Chaque semaine</td><td>Email bref (3–5 lignes)</td><td>Avancement, ce qui a été fait, ce qui vient</td></tr>
+            <tr><td class="c-gold">Jalons importants</td><td>Photo + message</td><td>Livraison matériaux, fin de fabrication, démarrage pose</td></tr>
+            <tr><td class="c-gold">Problème ou retard</td><td>Appel + confirmation écrite</td><td>Explication franche, nouvelle date, solution</td></tr>
+            <tr><td class="c-gold">Avant réception</td><td>Visite + liste provisoire</td><td>Points à valider ensemble, petits ajustements</td></tr>
+            <tr><td class="c-gold">Après réception</td><td>CR signé + mail récap</td><td>Bilan, réserves notées, suites à donner</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="schema">
+      <div class="schema-lbl">Les règles d'or de la communication client</div>
+      <div class="chk-list" style="margin-top:8px;">
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Communiquer les bonnes nouvelles ET les mauvaises</strong> — un client qui découvre un problème à la réception est bien plus difficile à gérer</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Toujours proposer une solution</strong> avec le problème — "Il y a un retard, voici comment on le gère"</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Répondre sous 24h</strong> à tout message client — le silence génère de l'inquiétude</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Garder un ton professionnel et calme</strong> même sous pression</span></div>
+        <div class="chk"><div class="ci ci-warn">!</div><span><strong>Définir un interlocuteur unique</strong> côté entreprise — un client ne doit pas avoir 3 versions différentes de l'avancement</span></div>
+        <div class="chk"><div class="ci ci-bad">✗</div><span>Ne jamais promettre ce qu'on n'est pas sûr de tenir — mieux vaut sous-promettre et sur-délivrer</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- MODIFICATIONS EN COURS -->
+<div class="section" id="modifications">
+  <div class="sec-h">Gérer les demandes de modification en cours de chantier</div>
+
+  <div class="ib gold">
+    <strong>Les modifications client — Un risque à double tranchant</strong>
+    Les modifications sont normales — le client voit l'ouvrage se construire et a de nouvelles idées. Elles sont une opportunité commerciale si elles génèrent un avenant. Elles deviennent un problème si elles sont faites sans accord écrit, si elles impactent des travaux déjà réalisés, ou si elles désorganisent le planning sans contrepartie.
+  </div>
+
+  <div class="three-col">
+    <div class="card">
+      <div class="card-h">📝 Avant exécution</div>
+      <div class="chk-list">
+        <div class="chk"><div class="ci ci-ok">✓</div><span>Écouter la demande sans s'engager immédiatement</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span>Chiffrer précisément avant de répondre</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span>Évaluer l'impact planning et le signaler</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span>Rédiger et faire signer l'avenant</span></div>
+        <div class="chk"><div class="ci ci-warn">!</div><span>Ne jamais commencer avant signature</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-h">⚠️ Si déjà en cours</div>
+      <div class="chk-list">
+        <div class="chk"><div class="ci ci-warn">!</div><span>Stopper le travail concerné si possible</span></div>
+        <div class="chk"><div class="ci ci-warn">!</div><span>Évaluer ce qui est récupérable vs à refaire</span></div>
+        <div class="chk"><div class="ci ci-warn">!</div><span>Le coût du retravail = à la charge du client si la demande vient de lui</span></div>
+        <div class="chk"><div class="ci ci-bad">✗</div><span>Ne jamais absorber le coût d'un changement client sans avenant</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-h">🚫 Si impossible</div>
+      <div class="chk-list">
+        <div class="chk"><div class="ci ci-info">i</div><span>Expliquer clairement pourquoi la modification n'est pas faisable (délai, technique, coût)</span></div>
+        <div class="chk"><div class="ci ci-info">i</div><span>Proposer une alternative réalisable qui satisfait le besoin sous-jacent</span></div>
+        <div class="chk"><div class="ci ci-info">i</div><span>Documenter le refus et la raison par écrit</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- CLIENT MÉCONTENT -->
+<div class="section" id="mecontent">
+  <div class="sec-h">Gérer un client mécontent</div>
+
+  <div class="ib rose">
+    <strong>Principe fondamental</strong>
+    Un client qui se plaint est un client qui veut encore travailler avec vous — il vous donne une chance de corriger. Un client qui part sans rien dire est perdu. Traiter chaque réclamation comme une opportunité de démontrer votre professionnalisme.
+  </div>
+
+  <div class="tech-grid">
+    <div class="tech-card">
+      <div class="tech-name">Écoute active</div>
+      <div class="tech-tag" style="color:var(--sky);">Technique n°1</div>
+      <div class="tech-body">Laissez le client s'exprimer jusqu'au bout sans l'interrompre. Reformulez : "Si je comprends bien, vous êtes insatisfait de [X] parce que [Y] — c'est bien ça ?" L'écoute désarme 50% de la tension avant même d'avoir répondu au fond.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-name">Reconnaissance</div>
+      <div class="tech-tag" style="color:var(--emerald);">Technique n°2</div>
+      <div class="tech-body">Reconnaître que le client a raison d'être mécontent si c'est justifié, ou reconnaître ses émotions si c'est subjectif. "Je comprends que cette situation soit frustrante." Ne jamais minimiser ni contre-attaquer. La défensive aggrave toujours.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-name">Séparation problème / personne</div>
+      <div class="tech-tag" style="color:var(--gold);">Technique n°3</div>
+      <div class="tech-body">Traiter le problème technique séparément de la relation humaine. "Sur le fond de la qualité de la pose, voici ce qu'on va faire : [solution concrète]. Sur notre relation, je veux que vous sachiez que [engagement]."</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-name">Proposition d'action concrète</div>
+      <div class="tech-tag" style="color:var(--orange);">Technique n°4</div>
+      <div class="tech-body">Ne jamais terminer l'échange sans une action concrète proposée : "Je viens voir le problème lundi matin à 9h, je vous donne la solution dans la journée." Un délai précis avec une action précise = crédibilité retrouvée.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-name">Escalade maîtrisée</div>
+      <div class="tech-tag" style="color:var(--rose);">Technique n°5</div>
+      <div class="tech-body">Si le compagnon ne peut pas gérer, escalader rapidement vers le chef de chantier, puis le conducteur. Ne jamais laisser un client en colère face à quelqu'un sans pouvoir de décision. L'attente aggrave la situation.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-name">Traçabilité</div>
+      <div class="tech-tag" style="color:var(--violet);">Technique n°6</div>
+      <div class="tech-body">Tout échange avec un client mécontent = compte-rendu écrit dans les 24h. Date, heure, problème évoqué, solution proposée, délai. En cas de litige ultérieur, cette traçabilité est votre meilleure protection.</div>
+    </div>
+  </div>
+
+  <div class="schema" style="margin-top:20px;">
+    <div class="schema-lbl">À NE PAS FAIRE — Les erreurs qui transforment un client mécontent en adversaire</div>
+    <div class="chk-list" style="margin-top:8px;">
+      <div class="chk"><div class="ci ci-bad">✗</div><span><strong>"C'est pas de notre faute"</strong> — même si c'est vrai, ce n'est pas la première chose à dire. Commencer par la solution.</span></div>
+      <div class="chk"><div class="ci ci-bad">✗</div><span><strong>Promettre une date impossible</strong> pour calmer le jeu à court terme — ça aggrave la méfiance si on ne tient pas.</span></div>
+      <div class="chk"><div class="ci ci-bad">✗</div><span><strong>Discuter par SMS/WhatsApp</strong> uniquement — toujours confirmer les accords importants par email.</span></div>
+      <div class="chk"><div class="ci ci-bad">✗</div><span><strong>Ignorer la réclamation</strong> ou tarder à répondre — au-delà de 48h sans réponse, le client commence à chercher un avocat.</span></div>
+      <div class="chk"><div class="ci ci-bad">✗</div><span><strong>Argumenter sur les détails techniques</strong> avec un client non-professionnel — il n'a pas tort, il est mécontent. Traitez l'émotion avant le technique.</span></div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- RÉUNION CLIENT -->
+<div class="section">
+  <div class="sec-h">Mener une réunion de chantier avec le client</div>
+
+  <div class="two-col">
+    <div class="schema">
+      <div class="schema-lbl">Structure d'une réunion de chantier client (30–45 min)</div>
+      <div class="tbl-wrap" style="margin:0;border-radius:var(--r);">
+        <table>
+          <thead><tr><th>Durée</th><th>Point</th></tr></thead>
+          <tbody>
+            <tr><td class="c-gold">5 min</td><td>Accueil — Rappel de l'ordre du jour</td></tr>
+            <tr><td class="c-gold">10 min</td><td>Bilan des travaux réalisés depuis la dernière réunion + photos</td></tr>
+            <tr><td class="c-gold">5 min</td><td>Points en attente / questions ouvertes depuis la dernière fois</td></tr>
+            <tr><td class="c-gold">10 min</td><td>Planning des prochaines semaines — ce qui va se passer</td></tr>
+            <tr><td class="c-gold">5 min</td><td>Sujets soulevés par le client — questions / remarques</td></tr>
+            <tr><td class="c-gold">5 min</td><td>Actions à mener — qui, quoi, quand</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="schema">
+      <div class="schema-lbl">Préparer et mener une réunion efficace</div>
+      <div class="chk-list" style="margin-top:8px;">
+        <div class="chk"><div class="ci ci-ok">✓</div><span>Préparer les photos d'avancement avant la réunion — pas de "je vais regarder"</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span>Avoir le planning à portée de main, à jour</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span>Anticiper les questions probables du client et préparer les réponses</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span>Rédiger le CR dans les 24h et le diffuser par email — tout ce qui n'est pas écrit n'existe pas</span></div>
+        <div class="chk"><div class="ci ci-warn">!</div><span>Ne jamais promettre quelque chose de non validé en interne — "Je vérifie et vous reviens dans 24h"</span></div>
+        <div class="chk"><div class="ci ci-warn">!</div><span>Limiter la réunion à 45 min — au-delà, l'efficacité chute et les décisions se brouillent</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PARTIE 5 — RÉCEPTION DE CHANTIER
+══════════════════════════════════════ -->
+<div class="psep" id="reception">
+  <div class="psep-num">5</div>
+  <div class="psep-text">
+    <h2>Réception de <em>Chantier</em></h2>
+    <p>De la préparation du PV de réception aux garanties légales après livraison</p>
+  </div>
+</div>
+
+<!-- ÉTAPES DE LA RÉCEPTION -->
+<div class="section">
+  <div class="sec-h">Les étapes de la réception de A à Z</div>
+
+  <div class="ib">
+    <strong>Qu'est-ce que la réception de chantier ?</strong>
+    La réception est l'acte par lequel le maître d'ouvrage (client) constate que les travaux sont conformes au marché et accepte l'ouvrage. Elle est le point de départ des garanties légales (décennale, biennale, parfait achèvement) et libère l'entrepreneur de la responsabilité directe des travaux sous réserve des réserves notées.
+  </div>
+
+  <div class="recep-step">
+    <div class="recep-num">1</div>
+    <div class="recep-body">
+      <div class="recep-title">Pré-réception interne — Inspection par l'équipe</div>
+      <div class="recep-desc">Avant d'inviter le client, faire un tour complet du chantier avec le chef de chantier. Identifier et corriger tous les défauts visibles. Cette étape évite les mauvaises surprises lors du passage client.</div>
+    </div>
+  </div>
+  <div class="recep-step">
+    <div class="recep-num">2</div>
+    <div class="recep-body">
+      <div class="recep-title">Liste des travaux à terminer / corriger</div>
+      <div class="recep-desc">Établir la liste exhaustive des finitions manquantes, retouches et petits défauts. Planifier leur exécution AVANT la réception officielle autant que possible. Ce qui peut être corrigé maintenant ne doit pas être une réserve lors du PV.</div>
+    </div>
+  </div>
+  <div class="recep-step">
+    <div class="recep-num">3</div>
+    <div class="recep-body">
+      <div class="recep-title">Convocation officielle à la réception</div>
+      <div class="recep-desc">Envoyer une convocation écrite au client (email ou courrier) avec date, heure, lieu. Préciser ce qu'il faut apporter (plans contractuels, documents de référence). Prévoir 2–3h pour un chantier de taille standard.</div>
+    </div>
+  </div>
+  <div class="recep-step">
+    <div class="recep-num">4</div>
+    <div class="recep-body">
+      <div class="recep-title">Visite et tour de réception avec le client</div>
+      <div class="recep-desc">Parcourir méthodiquement l'ouvrage selon un ordre logique (zone par zone). Tester chaque ouvrant, tiroir, mécanisme. Comparer avec les plans contractuels. Consigner chaque point soulevé.</div>
+    </div>
+  </div>
+  <div class="recep-step">
+    <div class="recep-num">5</div>
+    <div class="recep-body">
+      <div class="recep-title">Rédaction des réserves</div>
+      <div class="recep-desc">Formaliser par écrit chaque réserve : description précise, localisation, photo. Distinguer les réserves bloquant la réception (défauts majeurs) des réserves simples (finitions à corriger sans bloquer l'usage).</div>
+    </div>
+  </div>
+  <div class="recep-step">
+    <div class="recep-num">6</div>
+    <div class="recep-body">
+      <div class="recep-title">Signature du PV de réception</div>
+      <div class="recep-desc">Les deux parties signent le procès-verbal. Il peut être signé avec ou sans réserves. Sans réserves = ouvrage accepté en totalité. Avec réserves = ouvrage accepté sous conditions de levée des réserves dans un délai convenu.</div>
+    </div>
+  </div>
+  <div class="recep-step">
+    <div class="recep-num">7</div>
+    <div class="recep-body">
+      <div class="recep-title">Levée des réserves</div>
+      <div class="recep-desc">Corriger chaque réserve dans le délai fixé. Revenir sur site pour faire valider la correction par le client. Établir un PV de levée de réserves signé pour chaque réserve soldée. Libère la retenue de garantie.</div>
+    </div>
+  </div>
+  <div class="recep-step">
+    <div class="recep-num">8</div>
+    <div class="recep-body">
+      <div class="recep-title">Remise des documents et fin de chantier</div>
+      <div class="recep-desc">Remettre : DOE (Dossier des Ouvrages Exécutés), notices d'entretien, fiches produits, garanties fabricants, attestation d'assurance décennale. Facturer le solde final.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- PRÉPARER LA RÉCEPTION -->
+<div class="section">
+  <div class="sec-h">Préparer la réception — Ce que vérifier avant</div>
+
+  <div class="two-col">
+    <div class="schema">
+      <div class="schema-lbl">Check-list technique menuiserie</div>
+      <div class="chk-list" style="margin-top:8px;">
+        <div class="chk"><div class="ci ci-ok">✓</div><span>Toutes les portes et tiroirs ouvrent et ferment sans effort, alignés</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span>Jeux entre façades réguliers (2–3mm), horizontaux et verticaux</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span>Meubles bien à l'aplomb (vérifier avec niveau)</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span>Chants propres, sans débordement de colle ni décollage</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span>Plan de travail horizontal et jointif aux meubles</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span>Joint silicone entre plan de travail et mur propre et continu</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span>Plinthes en place et régulières</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span>Poignées à la même hauteur et dans le même axe</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span>Éclairage intégré fonctionnel</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span>Finitions peintes ou vernies sans coulures ni décollage</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span>Conformité aux plans (dimensions, positionnement)</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span>Nettoyage complet — pas de copeaux, colle, emballages</span></div>
+      </div>
+    </div>
+    <div class="schema">
+      <div class="schema-lbl">Méthode du tour de réception — Ordre logique</div>
+      <div class="tl" style="margin-top:8px;">
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot" style="width:28px;height:28px;font-size:12px;">1</div><div class="tl-conn"></div></div>
+          <div class="tl-body" style="padding-bottom:14px;"><div class="tl-title" style="font-size:13px;">Vue d'ensemble</div><div class="tl-desc" style="font-size:12px;">Se placer à l'entrée de la pièce, observer l'ensemble — cohérence visuelle, alignement général</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot" style="width:28px;height:28px;font-size:12px;">2</div><div class="tl-conn"></div></div>
+          <div class="tl-body" style="padding-bottom:14px;"><div class="tl-title" style="font-size:13px;">Inspection par zone</div><div class="tl-desc" style="font-size:12px;">Avancer de gauche à droite, zone par zone — ne jamais sauter</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot" style="width:28px;height:28px;font-size:12px;">3</div><div class="tl-conn"></div></div>
+          <div class="tl-body" style="padding-bottom:14px;"><div class="tl-title" style="font-size:13px;">Test fonctionnel</div><div class="tl-desc" style="font-size:12px;">Ouvrir et fermer chaque porte, tiroir, abattant — noter tout dysfonctionnement</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot" style="width:28px;height:28px;font-size:12px;">4</div><div class="tl-conn"></div></div>
+          <div class="tl-body" style="padding-bottom:14px;"><div class="tl-title" style="font-size:13px;">Vérification des finitions</div><div class="tl-desc" style="font-size:12px;">Chants, joints, peintures, surfaces — en lumière directe si possible</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot" style="width:28px;height:28px;font-size:12px;">5</div><div class="tl-conn"></div></div>
+          <div class="tl-body"><div class="tl-title" style="font-size:13px;">Conformité aux plans</div><div class="tl-desc" style="font-size:12px;">Comparer avec les plans contractuels : dimensions, matériaux, emplacements</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- RÉSERVES -->
+<div class="section" id="reserves">
+  <div class="sec-h">Rédiger les réserves — Méthode et précision</div>
+
+  <div class="ib orange">
+    <strong>Pourquoi la précision des réserves est capitale</strong>
+    Une réserve mal rédigée crée un désaccord : "la porte ne ferme pas bien" ne suffit pas. "La porte du meuble haut à gauche de la hotte, côté nord, ne se ferme pas complètement — jeu de 4mm à la poignée" est une réserve exploitable. La précision protège les deux parties.
+  </div>
+
+  <div class="two-col">
+    <div class="schema">
+      <div class="schema-lbl">Structure d'une réserve bien rédigée</div>
+      <div class="tbl-wrap" style="margin:0;border-radius:var(--r);">
+        <table>
+          <thead><tr><th>Élément</th><th>Exemple concret</th></tr></thead>
+          <tbody>
+            <tr><td class="c-gold">Numéro</td><td>Réserve n°3</td></tr>
+            <tr><td class="c-gold">Localisation précise</td><td>Caisson haut droit, meuble n°5, façade de gauche</td></tr>
+            <tr><td class="c-gold">Description du défaut</td><td>Chant ABS décollé sur 6cm en partie supérieure du chant vertical</td></tr>
+            <tr><td class="c-gold">Impact / gravité</td><td>Esthétique uniquement — pas de risque structural</td></tr>
+            <tr><td class="c-gold">Photo référence</td><td>Photo n°DSC_0047 jointe au PV</td></tr>
+            <tr><td class="c-gold">Délai de levée</td><td>À corriger avant le [date]</td></tr>
+            <tr><td class="c-gold">Responsable</td><td>Entreprise [nom] à ses frais</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="schema">
+      <div class="schema-lbl">Types de réserves et leur traitement</div>
+      <div class="tbl-wrap" style="margin:0;border-radius:var(--r);">
+        <table>
+          <thead><tr><th>Type</th><th>Définition</th><th>Impact sur réception</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><span class="st st-bad">Bloquante</span></td>
+              <td>Défaut qui rend l'ouvrage non conforme ou dangereux</td>
+              <td class="c-rose">Réception refusée jusqu'à correction</td>
+            </tr>
+            <tr>
+              <td><span class="st st-warn">Non bloquante</span></td>
+              <td>Finition manquante, défaut esthétique, réglage</td>
+              <td class="c-gold">Réception prononcée avec réserve — délai de levée fixé</td>
+            </tr>
+            <tr>
+              <td><span class="st st-info">Observation</span></td>
+              <td>Point à surveiller sans défaut constaté</td>
+              <td class="c-sky">Noté au PV — n'engage pas de correction</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ib" style="margin-top:12px;margin-bottom:0;">
+        <strong>Délais légaux de levée de réserves</strong>
+        En marché public : 3 mois maximum pour lever les réserves après réception. En marché privé : délai contractuel (souvent 1–3 mois). Passé ce délai sans levée, le maître d'ouvrage peut faire exécuter les travaux aux frais de l'entreprise défaillante.
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- GARANTIES -->
+<div class="section" id="garanties">
+  <div class="sec-h">Les garanties légales après réception</div>
+
+  <div class="ib sky">
+    <strong>La réception déclenche les garanties</strong>
+    La date de réception (signature du PV) est le point de départ de toutes les garanties légales. Ces garanties s'appliquent même sans qu'elles soient mentionnées dans le contrat — elles sont d'ordre public (on ne peut pas y renoncer).
+  </div>
+
+  <div class="gar-grid">
+    <div class="gar-card gar-dec">
+      <div class="gar-dur">10</div>
+      <div class="gar-name">ans — Garantie Décennale</div>
+      <div class="gar-body">Couvre les dommages compromettant la solidité de l'ouvrage ou le rendant impropre à sa destination. Obligatoire — l'attestation d'assurance doit être remise avant tout chantier.</div>
+      <div class="gar-item">Décollement de carrelage sur plancher chauffant</div>
+      <div class="gar-item">Fissuration d'un escalier porteur</div>
+      <div class="gar-item">Affaissement d'un plancher sur lequel repose une cuisine</div>
+      <div class="gar-item">Dommages rendant l'ouvrage inhabitable</div>
+    </div>
+    <div class="gar-card gar-bien">
+      <div class="gar-dur">2</div>
+      <div class="gar-name">ans — Garantie Biennale</div>
+      <div class="gar-body">Couvre les éléments d'équipement dissociables de l'ouvrage (qu'on peut déposer sans abîmer la structure). Aussi appelée garantie de bon fonctionnement.</div>
+      <div class="gar-item">Poignées, charnières, coulisses de tiroir</div>
+      <div class="gar-item">Mécanismes d'ouverture (rabattants, Aventos)</div>
+      <div class="gar-item">Éclairage intégré, prises, interrupteurs</div>
+      <div class="gar-item">Plans de travail dissociables</div>
+    </div>
+    <div class="gar-card gar-pa">
+      <div class="gar-dur">1</div>
+      <div class="gar-name">an — Parfait Achèvement</div>
+      <div class="gar-body">Oblige l'entrepreneur à réparer tous les désordres signalés lors de la réception OU dans l'année suivante par lettre recommandée. La plus contraignante en pratique.</div>
+      <div class="gar-item">Réserves notées au PV non encore levées</div>
+      <div class="gar-item">Défauts apparus dans l'année suivant la réception</div>
+      <div class="gar-item">Retouches de peinture, joints décollés</div>
+      <div class="gar-item">Réglages de charnières après utilisation</div>
+    </div>
+  </div>
+
+  <div class="tbl-wrap" style="margin-top:24px;">
+    <table>
+      <thead><tr><th>Garantie</th><th>Durée</th><th>Point de départ</th><th>Qui assure ?</th><th>Pour quoi ?</th></tr></thead>
+      <tbody>
+        <tr><td class="c-em">Décennale</td><td>10 ans</td><td>Réception</td><td>Assureur RCD (obligatoire)</td><td>Solidité, impropriété à la destination</td></tr>
+        <tr><td class="c-sky">Biennale</td><td>2 ans</td><td>Réception</td><td>Entreprise (couvre si défaillance fabricant)</td><td>Équipements dissociables</td></tr>
+        <tr><td class="c-gold">Parfait achèvement</td><td>1 an</td><td>Réception</td><td>Entreprise (frais propres)</td><td>Tous désordres signalés</td></tr>
+        <tr><td class="c-or">Fabricant (équipements)</td><td>2–10 ans</td><td>Livraison</td><td>Fabricant (Blum, Grass, Hettich…)</td><td>Défaut de fabrication</td></tr>
+        <tr><td class="c-dim">Légale conformité (Code civil)</td><td>2 ans</td><td>Livraison</td><td>Vendeur / fabricant</td><td>Conformité aux caractéristiques annoncées</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ib rose">
+    <strong>SAV après réception — Obligations et délais</strong>
+    Tout signalement par lettre recommandée dans l'année suivant la réception engage votre responsabilité de parfait achèvement. Répondre sous 8 jours. Programmer l'intervention dans les 30 jours. Après la garantie de parfait achèvement (1 an), c'est la biennale (2 ans) pour les équipements et la décennale (10 ans) pour le gros œuvre. Conserver tous les PV de réception et correspondances pendant 11 ans minimum.
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- ══ MODÈLES ══ -->
+<div class="psep" id="modeles">
+  <div class="psep-num" style="font-size:60px;">📄</div>
+  <div class="psep-text">
+    <h2>Modèles de <em>Documents</em></h2>
+    <p>Suivi budgétaire, situation de travaux, PV de réception</p>
+  </div>
+</div>
+
+<!-- MODÈLE SUIVI BUDGÉTAIRE -->
+<div class="section">
+  <div class="rb">
+    <div class="rb-ico">💰</div>
+    <div><div class="rb-title">Modèle — Suivi budgétaire chantier</div><div class="rb-sub">À mettre à jour chaque semaine</div></div>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Poste de dépense</th>
+          <th>Budget prévu €HT</th>
+          <th>Engagé €HT</th>
+          <th>Réalisé €HT</th>
+          <th>Reste à dépenser</th>
+          <th>Écart %</th>
+          <th>Statut</th>
+          <th>Action requise</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="c-gold">Panneaux mélaminés</td>
+          <td><span class="ph">Ex: 6 800 €</span></td>
+          <td><span class="ph">___</span></td>
+          <td><span class="ph">___</span></td>
+          <td><span class="ph">___</span></td>
+          <td><span class="ph">___%</span></td>
+          <td><span class="st st-todo">◌ À jour</span></td>
+          <td><span class="ph">—</span></td>
+        </tr>
+        <tr>
+          <td class="c-gold">Quincaillerie</td>
+          <td><span class="ph">Ex: 2 400 €</span></td>
+          <td><span class="ph">___</span></td>
+          <td><span class="ph">___</span></td>
+          <td><span class="ph">___</span></td>
+          <td><span class="ph">___%</span></td>
+          <td><span class="st st-todo">◌ À jour</span></td>
+          <td><span class="ph">—</span></td>
+        </tr>
+        <tr>
+          <td class="c-gold">Façades (sous-traitées)</td>
+          <td><span class="ph">Ex: 4 200 €</span></td>
+          <td><span class="ph">___</span></td>
+          <td><span class="ph">___</span></td>
+          <td><span class="ph">___</span></td>
+          <td><span class="ph">___%</span></td>
+          <td><span class="st st-todo">◌ À jour</span></td>
+          <td><span class="ph">—</span></td>
+        </tr>
+        <tr>
+          <td class="c-gold">Plan de travail</td>
+          <td><span class="ph">Ex: 2 900 €</span></td>
+          <td><span class="ph">___</span></td>
+          <td><span class="ph">___</span></td>
+          <td><span class="ph">___</span></td>
+          <td><span class="ph">___%</span></td>
+          <td><span class="st st-todo">◌ À jour</span></td>
+          <td><span class="ph">—</span></td>
+        </tr>
+        <tr>
+          <td class="c-gold">Main-d'œuvre fabrication</td>
+          <td><span class="ph">Ex: 4 800 €</span></td>
+          <td><span class="ph">___</span></td>
+          <td><span class="ph">___</span></td>
+          <td><span class="ph">___</span></td>
+          <td><span class="ph">___%</span></td>
+          <td><span class="st st-todo">◌ À jour</span></td>
+          <td><span class="ph">—</span></td>
+        </tr>
+        <tr>
+          <td class="c-gold">Main-d'œuvre pose</td>
+          <td><span class="ph">Ex: 4 800 €</span></td>
+          <td><span class="ph">___</span></td>
+          <td><span class="ph">___</span></td>
+          <td><span class="ph">___</span></td>
+          <td><span class="ph">___%</span></td>
+          <td><span class="st st-todo">◌ À jour</span></td>
+          <td><span class="ph">—</span></td>
+        </tr>
+        <tr>
+          <td class="c-gold">Transport</td>
+          <td><span class="ph">Ex: 480 €</span></td>
+          <td><span class="ph">___</span></td>
+          <td><span class="ph">___</span></td>
+          <td><span class="ph">___</span></td>
+          <td><span class="ph">___%</span></td>
+          <td><span class="st st-todo">◌ À jour</span></td>
+          <td><span class="ph">—</span></td>
+        </tr>
+        <tr>
+          <td class="c-gold">Provision imprévus (7%)</td>
+          <td><span class="ph">Ex: 1 820 €</span></td>
+          <td><span class="ph">___</span></td>
+          <td><span class="ph">___</span></td>
+          <td><span class="ph">___</span></td>
+          <td><span class="ph">___%</span></td>
+          <td><span class="st st-todo">◌ À jour</span></td>
+          <td><span class="ph">—</span></td>
+        </tr>
+        <tr style="font-weight:700; background:var(--bg4);">
+          <td class="c-em">TOTAL COÛT DE REVIENT</td>
+          <td class="c-em"><span class="ph">27 200 €</span></td>
+          <td class="c-gold"><span class="ph">___</span></td>
+          <td class="c-gold"><span class="ph">___</span></td>
+          <td><span class="ph">___</span></td>
+          <td><span class="ph">___%</span></td>
+          <td><span class="st st-todo">◌ En cours</span></td>
+          <td><span class="ph">Marge prév.: ___€</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- MODÈLE SITUATION DE TRAVAUX -->
+<div class="section">
+  <div class="rb">
+    <div class="rb-ico">📑</div>
+    <div><div class="rb-title">Modèle — Situation de travaux</div><div class="rb-sub">Facture d'avancement mensuelle</div></div>
+  </div>
+
+  <div class="doc">
+    <div class="doc-head">
+      <div class="doc-title">SITUATION DE TRAVAUX N° [X]</div>
+      <div class="doc-meta">Chantier : [Référence] · Client : [Nom] · Date : [JJ/MM/AAAA] · Période : [du JJ/MM au JJ/MM/AAAA]</div>
+    </div>
+    <div class="doc-body">
+      <div class="doc-sec">
+        <div class="doc-sec-title">1. Récapitulatif du marché</div>
+        <div class="two-col" style="gap:12px;">
+          <div class="doc-field">
+            <div class="doc-field-lbl">Montant initial du marché HT</div>
+            <span class="ph">_____ €</span>
+          </div>
+          <div class="doc-field">
+            <div class="doc-field-lbl">Avenants approuvés (cumul) HT</div>
+            <span class="ph">+ _____ €</span>
+          </div>
+          <div class="doc-field" style="border-color:var(--emerald);">
+            <div class="doc-field-lbl">Marché actualisé HT</div>
+            <span style="color:var(--emerald); font-weight:700;">= _____ €</span>
+          </div>
+          <div class="doc-field">
+            <div class="doc-field-lbl">Avancement cumulé à cette date</div>
+            <span class="ph">_____%</span>
+          </div>
+        </div>
+      </div>
+      <div class="doc-sec">
+        <div class="doc-sec-title">2. Décomposition de l'avancement par poste</div>
+        <div class="tbl-wrap" style="margin:0;border-radius:var(--r);">
+          <table>
+            <thead><tr><th>Poste</th><th>Montant forfaitaire</th><th>% antérieur</th><th>% actuel</th><th>Montant cumulé</th></tr></thead>
+            <tbody>
+              <tr><td><span class="ph">Fabrication caissons</span></td><td><span class="ph">_____ €</span></td><td><span class="ph">___%</span></td><td><span class="ph">___%</span></td><td><span class="ph">_____ €</span></td></tr>
+              <tr><td><span class="ph">Pose et installation</span></td><td><span class="ph">_____ €</span></td><td><span class="ph">___%</span></td><td><span class="ph">___%</span></td><td><span class="ph">_____ €</span></td></tr>
+              <tr><td><span class="ph">Façades et finitions</span></td><td><span class="ph">_____ €</span></td><td><span class="ph">___%</span></td><td><span class="ph">___%</span></td><td><span class="ph">_____ €</span></td></tr>
+              <tr style="font-weight:700;"><td>TOTAL</td><td><span class="ph">_____ €</span></td><td><span class="ph">___%</span></td><td class="c-em"><span class="ph">___%</span></td><td class="c-em"><span class="ph">_____ €</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="doc-sec">
+        <div class="doc-sec-title">3. Calcul de la situation</div>
+        <div class="schema" style="margin:0;">
+          <div class="brows">
+            <div class="brow"><span class="brow-k">Montant cumulé facturable HT</span><span class="brow-v"><span class="ph">_____ €</span></span></div>
+            <div class="brow"><span class="brow-k">— Situations antérieures HT</span><span class="brow-v c-rose"><span class="ph">— _____ €</span></span></div>
+            <div class="brow brow-total"><span class="brow-k">= Présente situation HT</span><span class="brow-v c-em"><span class="ph">_____ €</span></span></div>
+            <div class="brow"><span class="brow-k">+ TVA 20%</span><span class="brow-v"><span class="ph">_____ €</span></span></div>
+            <div class="brow"><span class="brow-k">— Retenue de garantie 5%</span><span class="brow-v c-rose"><span class="ph">— _____ €</span></span></div>
+            <div class="brow brow-total"><span class="brow-k">= Net à payer TTC</span><span class="brow-v c-em" style="font-size:18px;"><span class="ph">_____ €</span></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-sec" style="margin-bottom:0;">
+        <div class="doc-sec-title">4. Conditions et signatures</div>
+        <div class="doc-field"><div class="doc-field-lbl">Délai de règlement</div><span class="ph">30 jours date de facture — Pénalités de retard : taux BCE + 10 points</span></div>
+        <div class="two-col" style="gap:12px;">
+          <div class="doc-field"><div class="doc-field-lbl">Signature entrepreneur + date</div><span class="ph">_________________</span></div>
+          <div class="doc-field"><div class="doc-field-lbl">Signature maître d'ouvrage + date (acceptation)</div><span class="ph">_________________</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODÈLE PV DE RÉCEPTION -->
+<div class="section">
+  <div class="rb">
+    <div class="rb-ico">✅</div>
+    <div><div class="rb-title">Modèle — Procès-Verbal de Réception</div><div class="rb-sub">Document légal — À conserver 11 ans</div></div>
+  </div>
+
+  <div class="doc">
+    <div class="doc-head">
+      <div class="doc-title">PROCÈS-VERBAL DE RÉCEPTION DES TRAVAUX</div>
+      <div class="doc-meta">Conformément à l'article 1792-6 du Code civil</div>
+    </div>
+    <div class="doc-body">
+      <div class="doc-sec">
+        <div class="doc-sec-title">Identification des parties</div>
+        <div class="two-col" style="gap:12px;">
+          <div class="doc-field"><div class="doc-field-lbl">Maître d'ouvrage (Client)</div><span class="ph">Nom, prénom, adresse, qualité</span></div>
+          <div class="doc-field"><div class="doc-field-lbl">Entrepreneur</div><span class="ph">Raison sociale, SIRET, représentant</span></div>
+          <div class="doc-field"><div class="doc-field-lbl">Chantier concerné</div><span class="ph">Adresse complète des travaux</span></div>
+          <div class="doc-field"><div class="doc-field-lbl">Nature des travaux</div><span class="ph">Ex: Fourniture et pose cuisine équipée</span></div>
+        </div>
+      </div>
+      <div class="doc-sec">
+        <div class="doc-sec-title">Références du marché</div>
+        <div class="two-col" style="gap:12px;">
+          <div class="doc-field"><div class="doc-field-lbl">N° devis / marché</div><span class="ph">______</span></div>
+          <div class="doc-field"><div class="doc-field-lbl">Date de signature</div><span class="ph">JJ/MM/AAAA</span></div>
+          <div class="doc-field"><div class="doc-field-lbl">Montant marché initial HT</div><span class="ph">_____ €</span></div>
+          <div class="doc-field"><div class="doc-field-lbl">Montant avenants HT</div><span class="ph">_____ €</span></div>
+          <div class="doc-field" style="border-color:var(--gold);"><div class="doc-field-lbl">Montant total marché HT</div><span style="color:var(--gold);font-weight:700;">= _____ €</span></div>
+        </div>
+      </div>
+      <div class="doc-sec">
+        <div class="doc-sec-title">Visite de réception</div>
+        <div class="two-col" style="gap:12px;">
+          <div class="doc-field"><div class="doc-field-lbl">Date de réception</div><span class="ph">JJ/MM/AAAA</span></div>
+          <div class="doc-field"><div class="doc-field-lbl">Personnes présentes</div><span class="ph">Noms et qualités</span></div>
+        </div>
+      </div>
+      <div class="doc-sec">
+        <div class="doc-sec-title">Décision de réception</div>
+        <div class="tbl-wrap" style="margin:0;border-radius:var(--r);">
+          <table>
+            <thead><tr><th>Option</th><th>☐</th><th>Conséquence</th></tr></thead>
+            <tbody>
+              <tr><td>Réception prononcée SANS réserve</td><td>☐</td><td class="c-em">Toutes garanties démarrent à cette date</td></tr>
+              <tr><td>Réception prononcée AVEC réserves (liste ci-dessous)</td><td>☐</td><td class="c-gold">Garanties démarrent — levée de réserves obligatoire</td></tr>
+              <tr><td>Réception REFUSÉE (motif obligatoire)</td><td>☐</td><td class="c-rose">Nouvelle date de réception à fixer</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="doc-sec">
+        <div class="doc-sec-title">Liste des réserves (le cas échéant)</div>
+        <div class="tbl-wrap" style="margin:0;border-radius:var(--r);">
+          <table>
+            <thead><tr><th>N°</th><th>Localisation</th><th>Description précise</th><th>Photo</th><th>Type</th><th>Délai levée</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td><span class="ph">Zone / meuble</span></td><td><span class="ph">Description factuelle du défaut</span></td><td><span class="ph">Photo n°</span></td><td><span class="st st-warn">Non bloquant</span></td><td><span class="ph">JJ/MM/AAAA</span></td></tr>
+              <tr><td>2</td><td><span class="ph">Zone / meuble</span></td><td><span class="ph">Description factuelle du défaut</span></td><td><span class="ph">Photo n°</span></td><td><span class="st st-warn">Non bloquant</span></td><td><span class="ph">JJ/MM/AAAA</span></td></tr>
+              <tr><td>3</td><td><span class="ph">Zone / meuble</span></td><td><span class="ph">Description factuelle du défaut</span></td><td><span class="ph">Photo n°</span></td><td><span class="st st-todo">Observation</span></td><td><span class="ph">—</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="doc-sec">
+        <div class="doc-sec-title">Garanties applicables</div>
+        <div class="doc-field"><span style="font-size:13px;">Le présent PV ouvre les garanties légales à compter de ce jour :<br>
+        · Garantie de parfait achèvement : 1 an — jusqu'au <span class="ph">[JJ/MM/AAAA+1an]</span><br>
+        · Garantie biennale (équipements dissociables) : 2 ans — jusqu'au <span class="ph">[JJ/MM/AAAA+2ans]</span><br>
+        · Garantie décennale : 10 ans — jusqu'au <span class="ph">[JJ/MM/AAAA+10ans]</span></span></div>
+      </div>
+      <div class="doc-sec" style="margin-bottom:0;">
+        <div class="doc-sec-title">Signatures</div>
+        <div class="two-col" style="gap:12px;">
+          <div class="doc-field" style="min-height:80px;">
+            <div class="doc-field-lbl">Signature Entrepreneur — Date</div>
+            <span class="ph" style="font-size:12px;">Nom, prénom, qualité, signature</span>
+          </div>
+          <div class="doc-field" style="min-height:80px;">
+            <div class="doc-field-lbl">Signature Maître d'ouvrage — Date</div>
+            <span class="ph" style="font-size:12px;">Nom, prénom, signature<br>"Lu et approuvé"</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLEAU RENTABILITE -->
+  <div class="rb" style="margin-top:40px;">
+    <div class="rb-ico">📊</div>
+    <div><div class="rb-title">Modèle — Tableau de rentabilité chantier</div><div class="rb-sub">Bilan financier final à établir après clôture</div></div>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Indicateur</th>
+          <th>Prévu (devis)</th>
+          <th>Réel (clôture)</th>
+          <th>Écart €</th>
+          <th>Écart %</th>
+          <th>Analyse</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="c-gold">Prix de vente HT</td><td><span class="ph">38 500 €</span></td><td><span class="ph">____ €</span></td><td><span class="ph">+/- ___</span></td><td><span class="ph">___%</span></td><td><span class="ph">Avenants éventuels</span></td></tr>
+        <tr><td class="c-gold">Matériaux</td><td><span class="ph">12 800 €</span></td><td><span class="ph">____ €</span></td><td><span class="ph">+/- ___</span></td><td><span class="ph">___%</span></td><td><span class="ph">Plan de débit, chutes</span></td></tr>
+        <tr><td class="c-gold">Main-d'œuvre (coût réel)</td><td><span class="ph">9 600 €</span></td><td><span class="ph">____ €</span></td><td><span class="ph">+/- ___</span></td><td><span class="ph">___%</span></td><td><span class="ph">Heures / productivité</span></td></tr>
+        <tr><td class="c-gold">Sous-traitance</td><td><span class="ph">7 100 €</span></td><td><span class="ph">____ €</span></td><td><span class="ph">+/- ___</span></td><td><span class="ph">___%</span></td><td><span class="ph">Factures sous-traitants</span></td></tr>
+        <tr><td class="c-gold">Frais divers</td><td><span class="ph">2 800 €</span></td><td><span class="ph">____ €</span></td><td><span class="ph">+/- ___</span></td><td><span class="ph">___%</span></td><td><span class="ph">Transports, déchets, etc.</span></td></tr>
+        <tr style="font-weight:700;"><td class="c-em">MARGE BRUTE</td><td class="c-em"><span class="ph">6 200 € (16,1%)</span></td><td class="c-em"><span class="ph">____ €</span></td><td><span class="ph">+/- ___</span></td><td><span class="ph">___%</span></td><td><span class="ph">Objectif &gt; 15%</span></td></tr>
+        <tr><td class="c-dim">Heures MO prévues</td><td><span class="ph">120h</span></td><td><span class="ph">___h</span></td><td><span class="ph">+/- ___h</span></td><td><span class="ph">___%</span></td><td><span class="ph">Efficience équipe</span></td></tr>
+        <tr><td class="c-dim">Délai prévu / réel</td><td><span class="ph">8 semaines</span></td><td><span class="ph">___ sem.</span></td><td><span class="ph">+/- ___ j</span></td><td><span class="ph">___%</span></td><td><span class="ph">Respect planning</span></td></tr>
+        <tr><td class="c-dim">Satisfaction client (1–5)</td><td><span class="ph">—</span></td><td><span class="ph">___ /5</span></td><td><span class="ph">—</span></td><td><span class="ph">—</span></td><td><span class="ph">Enquête post-chantier</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<footer>
+  <div>Cours Professionnel — Gestion Budget · Relation Client · Réception de Chantier</div>
+  <div style="margin-top:5px;color:var(--dim);font-size:11px;">Menuiserie &amp; Agencement · Parties 3, 4 &amp; 5 · Document pédagogique</div>
+  <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ Retour en haut</a>
+</footer>
+
+</body>
+</html>

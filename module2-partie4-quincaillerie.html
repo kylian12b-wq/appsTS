@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BTS ERA — Module 2 | Partie 4 : Quincaillerie</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap');
+  :root {
+    --blue: #1a56db; --blue-light: #e8f0fe; --dark: #0f172a; --mid: #334155;
+    --light: #f8fafc; --border: #e2e8f0; --green: #16a34a; --orange: #ea580c; --red: #dc2626;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Sora', sans-serif; background: var(--light); color: var(--dark); line-height: 1.7; }
+  header { background: var(--dark); color: white; padding: 2rem; text-align: center; }
+  header .badge { background: var(--green); display: inline-block; padding: .3rem 1rem; border-radius: 999px; font-size: .8rem; margin-bottom: .8rem; }
+  header h1 { font-size: 2rem; font-weight: 700; }
+  header p { color: #94a3b8; margin-top: .5rem; }
+  nav { background: white; border-bottom: 1px solid var(--border); padding: .8rem 2rem; display: flex; gap: 1rem; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; }
+  nav a { text-decoration: none; color: var(--mid); font-size: .85rem; font-weight: 600; padding: .3rem .8rem; border-radius: 6px; }
+  nav a:hover { background: var(--blue-light); color: var(--blue); }
+  main { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+  section { margin-bottom: 3rem; }
+  h2 { font-size: 1.5rem; color: var(--blue); border-left: 4px solid var(--blue); padding-left: 1rem; margin-bottom: 1.5rem; }
+  h3 { font-size: 1.1rem; font-weight: 700; margin: 1.5rem 0 .8rem; }
+  p { margin-bottom: .8rem; color: var(--mid); }
+  .card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .card.blue { border-left: 4px solid var(--blue); }
+  .card.green { border-left: 4px solid var(--green); }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .88rem; }
+  th { background: var(--dark); color: white; padding: .8rem; text-align: left; }
+  td { padding: .7rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:nth-child(even) td { background: var(--blue-light); }
+  .schema { background: white; border: 2px solid var(--border); border-radius: 12px; padding: 1.5rem; margin: 1rem 0; }
+  .charniere-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1rem 0; }
+  .charniere-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1rem; text-align: center; }
+  .charniere-card svg { display: block; margin: 0 auto .8rem; }
+  .charniere-card h4 { font-size: .88rem; margin-bottom: .4rem; }
+  .charniere-card p { font-size: .75rem; color: var(--mid); }
+  .marque-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .marque-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem; }
+  .marque-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: .5rem; color: var(--blue); }
+  .marque-card p { font-size: .82rem; }
+  .exercice { background: white; border: 2px solid var(--blue); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .exercice h3 { color: var(--blue); margin-top: 0; }
+  .corrige { background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px; padding: 1rem; margin-top: 1rem; }
+  .corrige h4 { color: var(--green); margin-bottom: .5rem; }
+  .qcm { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
+  .question { margin-bottom: 1.5rem; }
+  .question p { font-weight: 600; margin-bottom: .5rem; }
+  .options label { display: block; padding: .4rem; cursor: pointer; }
+  .options input { margin-right: .5rem; }
+  .btn { background: var(--blue); color: white; border: none; padding: .7rem 1.5rem; border-radius: 8px; cursor: pointer; font-family: 'Sora', sans-serif; font-weight: 600; }
+  .resultat { margin-top: 1rem; padding: 1rem; border-radius: 8px; font-weight: 600; display: none; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">BTS ERA — Module 2</div>
+  <h1>⚙️ Partie 4 : Quincaillerie</h1>
+  <p>Charnières, coulisseaux, systèmes de rangement et grandes marques</p>
+</header>
+
+<nav>
+  <a href="#charnieres">Charnières</a>
+  <a href="#coulisseaux">Coulisseaux</a>
+  <a href="#rangement">Rangement</a>
+  <a href="#marques">Marques</a>
+  <a href="#recap">Fiche Récap</a>
+  <a href="#exercices">Exercices</a>
+  <a href="#qcm">QCM</a>
+</nav>
+
+<main>
+
+<!-- CHARNIÈRES -->
+<section id="charnieres">
+  <h2>1. Charnières — Types et usages</h2>
+
+  <div class="charniere-grid">
+    <div class="charniere-card">
+      <svg width="120" height="90" viewBox="0 0 120 90">
+        <rect x="5" y="5" width="50" height="80" fill="#ddd" stroke="#999" stroke-width="2" rx="2"/>
+        <rect x="65" y="5" width="50" height="80" fill="#eee" stroke="#999" stroke-width="2" rx="2"/>
+        <circle cx="55" cy="45" r="8" fill="#888" stroke="#666" stroke-width="1.5"/>
+        <line x1="55" y1="45" x2="65" y2="45" stroke="#888" stroke-width="3"/>
+        <text x="30" y="98" font-size="9" fill="#555" text-anchor="middle">Façade</text>
+        <text x="90" y="98" font-size="9" fill="#555" text-anchor="middle">Caisson</text>
+        <rect x="5" y="5" width="50" height="80" fill="none" stroke="var(--blue)" stroke-width="2" rx="2" stroke-dasharray="none"/>
+        <text x="30" y="50" font-size="8" fill="var(--blue)" text-anchor="middle">Recouvrement</text>
+        <text x="30" y="60" font-size="8" fill="var(--blue)" text-anchor="middle">total</text>
+      </svg>
+      <h4>Recouvrement total</h4>
+      <p>Façade couvre entièrement le côté du caisson. Usage : meuble sur pied ou colonne.</p>
+    </div>
+    <div class="charniere-card">
+      <svg width="120" height="90" viewBox="0 0 120 90">
+        <rect x="15" y="5" width="50" height="80" fill="#ddd" stroke="#999" stroke-width="2" rx="2"/>
+        <rect x="65" y="5" width="50" height="80" fill="#eee" stroke="#999" stroke-width="2" rx="2"/>
+        <circle cx="55" cy="45" r="8" fill="#888" stroke="#666" stroke-width="1.5"/>
+        <line x1="55" y1="45" x2="65" y2="45" stroke="#888" stroke-width="3"/>
+        <text x="40" y="98" font-size="9" fill="#555" text-anchor="middle">Demi-recouv.</text>
+        <line x1="15" y1="3" x2="15" y2="88" stroke="var(--orange)" stroke-width="2" stroke-dasharray="4,2"/>
+      </svg>
+      <h4>Demi-recouvrement</h4>
+      <p>Façade à mi-chemin sur le côté. Usage : deux meubles côte à côte partagent une joue.</p>
+    </div>
+    <div class="charniere-card">
+      <svg width="120" height="90" viewBox="0 0 120 90">
+        <rect x="25" y="5" width="50" height="80" fill="#ddd" stroke="#999" stroke-width="2" rx="2"/>
+        <rect x="65" y="5" width="50" height="80" fill="#eee" stroke="#999" stroke-width="2" rx="2"/>
+        <circle cx="55" cy="45" r="8" fill="#888" stroke="#666" stroke-width="1.5"/>
+        <line x1="55" y1="45" x2="65" y2="45" stroke="#888" stroke-width="3"/>
+        <text x="50" y="98" font-size="9" fill="#555" text-anchor="middle">Sans recouv.</text>
+        <line x1="65" y1="3" x2="65" y2="88" stroke="var(--green)" stroke-width="2" stroke-dasharray="4,2"/>
+      </svg>
+      <h4>Sans recouvrement</h4>
+      <p>Façade encastrée dans le caisson (affleurante). Usage : meubles encastrés, intégré.</p>
+    </div>
+  </div>
+
+  <h3>Charnières spéciales</h3>
+  <table>
+    <tr><th>Type</th><th>Usage</th><th>Particularité</th></tr>
+    <tr><td>Charnière d'angle 45°</td><td>Meubles angle, colonnes d'angle</td><td>Permet ouverture façade en angle</td></tr>
+    <tr><td>Charnière pivot</td><td>Portes lourdes, portes pivotantes</td><td>Fixée en haut et en bas de la porte</td></tr>
+    <tr><td>Charnière invisible</td><td>Meubles design, pas de charnière visible</td><td>Totalement cachée quand la porte est fermée</td></tr>
+  </table>
+
+  <div class="card blue">
+    <h3>📐 Réglages d'une charnière à 3 voies</h3>
+    <table>
+      <tr><th>Réglage</th><th>Action</th></tr>
+      <tr><td>Latéral (gauche/droite)</td><td>Vis latérale sur le bras — aligne le jeu entre façades</td></tr>
+      <tr><td>Profondeur (avant/arrière)</td><td>Vis de la coupelle — façade plus proche ou plus loin du caisson</td></tr>
+      <tr><td>Hauteur (haut/bas)</td><td>Vis ovale de fixation — coulisse le bras verticalement</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- COULISSEAUX -->
+<section id="coulisseaux">
+  <h2>2. Coulisseaux — Tiroirs</h2>
+  <table>
+    <tr><th>Type</th><th>Sortie</th><th>Avantages</th><th>Usage</th><th>Prix indicatif</th></tr>
+    <tr><td>Sortie partielle</td><td>75% de la longueur</td><td>Économique, simple</td><td>Tiroirs économiques, rangements</td><td>3 à 8 €/paire</td></tr>
+    <tr><td>Sortie totale</td><td>100% de la longueur</td><td>Accès complet au tiroir</td><td>Cuisine, bureau, dressing</td><td>8 à 20 €/paire</td></tr>
+    <tr><td>Sortie totale soft-close</td><td>100% + fermeture douce</td><td>Fermeture silencieuse automatique</td><td>Cuisine haut de gamme</td><td>15 à 35 €/paire</td></tr>
+    <tr><td>Push-to-open</td><td>100% + ouverture par pression</td><td>Pas de poignée nécessaire</td><td>Façades sans poignée, design</td><td>25 à 60 €/paire</td></tr>
+    <tr><td>Tandembox (Blum)</td><td>Tiroir métal complet</td><td>Très robuste, esthétique</td><td>Cuisines haut de gamme</td><td>50 à 150 €/tiroir</td></tr>
+  </table>
+
+  <div class="card green">
+    <h3>✅ Jeu standard pour coulisseau</h3>
+    <p>Le coulisseau prend <strong>13 mm de chaque côté</strong> du tiroir (standard Blum/Hettich).</p>
+    <p>Largeur tiroir = Largeur caisson intérieur − 26 mm</p>
+    <p>Exemple : caisson de 600mm intérieur → tiroir de 574mm de large.</p>
+  </div>
+</section>
+
+<!-- RANGEMENT -->
+<section id="rangement">
+  <h2>3. Systèmes de rangement & autres quincailleries</h2>
+  <table>
+    <tr><th>Élément</th><th>Types</th><th>Cotes standards</th><th>Usage</th></tr>
+    <tr><td>Tringles penderie</td><td>Ronde Ø25mm, ovale, aluminium</td><td>L max 900mm sans support intermédiaire</td><td>Dressing, armoire</td></tr>
+    <tr><td>Crémaillères</td><td>Aluminium, acier, encastrée</td><td>Pas de 32mm standard</td><td>Rayonnages réglables</td></tr>
+    <tr><td>Paniers</td><td>Filaire, plein, extractible</td><td>Profondeur 400 à 500mm</td><td>Cuisine, dressing</td></tr>
+    <tr><td>Pieds de meubles</td><td>Réglables plastique/métal, fixes</td><td>Hauteur 100 à 150mm (réglables)</td><td>Meubles bas, cuisine</td></tr>
+    <tr><td>Poignées</td><td>Bouton, barre, profilé aluminium</td><td>Entraxe 96, 128, 160, 192mm</td><td>Façades cuisine, dressing</td></tr>
+  </table>
+
+  <h3>Systèmes de façades spéciaux</h3>
+  <table>
+    <tr><th>Système</th><th>Fonctionnement</th><th>Usage</th></tr>
+    <tr><td>Façade basculante</td><td>S'ouvre vers le bas (retombe)</td><td>Meubles hauts rangement, placards bas</td></tr>
+    <tr><td>Façade relevante</td><td>S'ouvre vers le haut avec vérin</td><td>Meubles hauts cuisine, Aventos (Blum)</td></tr>
+    <tr><td>Façade coulissante</td><td>Glisse sur rails</td><td>Dressing, placards, faible espace devant</td></tr>
+  </table>
+</section>
+
+<!-- MARQUES -->
+<section id="marques">
+  <h2>4. Les grandes marques de quincaillerie</h2>
+  <div class="marque-grid">
+    <div class="marque-card">
+      <h4>🔵 Blum (Autriche)</h4>
+      <p><strong>Points forts :</strong> Qualité premium, innovation (Tandembox, Aventos, Legrabox). Référence absolue en cuisine haut de gamme.</p>
+      <p><strong>Produits phares :</strong> Charnières Clip Top, coulisseaux Tandembox, systèmes relevants Aventos.</p>
+      <p><strong>Prix :</strong> Haut de gamme</p>
+    </div>
+    <div class="marque-card">
+      <h4>🟠 Hettich (Allemagne)</h4>
+      <p><strong>Points forts :</strong> Très bon rapport qualité/prix, gamme complète. Très utilisé en France.</p>
+      <p><strong>Produits phares :</strong> Charnières Sensys, coulisseaux InnoTech, systèmes coulissants.</p>
+      <p><strong>Prix :</strong> Milieu de gamme</p>
+    </div>
+    <div class="marque-card">
+      <h4>🟢 Grass (Autriche)</h4>
+      <p><strong>Points forts :</strong> Spécialiste coulisseaux et charnières. Qualité comparable à Blum.</p>
+      <p><strong>Produits phares :</strong> Coulisseaux Nova Pro, charnières Tiomos.</p>
+      <p><strong>Prix :</strong> Haut de gamme</p>
+    </div>
+    <div class="marque-card">
+      <h4>⚫ Häfele (Allemagne)</h4>
+      <p><strong>Points forts :</strong> Grossiste complet, tout en un seul fournisseur (quincaillerie + connectique + éclairage).</p>
+      <p><strong>Produits phares :</strong> Gamme complète tous types. Connecteurs Minifix, systèmes coulissants.</p>
+      <p><strong>Prix :</strong> Tous budgets</p>
+    </div>
+  </div>
+
+  <div class="card blue" style="margin-top:1.5rem;">
+    <h3>💰 Prix indicatifs et où commander</h3>
+    <table>
+      <tr><th>Produit</th><th>Prix indicatif</th><th>Fournisseurs</th></tr>
+      <tr><td>Charnière standard Hettich</td><td>1 à 3 €/pièce</td><td>Hafele, Outillage Pro, Amazon Pro</td></tr>
+      <tr><td>Charnière Blum Clip Top</td><td>3 à 6 €/pièce</td><td>Blum direct, Häfele, Bricozor</td></tr>
+      <tr><td>Coulisseau sortie totale</td><td>8 à 20 €/paire</td><td>Häfele, Würth, distributeurs locaux</td></tr>
+      <tr><td>Coulisseau Tandembox Blum</td><td>50 à 100 €/tiroir</td><td>Blum direct, revendeurs agréés</td></tr>
+      <tr><td>Poignée bar aluminium</td><td>3 à 15 €/pièce</td><td>Häfele, Ikéa Pro, fournisseurs cuisine</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- FICHE RÉCAP -->
+<section id="recap">
+  <h2>📌 Fiche Récap — Quincaillerie</h2>
+  <div class="card blue">
+    <h3>Guide de choix charnières</h3>
+    <table>
+      <tr><th>Situation</th><th>Charnière</th></tr>
+      <tr><td>Meuble sur pied, façade seule sur côté</td><td>Recouvrement total</td></tr>
+      <tr><td>2 meubles côte à côte, joue commune</td><td>Demi-recouvrement</td></tr>
+      <tr><td>Façade intégrée dans le bâti</td><td>Sans recouvrement (affleurante)</td></tr>
+      <tr><td>Budget serré</td><td>Hettich standard</td></tr>
+      <tr><td>Cuisine haut de gamme</td><td>Blum Clip Top Blumotion</td></tr>
+    </table>
+  </div>
+  <div class="card green">
+    <h3>Guide de choix coulisseaux</h3>
+    <table>
+      <tr><th>Budget / Usage</th><th>Coulisseau</th></tr>
+      <tr><td>Budget minimal, rangement simple</td><td>Sortie partielle</td></tr>
+      <tr><td>Standard cuisine/bureau</td><td>Sortie totale</td></tr>
+      <tr><td>Cuisine milieu/haut de gamme</td><td>Sortie totale soft-close</td></tr>
+      <tr><td>Design sans poignée</td><td>Push-to-open</td></tr>
+      <tr><td>Haut de gamme absolu</td><td>Blum Tandembox</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- EXERCICES -->
+<section id="exercices">
+  <h2>🛠️ Exercices Pratiques</h2>
+
+  <div class="exercice">
+    <h3>Exercice 1 — Choisir la bonne charnière</h3>
+    <p>Pour chaque situation, indique le type de charnière et justifie :</p>
+    <ol style="margin-left:1.5rem;font-size:.9rem;line-height:2;">
+      <li>Cuisine avec 2 colonnes côte à côte, joue centrale partagée</li>
+      <li>Armoire dressing avec façade affleurante dans le bâti</li>
+      <li>Meuble colonne seul sur pied, façade pleine hauteur</li>
+      <li>Cuisine haut de gamme avec fermeture silencieuse</li>
+      <li>Meuble d'angle 45° en cuisine</li>
+    </ol>
+    <div class="corrige">
+      <h4>✅ Corrigé</h4>
+      <ol style="margin-left:1.5rem;font-size:.88rem;line-height:1.8;">
+        <li>Demi-recouvrement — chaque façade couvre la moitié de la joue centrale</li>
+        <li>Sans recouvrement — façade affleurante encastrée dans le bâti</li>
+        <li>Recouvrement total — façade couvre entièrement le côté du meuble</li>
+        <li>Blum Clip Top Blumotion — fermeture douce intégrée</li>
+        <li>Charnière d'angle 45° spéciale</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="exercice">
+    <h3>Exercice 2 — Choisir le bon coulisseau</h3>
+    <p>Pour chaque situation, quel coulisseau utilises-tu ?</p>
+    <ol style="margin-left:1.5rem;font-size:.9rem;line-height:2;">
+      <li>Tiroir de cuisine haut de gamme, client exigeant</li>
+      <li>Rangement atelier, budget minimal</li>
+      <li>Cuisine design sans poignées</li>
+      <li>Tiroir de bureau standard</li>
+    </ol>
+    <div class="corrige">
+      <h4>✅ Corrigé</h4>
+      <ol style="margin-left:1.5rem;font-size:.88rem;line-height:1.8;">
+        <li>Blum Tandembox ou Grass Nova Pro — haut de gamme, robuste</li>
+        <li>Coulisseau sortie partielle acier — économique et suffisant</li>
+        <li>Push-to-open — ouverture par pression, aucune poignée</li>
+        <li>Sortie totale soft-close — confort et accès complet</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="exercice">
+    <h3>Exercice 3 — Liste de quincaillerie pour une cuisine complète</h3>
+    <p><strong>Cuisine :</strong> 6 meubles bas + 4 meubles hauts. Chaque meuble bas a 1 façade avec charnières et 2 tiroirs. Chaque meuble haut a 2 façades.</p>
+    <p>Établis la liste complète de quincaillerie nécessaire :</p>
+    <div class="corrige">
+      <h4>✅ Corrigé</h4>
+      <table style="font-size:.85rem;">
+        <tr><th>Article</th><th>Qté</th><th>Calcul</th></tr>
+        <tr><td>Charnières meubles bas</td><td>12</td><td>6 meubles × 2 charnières/façade</td></tr>
+        <tr><td>Charnières meubles hauts</td><td>16</td><td>4 meubles × 2 façades × 2 charnières</td></tr>
+        <tr><td>Coulisseaux tiroirs</td><td>12 paires</td><td>6 meubles × 2 tiroirs</td></tr>
+        <tr><td>Pieds réglables</td><td>24</td><td>6 meubles bas × 4 pieds</td></tr>
+        <tr><td>Poignées façades bas</td><td>6</td><td>1 par façade meuble bas</td></tr>
+        <tr><td>Poignées façades hauts</td><td>8</td><td>2 par meuble haut</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- QCM -->
+<section id="qcm">
+  <h2>🎯 QCM — Quincaillerie</h2>
+  <div class="qcm">
+    <div class="question">
+      <p>1. Quelle charnière utiliser quand deux meubles côte à côte partagent une joue centrale ?</p>
+      <div class="options">
+        <label><input type="radio" name="q1" value="a"> Recouvrement total</label>
+        <label><input type="radio" name="q1" value="b"> Demi-recouvrement</label>
+        <label><input type="radio" name="q1" value="c"> Sans recouvrement</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>2. Quel est le jeu standard pris par un coulisseau de chaque côté du tiroir ?</p>
+      <div class="options">
+        <label><input type="radio" name="q2" value="a"> 10 mm</label>
+        <label><input type="radio" name="q2" value="b"> 13 mm</label>
+        <label><input type="radio" name="q2" value="c"> 16 mm</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>3. Quelle marque est la référence absolue pour les tiroirs haut de gamme (Tandembox) ?</p>
+      <div class="options">
+        <label><input type="radio" name="q3" value="a"> Hettich</label>
+        <label><input type="radio" name="q3" value="b"> Häfele</label>
+        <label><input type="radio" name="q3" value="c"> Blum</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>4. Un système push-to-open s'utilise dans quel contexte ?</p>
+      <div class="options">
+        <label><input type="radio" name="q4" value="a"> Quand le tiroir est très lourd</label>
+        <label><input type="radio" name="q4" value="b"> Quand il n'y a pas de poignée sur la façade</label>
+        <label><input type="radio" name="q4" value="c"> Pour les meubles extérieurs</label>
+      </div>
+    </div>
+    <button class="btn" onclick="verifierQCM()">Vérifier mes réponses</button>
+    <div class="resultat" id="resultat"></div>
+  </div>
+</section>
+
+</main>
+
+<footer style="background:var(--dark);color:#94a3b8;text-align:center;padding:2rem;margin-top:3rem;">
+  <p>BTS ERA — Module 2 | Partie 4 : Quincaillerie</p>
+</footer>
+
+<script>
+function verifierQCM() {
+  const reponses = { q1: 'b', q2: 'b', q3: 'c', q4: 'b' };
+  let score = 0, total = Object.keys(reponses).length;
+  for (let q in reponses) {
+    const s = document.querySelector(`input[name="${q}"]:checked`);
+    if (s && s.value === reponses[q]) score++;
+  }
+  const r = document.getElementById('resultat');
+  r.style.display = 'block';
+  if (score === total) { r.style.background='#dcfce7'; r.style.color='#16a34a'; r.textContent=`🎉 Parfait ! ${score}/${total} — Tu maîtrises la quincaillerie !`; }
+  else if (score >= total/2) { r.style.background='#fef9c3'; r.style.color='#ca8a04'; r.textContent=`👍 Bien ! ${score}/${total} — Relis les points ratés.`; }
+  else { r.style.background='#fee2e2'; r.style.color='#dc2626'; r.textContent=`📚 ${score}/${total} — Reprends le cours !`; }
+}
+</script>
+</body>
+</html>

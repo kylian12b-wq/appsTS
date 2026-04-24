@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BTS ERA — Module 1 | Partie 2 : Word Pro</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+  :root {
+    --blue: #1a56db;
+    --blue-light: #e8f0fe;
+    --dark: #0f172a;
+    --mid: #334155;
+    --light: #f8fafc;
+    --border: #e2e8f0;
+    --green: #16a34a;
+    --orange: #ea580c;
+    --red: #dc2626;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Sora', sans-serif; background: var(--light); color: var(--dark); line-height: 1.7; }
+  header { background: var(--dark); color: white; padding: 2rem; text-align: center; }
+  header .badge { background: var(--blue); display: inline-block; padding: .3rem 1rem; border-radius: 999px; font-size: .8rem; margin-bottom: .8rem; }
+  header h1 { font-size: 2rem; font-weight: 700; }
+  header p { color: #94a3b8; margin-top: .5rem; }
+  nav { background: white; border-bottom: 1px solid var(--border); padding: .8rem 2rem; display: flex; gap: 1rem; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; }
+  nav a { text-decoration: none; color: var(--mid); font-size: .85rem; font-weight: 600; padding: .3rem .8rem; border-radius: 6px; transition: all .2s; }
+  nav a:hover { background: var(--blue-light); color: var(--blue); }
+  main { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+  section { margin-bottom: 3rem; }
+  h2 { font-size: 1.5rem; color: var(--blue); border-left: 4px solid var(--blue); padding-left: 1rem; margin-bottom: 1.5rem; }
+  h3 { font-size: 1.1rem; font-weight: 700; margin: 1.5rem 0 .8rem; color: var(--dark); }
+  p { margin-bottom: .8rem; color: var(--mid); }
+  .card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .card.blue { border-left: 4px solid var(--blue); }
+  .card.green { border-left: 4px solid var(--green); }
+  .card.orange { border-left: 4px solid var(--orange); }
+  .card.red { border-left: 4px solid var(--red); }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .9rem; }
+  th { background: var(--dark); color: white; padding: .8rem; text-align: left; }
+  td { padding: .7rem; border-bottom: 1px solid var(--border); }
+  tr:nth-child(even) td { background: var(--blue-light); }
+  .schema { background: white; border: 2px solid var(--border); border-radius: 12px; padding: 1.5rem; margin: 1rem 0; }
+  .interface-word { display: grid; grid-template-rows: auto auto 1fr auto; gap: 4px; height: 300px; border: 2px solid #333; border-radius: 8px; overflow: hidden; font-size: .75rem; }
+  .w-barre-titre { background: #2b579a; color: white; padding: 6px 10px; text-align: center; font-weight: 600; }
+  .w-ruban { background: #f3f3f3; border-bottom: 1px solid #ccc; padding: 6px 10px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .w-tab { background: white; border: 1px solid #ccc; border-bottom: none; padding: 3px 10px; border-radius: 3px 3px 0 0; font-size: .72rem; cursor: pointer; }
+  .w-tab.active { background: #2b579a; color: white; }
+  .w-btn { background: white; border: 1px solid #bbb; padding: 2px 8px; border-radius: 3px; font-size: .7rem; }
+  .w-zone { background: #e8e8e8; display: flex; align-items: center; justify-content: center; flex: 1; }
+  .w-page { background: white; width: 70%; height: 85%; box-shadow: 0 2px 8px rgba(0,0,0,.2); padding: 16px; position: relative; }
+  .w-ligne { height: 8px; background: #e2e8f0; border-radius: 2px; margin: 6px 0; }
+  .w-ligne.large { width: 80%; }
+  .w-ligne.medium { width: 60%; }
+  .w-ligne.small { width: 40%; }
+  .w-ligne.titre { height: 12px; background: #2b579a; width: 50%; }
+  .w-barre-status { background: #2b579a; color: white; padding: 3px 10px; font-size: .7rem; display: flex; justify-content: space-between; }
+  .schema-marges { display: flex; align-items: center; justify-content: center; padding: 1rem; }
+  .page-demo { width: 200px; height: 260px; background: white; border: 2px solid #333; position: relative; }
+  .marge-label { position: absolute; font-size: .65rem; color: var(--blue); font-weight: 600; }
+  .marge-top { top: 5px; left: 50%; transform: translateX(-50%); }
+  .marge-bottom { bottom: 5px; left: 50%; transform: translateX(-50%); }
+  .marge-left { left: 5px; top: 50%; transform: translateY(-50%) rotate(-90deg); }
+  .marge-right { right: 5px; top: 50%; transform: translateY(-50%) rotate(90deg); }
+  .content-area { position: absolute; top: 30px; bottom: 30px; left: 25px; right: 25px; background: #f0f4ff; border: 1px dashed var(--blue); display: flex; align-items: center; justify-content: center; }
+  .marge-line { position: absolute; background: #ff6b6b; }
+  .marge-top-line { top: 28px; left: 0; right: 0; height: 1px; }
+  .marge-bottom-line { bottom: 28px; left: 0; right: 0; height: 1px; }
+  .marge-left-line { left: 23px; top: 0; bottom: 0; width: 1px; }
+  .marge-right-line { right: 23px; top: 0; bottom: 0; width: 1px; }
+  .styles-demo { display: grid; gap: .5rem; padding: 1rem; background: white; border-radius: 8px; border: 1px solid var(--border); }
+  .style-titre1 { font-size: 1.4rem; font-weight: 700; color: #2b579a; border-bottom: 2px solid #2b579a; padding-bottom: .3rem; }
+  .style-titre2 { font-size: 1.1rem; font-weight: 700; color: #2b579a; }
+  .style-titre3 { font-size: .95rem; font-weight: 700; color: #4472c4; }
+  .style-normal { font-size: .85rem; color: #333; }
+  .entete-demo { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .entete-zone { background: #f0f4ff; border-bottom: 2px dashed var(--blue); padding: .8rem 1rem; font-size: .8rem; display: flex; justify-content: space-between; }
+  .corps-zone { padding: 1rem; font-size: .8rem; color: #666; }
+  .pieddepage-zone { background: #f0f4ff; border-top: 2px dashed var(--blue); padding: .8rem 1rem; font-size: .8rem; display: flex; justify-content: space-between; }
+  .structure-box { background: var(--blue-light); border-radius: 8px; padding: 1rem; }
+  .structure-item { display: flex; align-items: flex-start; gap: .8rem; padding: .5rem 0; border-bottom: 1px solid #c7d7f5; }
+  .structure-item:last-child { border-bottom: none; }
+  .structure-num { background: var(--blue); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 700; flex-shrink: 0; }
+  .checklist { list-style: none; }
+  .checklist li { padding: .4rem 0; display: flex; gap: .6rem; }
+  .checklist li::before { content: "✅"; }
+  .checklist.danger li::before { content: "❌"; }
+  .exercice { background: white; border: 2px solid var(--blue); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .exercice h3 { color: var(--blue); margin-top: 0; }
+  .corrige { background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px; padding: 1rem; margin-top: 1rem; }
+  .corrige h4 { color: var(--green); margin-bottom: .5rem; }
+  .qcm { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
+  .question { margin-bottom: 1.5rem; }
+  .question p { font-weight: 600; margin-bottom: .5rem; }
+  .options label { display: block; padding: .4rem; cursor: pointer; }
+  .options input { margin-right: .5rem; }
+  .btn { background: var(--blue); color: white; border: none; padding: .7rem 1.5rem; border-radius: 8px; cursor: pointer; font-family: 'Sora', sans-serif; font-weight: 600; }
+  .btn:hover { background: #1340a8; }
+  .resultat { margin-top: 1rem; padding: 1rem; border-radius: 8px; font-weight: 600; display: none; }
+  .tag { display: inline-block; padding: .2rem .6rem; border-radius: 4px; font-size: .75rem; font-weight: 600; margin: .2rem; }
+  .tag.blue { background: var(--blue-light); color: var(--blue); }
+  .tag.green { background: #dcfce7; color: var(--green); }
+  .tag.orange { background: #fff7ed; color: var(--orange); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">BTS ERA — Module 1</div>
+  <h1>📝 Partie 2 : Word de Zéro au Niveau Pro</h1>
+  <p>Maîtrise Word pour rédiger des documents professionnels en menuiserie et agencement</p>
+</header>
+
+<nav>
+  <a href="#interface">Interface</a>
+  <a href="#mise-en-page">Mise en page</a>
+  <a href="#styles">Styles & Sommaire</a>
+  <a href="#tableaux">Tableaux</a>
+  <a href="#entete">En-tête & Pied</a>
+  <a href="#redaction">Rédaction Pro</a>
+  <a href="#recap">Fiche Récap</a>
+  <a href="#exercices">Exercices</a>
+  <a href="#qcm">QCM</a>
+</nav>
+
+<main>
+
+<!-- INTERFACE -->
+<section id="interface">
+  <h2>1. Découverte de l'interface Word</h2>
+  <div class="schema">
+    <p style="text-align:center;font-weight:600;margin-bottom:1rem;">📊 Interface Microsoft Word</p>
+    <div class="interface-word">
+      <div class="w-barre-titre">Rapport Technique Cuisine.docx — Microsoft Word</div>
+      <div class="w-ruban">
+        <span class="w-tab active">Accueil</span>
+        <span class="w-tab">Insertion</span>
+        <span class="w-tab">Mise en page</span>
+        <span class="w-tab">Références</span>
+        <span class="w-tab">Révision</span>
+        <span class="w-btn">G</span>
+        <span class="w-btn">I</span>
+        <span class="w-btn">S</span>
+        <span class="w-btn">Taille: 12</span>
+        <span class="w-btn">Calibri</span>
+      </div>
+      <div class="w-zone">
+        <div class="w-page">
+          <div class="w-ligne titre"></div>
+          <div class="w-ligne large"></div>
+          <div class="w-ligne medium"></div>
+          <div class="w-ligne large"></div>
+          <div class="w-ligne small"></div>
+          <div class="w-ligne large"></div>
+          <div class="w-ligne medium"></div>
+        </div>
+      </div>
+      <div class="w-barre-status"><span>Page 1 sur 4</span><span>Français (France)</span><span>100%</span></div>
+    </div>
+  </div>
+  <table>
+    <tr><th>Zone</th><th>Rôle</th><th>Raccourci utile</th></tr>
+    <tr><td>Barre de titre</td><td>Nom du fichier et logiciel</td><td>F12 = Enregistrer sous</td></tr>
+    <tr><td>Ruban / Onglets</td><td>Toutes les commandes organisées</td><td>Alt = activer le ruban</td></tr>
+    <tr><td>Zone de saisie</td><td>Là où tu écris</td><td>Ctrl+A = tout sélectionner</td></tr>
+    <tr><td>Règle</td><td>Marges et tabulations</td><td>—</td></tr>
+    <tr><td>Barre de statut</td><td>Numéro de page, mots, zoom</td><td>Ctrl+Shift+G = compteur mots</td></tr>
+  </table>
+</section>
+
+<!-- MISE EN PAGE -->
+<section id="mise-en-page">
+  <h2>2. Mise en page professionnelle</h2>
+  <div class="schema">
+    <p style="text-align:center;font-weight:600;margin-bottom:1rem;">📐 Comprendre les marges</p>
+    <div class="schema-marges">
+      <div style="text-align:center;margin-right:2rem;">
+        <div class="page-demo">
+          <div class="marge-line marge-top-line"></div>
+          <div class="marge-line marge-bottom-line"></div>
+          <div class="marge-line marge-left-line"></div>
+          <div class="marge-line marge-right-line"></div>
+          <span class="marge-label marge-top">Haut: 2.5cm</span>
+          <span class="marge-label marge-bottom">Bas: 2.5cm</span>
+          <span class="marge-label marge-left">G: 2.5</span>
+          <span class="marge-label marge-right">D: 2.5</span>
+          <div class="content-area"><span style="font-size:.65rem;color:var(--blue);font-weight:600;">Zone de texte</span></div>
+        </div>
+        <p style="font-size:.75rem;margin-top:.5rem;">Marges normales (défaut)</p>
+      </div>
+      <div>
+        <p style="font-size:.85rem;"><strong>Marges recommandées BTS ERA :</strong></p>
+        <ul style="font-size:.85rem;margin:.5rem 0 0 1rem;">
+          <li>Rapport technique : 2.5cm partout</li>
+          <li>Mémoire avec reliure : Gauche 3cm</li>
+          <li>Lettre professionnelle : 2.5cm</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <table>
+    <tr><th>Paramètre</th><th>Valeur standard</th><th>Où régler</th></tr>
+    <tr><td>Marges</td><td>2.5 cm partout</td><td>Mise en page → Marges</td></tr>
+    <tr><td>Format papier</td><td>A4 (21x29.7cm)</td><td>Mise en page → Format</td></tr>
+    <tr><td>Orientation</td><td>Portrait (tableau = Paysage)</td><td>Mise en page → Orientation</td></tr>
+    <tr><td>Police corps</td><td>Calibri 11 ou Times 12</td><td>Accueil → Police</td></tr>
+    <tr><td>Interligne</td><td>1.15 ou 1.5</td><td>Accueil → Paragraphe</td></tr>
+  </table>
+</section>
+
+<!-- STYLES ET SOMMAIRE -->
+<section id="styles">
+  <h2>3. Styles de titres et sommaire automatique</h2>
+  <div class="schema">
+    <p style="font-weight:600;margin-bottom:1rem;">📋 Hiérarchie des styles</p>
+    <div class="styles-demo">
+      <div class="style-titre1">Titre 1 — Chapitre principal (ex: 1. Présentation du projet)</div>
+      <div class="style-titre2">&nbsp;&nbsp;Titre 2 — Sous-partie (ex: 1.1 Description des travaux)</div>
+      <div class="style-titre3">&nbsp;&nbsp;&nbsp;&nbsp;Titre 3 — Sous-sous-partie (ex: 1.1.1 Menuiseries intérieures)</div>
+      <div class="style-normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Corps de texte normal — votre contenu rédigé ici...</div>
+    </div>
+  </div>
+  <div class="card blue">
+    <h3>🔖 Créer un sommaire automatique en 3 étapes</h3>
+    <div class="structure-box">
+      <div class="structure-item"><div class="structure-num">1</div><div>Applique les styles Titre 1, Titre 2, Titre 3 à tes titres</div></div>
+      <div class="structure-item"><div class="structure-num">2</div><div>Clique à l'endroit où tu veux le sommaire</div></div>
+      <div class="structure-item"><div class="structure-num">3</div><div>Références → Table des matières → choisir un style → OK</div></div>
+    </div>
+    <p style="margin-top:1rem;font-size:.85rem;"><strong>Mise à jour :</strong> Clic droit sur le sommaire → Mettre à jour les champs → Mettre à jour toute la table</p>
+  </div>
+</section>
+
+<!-- TABLEAUX -->
+<section id="tableaux">
+  <h2>4. Insérer et mettre en forme un tableau</h2>
+  <table>
+    <tr><th>Action</th><th>Comment faire</th></tr>
+    <tr><td>Insérer un tableau</td><td>Insertion → Tableau → choisir le nombre de lignes/colonnes</td></tr>
+    <tr><td>Ajouter une ligne</td><td>Tab à la fin de la dernière cellule ou clic droit → Insérer</td></tr>
+    <tr><td>Supprimer une ligne</td><td>Sélectionner → clic droit → Supprimer les lignes</td></tr>
+    <tr><td>Fusionner des cellules</td><td>Sélectionner → clic droit → Fusionner les cellules</td></tr>
+    <tr><td>Mettre en forme</td><td>Onglet Création de tableau → choisir un style</td></tr>
+    <tr><td>Largeur des colonnes</td><td>Glisser le bord ou clic droit → Propriétés du tableau</td></tr>
+  </table>
+  <div class="card green">
+    <h3>✅ Exemple tableau professionnel : Liste de matériaux</h3>
+    <table>
+      <tr><th>Désignation</th><th>Matériau</th><th>Épaisseur</th><th>Quantité</th><th>Prix HT</th></tr>
+      <tr><td>Caisson bas</td><td>Mélaminé blanc</td><td>19mm</td><td>6</td><td>45,00 €</td></tr>
+      <tr><td>Façades</td><td>MDF laqué</td><td>18mm</td><td>12</td><td>32,00 €</td></tr>
+      <tr><td>Plan de travail</td><td>Stratifié HPL</td><td>38mm</td><td>3 ml</td><td>85,00 €/ml</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- EN-TÊTE ET PIED DE PAGE -->
+<section id="entete">
+  <h2>5. En-tête et pied de page professionnels</h2>
+  <div class="entete-demo">
+    <div class="entete-zone">
+      <span>🏢 <strong>Entreprise Menuiserie Martin</strong></span>
+      <span>Rapport Technique N°2024-015</span>
+      <span>📅 19/04/2026</span>
+    </div>
+    <div class="corps-zone">
+      <em>← Zone de contenu du document →</em>
+    </div>
+    <div class="pieddepage-zone">
+      <span>Confidentiel — Usage interne</span>
+      <span>Page <strong>1</strong> / 4</span>
+      <span>Kylian MARTIN — BTS ERA</span>
+    </div>
+  </div>
+  <div class="card blue" style="margin-top:1rem;">
+    <h3>Comment insérer</h3>
+    <p><strong>En-tête :</strong> Insertion → En-tête → Modifier l'en-tête</p>
+    <p><strong>Pied de page :</strong> Insertion → Pied de page → Modifier le pied de page</p>
+    <p><strong>Numéro de page :</strong> Insertion → Numéro de page → choisir la position</p>
+    <p><strong>Date automatique :</strong> Dans l'en-tête → Insertion → Date et heure → cocher "Mettre à jour automatiquement"</p>
+  </div>
+</section>
+
+<!-- RÉDACTION PRO -->
+<section id="redaction">
+  <h2>6. Rédiger des documents professionnels</h2>
+
+  <h3>📄 Structure d'un rapport technique BTS ERA</h3>
+  <div class="structure-box">
+    <div class="structure-item"><div class="structure-num">1</div><div><strong>Page de garde</strong> — Titre, entreprise, auteur, date, logo</div></div>
+    <div class="structure-item"><div class="structure-num">2</div><div><strong>Sommaire automatique</strong> — Généré avec les styles Titre</div></div>
+    <div class="structure-item"><div class="structure-num">3</div><div><strong>Introduction</strong> — Contexte du projet, objectifs</div></div>
+    <div class="structure-item"><div class="structure-num">4</div><div><strong>Présentation du chantier</strong> — Description des travaux, plans</div></div>
+    <div class="structure-item"><div class="structure-num">5</div><div><strong>Techniques et matériaux</strong> — Choix techniques justifiés</div></div>
+    <div class="structure-item"><div class="structure-num">6</div><div><strong>Planning et organisation</strong> — Phases de travaux, délais</div></div>
+    <div class="structure-item"><div class="structure-num">7</div><div><strong>Conclusion</strong> — Bilan, difficultés, solutions</div></div>
+    <div class="structure-item"><div class="structure-num">8</div><div><strong>Annexes</strong> — Plans, photos, devis, fiches techniques</div></div>
+  </div>
+
+  <h3>📋 Structure d'un compte-rendu de réunion de chantier</h3>
+  <div class="structure-box" style="margin-top:.5rem;">
+    <div class="structure-item"><div class="structure-num">1</div><div><strong>En-tête</strong> — Date, lieu, heure, participants</div></div>
+    <div class="structure-item"><div class="structure-num">2</div><div><strong>Ordre du jour</strong> — Points abordés prévus</div></div>
+    <div class="structure-item"><div class="structure-num">3</div><div><strong>Avancement des travaux</strong> — État par corps d'état</div></div>
+    <div class="structure-item"><div class="structure-num">4</div><div><strong>Points bloquants</strong> — Problèmes rencontrés</div></div>
+    <div class="structure-item"><div class="structure-num">5</div><div><strong>Décisions prises</strong> — Actions, responsables, délais</div></div>
+    <div class="structure-item"><div class="structure-num">6</div><div><strong>Prochaine réunion</strong> — Date et ordre du jour</div></div>
+  </div>
+</section>
+
+<!-- FICHE RÉCAP -->
+<section id="recap">
+  <h2>📌 Fiche Récap — Word Pro</h2>
+  <div class="card blue">
+    <h3>✅ Checklist avant d'envoyer un document Word</h3>
+    <ul class="checklist">
+      <li>Orthographe vérifiée (F7 ou Révision → Orthographe)</li>
+      <li>Mise en page cohérente (marges, police, interligne)</li>
+      <li>Styles de titres appliqués correctement</li>
+      <li>Sommaire mis à jour (clic droit → Mettre à jour)</li>
+      <li>En-tête et pied de page présents</li>
+      <li>Numéros de page corrects</li>
+      <li>Tableaux bien alignés et lisibles</li>
+      <li>Sauvegarde en .docx ET en .pdf si nécessaire</li>
+    </ul>
+  </div>
+  <div class="card red">
+    <h3>❌ Erreurs classiques à éviter</h3>
+    <ul class="checklist danger">
+      <li>Faire les titres manuellement (gras + grande police) au lieu des styles</li>
+      <li>Oublier de mettre à jour le sommaire avant d'envoyer</li>
+      <li>Mélanger plusieurs polices sans cohérence</li>
+      <li>Laisser des sauts de page manuels (Entrée x10) au lieu d'un vrai saut</li>
+      <li>Envoyer en .docx quand le client n'a pas Word (utiliser .pdf)</li>
+    </ul>
+  </div>
+  <table>
+    <tr><th>Raccourci</th><th>Action</th></tr>
+    <tr><td>Ctrl + S</td><td>Enregistrer</td></tr>
+    <tr><td>Ctrl + Z</td><td>Annuler</td></tr>
+    <tr><td>Ctrl + B</td><td>Gras</td></tr>
+    <tr><td>Ctrl + I</td><td>Italique</td></tr>
+    <tr><td>Ctrl + U</td><td>Souligné</td></tr>
+    <tr><td>Ctrl + P</td><td>Imprimer</td></tr>
+    <tr><td>F7</td><td>Vérifier l'orthographe</td></tr>
+    <tr><td>Ctrl + Entrée</td><td>Saut de page</td></tr>
+    <tr><td>F12</td><td>Enregistrer sous</td></tr>
+    <tr><td>Ctrl + F</td><td>Rechercher dans le document</td></tr>
+  </table>
+</section>
+
+<!-- EXERCICES -->
+<section id="exercices">
+  <h2>🛠️ Exercices Pratiques</h2>
+
+  <div class="exercice">
+    <h3>Exercice 1 — Mettre en page un document professionnel</h3>
+    <p><strong>Objectif :</strong> Créer un document Word correctement mis en page pour une entreprise de menuiserie.</p>
+    <p><strong>Consignes :</strong></p>
+    <ol style="margin-left:1.5rem;font-size:.9rem;">
+      <li>Créer un nouveau document Word</li>
+      <li>Régler les marges : 2.5cm partout, format A4, orientation Portrait</li>
+      <li>Choisir la police Calibri 11 pour le corps de texte</li>
+      <li>Ajouter un en-tête avec : Nom entreprise | Titre document | Date</li>
+      <li>Ajouter un pied de page avec : Confidentiel | Page X/Y | Votre nom</li>
+      <li>Rédiger une page de contenu avec 3 titres de niveau différent</li>
+    </ol>
+    <div class="corrige">
+      <h4>✅ Corrigé</h4>
+      <p>Mise en page → Marges → Marges personnalisées → 2.5cm. Police : Accueil → sélectionner Calibri → taille 11. En-tête : Insertion → En-tête → Vierge. Pour la date : Insertion → Date et heure. Pied de page : Insertion → Pied de page → Numéro de page au centre.</p>
+    </div>
+  </div>
+
+  <div class="exercice">
+    <h3>Exercice 2 — Compte-rendu de réunion de chantier</h3>
+    <p><strong>Situation :</strong> Tu es conducteur de travaux sur un chantier cuisine. Rédige le compte-rendu de la réunion du 15/04/2026.</p>
+    <p><strong>Participants :</strong> Client M. Dupont, Architecte Mme Leblanc, Menuisier M. Martin (toi)</p>
+    <p><strong>Points abordés :</strong> Retard livraison façades MDF, modification couleur plan de travail, validation pose électroménager</p>
+    <div class="corrige">
+      <h4>✅ Structure attendue</h4>
+      <p>En-tête avec date/lieu/participants → Avancement (cuisiniste : 60%, électricité : 100%) → Point bloquant : façades repoussées au 22/04 → Décision : client valide gris anthracite pour plan de travail → Prochaine réunion le 22/04.</p>
+    </div>
+  </div>
+
+  <div class="exercice">
+    <h3>Exercice 3 — Rapport technique avec sommaire automatique</h3>
+    <p><strong>Objectif :</strong> Créer un rapport technique de 4 pages avec sommaire automatique fonctionnel.</p>
+    <ol style="margin-left:1.5rem;font-size:.9rem;">
+      <li>Créer les chapitres : Introduction / Présentation du chantier / Choix techniques / Conclusion</li>
+      <li>Appliquer le style Titre 1 à chaque chapitre</li>
+      <li>Ajouter 2 sous-parties par chapitre avec le style Titre 2</li>
+      <li>Insérer un sommaire automatique page 2</li>
+      <li>Ajouter un tableau matériaux avec au moins 5 lignes</li>
+    </ol>
+    <div class="corrige">
+      <h4>✅ Points clés du corrigé</h4>
+      <p>Styles : sélectionner le texte → Accueil → cliquer sur "Titre 1" dans le panneau Styles. Sommaire : se placer page 2 → Références → Table des matières → Table automatique 1. Mise à jour finale : clic droit → Mettre à jour les champs → Mettre à jour toute la table.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QCM -->
+<section id="qcm">
+  <h2>🎯 QCM — Valide tes connaissances Word</h2>
+  <div class="qcm">
+    <div class="question">
+      <p>1. Pour créer un sommaire automatique, que faut-il faire en premier ?</p>
+      <div class="options">
+        <label><input type="radio" name="q1" value="a"> Écrire le sommaire manuellement</label>
+        <label><input type="radio" name="q1" value="b"> Appliquer les styles Titre 1, Titre 2... aux titres</label>
+        <label><input type="radio" name="q1" value="c"> Aller dans Insertion → Sommaire directement</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>2. Quel raccourci permet de faire un saut de page ?</p>
+      <div class="options">
+        <label><input type="radio" name="q2" value="a"> Ctrl + Entrée</label>
+        <label><input type="radio" name="q2" value="b"> Alt + Entrée</label>
+        <label><input type="radio" name="q2" value="c"> Shift + Entrée</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>3. Quelle est la marge standard pour un rapport technique BTS ERA ?</p>
+      <div class="options">
+        <label><input type="radio" name="q3" value="a"> 1 cm partout</label>
+        <label><input type="radio" name="q3" value="b"> 2.5 cm partout</label>
+        <label><input type="radio" name="q3" value="c"> 5 cm partout</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>4. Comment mettre à jour un sommaire automatique ?</p>
+      <div class="options">
+        <label><input type="radio" name="q4" value="a"> Le supprimer et le recréer</label>
+        <label><input type="radio" name="q4" value="b"> Clic droit → Mettre à jour les champs</label>
+        <label><input type="radio" name="q4" value="c"> Fermer et rouvrir le document</label>
+      </div>
+    </div>
+    <button class="btn" onclick="verifierQCM()">Vérifier mes réponses</button>
+    <div class="resultat" id="resultat"></div>
+  </div>
+</section>
+
+</main>
+
+<footer style="background:var(--dark);color:#94a3b8;text-align:center;padding:2rem;margin-top:3rem;">
+  <p>BTS ERA — Module 1 | Partie 2 : Word Pro</p>
+  <p style="font-size:.85rem;margin-top:.3rem;">Apprenti menuisier → Conducteur de travaux</p>
+</footer>
+
+<script>
+function verifierQCM() {
+  const reponses = { q1: 'b', q2: 'a', q3: 'b', q4: 'b' };
+  let score = 0;
+  let total = Object.keys(reponses).length;
+  for (let q in reponses) {
+    const selected = document.querySelector(`input[name="${q}"]:checked`);
+    if (selected && selected.value === reponses[q]) score++;
+  }
+  const r = document.getElementById('resultat');
+  r.style.display = 'block';
+  if (score === total) {
+    r.style.background = '#dcfce7';
+    r.style.color = '#16a34a';
+    r.textContent = `🎉 Parfait ! ${score}/${total} — Tu maîtrises Word Pro !`;
+  } else if (score >= total/2) {
+    r.style.background = '#fef9c3';
+    r.style.color = '#ca8a04';
+    r.textContent = `👍 Bien ! ${score}/${total} — Relis les points ratés.`;
+  } else {
+    r.style.background = '#fee2e2';
+    r.style.color = '#dc2626';
+    r.textContent = `📚 ${score}/${total} — Reprends le cours avant de continuer.`;
+  }
+}
+</script>
+</body>
+</html>

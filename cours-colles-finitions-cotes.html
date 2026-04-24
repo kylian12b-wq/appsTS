@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cours — Colles, Finitions & Cotes Standards</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Epilogue:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #0a0b0d;
+  --bg2:     #0f1013;
+  --bg3:     #161820;
+  --bg4:     #1c1e28;
+  --bg5:     #222430;
+  --border:  #252733;
+  --border2: #323446;
+  --text:    #dfe0f0;
+  --muted:   #6b6d88;
+  --dim:     #3a3c54;
+
+  --gold:    #d4a843;
+  --gold2:   #f0c96a;
+  --gold3:   #8a6820;
+
+  --teal:    #3ecfb0;
+  --teal2:   #1a6b5a;
+
+  --coral:   #e86b5a;
+  --coral2:  #7a2d24;
+
+  --blue:    #5b9ef5;
+  --blue2:   #1e3a6e;
+
+  --purple:  #a87fe8;
+  --green:   #5bcb8a;
+  --orange:  #e8923a;
+  --pink:    #e87fb0;
+
+  --r: 10px;
+  --r2: 16px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Mono', monospace;
+  font-size: 13.5px;
+  line-height: 1.75;
+}
+
+/* ─── TOPBAR ─── */
+.topbar {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(10,11,13,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 0;
+  height: 54px;
+  padding: 0 32px;
+}
+
+.topbar-logo {
+  font-family: 'Epilogue', sans-serif;
+  font-weight: 900;
+  font-size: 14px;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding-right: 28px;
+  border-right: 1px solid var(--border);
+  margin-right: 20px;
+  white-space: nowrap;
+}
+
+.topbar-nav { display: flex; gap: 2px; overflow-x: auto; }
+.topbar-nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  padding: 6px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: all .2s;
+}
+.topbar-nav a:hover { color: var(--text); background: var(--bg4); }
+
+/* ─── WRAPPER ─── */
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px 80px; }
+
+/* ─── HERO ─── */
+.hero {
+  padding: 80px 0 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 700px 300px at 30% 60%, rgba(212,168,67,.07) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 250px at 75% 40%, rgba(62,207,176,.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--gold3);
+  border-radius: 100px;
+  padding: 5px 18px;
+  margin-bottom: 32px;
+}
+
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(42px, 6vw, 76px);
+  line-height: 1.0;
+  color: var(--text);
+  margin-bottom: 18px;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold2);
+}
+
+.hero-sub {
+  color: var(--muted);
+  font-size: 14px;
+  max-width: 560px;
+  margin: 0 auto 40px;
+}
+
+.hero-pills {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.pill {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ─── PART DIVIDER ─── */
+.part-divider {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 60px 0 40px;
+  position: relative;
+}
+.part-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--border2), transparent);
+}
+.part-num-big {
+  font-family: 'DM Serif Display', serif;
+  font-size: 90px;
+  line-height: 1;
+  color: var(--border);
+  font-style: italic;
+  flex-shrink: 0;
+}
+.part-info h2 {
+  font-family: 'Epilogue', sans-serif;
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -.02em;
+}
+.part-info p { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+/* ─── SECTION ─── */
+.section { margin-bottom: 60px; }
+
+.sec-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: 'Epilogue', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--gold2);
+  margin-bottom: 24px;
+}
+.sec-title::before {
+  content: '';
+  width: 3px; height: 18px;
+  background: var(--gold);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* ─── GLUE CARDS ─── */
+.glue-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.glue-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .2s, transform .2s;
+}
+.glue-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+
+.glue-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+}
+.gc-pva::before  { background: var(--blue); }
+.gc-pu::before   { background: var(--orange); }
+.gc-cont::before { background: var(--coral); }
+.gc-therm::before { background: var(--purple); }
+.gc-ep::before   { background: var(--teal); }
+.gc-cya::before  { background: var(--pink); }
+
+.gc-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.gc-name {
+  font-family: 'Epilogue', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+}
+.gc-tag {
+  font-size: 10px;
+  padding: 3px 9px;
+  border-radius: 100px;
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+.tag-blue   { background: rgba(91,158,245,.12); color: var(--blue);   border: 1px solid rgba(91,158,245,.2); }
+.tag-orange { background: rgba(232,146,58,.12); color: var(--orange); border: 1px solid rgba(232,146,58,.2); }
+.tag-coral  { background: rgba(232,107,90,.12); color: var(--coral);  border: 1px solid rgba(232,107,90,.2); }
+.tag-purple { background: rgba(168,127,232,.12);color: var(--purple); border: 1px solid rgba(168,127,232,.2); }
+.tag-teal   { background: rgba(62,207,176,.12); color: var(--teal);   border: 1px solid rgba(62,207,176,.2); }
+.tag-pink   { background: rgba(232,127,176,.12);color: var(--pink);   border: 1px solid rgba(232,127,176,.2); }
+
+.gc-desc {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  line-height: 1.65;
+}
+
+.gc-rows { display: flex; flex-direction: column; gap: 0; }
+.gc-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11.5px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 12px;
+}
+.gc-row:last-child { border-bottom: none; }
+.gc-row-k { color: var(--muted); flex-shrink: 0; }
+.gc-row-v { color: var(--text); text-align: right; }
+
+/* ─── STARS ─── */
+.stars { display: flex; gap: 3px; }
+.star  { width: 9px; height: 9px; border-radius: 1px; background: var(--border2); }
+.star.on { background: var(--gold); }
+
+/* ─── INFO BOXES ─── */
+.infobox {
+  border-radius: 0 var(--r) var(--r) 0;
+  border-left: 3px solid var(--gold);
+  background: rgba(212,168,67,.06);
+  border-top: 1px solid rgba(212,168,67,.1);
+  border-right: 1px solid rgba(212,168,67,.1);
+  border-bottom: 1px solid rgba(212,168,67,.1);
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 13px;
+}
+.infobox.teal   { border-left-color: var(--teal);  background: rgba(62,207,176,.06); border-top-color: rgba(62,207,176,.1); border-right-color: rgba(62,207,176,.1); border-bottom-color: rgba(62,207,176,.1); }
+.infobox.coral  { border-left-color: var(--coral); background: rgba(232,107,90,.06); border-top-color: rgba(232,107,90,.1); border-right-color: rgba(232,107,90,.1); border-bottom-color: rgba(232,107,90,.1); }
+.infobox.blue   { border-left-color: var(--blue);  background: rgba(91,158,245,.06); border-top-color: rgba(91,158,245,.1); border-right-color: rgba(91,158,245,.1); border-bottom-color: rgba(91,158,245,.1); }
+.infobox.green  { border-left-color: var(--green); background: rgba(91,203,138,.06); border-top-color: rgba(91,203,138,.1); border-right-color: rgba(91,203,138,.1); border-bottom-color: rgba(91,203,138,.1); }
+
+.infobox strong {
+  display: block;
+  font-family: 'Epilogue', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--gold2);
+  margin-bottom: 6px;
+}
+.infobox.teal  strong { color: var(--teal); }
+.infobox.coral strong { color: var(--coral); }
+.infobox.blue  strong { color: var(--blue); }
+.infobox.green strong { color: var(--green); }
+
+/* ─── TABLES ─── */
+.tbl-wrap {
+  overflow-x: auto;
+  border-radius: var(--r2);
+  border: 1px solid var(--border);
+  margin: 20px 0;
+}
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+thead { background: var(--bg4); border-bottom: 1px solid var(--border); }
+th {
+  padding: 11px 14px;
+  text-align: left;
+  font-family: 'Epilogue', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.55;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,.015); }
+
+.c-good { color: var(--green); }
+.c-bad  { color: var(--coral); }
+.c-mid  { color: var(--orange); }
+.c-dim  { color: var(--muted); }
+.c-gold { color: var(--gold2); font-weight: 600; font-family: 'Epilogue', sans-serif; }
+
+/* ─── FINISH CARDS ─── */
+.finish-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.fin-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 22px;
+  transition: border-color .2s;
+}
+.fin-card:hover { border-color: var(--border2); }
+
+.fin-name {
+  font-family: 'Epilogue', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.fin-sub { font-size: 11px; color: var(--muted); margin-bottom: 14px; }
+
+.fin-rows { display: flex; flex-direction: column; }
+.fin-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11.5px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 12px;
+}
+.fin-row:last-child { border-bottom: none; }
+.fin-row-k { color: var(--muted); flex-shrink: 0; }
+.fin-row-v { color: var(--text); text-align: right; }
+
+/* ─── CHECKLIST ─── */
+.checklist { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+.chk {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 13px;
+}
+.chk-icon {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.chk-ok   { background: rgba(91,203,138,.12); border: 1px solid rgba(91,203,138,.25); color: var(--green); }
+.chk-warn { background: rgba(232,146,58,.12);  border: 1px solid rgba(232,146,58,.25);  color: var(--orange); }
+.chk-bad  { background: rgba(232,107,90,.12);  border: 1px solid rgba(232,107,90,.25);  color: var(--coral); }
+
+/* ─── EDGE/CHANT ─── */
+.chant-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.chant-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 22px;
+  text-align: center;
+}
+
+.chant-viz {
+  width: 100%;
+  height: 50px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+.chant-main { flex: 1; height: 100%; background: var(--bg5); }
+.chant-edge { width: 10px; height: 100%; flex-shrink: 0; }
+.chant-name {
+  font-family: 'Epilogue', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+.chant-props { font-size: 11px; color: var(--muted); line-height: 1.6; }
+
+/* ─── SCHEMA BOX ─── */
+.schema-box {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 28px;
+  margin: 20px 0;
+}
+.schema-label {
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+/* ─── COTE SCHEMA (SVG-based) ─── */
+.cote-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.cote-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 24px;
+  transition: border-color .2s;
+}
+.cote-card:hover { border-color: var(--border2); }
+
+.cote-title {
+  font-family: 'Epilogue', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--gold2);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cote-svg { width: 100%; margin-bottom: 14px; }
+
+.dim-table { width: 100%; }
+.dim-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+.dim-row:last-child { border-bottom: none; }
+.dim-k { color: var(--muted); }
+.dim-v { font-family: 'Epilogue', sans-serif; font-weight: 700; color: var(--gold2); }
+
+/* ─── PMR CARD ─── */
+.pmr-card {
+  background: rgba(62,207,176,.05);
+  border: 1px solid rgba(62,207,176,.15);
+  border-radius: var(--r2);
+  padding: 28px;
+  margin: 24px 0;
+}
+.pmr-title {
+  font-family: 'Epilogue', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--teal);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pmr-sub { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
+
+.pmr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+}
+.pmr-item {
+  background: rgba(62,207,176,.05);
+  border: 1px solid rgba(62,207,176,.12);
+  border-radius: var(--r);
+  padding: 14px;
+}
+.pmr-val { font-family: 'Epilogue', sans-serif; font-size: 22px; font-weight: 900; color: var(--teal); }
+.pmr-lbl { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* ─── RECAP HEADER ─── */
+.recap-banner {
+  background: linear-gradient(135deg, var(--bg3), var(--bg4));
+  border: 1px solid var(--border2);
+  border-radius: var(--r2);
+  padding: 22px 28px;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.recap-icon { font-size: 30px; }
+.recap-banner h3 { font-family: 'Epilogue', sans-serif; font-size: 18px; font-weight: 800; }
+.recap-banner p  { font-size: 11.5px; color: var(--muted); margin-top: 3px; }
+
+/* ─── TWO/THREE COL ─── */
+.two-col   { display: grid; grid-template-columns: 1fr 1fr;     gap: 18px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+/* ─── GLOSS LEVELS ─── */
+.gloss-viz {
+  display: flex;
+  gap: 0;
+  border-radius: var(--r);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  margin: 16px 0;
+  height: 56px;
+}
+.gloss-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  gap: 3px;
+  cursor: default;
+}
+.gloss-mat    { background: var(--bg4); }
+.gloss-satin  { background: linear-gradient(135deg, var(--bg4), var(--bg5)); }
+.gloss-mi     { background: var(--bg5); }
+.gloss-brill  { background: linear-gradient(135deg, var(--bg5), #2a2c3a); }
+.gloss-label  { font-family: 'Epilogue', sans-serif; font-size: 10px; font-weight: 700; color: var(--text); }
+.gloss-guo    { font-size: 10px; color: var(--muted); }
+
+/* ─── ERRS ─── */
+.err-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+.err-card {
+  background: rgba(232,107,90,.04);
+  border: 1px solid rgba(232,107,90,.12);
+  border-radius: var(--r2);
+  padding: 18px;
+}
+.err-title {
+  font-family: 'Epilogue', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--coral);
+  margin-bottom: 7px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.err-title::before { content: '✗'; font-size: 12px; }
+.err-body { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+/* ─── ERGONOMIE ─── */
+.ergo-table {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+.ergo-item {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 16px;
+  text-align: center;
+}
+.ergo-val {
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px;
+  color: var(--gold2);
+  margin-bottom: 4px;
+}
+.ergo-lbl { font-size: 11px; color: var(--muted); line-height: 1.45; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 36px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+}
+footer a {
+  color: var(--gold);
+  text-decoration: none;
+  font-family: 'Epilogue', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-top: 14px;
+  display: inline-block;
+}
+
+hr.div { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+@media (max-width: 768px) {
+  .wrap { padding: 0 16px 60px; }
+  .two-col, .three-col, .cote-grid, .chant-grid { grid-template-columns: 1fr; }
+  .topbar { padding: 0 16px; }
+  .part-num-big { font-size: 60px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="topbar-logo">🔧 BOISLAB</div>
+  <nav class="topbar-nav">
+    <a href="#colles">Colles</a>
+    <a href="#chants">Chants</a>
+    <a href="#finitions">Finitions</a>
+    <a href="#erreurs">Erreurs finitions</a>
+    <a href="#cotes">Cotes standards</a>
+    <a href="#cuisine">Cuisine</a>
+    <a href="#dressing">Dressing</a>
+    <a href="#bureau">Bureau</a>
+    <a href="#bain">Salle de bain</a>
+    <a href="#pmr">PMR</a>
+    <a href="#recaps">Fiches récap</a>
+  </nav>
+</header>
+
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Cours Professionnel · Menuiserie</div>
+  <h1>Colles, <em>Finitions</em><br>&amp; Cotes Standards</h1>
+  <p class="hero-sub">Maîtriser les assemblages, sublimer les surfaces et dimensionner selon les normes ergonomiques et réglementaires.</p>
+  <div class="hero-pills">
+    <div class="pill">Parties 5 &amp; 6</div>
+    <div class="pill">4 types de colles</div>
+    <div class="pill">5 familles de finitions</div>
+    <div class="pill">6 types de projets cotés</div>
+    <div class="pill">Accessibilité PMR</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PARTIE 5 — COLLES & FINITIONS
+══════════════════════════════════════════════ -->
+<div class="part-divider" id="colles">
+  <div class="part-num-big">05</div>
+  <div class="part-info">
+    <h2>Colles &amp; Finitions</h2>
+    <p>Choisir la bonne colle, poser les chants, maîtriser vernis, huile, cire et peinture</p>
+  </div>
+</div>
+
+<!-- COLLES -->
+<div class="section">
+  <div class="sec-title">Les 4 grandes familles de colles bois</div>
+
+  <div class="infobox">
+    <strong>Principe fondamental</strong>
+    La résistance d'un collage dépend de trois facteurs : la colle choisie, la qualité de préparation des surfaces (propreté, planimétrie) et le serrage pendant le séchage. Un mauvais serrage ou une surface grasse annule la performance même de la meilleure colle.
+  </div>
+
+  <div class="glue-grid">
+
+    <!-- PVA -->
+    <div class="glue-card gc-pva">
+      <div class="gc-head">
+        <div class="gc-name">Colle PVA<br><span style="font-weight:400;font-size:12px;color:var(--muted)">Polyvinyle acétate — Colle blanche</span></div>
+        <span class="gc-tag tag-blue">Standard</span>
+      </div>
+      <div class="gc-desc">
+        La colle blanche est la référence universelle de la menuiserie bois intérieur. Elle pénètre les fibres du bois, crée un joint rigide après séchage et est broyable à l'outil (facilité de rabotage). Disponible en plusieurs classes de résistance à l'humidité (D2, D3, D4).
+      </div>
+      <div class="gc-rows">
+        <div class="gc-row"><span class="gc-row-k">Résistance mécanique</span><div class="stars"><div class="star on"></div><div class="star on"></div><div class="star on"></div><div class="star on"></div><div class="star"></div></div></div>
+        <div class="gc-row"><span class="gc-row-k">Résistance humidité</span><div class="stars"><div class="star on"></div><div class="star on"></div><div class="star"></div><div class="star"></div><div class="star"></div></div></div>
+        <div class="gc-row"><span class="gc-row-k">Temps ouvert</span><span class="gc-row-v">5–15 min (standard)</span></div>
+        <div class="gc-row"><span class="gc-row-k">Temps de serrage</span><span class="gc-row-v">30–60 min sous presse</span></div>
+        <div class="gc-row"><span class="gc-row-k">Résistance totale</span><span class="gc-row-v">12–24h</span></div>
+        <div class="gc-row"><span class="gc-row-k">Classe D2</span><span class="gc-row-v c-dim">Intérieur sec — Usage courant</span></div>
+        <div class="gc-row"><span class="gc-row-k">Classe D3</span><span class="gc-row-v c-mid">Résiste à l'eau temporaire</span></div>
+        <div class="gc-row"><span class="gc-row-k">Classe D4</span><span class="gc-row-v c-good">Résistance eau permanente</span></div>
+        <div class="gc-row"><span class="gc-row-k">Nettoyage</span><span class="gc-row-v">Eau avant séchage</span></div>
+        <div class="gc-row"><span class="gc-row-k">Prix</span><span class="gc-row-v c-good">€ — Économique</span></div>
+      </div>
+    </div>
+
+    <!-- PU -->
+    <div class="glue-card gc-pu">
+      <div class="gc-head">
+        <div class="gc-name">Colle PU<br><span style="font-weight:400;font-size:12px;color:var(--muted)">Polyuréthane — Colle expansive</span></div>
+        <span class="gc-tag tag-orange">Technique</span>
+      </div>
+      <div class="gc-desc">
+        La colle PU réagit avec l'humidité du bois et de l'air pour créer un joint extrêmement résistant. Elle mousse légèrement en réticulation (expansion ~3–5×), ce qui permet de combler les petits jeux. Joint final rigide et imperméable. Usage intérieur ET extérieur.
+      </div>
+      <div class="gc-rows">
+        <div class="gc-row"><span class="gc-row-k">Résistance mécanique</span><div class="stars"><div class="star on"></div><div class="star on"></div><div class="star on"></div><div class="star on"></div><div class="star on"></div></div></div>
+        <div class="gc-row"><span class="gc-row-k">Résistance humidité</span><div class="stars"><div class="star on"></div><div class="star on"></div><div class="star on"></div><div class="star on"></div><div class="star on"></div></div></div>
+        <div class="gc-row"><span class="gc-row-k">Temps ouvert</span><span class="gc-row-v">15–30 min</span></div>
+        <div class="gc-row"><span class="gc-row-k">Temps de serrage</span><span class="gc-row-v">60–120 min</span></div>
+        <div class="gc-row"><span class="gc-row-k">Résistance totale</span><span class="gc-row-v">24–48h</span></div>
+        <div class="gc-row"><span class="gc-row-k">Humidité bois idéale</span><span class="gc-row-v">8–15% (active la réaction)</span></div>
+        <div class="gc-row"><span class="gc-row-k">Précautions</span><span class="gc-row-v c-mid">Gants impératifs, irréversible</span></div>
+        <div class="gc-row"><span class="gc-row-k">Nettoyage</span><span class="gc-row-v c-bad">Solvant avant séchage seulement</span></div>
+        <div class="gc-row"><span class="gc-row-k">Prix</span><span class="gc-row-v c-mid">€€€</span></div>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="glue-card gc-cont">
+      <div class="gc-head">
+        <div class="gc-name">Colle contact<br><span style="font-weight:400;font-size:12px;color:var(--muted)">Néoprène — Collage instantané</span></div>
+        <span class="gc-tag tag-coral">Stratifiés</span>
+      </div>
+      <div class="gc-desc">
+        Application sur les deux surfaces, temps de flash (évaporation solvant), puis assemblage par contact direct. Le collage est immédiat et définitif — on ne repositionne pas. Indispensable pour poser un stratifié HPL, du Formica ou du liège. Disponible en version solvant ou aqueuse (moins toxique).
+      </div>
+      <div class="gc-rows">
+        <div class="gc-row"><span class="gc-row-k">Résistance mécanique</span><div class="stars"><div class="star on"></div><div class="star on"></div><div class="star on"></div><div class="star on"></div><div class="star"></div></div></div>
+        <div class="gc-row"><span class="gc-row-k">Résistance chaleur</span><div class="stars"><div class="star on"></div><div class="star on"></div><div class="star on"></div><div class="star on"></div><div class="star"></div></div></div>
+        <div class="gc-row"><span class="gc-row-k">Application</span><span class="gc-row-v">Rouleau ou pinceau, 2 faces</span></div>
+        <div class="gc-row"><span class="gc-row-k">Temps de flash</span><span class="gc-row-v">5–15 min (sec au toucher)</span></div>
+        <div class="gc-row"><span class="gc-row-k">Assemblage</span><span class="gc-row-v c-bad">Définitif au 1er contact</span></div>
+        <div class="gc-row"><span class="gc-row-k">Précautions</span><span class="gc-row-v c-mid">Ventilation, solvants (version solvant)</span></div>
+        <div class="gc-row"><span class="gc-row-k">Usage typique</span><span class="gc-row-v">HPL, stratifié, liège, moquette</span></div>
+        <div class="gc-row"><span class="gc-row-k">Prix</span><span class="gc-row-v c-mid">€€</span></div>
+      </div>
+    </div>
+
+    <!-- THERMOFUSIBLE -->
+    <div class="glue-card gc-therm">
+      <div class="gc-head">
+        <div class="gc-name">Colle thermofusible<br><span style="font-weight:400;font-size:12px;color:var(--muted)">Hot melt — Machine à chanter</span></div>
+        <span class="gc-tag tag-purple">Plaqueuse</span>
+      </div>
+      <div class="gc-desc">
+        Utilisée exclusivement dans les machines à plaquer les chants (plaqueusse). La colle est fondue (150–200°C) et déposée en film sur le chant du panneau avant l'application du chant ABS. Fixation immédiate par refroidissement. Différentes viscosités selon machine et matériaux.
+      </div>
+      <div class="gc-rows">
+        <div class="gc-row"><span class="gc-row-k">Application</span><span class="gc-row-v">Machine plaqueuse uniquement</span></div>
+        <div class="gc-row"><span class="gc-row-k">Température de fusion</span><span class="gc-row-v">150–200°C selon grade</span></div>
+        <div class="gc-row"><span class="gc-row-k">Fixation</span><span class="gc-row-v c-good">Immédiate (refroidissement)</span></div>
+        <div class="gc-row"><span class="gc-row-k">Résistance mécanique</span><div class="stars"><div class="star on"></div><div class="star on"></div><div class="star on"></div><div class="star on"></div><div class="star"></div></div></div>
+        <div class="gc-row"><span class="gc-row-k">Résistance chaleur</span><div class="stars"><div class="star on"></div><div class="star on"></div><div class="star on"></div><div class="star"></div><div class="star"></div></div></div>
+        <div class="gc-row"><span class="gc-row-k">Conditionnement</span><span class="gc-row-v">Granulés, sticks, cartouches</span></div>
+        <div class="gc-row"><span class="gc-row-k">Usage</span><span class="gc-row-v">Chants ABS, placage, PVC</span></div>
+      </div>
+    </div>
+
+    <!-- ÉPOXY -->
+    <div class="glue-card gc-ep">
+      <div class="gc-head">
+        <div class="gc-name">Colle époxy<br><span style="font-weight:400;font-size:12px;color:var(--muted)">Bicomposant — Résine + durcisseur</span></div>
+        <span class="gc-tag tag-teal">Structurel</span>
+      </div>
+      <div class="gc-desc">
+        Mélange en parts égales résine + durcisseur. Polymérise chimiquement (sans humidité). Excellente résistance mécanique et chimique. Comble des jeux importants (jusqu'à 10mm). Utilisé pour coller bois/métal, bois/verre, réparations structurelles.
+      </div>
+      <div class="gc-rows">
+        <div class="gc-row"><span class="gc-row-k">Résistance mécanique</span><div class="stars"><div class="star on"></div><div class="star on"></div><div class="star on"></div><div class="star on"></div><div class="star on"></div></div></div>
+        <div class="gc-row"><span class="gc-row-k">Matériaux collés</span><span class="gc-row-v">Bois, métal, verre, pierre</span></div>
+        <div class="gc-row"><span class="gc-row-k">Temps de travail</span><span class="gc-row-v">5 min (rapide) à 60 min</span></div>
+        <div class="gc-row"><span class="gc-row-k">Résistance totale</span><span class="gc-row-v">24h minimum</span></div>
+        <div class="gc-row"><span class="gc-row-k">Jeu toléré</span><span class="gc-row-v c-good">Jusqu'à 10mm</span></div>
+        <div class="gc-row"><span class="gc-row-k">Prix</span><span class="gc-row-v c-bad">€€€€</span></div>
+      </div>
+    </div>
+
+    <!-- CYANOACRYLATE -->
+    <div class="glue-card gc-cya">
+      <div class="gc-head">
+        <div class="gc-name">Cyanoacrylate<br><span style="font-weight:400;font-size:12px;color:var(--muted)">Super glue — Colle instantanée</span></div>
+        <span class="gc-tag tag-pink">Précision</span>
+      </div>
+      <div class="gc-desc">
+        Fixation très rapide par réaction avec l'humidité des surfaces. Joint très mince (1–2 décièmes mm). Résistance limitée aux efforts dynamiques. Utile pour positionnement, petites réparations, gabarits, fixation de petites pièces décoratives. Activateur spray pour accélérer la prise.
+      </div>
+      <div class="gc-rows">
+        <div class="gc-row"><span class="gc-row-k">Prise</span><span class="gc-row-v c-good">5–60 secondes</span></div>
+        <div class="gc-row"><span class="gc-row-k">Jeu toléré</span><span class="gc-row-v c-bad">Très faible (&lt;0.2mm)</span></div>
+        <div class="gc-row"><span class="gc-row-k">Résistance mécanique</span><div class="stars"><div class="star on"></div><div class="star on"></div><div class="star"></div><div class="star"></div><div class="star"></div></div></div>
+        <div class="gc-row"><span class="gc-row-k">Choc / vibration</span><div class="stars"><div class="star on"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div></div>
+        <div class="gc-row"><span class="gc-row-k">Précautions</span><span class="gc-row-v c-bad">Colle les doigts instantanément</span></div>
+        <div class="gc-row"><span class="gc-row-k">Usage bois</span><span class="gc-row-v">Marqueterie, réparations, gabarits</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- CHANTS -->
+<div class="section" id="chants">
+  <div class="sec-title">Les chants — Finir les tranches des panneaux</div>
+
+  <div class="infobox blue">
+    <strong>Pourquoi les chants sont essentiels</strong>
+    Un panneau débité expose son chant brut (aggloméré ou fibres apparentes). Sans traitement, ce chant absorbe l'humidité, se dégrade rapidement et donne un rendu non fini. Le chant protège et finalise visuellement la pièce. C'est souvent ce détail qui différencie un travail amateur d'un travail professionnel.
+  </div>
+
+  <div class="chant-grid">
+    <div class="chant-card">
+      <div class="chant-viz">
+        <div class="chant-main"></div>
+        <div class="chant-edge" style="background: linear-gradient(135deg, #4a5568, #2d3748);"></div>
+      </div>
+      <div class="chant-name">Chant ABS</div>
+      <div class="chant-props">
+        Plastique thermoplastique thermoformé. Le plus utilisé en menuiserie industrielle. S'applique à la plaqueuse (colle hot melt) ou manuellement. Disponible dans toutes les couleurs des décors mélaminés des fabricants (Egger, Kronospan…).
+        <br><br>
+        <strong>Épaisseurs :</strong> 0.4mm (décoratif), 1mm (standard), 2mm (bords renforcés), 3mm (visible design)<br>
+        <strong>Finitions :</strong> Synchronisé, mat, brillant, brossé<br>
+        <strong>Précaution :</strong> 0.4mm avec plaqueuse laser = joint invisible
+      </div>
+    </div>
+    <div class="chant-card">
+      <div class="chant-viz">
+        <div class="chant-main"></div>
+        <div class="chant-edge" style="background: linear-gradient(135deg, #8B6F47, #5C4033);"></div>
+      </div>
+      <div class="chant-name">Chant placage bois</div>
+      <div class="chant-props">
+        Fine feuille de bois réel (0.3–1mm) encollée sur papier support. Aspect et toucher bois naturel. S'applique au fer à repasser (colle thermofusible au dos) ou à la plaqueuse. Nécessite une finition (huile, vernis) après pose.
+        <br><br>
+        <strong>Essences :</strong> Chêne, hêtre, noyer, bouleau, frêne…<br>
+        <strong>Application manuelle :</strong> Fer à repasser + spatule de plaquage<br>
+        <strong>Précaution :</strong> Fragile aux chocs — moins résistant qu'ABS
+      </div>
+    </div>
+    <div class="chant-card">
+      <div class="chant-viz">
+        <div class="chant-main"></div>
+        <div class="chant-edge" style="background: linear-gradient(135deg, #9B7A5A, #6B4E2E); width: 16px;"></div>
+      </div>
+      <div class="chant-name">Chant bois massif</div>
+      <div class="chant-props">
+        Baguette de bois massif rabotée, collée (PVA) et serrée. Le plus résistant et le plus noble. Permet le profitage (arrondi, chanfrein, moulure). Épaisseur variable selon effet souhaité.
+        <br><br>
+        <strong>Épaisseur courante :</strong> 8–22mm<br>
+        <strong>Application :</strong> PVA + serres-joints, séchage 1h<br>
+        <strong>Atout :</strong> Rabotable, sculptable, finition identique au meuble massif
+      </div>
+    </div>
+  </div>
+
+  <div class="schema-box" style="margin-top:20px;">
+    <div class="schema-label">Techniques de pose des chants — Comparatif</div>
+    <div class="tbl-wrap" style="margin:0; border-radius:var(--r);">
+      <table>
+        <thead>
+          <tr>
+            <th>Méthode</th><th>Chant compatible</th><th>Qualité joint</th><th>Vitesse</th><th>Outillage</th><th>Usage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="c-gold">Plaqueuse industrielle</td>
+            <td>ABS, placage</td>
+            <td class="c-good">★★★★★</td>
+            <td class="c-good">Très rapide</td>
+            <td>Machine 2 000–30 000€</td>
+            <td>Production, atelier</td>
+          </tr>
+          <tr>
+            <td class="c-gold">Plaqueuse laser / zéro joint</td>
+            <td>ABS laser (PUR)</td>
+            <td class="c-good">★★★★★ invisible</td>
+            <td class="c-good">Rapide</td>
+            <td>Machine haute gamme</td>
+            <td>Haut de gamme, showroom</td>
+          </tr>
+          <tr>
+            <td class="c-gold">Fer à repasser</td>
+            <td>Chant placage</td>
+            <td class="c-mid">★★★☆☆</td>
+            <td class="c-mid">Lent</td>
+            <td>Fer + spatule + rabot</td>
+            <td>Réparation, petite série</td>
+          </tr>
+          <tr>
+            <td class="c-gold">PVA + serres-joints</td>
+            <td>Bois massif</td>
+            <td class="c-good">★★★★☆</td>
+            <td class="c-bad">Lent (séchage 1h)</td>
+            <td>Serres-joints, rabot</td>
+            <td>Artisanal, massif noble</td>
+          </tr>
+          <tr>
+            <td class="c-gold">Colle contact + rouleau</td>
+            <td>Stratifié HPL</td>
+            <td class="c-good">★★★★☆</td>
+            <td class="c-mid">Moyen</td>
+            <td>Rouleau + débordoir</td>
+            <td>Plan de travail</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- FINITIONS -->
+<div class="section" id="finitions">
+  <div class="sec-title">Vernis, lasure, huile, cire &amp; peinture</div>
+
+  <div class="schema-box">
+    <div class="schema-label">Niveaux de brillance — De mat à ultra-brillant</div>
+    <div class="gloss-viz">
+      <div class="gloss-item gloss-mat">
+        <div class="gloss-label">MAT</div>
+        <div class="gloss-guo">0–10 GU</div>
+      </div>
+      <div class="gloss-item gloss-satin">
+        <div class="gloss-label">SATINÉ</div>
+        <div class="gloss-guo">20–40 GU</div>
+      </div>
+      <div class="gloss-item gloss-mi">
+        <div class="gloss-label">SEMI-BRILLANT</div>
+        <div class="gloss-guo">50–70 GU</div>
+      </div>
+      <div class="gloss-item gloss-brill" style="background:linear-gradient(135deg,#1e2230,#2a2c3e);">
+        <div class="gloss-label">BRILLANT</div>
+        <div class="gloss-guo">80–100 GU</div>
+      </div>
+    </div>
+    <p style="font-size:11px;color:var(--muted);margin-top:8px;">GU = Gloss Units — mesuré par réflectomètre. Plus la valeur est haute, plus la surface est brillante et réfléchissante.</p>
+  </div>
+
+  <div class="finish-grid">
+
+    <div class="fin-card">
+      <div class="fin-name">Vernis</div>
+      <div class="fin-sub">Film de protection — bois meuble ou parquet</div>
+      <div class="fin-rows">
+        <div class="fin-row"><span class="fin-row-k">Type courant</span><span class="fin-row-v">Acrylique (eau) ou PU (solvant)</span></div>
+        <div class="fin-row"><span class="fin-row-k">Protection</span><div class="stars"><div class="star on"></div><div class="star on"></div><div class="star on"></div><div class="star on"></div><div class="star on"></div></div></div>
+        <div class="fin-row"><span class="fin-row-k">Application</span><span class="fin-row-v">Pinceau, rouleau, pistolet</span></div>
+        <div class="fin-row"><span class="fin-row-k">Nb de couches</span><span class="fin-row-v">2–4 couches avec ponçage inter</span></div>
+        <div class="fin-row"><span class="fin-row-k">Préparation</span><span class="fin-row-v">Ponçage P120 → P180 → couche</span></div>
+        <div class="fin-row"><span class="fin-row-k">Finitions dispo</span><span class="fin-row-v">Mat, satiné, brillant</span></div>
+        <div class="fin-row"><span class="fin-row-k">Meilleur usage</span><span class="fin-row-v">Parquet, plan de travail, escalier</span></div>
+        <div class="fin-row"><span class="fin-row-k">Entretien</span><span class="fin-row-v c-mid">Difficile — ponçage et revernissage</span></div>
+      </div>
+    </div>
+
+    <div class="fin-card">
+      <div class="fin-name">Lasure</div>
+      <div class="fin-sub">Pénétrante semi-transparente — intérieur &amp; extérieur</div>
+      <div class="fin-rows">
+        <div class="fin-row"><span class="fin-row-k">Mécanisme</span><span class="fin-row-v">Pénètre le bois, pas de film rigide</span></div>
+        <div class="fin-row"><span class="fin-row-k">Protection</span><div class="stars"><div class="star on"></div><div class="star on"></div><div class="star on"></div><div class="star on"></div><div class="star"></div></div></div>
+        <div class="fin-row"><span class="fin-row-k">Protection UV</span><div class="stars"><div class="star on"></div><div class="star on"></div><div class="star on"></div><div class="star on"></div><div class="star on"></div></div></div>
+        <div class="fin-row"><span class="fin-row-k">Aspect</span><span class="fin-row-v">Laisse le fil visible, tons colorés</span></div>
+        <div class="fin-row"><span class="fin-row-k">Nb de couches</span><span class="fin-row-v">1 couche de fond + 2 finition</span></div>
+        <div class="fin-row"><span class="fin-row-k">Entretien</span><span class="fin-row-v c-good">Facile — repassage sans ponçage</span></div>
+        <div class="fin-row"><span class="fin-row-k">Meilleur usage</span><span class="fin-row-v">Fenêtres, portails, lambris ext.</span></div>
+      </div>
+    </div>
+
+    <div class="fin-card">
+      <div class="fin-name">Huile</div>
+      <div class="fin-sub">Finition naturelle — bois massif noble</div>
+      <div class="fin-rows">
+        <div class="fin-row"><span class="fin-row-k">Mécanisme</span><span class="fin-row-v">Pénètre et nourrit les fibres</span></div>
+        <div class="fin-row"><span class="fin-row-k">Protection</span><div class="stars"><div class="star on"></div><div class="star on"></div><div class="star on"></div><div class="star"></div><div class="star"></div></div></div>
+        <div class="fin-row"><span class="fin-row-k">Aspect</span><span class="fin-row-v">Mat soyeux, matière naturelle</span></div>
+        <div class="fin-row"><span class="fin-row-k">Rendu</span><span class="fin-row-v">Met en valeur les veines du bois</span></div>
+        <div class="fin-row"><span class="fin-row-k">Application</span><span class="fin-row-v">Chiffon ou pinceau, bois chaud</span></div>
+        <div class="fin-row"><span class="fin-row-k">Nb de couches</span><span class="fin-row-v">2–3 couches avec séchage</span></div>
+        <div class="fin-row"><span class="fin-row-k">Entretien</span><span class="fin-row-v c-good">Très facile — repassage à chaud</span></div>
+        <div class="fin-row"><span class="fin-row-k">Meilleur usage</span><span class="fin-row-v">Parquet chêne, meuble massif</span></div>
+      </div>
+    </div>
+
+    <div class="fin-card">
+      <div class="fin-name">Cire</div>
+      <div class="fin-sub">Finition patinée — aspect traditionnel</div>
+      <div class="fin-rows">
+        <div class="fin-row"><span class="fin-row-k">Mécanisme</span><span class="fin-row-v">Dépôt superficiel lustré</span></div>
+        <div class="fin-row"><span class="fin-row-k">Protection</span><div class="stars"><div class="star on"></div><div class="star on"></div><div class="star"></div><div class="star"></div><div class="star"></div></div></div>
+        <div class="fin-row"><span class="fin-row-k">Aspect</span><span class="fin-row-v">Brillant soyeux patinés selon couches</span></div>
+        <div class="fin-row"><span class="fin-row-k">Sur fond</span><span class="fin-row-v">Idéal sur bois huilé ou nu</span></div>
+        <div class="fin-row"><span class="fin-row-k">Résistance eau</span><div class="stars"><div class="star on"></div><div class="star on"></div><div class="star"></div><div class="star"></div><div class="star"></div></div></div>
+        <div class="fin-row"><span class="fin-row-k">Entretien</span><span class="fin-row-v c-good">Ré-encaustiquage facile</span></div>
+        <div class="fin-row"><span class="fin-row-k">Meilleur usage</span><span class="fin-row-v">Mobilier ancien, parquet rustique</span></div>
+        <div class="fin-row"><span class="fin-row-k">À éviter</span><span class="fin-row-v c-bad">Jamais sous vernis ni peinture</span></div>
+      </div>
+    </div>
+
+    <div class="fin-card">
+      <div class="fin-name">Peinture bois</div>
+      <div class="fin-sub">Opaque — MDF, pin, sapin, hévéa</div>
+      <div class="fin-rows">
+        <div class="fin-row"><span class="fin-row-k">Préparation MDF</span><span class="fin-row-v">Ponçage P120 + bouche-pores + P180</span></div>
+        <div class="fin-row"><span class="fin-row-k">Préparation bois massif</span><span class="fin-row-v">Dégraissage + impression + P180</span></div>
+        <div class="fin-row"><span class="fin-row-k">Type peinture</span><span class="fin-row-v">Alkyde (solvant) ou acrylique (eau)</span></div>
+        <div class="fin-row"><span class="fin-row-k">Nb de couches</span><span class="fin-row-v">1 primaire + 2 couches finition</span></div>
+        <div class="fin-row"><span class="fin-row-k">Application</span><span class="fin-row-v">Rouleau mousse ou pistolet</span></div>
+        <div class="fin-row"><span class="fin-row-k">Ponçage inter</span><span class="fin-row-v">P220 entre chaque couche</span></div>
+        <div class="fin-row"><span class="fin-row-k">Meilleur usage</span><span class="fin-row-v">Façades cuisine/dressing, menuiseries</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="infobox teal">
+    <strong>La clé d'une bonne peinture sur MDF</strong>
+    Le MDF absorbe beaucoup en bout de chant et sur les arêtes. Appliquer une couche de bouche-pores dilué (ou colle PVA diluée 10%) sur tout le panneau avant de poncer à P180. Sans cette étape, la peinture finale sera granuleuse et inégale. Sur les chants, insister avec le bouche-pores car l'absorption y est 3× plus élevée qu'en face.
+  </div>
+
+  <div class="two-col" style="margin-top:20px;">
+    <div class="schema-box">
+      <div class="schema-label">Choix de la finition selon l'usage</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;">
+        <div style="display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted)">Parquet intérieur chêne</span><span style="color:var(--gold2);font-weight:600">Huile ou vernis PU</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted)">Meuble massif visible</span><span style="color:var(--gold2);font-weight:600">Huile + cire ou vernis mat</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted)">Façades cuisine laquées</span><span style="color:var(--gold2);font-weight:600">Peinture alkyde satiné</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted)">Fenêtres &amp; volets bois</span><span style="color:var(--gold2);font-weight:600">Lasure satinée 3 couches</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted)">Plan de travail bois</span><span style="color:var(--gold2);font-weight:600">Huile spéciale plan alimentaire</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted)">Escalier bois</span><span style="color:var(--gold2);font-weight:600">Vernis PU bicomposant</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;padding:6px 0"><span style="color:var(--muted)">Meuble peint MDF</span><span style="color:var(--gold2);font-weight:600">Bouche-pores + peinture acrylique</span></div>
+      </div>
+    </div>
+    <div class="schema-box">
+      <div class="schema-label">Préparation avant finition — Checklist</div>
+      <div class="checklist" style="margin-top:8px;">
+        <div class="chk"><div class="chk-icon chk-ok">✓</div><span>Poncer dans le sens du fil avec P120 puis P180 (jamais à travers le fil)</span></div>
+        <div class="chk"><div class="chk-icon chk-ok">✓</div><span>Éliminer toute trace de colle sèche avant application (résiste aux finitions)</span></div>
+        <div class="chk"><div class="chk-icon chk-ok">✓</div><span>Dépoussiérer avec chiffon légèrement humide ou air comprimé</span></div>
+        <div class="chk"><div class="chk-icon chk-ok">✓</div><span>Taux d'humidité du bois : 8–12% avant toute finition</span></div>
+        <div class="chk"><div class="chk-icon chk-ok">✓</div><span>Température ambiante : 15–25°C, hygrométrie &lt; 70%</span></div>
+        <div class="chk"><div class="chk-icon chk-warn">!</div><span>Sur bois résineux (pin) : dégraisser à l'acétone pour éliminer la résine</span></div>
+        <div class="chk"><div class="chk-icon chk-bad">✗</div><span>Ne jamais vernir un bois ciré — la cire empêche toute adhérence</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- ERREURS FINITIONS -->
+<div class="section" id="erreurs">
+  <div class="sec-title">Les erreurs classiques avec les finitions</div>
+
+  <div class="err-grid">
+    <div class="err-card">
+      <div class="err-title">Vernir sans poncer entre couches</div>
+      <div class="err-body">Chaque couche de vernis laisse des aspérités dues aux poussières et à la montée des fibres. Sans ponçage léger (P220–P320) entre les couches, le résultat final est rugueux et inégal.</div>
+    </div>
+    <div class="err-card">
+      <div class="err-title">Appliquer de la peinture sur un bois humide</div>
+      <div class="err-body">Au-dessus de 18% d'humidité, la peinture cloque et se décolle en quelques semaines. Toujours mesurer avec un humidimètre avant application et laisser le bois acclimater.</div>
+    </div>
+    <div class="err-card">
+      <div class="err-title">Oublier le bouche-pores sur MDF</div>
+      <div class="err-body">Le MDF absorbe la peinture de façon inégale — surtout les chants. Sans bouche-pores, il faut 5–6 couches pour un résultat lisse. Avec bouche-pores : 2–3 couches suffisent.</div>
+    </div>
+    <div class="err-card">
+      <div class="err-title">Poser un chant ABS sans nettoyer le chant</div>
+      <div class="err-body">Poussière de coupe, huile de machine, résidus de colle — tout empêche l'adhérence. Dépoussiérer et légèrement poncer le chant avant passage en plaqueuse ou pose manuelle.</div>
+    </div>
+    <div class="err-card">
+      <div class="err-title">Coller à la PVA sans serrage</div>
+      <div class="err-body">La colle PVA doit être sous pression pendant tout le séchage (30–60 min minimum). Poser sans serres-joints = collage à 30% de résistance seulement. Le joint peut paraître tenir mais cédera à l'usage.</div>
+    </div>
+    <div class="err-card">
+      <div class="err-title">Utiliser de la colle contact en couche épaisse</div>
+      <div class="err-body">La colle contact s'applique en couche très fine et régulière. Une couche épaisse ne sèche pas uniformément et crée des zones de bulles invisibles qui cloquent avec la chaleur.</div>
+    </div>
+    <div class="err-card">
+      <div class="err-title">Appliquer de l'huile sur bois déjà verni</div>
+      <div class="err-body">L'huile ne peut pas pénétrer un film de vernis. Elle reste en surface, poisse et ne sèche jamais correctement. Poncer complètement le vernis avant d'huiler.</div>
+    </div>
+    <div class="err-card">
+      <div class="err-title">Lasurer par temps humide ou chaud</div>
+      <div class="err-body">En dessous de 10°C la lasure ne sèche pas. En dessus de 30°C elle sèche trop vite et laisse des traces de pinceau. La plage idéale est 15–25°C avec hygrométrie &lt;70%.</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+     PARTIE 6 — COTES STANDARDS
+══════════════════════════════════════════════ -->
+<div class="part-divider" id="cotes">
+  <div class="part-num-big">06</div>
+  <div class="part-info">
+    <h2>Cotes Standards</h2>
+    <p>Cuisine, dressing, bureau, bain, commerce — ergonomie et réglementation PMR</p>
+  </div>
+</div>
+
+<!-- POURQUOI CES COTES -->
+<div class="section">
+  <div class="sec-title">Pourquoi ces cotes sont standards</div>
+  <div class="infobox">
+    <strong>Origine des standards</strong>
+    Les cotes standards de mobilier découlent de l'ergonomie humaine (anthropométrie), des normes industrielles (ferrures calibrées, appareils électroménagers normalisés) et de contraintes réglementaires (accessibilité PMR). Elles ne sont pas arbitraires — elles représentent le compromis optimal pour 90% de la population adulte européenne (P5 à P95 du percentile).
+  </div>
+
+  <div class="ergo-table">
+    <div class="ergo-item"><div class="ergo-val">870mm</div><div class="ergo-lbl">Hauteur plan de travail cuisine — posture debout neutre</div></div>
+    <div class="ergo-item"><div class="ergo-val">720mm</div><div class="ergo-lbl">Hauteur bureau standard — posture assise type</div></div>
+    <div class="ergo-item"><div class="ergo-val">450mm</div><div class="ergo-lbl">Hauteur d'assise — chaise standard</div></div>
+    <div class="ergo-item"><div class="ergo-val">600mm</div><div class="ergo-lbl">Profondeur meuble bas — portée de bras debout</div></div>
+    <div class="ergo-item"><div class="ergo-val">350mm</div><div class="ergo-lbl">Profondeur meuble haut — portée de bras en hauteur</div></div>
+    <div class="ergo-item"><div class="ergo-val">1700mm</div><div class="ergo-lbl">Hauteur max portée confortable debout</div></div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- CUISINE -->
+<div class="section" id="cuisine">
+  <div class="sec-title">Cuisine — Cotes standards</div>
+
+  <div class="cote-grid">
+    <div class="cote-card">
+      <div class="cote-title">🍳 Meubles bas</div>
+      <!-- Schéma SVG meuble bas -->
+      <svg class="cote-svg" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- Sol -->
+        <line x1="20" y1="185" x2="280" y2="185" stroke="#3a3c54" stroke-width="2"/>
+        <!-- Caisson bas -->
+        <rect x="60" y="80" width="180" height="100" rx="2" fill="none" stroke="#323446" stroke-width="1.5"/>
+        <!-- Plan de travail -->
+        <rect x="50" y="72" width="200" height="12" rx="2" fill="#2a2c3a" stroke="#5b9ef5" stroke-width="1"/>
+        <!-- Plinthe -->
+        <rect x="60" y="170" width="180" height="15" rx="2" fill="#1c1e28" stroke="#323446" stroke-width="1"/>
+        <!-- Cote hauteur totale -->
+        <line x1="30" y1="72" x2="30" y2="185" stroke="#d4a843" stroke-width="1" stroke-dasharray="3,2"/>
+        <line x1="24" y1="72" x2="36" y2="72" stroke="#d4a843" stroke-width="1"/>
+        <line x1="24" y1="185" x2="36" y2="185" stroke="#d4a843" stroke-width="1"/>
+        <text x="15" y="132" fill="#d4a843" font-size="9" font-family="DM Mono" text-anchor="middle" transform="rotate(-90,15,132)">870mm</text>
+        <!-- Cote profondeur -->
+        <line x1="50" y1="196" x2="250" y2="196" stroke="#5b9ef5" stroke-width="1" stroke-dasharray="3,2"/>
+        <line x1="50" y1="190" x2="50" y2="202" stroke="#5b9ef5" stroke-width="1"/>
+        <line x1="250" y1="190" x2="250" y2="202" stroke="#5b9ef5" stroke-width="1"/>
+        <text x="150" y="208" fill="#5b9ef5" font-size="9" font-family="DM Mono" text-anchor="middle">600mm (ou 565mm)</text>
+        <!-- Cote plinthe -->
+        <line x1="248" y1="170" x2="248" y2="185" stroke="#a87fe8" stroke-width="1"/>
+        <text x="262" y="179" fill="#a87fe8" font-size="9" font-family="DM Mono">100mm</text>
+        <!-- Hauteur caisson seul -->
+        <line x1="252" y1="84" x2="252" y2="170" stroke="#3ecfb0" stroke-width="1" stroke-dasharray="2,2"/>
+        <text x="265" y="132" fill="#3ecfb0" font-size="8" font-family="DM Mono" transform="rotate(90,265,132)" text-anchor="middle">720mm</text>
+        <!-- Labels -->
+        <text x="150" y="130" fill="#6b6d88" font-size="10" font-family="DM Mono" text-anchor="middle">Caisson bas</text>
+        <text x="150" y="78" fill="#dfe0f0" font-size="9" font-family="DM Mono" text-anchor="middle">Plan de travail 40mm</text>
+      </svg>
+      <div class="dim-table">
+        <div class="dim-row"><span class="dim-k">Hauteur totale (plinthe + caisson + plan)</span><span class="dim-v">870 mm</span></div>
+        <div class="dim-row"><span class="dim-k">Hauteur caisson nu</span><span class="dim-v">720 mm</span></div>
+        <div class="dim-row"><span class="dim-k">Plinthe réglable</span><span class="dim-v">100–150 mm</span></div>
+        <div class="dim-row"><span class="dim-k">Plan de travail</span><span class="dim-v">40–60 mm</span></div>
+        <div class="dim-row"><span class="dim-k">Profondeur caisson</span><span class="dim-v">565 mm (plan déborde à 600)</span></div>
+        <div class="dim-row"><span class="dim-k">Largeurs standards</span><span class="dim-v">300, 400, 450, 500, 600, 800, 900, 1000 mm</span></div>
+      </div>
+    </div>
+
+    <div class="cote-card">
+      <div class="cote-title">🏗️ Meubles hauts &amp; colonne</div>
+      <svg class="cote-svg" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- Meuble haut -->
+        <rect x="80" y="20" width="140" height="90" rx="2" fill="none" stroke="#323446" stroke-width="1.5"/>
+        <!-- Espacement -->
+        <rect x="80" y="115" width="140" height="6" rx="0" fill="none" stroke="#e8923a" stroke-width="1" stroke-dasharray="4,2"/>
+        <!-- Plan de travail context -->
+        <rect x="60" y="121" width="180" height="8" rx="0" fill="#1c1e28" stroke="#5b9ef5" stroke-width="1"/>
+        <!-- Cote hauteur meuble haut -->
+        <line x1="40" y1="20" x2="40" y2="110" stroke="#d4a843" stroke-width="1" stroke-dasharray="3,2"/>
+        <line x1="34" y1="20" x2="46" y2="20" stroke="#d4a843" stroke-width="1"/>
+        <line x1="34" y1="110" x2="46" y2="110" stroke="#d4a843" stroke-width="1"/>
+        <text x="24" y="68" fill="#d4a843" font-size="9" font-family="DM Mono" text-anchor="middle" transform="rotate(-90,24,68)">600–720mm</text>
+        <!-- Cote espacement -->
+        <line x1="232" y1="110" x2="232" y2="129" stroke="#e8923a" stroke-width="1.5"/>
+        <line x1="226" y1="110" x2="238" y2="110" stroke="#e8923a" stroke-width="1"/>
+        <line x1="226" y1="129" x2="238" y2="129" stroke="#e8923a" stroke-width="1"/>
+        <text x="248" y="122" fill="#e8923a" font-size="9" font-family="DM Mono">530mm</text>
+        <!-- Hauteur fixation -->
+        <line x1="40" y1="20" x2="40" y2="129" stroke="#3ecfb0" stroke-width="1" stroke-dasharray="2,3"/>
+        <text x="18" y="80" fill="#3ecfb0" font-size="8" font-family="DM Mono" transform="rotate(-90,18,80)" text-anchor="middle">1450mm</text>
+        <!-- Labels -->
+        <text x="150" y="72" fill="#6b6d88" font-size="10" font-family="DM Mono" text-anchor="middle">Meuble haut</text>
+        <text x="150" y="140" fill="#5b9ef5" font-size="9" font-family="DM Mono" text-anchor="middle">Plan de travail ref.</text>
+        <text x="150" y="113" fill="#e8923a" font-size="8" font-family="DM Mono" text-anchor="middle">↕ espace</text>
+        <!-- Profondeur haut -->
+        <line x1="80" y1="192" x2="220" y2="192" stroke="#a87fe8" stroke-width="1" stroke-dasharray="3,2"/>
+        <line x1="80" y1="186" x2="80" y2="198" stroke="#a87fe8" stroke-width="1"/>
+        <line x1="220" y1="186" x2="220" y2="198" stroke="#a87fe8" stroke-width="1"/>
+        <text x="150" y="200" fill="#a87fe8" font-size="9" font-family="DM Mono" text-anchor="middle">300–350 mm</text>
+      </svg>
+      <div class="dim-table">
+        <div class="dim-row"><span class="dim-k">Hauteur meuble haut</span><span class="dim-v">600–720 mm (standard 720)</span></div>
+        <div class="dim-row"><span class="dim-k">Profondeur meuble haut</span><span class="dim-v">300–350 mm</span></div>
+        <div class="dim-row"><span class="dim-k">Fixation rail bas (/ sol)</span><span class="dim-v">1 450 mm (plan 870 + 530 espace + 50)</span></div>
+        <div class="dim-row"><span class="dim-k">Espacement bas / hauts</span><span class="dim-v">530–600 mm (norme hotte)</span></div>
+        <div class="dim-row"><span class="dim-k">Hauteur colonne</span><span class="dim-v">1 950–2 150 mm</span></div>
+        <div class="dim-row"><span class="dim-k">Largeurs standards hauts</span><span class="dim-v">300, 400, 450, 500, 600, 900 mm</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="infobox blue">
+    <strong>Adapter la hauteur au client</strong>
+    La hauteur standard de 870mm est calculée pour une personne de 170cm. Formule d'adaptation : H = (taille client ÷ 2) + 50mm. Exemple pour 180cm : 180÷2 + 50 = 140 + 50 = <strong>940mm</strong>. Attention : la hauteur de la plinthe réglable (100–150mm) doit rester constante car elle cache les tuyaux et permet le réglage de niveau.
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- DRESSING -->
+<div class="section" id="dressing">
+  <div class="sec-title">Dressing — Cotes standards</div>
+
+  <div class="cote-grid">
+    <div class="cote-card">
+      <div class="cote-title">👔 Penderie &amp; tablettes</div>
+      <svg class="cote-svg" viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
+        <!-- Boîtier dressing -->
+        <rect x="50" y="10" width="200" height="200" rx="3" fill="none" stroke="#323446" stroke-width="1.5"/>
+        <!-- Tablette haute -->
+        <rect x="50" y="35" width="200" height="8" rx="1" fill="#1c1e28" stroke="#d4a843" stroke-width="1"/>
+        <!-- Zone penderie simple -->
+        <line x1="50" y1="43" x2="250" y2="43" stroke="none"/>
+        <line x1="50" y1="130" x2="250" y2="130" stroke="#3ecfb0" stroke-width="1" stroke-dasharray="3,2"/>
+        <!-- Tringle simple -->
+        <circle cx="150" cy="80" r="4" fill="none" stroke="#5b9ef5" stroke-width="1.5"/>
+        <line x1="50" y1="80" x2="250" y2="80" stroke="#5b9ef5" stroke-width="1" stroke-dasharray="4,2"/>
+        <!-- Vêtement stylisé simple -->
+        <path d="M130 80 L130 120 M170 80 L170 120 M130 80 Q150 70 170 80" fill="none" stroke="#6b6d88" stroke-width="1"/>
+        <!-- Tringle double haute -->
+        <circle cx="150" cy="145" r="3" fill="none" stroke="#a87fe8" stroke-width="1.5"/>
+        <line x1="50" y1="145" x2="250" y2="145" stroke="#a87fe8" stroke-width="1" stroke-dasharray="4,2"/>
+        <!-- Cote penderie simple -->
+        <line x1="30" y1="43" x2="30" y2="130" stroke="#3ecfb0" stroke-width="1"/>
+        <line x1="24" y1="43" x2="36" y2="43" stroke="#3ecfb0" stroke-width="1"/>
+        <line x1="24" y1="130" x2="36" y2="130" stroke="#3ecfb0" stroke-width="1"/>
+        <text x="14" y="90" fill="#3ecfb0" font-size="9" font-family="DM Mono" text-anchor="middle" transform="rotate(-90,14,90)">1 050mm</text>
+        <!-- Cote penderie double veste -->
+        <line x1="270" y1="43" x2="270" y2="80" stroke="#a87fe8" stroke-width="1"/>
+        <text x="282" y="65" fill="#a87fe8" font-size="8" font-family="DM Mono">650mm</text>
+        <!-- Cote hauteur totale -->
+        <line x1="268" y1="10" x2="268" y2="210" stroke="#d4a843" stroke-width="1" stroke-dasharray="2,3"/>
+        <text x="282" y="115" fill="#d4a843" font-size="9" font-family="DM Mono" transform="rotate(90,282,115)" text-anchor="middle">2 100mm</text>
+        <!-- Largeur tablette -->
+        <line x1="50" y1="216" x2="250" y2="216" stroke="#e8923a" stroke-width="1"/>
+        <line x1="50" y1="210" x2="50" y2="222" stroke="#e8923a" stroke-width="1"/>
+        <line x1="250" y1="210" x2="250" y2="222" stroke="#e8923a" stroke-width="1"/>
+        <text x="150" y="224" fill="#e8923a" font-size="9" font-family="DM Mono" text-anchor="middle">500–600 mm profondeur</text>
+        <!-- Labels -->
+        <text x="150" y="25" fill="#d4a843" font-size="8" font-family="DM Mono" text-anchor="middle">Tablette chapeau</text>
+        <text x="100" y="105" fill="#5b9ef5" font-size="8" font-family="DM Mono">Penderie longue</text>
+        <text x="100" y="162" fill="#a87fe8" font-size="8" font-family="DM Mono">Penderie double</text>
+      </svg>
+      <div class="dim-table">
+        <div class="dim-row"><span class="dim-k">Profondeur standard</span><span class="dim-v">500–600 mm</span></div>
+        <div class="dim-row"><span class="dim-k">Hauteur totale dressing</span><span class="dim-v">2 100–2 400 mm</span></div>
+        <div class="dim-row"><span class="dim-k">Penderie longue (robes, manteaux)</span><span class="dim-v">1 600–1 750 mm de haut libre</span></div>
+        <div class="dim-row"><span class="dim-k">Penderie mi-hauteur (vestes)</span><span class="dim-v">1 050 mm de haut libre</span></div>
+        <div class="dim-row"><span class="dim-k">Penderie double superposée</span><span class="dim-v">2× 650 mm = 1 300 mm</span></div>
+        <div class="dim-row"><span class="dim-k">Tringle / mur latéral</span><span class="dim-v">50 mm minimum de chaque côté</span></div>
+        <div class="dim-row"><span class="dim-k">Largeur tablette max sans support</span><span class="dim-v">800 mm (19mm)</span></div>
+      </div>
+    </div>
+
+    <div class="cote-card">
+      <div class="cote-title">📦 Rangements &amp; tiroirs</div>
+      <svg class="cote-svg" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- Colonne -->
+        <rect x="80" y="10" width="140" height="180" rx="2" fill="none" stroke="#323446" stroke-width="1.5"/>
+        <!-- Tablettes 5 espacées -->
+        <line x1="80" y1="46" x2="220" y2="46" stroke="#d4a843" stroke-width="1"/>
+        <line x1="80" y1="82" x2="220" y2="82" stroke="#d4a843" stroke-width="1"/>
+        <line x1="80" y1="118" x2="220" y2="118" stroke="#d4a843" stroke-width="1"/>
+        <line x1="80" y1="154" x2="220" y2="154" stroke="#d4a843" stroke-width="1"/>
+        <!-- Cote entre tablettes -->
+        <line x1="232" y1="10" x2="232" y2="46" stroke="#3ecfb0" stroke-width="1"/>
+        <line x1="226" y1="10" x2="238" y2="10" stroke="#3ecfb0" stroke-width="1"/>
+        <line x1="226" y1="46" x2="238" y2="46" stroke="#3ecfb0" stroke-width="1"/>
+        <text x="248" y="32" fill="#3ecfb0" font-size="9" font-family="DM Mono">300mm</text>
+        <text x="248" y="42" fill="#6b6d88" font-size="8" font-family="DM Mono">min pull</text>
+        <!-- Zone chaussures -->
+        <rect x="84" y="156" width="132" height="30" rx="1" fill="rgba(168,127,232,.05)" stroke="#a87fe8" stroke-width="1"/>
+        <text x="150" y="175" fill="#a87fe8" font-size="9" font-family="DM Mono" text-anchor="middle">Chaussures: 200mm</text>
+        <!-- Cote largeur -->
+        <line x1="80" y1="198" x2="220" y2="198" stroke="#5b9ef5" stroke-width="1"/>
+        <line x1="80" y1="192" x2="80" y2="204" stroke="#5b9ef5" stroke-width="1"/>
+        <line x1="220" y1="192" x2="220" y2="204" stroke="#5b9ef5" stroke-width="1"/>
+        <text x="150" y="208" fill="#5b9ef5" font-size="9" font-family="DM Mono" text-anchor="middle">400–600 mm</text>
+        <!-- Labels espacements -->
+        <text x="150" y="68" fill="#6b6d88" font-size="9" font-family="DM Mono" text-anchor="middle">~300mm / tablette</text>
+        <text x="150" y="102" fill="#6b6d88" font-size="9" font-family="DM Mono" text-anchor="middle">Adaptable</text>
+      </svg>
+      <div class="dim-table">
+        <div class="dim-row"><span class="dim-k">Tablette pliage (pulls, T-shirts)</span><span class="dim-v">300–350 mm entre tablettes</span></div>
+        <div class="dim-row"><span class="dim-k">Tablette linge de lit</span><span class="dim-v">400–450 mm</span></div>
+        <div class="dim-row"><span class="dim-k">Case chaussures</span><span class="dim-v">150–200 mm (H), 350mm (P)</span></div>
+        <div class="dim-row"><span class="dim-k">Tiroir plat (foulards, ceintures)</span><span class="dim-v">100–120 mm de haut</span></div>
+        <div class="dim-row"><span class="dim-k">Panier fil coulissant</span><span class="dim-v">Hauteur 150mm, profondeur caisson</span></div>
+        <div class="dim-row"><span class="dim-k">Largeur module standard</span><span class="dim-v">400, 500, 600, 800 mm</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- BUREAU -->
+<div class="section" id="bureau">
+  <div class="sec-title">Bureau &amp; bibliothèque — Cotes standards</div>
+
+  <div class="cote-grid">
+    <div class="cote-card">
+      <div class="cote-title">💻 Bureau travail assis</div>
+      <svg class="cote-svg" viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
+        <!-- Sol -->
+        <line x1="20" y1="165" x2="280" y2="165" stroke="#3a3c54" stroke-width="2"/>
+        <!-- Pieds -->
+        <rect x="70" y="85" width="12" height="78" rx="2" fill="#1c1e28" stroke="#323446" stroke-width="1"/>
+        <rect x="218" y="85" width="12" height="78" rx="2" fill="#1c1e28" stroke="#323446" stroke-width="1"/>
+        <!-- Plan bureau -->
+        <rect x="55" y="76" width="190" height="12" rx="3" fill="#1c1e28" stroke="#d4a843" stroke-width="1.5"/>
+        <!-- Cote hauteur -->
+        <line x1="35" y1="76" x2="35" y2="165" stroke="#d4a843" stroke-width="1"/>
+        <line x1="29" y1="76" x2="41" y2="76" stroke="#d4a843" stroke-width="1"/>
+        <line x1="29" y1="165" x2="41" y2="165" stroke="#d4a843" stroke-width="1"/>
+        <text x="20" y="124" fill="#d4a843" font-size="9" font-family="DM Mono" text-anchor="middle" transform="rotate(-90,20,124)">720–750mm</text>
+        <!-- Profondeur -->
+        <line x1="55" y1="176" x2="245" y2="176" stroke="#5b9ef5" stroke-width="1"/>
+        <line x1="55" y1="170" x2="55" y2="182" stroke="#5b9ef5" stroke-width="1"/>
+        <line x1="245" y1="170" x2="245" y2="182" stroke="#5b9ef5" stroke-width="1"/>
+        <text x="150" y="184" fill="#5b9ef5" font-size="9" font-family="DM Mono" text-anchor="middle">700–800 mm (profondeur)</text>
+        <!-- Espace genoux -->
+        <rect x="82" y="88" width="136" height="77" rx="2" fill="rgba(62,207,176,.04)" stroke="#3ecfb0" stroke-width="1" stroke-dasharray="3,2"/>
+        <text x="150" y="133" fill="#3ecfb0" font-size="9" font-family="DM Mono" text-anchor="middle">Espace genoux</text>
+        <text x="150" y="145" fill="#6b6d88" font-size="8" font-family="DM Mono" text-anchor="middle">min 600mm (H) × 500mm (P)</text>
+        <!-- Écran distance -->
+        <rect x="200" y="30" width="40" height="30" rx="2" fill="none" stroke="#a87fe8" stroke-width="1"/>
+        <line x1="200" y1="30" x2="240" y2="30" stroke="#a87fe8" stroke-width="1"/>
+        <line x1="150" y1="76" x2="200" y2="60" stroke="#a87fe8" stroke-width="1" stroke-dasharray="2,2"/>
+        <text x="185" y="26" fill="#a87fe8" font-size="8" font-family="DM Mono">600–700mm</text>
+        <text x="150" y="95" fill="#6b6d88" font-size="9" font-family="DM Mono" text-anchor="middle">Plan bureau</text>
+      </svg>
+      <div class="dim-table">
+        <div class="dim-row"><span class="dim-k">Hauteur standard</span><span class="dim-v">720–750 mm</span></div>
+        <div class="dim-row"><span class="dim-k">Hauteur réglable (ergonomique)</span><span class="dim-v">640–1 300 mm (assis/debout)</span></div>
+        <div class="dim-row"><span class="dim-k">Profondeur plan de travail</span><span class="dim-v">700–800 mm</span></div>
+        <div class="dim-row"><span class="dim-k">Largeur min bureau 1 personne</span><span class="dim-v">1 200 mm</span></div>
+        <div class="dim-row"><span class="dim-k">Espace sous bureau (genoux)</span><span class="dim-v">600mm H × 500mm P</span></div>
+        <div class="dim-row"><span class="dim-k">Distance œil-écran recommandée</span><span class="dim-v">600–700 mm</span></div>
+      </div>
+    </div>
+
+    <div class="cote-card">
+      <div class="cote-title">📚 Bibliothèque</div>
+      <svg class="cote-svg" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- Structure -->
+        <rect x="60" y="10" width="180" height="185" rx="2" fill="none" stroke="#323446" stroke-width="1.5"/>
+        <!-- Tablettes -->
+        <line x1="60" y1="42" x2="240" y2="42" stroke="#d4a843" stroke-width="1"/>
+        <line x1="60" y1="82" x2="240" y2="82" stroke="#d4a843" stroke-width="1"/>
+        <line x1="60" y1="120" x2="240" y2="120" stroke="#d4a843" stroke-width="1"/>
+        <line x1="60" y1="158" x2="240" y2="158" stroke="#d4a843" stroke-width="1"/>
+        <!-- Livres stylisés -->
+        <rect x="65" y="50" width="8" height="30" rx="1" fill="#3ecfb0" opacity=".6"/>
+        <rect x="74" y="55" width="6" height="25" rx="1" fill="#5b9ef5" opacity=".6"/>
+        <rect x="81" y="48" width="9" height="32" rx="1" fill="#d4a843" opacity=".6"/>
+        <rect x="91" y="53" width="7" height="27" rx="1" fill="#a87fe8" opacity=".6"/>
+        <rect x="65" y="88" width="8" height="28" rx="1" fill="#e8923a" opacity=".6"/>
+        <rect x="74" y="93" width="6" height="23" rx="1" fill="#3ecfb0" opacity=".6"/>
+        <!-- Cote hauteur case -->
+        <line x1="248" y1="10" x2="248" y2="42" stroke="#3ecfb0" stroke-width="1"/>
+        <line x1="242" y1="10" x2="254" y2="10" stroke="#3ecfb0" stroke-width="1"/>
+        <line x1="242" y1="42" x2="254" y2="42" stroke="#3ecfb0" stroke-width="1"/>
+        <text x="270" y="30" fill="#3ecfb0" font-size="9" font-family="DM Mono" transform="rotate(90,270,30)" text-anchor="middle">300mm</text>
+        <!-- Cote profondeur -->
+        <line x1="60" y1="198" x2="240" y2="198" stroke="#5b9ef5" stroke-width="1"/>
+        <line x1="60" y1="192" x2="60" y2="204" stroke="#5b9ef5" stroke-width="1"/>
+        <line x1="240" y1="192" x2="240" y2="204" stroke="#5b9ef5" stroke-width="1"/>
+        <text x="150" y="208" fill="#5b9ef5" font-size="9" font-family="DM Mono" text-anchor="middle">250–350 mm</text>
+        <!-- Portée tablette -->
+        <line x1="60" y1="18" x2="240" y2="18" stroke="#e8923a" stroke-width="1" stroke-dasharray="3,2"/>
+        <text x="150" y="14" fill="#e8923a" font-size="8" font-family="DM Mono" text-anchor="middle">Portée max: 800mm (19mm)</text>
+      </svg>
+      <div class="dim-table">
+        <div class="dim-row"><span class="dim-k">Hauteur case standard (livres)</span><span class="dim-v">300–320 mm</span></div>
+        <div class="dim-row"><span class="dim-k">Hauteur case grand format</span><span class="dim-v">350–400 mm</span></div>
+        <div class="dim-row"><span class="dim-k">Profondeur bibliothèque</span><span class="dim-v">250–350 mm</span></div>
+        <div class="dim-row"><span class="dim-k">Portée tablette 19mm sans déflexion</span><span class="dim-v">max 800 mm</span></div>
+        <div class="dim-row"><span class="dim-k">Portée tablette 22mm</span><span class="dim-v">max 1 000 mm</span></div>
+        <div class="dim-row"><span class="dim-k">Hauteur totale accès debout</span><span class="dim-v">1 700–2 100 mm</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- SALLE DE BAIN -->
+<div class="section" id="bain">
+  <div class="sec-title">Salle de bain — Cotes standards</div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Élément</th><th>Cote standard</th><th>Plage possible</th><th>Remarque ergonomique</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="c-gold">Hauteur vasque / dessus plan vasque</td>
+          <td>800–850 mm</td>
+          <td>750–900 mm</td>
+          <td>Plus bas que cuisine — position penchée pour lavage</td>
+        </tr>
+        <tr>
+          <td class="c-gold">Profondeur meuble sous vasque</td>
+          <td>450–500 mm</td>
+          <td>380–550 mm</td>
+          <td>Siphon et plomberie à intégrer (+100mm derrière)</td>
+        </tr>
+        <tr>
+          <td class="c-gold">Largeur meuble standard</td>
+          <td>600–800 mm</td>
+          <td>400–1 200 mm</td>
+          <td>Vasque à poser ou encastrée définit la largeur min</td>
+        </tr>
+        <tr>
+          <td class="c-gold">Miroir bas (/ sol)</td>
+          <td>900–1 000 mm</td>
+          <td>800–1 100 mm</td>
+          <td>Doit permettre de voir son visage de face</td>
+        </tr>
+        <tr>
+          <td class="c-gold">Hauteur colonne de rangement</td>
+          <td>1 800–2 000 mm</td>
+          <td>1 600–2 400 mm</td>
+          <td>Intègre souvent la machine à laver ou le lave-linge</td>
+        </tr>
+        <tr>
+          <td class="c-gold">Tablette rangement (serviettes)</td>
+          <td>350–400 mm entre tablettes</td>
+          <td>300–500 mm</td>
+          <td>Serviettes pliées = 200mm H minimum</td>
+        </tr>
+        <tr>
+          <td class="c-gold">Espace circulation entre meubles</td>
+          <td>900 mm minimum</td>
+          <td>min 600 mm (PMR 900)</td>
+          <td>Circulation confortable pour se baisser / s'essuyer</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- AGENCEMENT COMMERCIAL -->
+<div class="section">
+  <div class="sec-title">Agencement commercial — Cotes standards</div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Élément</th><th>Cote standard</th><th>Justification</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="c-gold">Hauteur comptoir accueil / caisse</td>
+          <td>1 050–1 100 mm</td>
+          <td>Confort debout pour vendeur + client face à face</td>
+        </tr>
+        <tr>
+          <td class="c-gold">Partie basse comptoir (côté client)</td>
+          <td>720–750 mm</td>
+          <td>Zone de poser (sac, documents) accessible assis</td>
+        </tr>
+        <tr>
+          <td class="c-gold">Profondeur comptoir</td>
+          <td>600–700 mm</td>
+          <td>Matériel caisse, terminal, rangement vendeur dessous</td>
+        </tr>
+        <tr>
+          <td class="c-gold">Hauteur vitrine bijouterie / montres</td>
+          <td>900–1 000 mm (plan de verre)</td>
+          <td>Observation sans se baisser, préhension facile</td>
+        </tr>
+        <tr>
+          <td class="c-gold">Hauteur rayonnage — zone de présentation principale</td>
+          <td>700–1 600 mm</td>
+          <td>Zone de confort de vision et de préhension</td>
+        </tr>
+        <tr>
+          <td class="c-gold">Zone chaude rayonnage</td>
+          <td>900–1 300 mm</td>
+          <td>Hauteur des yeux — produits à vendre en priorité ici</td>
+        </tr>
+        <tr>
+          <td class="c-gold">Hauteur totale gondole</td>
+          <td>1 800–2 200 mm</td>
+          <td>Limite physique d'atteinte sans marchepied</td>
+        </tr>
+        <tr>
+          <td class="c-gold">Allée principale entre gondoles</td>
+          <td>1 800–2 400 mm minimum</td>
+          <td>Deux personnes croisement + chariots / poussettes</td>
+        </tr>
+        <tr>
+          <td class="c-gold">Allée secondaire</td>
+          <td>1 200–1 500 mm</td>
+          <td>Passage simple + panier</td>
+        </tr>
+        <tr>
+          <td class="c-gold">Présentoir de caisse (chewing-gums, piles…)</td>
+          <td>1 000–1 200 mm</td>
+          <td>Hauteur de vision en file d'attente</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- PMR -->
+<div class="section" id="pmr">
+  <div class="sec-title">PMR — Accessibilité : cotes réglementaires</div>
+
+  <div class="pmr-card">
+    <div class="pmr-title">♿ Personnes à Mobilité Réduite — Réglementation française</div>
+    <div class="pmr-sub">Décret 2006-555 et loi Accessibilité 2005 — Obligations en ERP (Établissement Recevant du Public) et logements adaptables</div>
+
+    <div class="pmr-grid">
+      <div class="pmr-item">
+        <div class="pmr-val">800mm</div>
+        <div class="pmr-lbl">Hauteur max plan de travail accessible fauteuil</div>
+      </div>
+      <div class="pmr-item">
+        <div class="pmr-val">700mm</div>
+        <div class="pmr-lbl">Hauteur min sous plan (espace genou fauteuil)</div>
+      </div>
+      <div class="pmr-item">
+        <div class="pmr-val">600mm</div>
+        <div class="pmr-lbl">Profondeur max sous plan accessible (jambes)</div>
+      </div>
+      <div class="pmr-item">
+        <div class="pmr-val">900mm</div>
+        <div class="pmr-lbl">Largeur min passage entre meubles / allée</div>
+      </div>
+      <div class="pmr-item">
+        <div class="pmr-val">1500mm</div>
+        <div class="pmr-lbl">Espace libre demi-tour fauteuil roulant</div>
+      </div>
+      <div class="pmr-item">
+        <div class="pmr-val">400–1300mm</div>
+        <div class="pmr-lbl">Zone de portée accessible depuis fauteuil (H)</div>
+      </div>
+      <div class="pmr-item">
+        <div class="pmr-val">850mm</div>
+        <div class="pmr-lbl">Hauteur max vasque accessible</div>
+      </div>
+      <div class="pmr-item">
+        <div class="pmr-val">400mm</div>
+        <div class="pmr-lbl">Hauteur assise WC adaptée PMR</div>
+      </div>
+      <div class="pmr-item">
+        <div class="pmr-val">45mm</div>
+        <div class="pmr-lbl">Hauteur max ressaut / seuil sans rampe</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="infobox teal">
+    <strong>Adapter un meuble standard PMR</strong>
+    Pour rendre une cuisine accessible en fauteuil : 1) Supprimer les meubles bas sous vasque et plan de cuisson pour libérer 700mm de hauteur libre. 2) Abaisser les plans à 800mm maximum. 3) Remplacer les poignées par des barres horizontales longues (plus faciles à attraper). 4) Prévoir au moins une zone de dégagement de 1 500×1 500 mm pour le demi-tour. 5) Proscrire les plans de travail en coin non accessibles.
+  </div>
+
+  <div class="infobox">
+    <strong>Guide d'adaptation des cotes au client</strong>
+    Avant chaque projet, poser 4 questions au client : (1) Quelle est votre taille ? — pour ajuster la hauteur des plans. (2) Des enfants utilisent-ils le meuble ? — pour prévoir des zones basses accessibles. (3) Y a-t-il une personne PMR dans le foyer ? — pour intégrer les contraintes réglementaires. (4) Quel est votre usage principal ? — pour prioriser rangements debout vs assis, accès fréquent vs stockage. Ces réponses permettent de personnaliser les cotes standards plutôt que de les appliquer mécaniquement.
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- ══════════ FICHES RÉCAP ══════════ -->
+<div class="part-divider" id="recaps">
+  <div class="part-num-big">📋</div>
+  <div class="part-info">
+    <h2>Fiches Récapitulatives</h2>
+    <p>Tableaux synthétiques — colles, finitions, cotes</p>
+  </div>
+</div>
+
+<!-- RECAP COLLES -->
+<div class="section">
+  <div class="recap-banner">
+    <div class="recap-icon">🧪</div>
+    <div><h3>Fiche Récap — Tableau comparatif des colles</h3><p>Choisir la bonne colle en 30 secondes</p></div>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Colle</th><th>Résistance méca.</th><th>Humidité</th><th>Temps ouvert</th><th>Repositionnable</th><th>Matériaux</th><th>Coût</th><th>Usage prioritaire</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="c-gold">PVA D2</td><td class="c-mid">★★★☆☆</td><td class="c-bad">Intérieur sec</td><td>5–15 min</td><td class="c-good">Oui (avant prise)</td><td>Bois/bois</td><td class="c-good">€</td><td>Assemblages menuiserie courants</td></tr>
+        <tr><td class="c-gold">PVA D3/D4</td><td class="c-good">★★★★☆</td><td class="c-mid">Résistant eau</td><td>10–20 min</td><td class="c-good">Oui (avant prise)</td><td>Bois/bois</td><td class="c-mid">€€</td><td>Cuisine, extérieur protégé</td></tr>
+        <tr><td class="c-gold">PU</td><td class="c-good">★★★★★</td><td class="c-good">Excellent</td><td>15–30 min</td><td class="c-bad">Non</td><td>Bois, métal, béton</td><td class="c-mid">€€€</td><td>Structures, pièces exposées</td></tr>
+        <tr><td class="c-gold">Contact néoprène</td><td class="c-good">★★★★☆</td><td class="c-mid">Moyen</td><td>Temps de flash</td><td class="c-bad">Non — définitif</td><td>Stratifié, liège</td><td class="c-mid">€€</td><td>Plans de travail HPL, stratifiés</td></tr>
+        <tr><td class="c-gold">Hot melt</td><td class="c-good">★★★★☆</td><td class="c-mid">Moyen</td><td>Secondes</td><td class="c-bad">Non</td><td>ABS, placage</td><td class="c-dim">Machines</td><td>Chants en production</td></tr>
+        <tr><td class="c-gold">Époxy</td><td class="c-good">★★★★★</td><td class="c-good">Excellent</td><td>5–60 min</td><td class="c-bad">Non</td><td>Multi-matériaux</td><td class="c-bad">€€€€</td><td>Bois/métal, réparations structurelles</td></tr>
+        <tr><td class="c-gold">Cyanoacrylate</td><td class="c-mid">★★☆☆☆</td><td class="c-bad">Faible</td><td>&lt; 1 min</td><td class="c-bad">Non</td><td>Surfaces lisses</td><td class="c-mid">€€</td><td>Précision, petites pièces</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- RECAP FINITIONS -->
+<div class="section">
+  <div class="recap-banner">
+    <div class="recap-icon">🎨</div>
+    <div><h3>Fiche Récap — Guide de choix des finitions</h3><p>Quelle finition pour quel projet</p></div>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Finition</th><th>Protection</th><th>Aspect</th><th>Entretien</th><th>Extérieur</th><th>Meilleur sur</th><th>À éviter sur</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="c-gold">Vernis acrylique</td><td class="c-good">★★★★☆</td><td>Mat à brillant</td><td class="c-mid">Ponçage requis</td><td class="c-bad">Non</td><td>Parquet intérieur, meuble</td><td>Bois résineux sans dégraissage</td></tr>
+        <tr><td class="c-gold">Vernis PU bicomposant</td><td class="c-good">★★★★★</td><td>Mat à brillant</td><td class="c-bad">Difficile</td><td class="c-mid">Selon formulation</td><td>Escalier, parquet intense</td><td>Grandes surfaces en DIY</td></tr>
+        <tr><td class="c-gold">Lasure</td><td class="c-good">★★★★☆</td><td>Semi-transparent</td><td class="c-good">Repassage facile</td><td class="c-good">Oui</td><td>Fenêtres, bardage, volets</td><td>Meubles intérieurs peints</td></tr>
+        <tr><td class="c-gold">Huile</td><td class="c-mid">★★★☆☆</td><td>Mat naturel</td><td class="c-good">Très facile</td><td class="c-mid">Huile ext. seulement</td><td>Chêne, noyer, parquet noble</td><td>Bois sous peinture prévue</td></tr>
+        <tr><td class="c-gold">Cire</td><td class="c-bad">★★☆☆☆</td><td>Brillant soyeux</td><td class="c-good">Facile</td><td class="c-bad">Non</td><td>Mobilier patiné, rustique</td><td>Sous vernis / peinture</td></tr>
+        <tr><td class="c-gold">Peinture acrylique</td><td class="c-good">★★★★☆</td><td>Opaque toutes teintes</td><td class="c-mid">Lessivable</td><td class="c-mid">Formulation ext. requise</td><td>MDF, sapin, bois tendres</td><td>Bois ciré ou huilé</td></tr>
+        <tr><td class="c-gold">Peinture alkyde (solvant)</td><td class="c-good">★★★★★</td><td>Satiné ou brillant</td><td class="c-good">Très lessivable</td><td class="c-good">Oui</td><td>Façades cuisine, métal</td><td>Pièces mal ventilées (odeurs)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- RECAP COTES -->
+<div class="section">
+  <div class="recap-banner">
+    <div class="recap-icon">📐</div>
+    <div><h3>Fiche Récap — Toutes les cotes standards par projet</h3><p>Référence rapide pour dimensionner sans erreur</p></div>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Projet</th><th>Élément</th><th>Cote standard</th><th>Plage d'adaptation</th></tr>
+      </thead>
+      <tbody>
+        <tr><td rowspan="5" style="vertical-align:middle;font-family:'Epilogue',sans-serif;font-weight:800;color:var(--gold2);">Cuisine</td>
+            <td>Hauteur plan de travail</td><td class="c-gold">870 mm</td><td>820–920 mm selon taille</td></tr>
+        <tr><td>Profondeur meuble bas</td><td class="c-gold">565 mm (plan à 600)</td><td>560–600 mm</td></tr>
+        <tr><td>Hauteur caisson nu</td><td class="c-gold">720 mm</td><td>680–760 mm</td></tr>
+        <tr><td>Hauteur meuble haut</td><td class="c-gold">600–720 mm</td><td>450–900 mm</td></tr>
+        <tr><td>Espacement hauts/bas</td><td class="c-gold">530–600 mm</td><td>500–650 mm</td></tr>
+
+        <tr><td rowspan="4" style="vertical-align:middle;font-family:'Epilogue',sans-serif;font-weight:800;color:var(--gold2);">Dressing</td>
+            <td>Profondeur penderie</td><td class="c-gold">600 mm</td><td>500–650 mm</td></tr>
+        <tr><td>Penderie longue (robes)</td><td class="c-gold">1 750 mm haut libre</td><td>1 600–1 900 mm</td></tr>
+        <tr><td>Penderie mi-hauteur (vestes)</td><td class="c-gold">1 050 mm haut libre</td><td>950–1 100 mm</td></tr>
+        <tr><td>Tablette pliage (pulls)</td><td class="c-gold">300–350 mm / case</td><td>280–450 mm</td></tr>
+
+        <tr><td rowspan="3" style="vertical-align:middle;font-family:'Epilogue',sans-serif;font-weight:800;color:var(--gold2);">Bureau</td>
+            <td>Hauteur plan bureau</td><td class="c-gold">720–750 mm</td><td>640–1 300 mm (réglable)</td></tr>
+        <tr><td>Profondeur plan</td><td class="c-gold">700–800 mm</td><td>600–900 mm</td></tr>
+        <tr><td>Espace genoux sous plan</td><td class="c-gold">600 mm H × 500 mm P</td><td>PMR : 700 mm H min</td></tr>
+
+        <tr><td rowspan="3" style="vertical-align:middle;font-family:'Epilogue',sans-serif;font-weight:800;color:var(--gold2);">Salle de bain</td>
+            <td>Hauteur vasque (dessus)</td><td class="c-gold">800–850 mm</td><td>750–900 mm</td></tr>
+        <tr><td>Profondeur meuble vasque</td><td class="c-gold">450–500 mm</td><td>380–550 mm</td></tr>
+        <tr><td>Espace circulation</td><td class="c-gold">900 mm min</td><td>600 mm min (PMR 900)</td></tr>
+
+        <tr><td rowspan="4" style="vertical-align:middle;font-family:'Epilogue',sans-serif;font-weight:800;color:var(--gold2);">Commerce</td>
+            <td>Hauteur comptoir caisse</td><td class="c-gold">1 050–1 100 mm</td><td>900–1 150 mm</td></tr>
+        <tr><td>Zone chaude rayonnage</td><td class="c-gold">900–1 300 mm</td><td>700–1 600 mm</td></tr>
+        <tr><td>Allée principale</td><td class="c-gold">1 800–2 400 mm</td><td>min 1 200 mm (PMR 1 500)</td></tr>
+        <tr><td>Hauteur gondole max</td><td class="c-gold">1 800–2 200 mm</td><td>1 600–2 400 mm</td></tr>
+
+        <tr><td rowspan="4" style="vertical-align:middle;font-family:'Epilogue',sans-serif;font-weight:800;color:var(--teal);">PMR ♿</td>
+            <td>Plan de travail max</td><td style="color:var(--teal);font-weight:600;">800 mm</td><td>Réglementaire — non négociable en ERP</td></tr>
+        <tr><td>Espace libre demi-tour</td><td style="color:var(--teal);font-weight:600;">Ø 1 500 mm</td><td>Obligatoire en ERP</td></tr>
+        <tr><td>Zone de portée assise</td><td style="color:var(--teal);font-weight:600;">400–1 300 mm</td><td>Contrainte conception</td></tr>
+        <tr><td>Largeur allée min PMR</td><td style="color:var(--teal);font-weight:600;">900 mm</td><td>1 200 mm recommandé</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<footer>
+  <div>Cours Professionnel — Colles, Finitions &amp; Cotes Standards · Parties 5 &amp; 6</div>
+  <div style="margin-top:6px;color:var(--dim);font-size:11px;">Menuiserie &amp; Agencement · Document pédagogique</div>
+  <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ RETOUR EN HAUT</a>
+</footer>
+
+</body>
+</html>

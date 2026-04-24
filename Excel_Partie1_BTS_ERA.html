@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Excel – Partie 1 | BTS ERA Bureautique</title>
+<style>
+  :root {
+    --bleu:    #1a4b8c;
+    --bleu2:   #2563b0;
+    --vert:    #1a7a4a;
+    --vert2:   #22a85f;
+    --jaune:   #f5a623;
+    --rouge:   #d0021b;
+    --gris0:   #f4f7fb;
+    --gris1:   #e8eef7;
+    --gris2:   #c9d8ee;
+    --gris3:   #7a90b0;
+    --texte:   #1e2a3a;
+    --blanc:   #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--gris0); color: var(--texte); font-size: 15px; line-height: 1.65; }
+
+  /* ── HEADER ── */
+  header { background: linear-gradient(135deg, var(--bleu) 0%, var(--bleu2) 60%, var(--vert) 100%); color: var(--blanc); padding: 36px 40px 28px; position: relative; overflow: hidden; }
+  header::after { content:''; position:absolute; right:-60px; top:-40px; width:260px; height:260px; border-radius:50%; background:rgba(255,255,255,.07); }
+  header h1 { font-size: 2.1rem; font-weight: 700; letter-spacing: .5px; }
+  header p.sub { font-size: 1.05rem; margin-top: 6px; opacity: .88; }
+  .badge-bts { display:inline-block; background:rgba(255,255,255,.2); border:1px solid rgba(255,255,255,.4); border-radius:20px; padding:3px 14px; font-size:.82rem; margin-top:10px; }
+
+  /* ── NAV TABLE OF CONTENTS ── */
+  nav.toc { background: var(--blanc); border-left: 5px solid var(--bleu2); margin: 28px 40px; border-radius: 8px; box-shadow: 0 2px 10px rgba(26,75,140,.10); padding: 22px 28px; }
+  nav.toc h2 { color: var(--bleu); font-size:1.1rem; margin-bottom:12px; }
+  nav.toc ol { padding-left:22px; }
+  nav.toc li { margin: 5px 0; }
+  nav.toc a { color: var(--bleu2); text-decoration:none; font-weight:500; }
+  nav.toc a:hover { text-decoration:underline; }
+  nav.toc .sub-items { list-style:disc; padding-left:20px; margin-top:4px; }
+  nav.toc .sub-items li { font-size:.9rem; color:var(--gris3); font-weight:400; }
+
+  /* ── CHAPTERS ── */
+  .chapter { margin: 32px 40px; background: var(--blanc); border-radius: 10px; box-shadow: 0 2px 16px rgba(26,75,140,.09); overflow:hidden; }
+  .chapter-header { padding: 20px 30px; display:flex; align-items:center; gap:16px; }
+  .chapter-header.bleu  { background: linear-gradient(90deg, var(--bleu) 0%, var(--bleu2) 100%); }
+  .chapter-header.vert  { background: linear-gradient(90deg, var(--vert) 0%, var(--vert2) 100%); }
+  .chapter-header.jaune { background: linear-gradient(90deg, #b87000 0%, var(--jaune) 100%); }
+  .chapter-header.violet{ background: linear-gradient(90deg, #5b2d8e 0%, #8e44ad 100%); }
+  .chapter-num { font-size:2rem; font-weight:900; color:rgba(255,255,255,.35); line-height:1; min-width:44px; }
+  .chapter-title { color:var(--blanc); font-size:1.35rem; font-weight:700; }
+  .chapter-body { padding: 30px 34px; }
+
+  /* ── SECTIONS ── */
+  .section-title { font-size:1.08rem; font-weight:700; color:var(--bleu); border-bottom:2px solid var(--gris1); padding-bottom:6px; margin-top:28px; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+  .section-title .icon { font-size:1.1rem; }
+  .section-title.vert { color:var(--vert); }
+  .section-title.jaune { color:#b87000; }
+  .section-title.violet { color:#5b2d8e; }
+
+  p { margin-bottom: 10px; }
+  ul, ol { padding-left:22px; margin-bottom:12px; }
+  li { margin-bottom:4px; }
+  strong { color: var(--bleu); }
+  code { background:var(--gris1); border:1px solid var(--gris2); border-radius:4px; padding:1px 6px; font-family:Consolas,monospace; font-size:.9rem; color:var(--rouge); }
+
+  /* ── SCHÉMAS VISUELS ── */
+  .schema { background:var(--gris0); border:2px solid var(--gris2); border-radius:8px; padding:18px 20px; margin:16px 0; }
+  .schema-title { font-size:.85rem; font-weight:700; color:var(--gris3); text-transform:uppercase; letter-spacing:.8px; margin-bottom:12px; }
+
+  /* Interface Excel simulée */
+  .excel-ui { border:2px solid #aaa; border-radius:5px; overflow:hidden; font-size:.82rem; box-shadow:0 3px 12px rgba(0,0,0,.12); max-width:680px; margin:0 auto; }
+  .excel-title-bar { background:#217346; color:#fff; padding:5px 10px; font-weight:600; font-size:.8rem; display:flex; align-items:center; gap:8px; }
+  .excel-ribbon { background:#e8f5ee; border-bottom:1px solid #c5d9c9; }
+  .excel-tabs { display:flex; background:#217346; }
+  .excel-tab { padding:5px 14px; color:rgba(255,255,255,.75); font-size:.77rem; cursor:pointer; border-right:1px solid rgba(255,255,255,.15); }
+  .excel-tab.active { background:#fff; color:#217346; font-weight:700; border-bottom:none; }
+  .excel-ribbon-btns { display:flex; flex-wrap:wrap; gap:2px; padding:6px 10px; }
+  .rb-group { border:1px solid #c5d9c9; border-radius:4px; padding:4px 8px; background:#fff; min-width:60px; }
+  .rb-group-title { font-size:.68rem; color:#7a9a80; text-align:center; margin-top:3px; border-top:1px solid #e0ece2; padding-top:2px; }
+  .rb-btns { display:flex; gap:4px; justify-content:center; flex-wrap:wrap; }
+  .rb-btn { background:#f0f7f2; border:1px solid #c5d9c9; border-radius:3px; padding:2px 6px; font-size:.72rem; color:#1a4b2a; white-space:nowrap; }
+  .rb-btn.active { background:#217346; color:#fff; }
+  .formula-bar { display:flex; align-items:center; border-bottom:1px solid #ccc; padding:3px 6px; background:#fff; gap:6px; font-size:.8rem; }
+  .name-box { border:1px solid #aaa; border-radius:3px; padding:2px 6px; width:60px; text-align:center; font-weight:700; color:#1a4b8c; }
+  .formula-input { flex:1; border:1px solid #aaa; border-radius:3px; padding:2px 8px; font-family:Consolas,monospace; }
+  .cell-grid { overflow:auto; }
+  .cell-table { border-collapse:collapse; width:100%; }
+  .cell-table th { background:#f2f2f2; border:1px solid #d0d0d0; padding:3px 8px; font-size:.75rem; color:#555; font-weight:600; text-align:center; min-width:28px; }
+  .cell-table td { border:1px solid #d0d0d0; padding:3px 8px; font-size:.78rem; min-width:70px; white-space:nowrap; }
+  .cell-table td.active { background:#cce2ff; border:2px solid #1a4b8c; }
+  .cell-table td.header-col { background:#f2f2f2; font-weight:700; text-align:center; color:#555; font-size:.75rem; min-width:26px; }
+  .sheet-tabs { display:flex; background:#f2f2f2; border-top:1px solid #ccc; padding:2px 6px; gap:3px; }
+  .sheet-tab { padding:3px 12px; background:#fff; border:1px solid #ccc; border-bottom:none; border-radius:4px 4px 0 0; font-size:.73rem; color:#333; cursor:pointer; }
+  .sheet-tab.active { background:#217346; color:#fff; border-color:#217346; }
+
+  /* Grille de cellules générique */
+  .cell-demo { display:inline-grid; border:1px solid #aaa; border-collapse:collapse; font-size:.82rem; }
+  .cell-demo .c-head { background:#f0f0f0; border:1px solid #bbb; padding:2px 10px; text-align:center; font-weight:700; color:#555; font-size:.75rem; }
+  .cell-demo .c { border:1px solid #bbb; padding:3px 10px; min-width:80px; text-align:center; }
+  .cell-demo .c.sel { background:#cce2ff; border:2px solid #1a4b8c; font-weight:700; }
+  .cell-demo .c.formula { background:#fffbe6; color:#8b5000; font-family:Consolas,monospace; }
+  .cell-demo .c.result { background:#eaffef; color:#1a7a4a; font-weight:700; }
+  .cell-demo .c.bold { font-weight:700; }
+  .cell-demo .c.center { text-align:center; }
+  .cell-demo .c.right { text-align:right; }
+  .cell-demo .c.merge { background:#e8eef7; font-weight:700; color:#1a4b8c; text-align:center; grid-column: span 3; }
+
+  /* Flèche annotation */
+  .annotated { position:relative; display:inline-block; }
+  .annot-box { position:absolute; background:#1a4b8c; color:#fff; border-radius:4px; padding:3px 8px; font-size:.73rem; white-space:nowrap; z-index:10; }
+  .annot-box::after { content:''; position:absolute; border:5px solid transparent; }
+
+  /* ── ENCADRÉS INFO ── */
+  .info-box { border-radius:7px; padding:14px 18px; margin:14px 0; border-left:5px solid; }
+  .info-box.bleu   { background:#e8f0fb; border-color:var(--bleu2); }
+  .info-box.vert   { background:#e6f7ee; border-color:var(--vert2); }
+  .info-box.jaune  { background:#fff8e6; border-color:var(--jaune); }
+  .info-box.rouge  { background:#fff0f0; border-color:var(--rouge); }
+  .info-box .ib-title { font-weight:700; font-size:.88rem; text-transform:uppercase; letter-spacing:.5px; margin-bottom:5px; }
+  .info-box.bleu  .ib-title { color:var(--bleu2); }
+  .info-box.vert  .ib-title { color:var(--vert); }
+  .info-box.jaune .ib-title { color:#b87000; }
+  .info-box.rouge .ib-title { color:var(--rouge); }
+
+  /* ── TABLEAU RACCOURCIS ── */
+  .shortcut-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(240px,1fr)); gap:8px; margin:12px 0; }
+  .shortcut-item { background:var(--gris0); border:1px solid var(--gris2); border-radius:6px; padding:8px 12px; display:flex; align-items:center; gap:10px; }
+  .shortcut-item kbd { background:#fff; border:2px solid var(--gris3); border-radius:5px; padding:2px 8px; font-family:Consolas,monospace; font-size:.82rem; font-weight:700; color:var(--bleu); box-shadow:0 2px 0 var(--gris3); white-space:nowrap; min-width:70px; text-align:center; }
+  .shortcut-item span { font-size:.85rem; color:var(--texte); }
+
+  /* ── EXERCICES ── */
+  .exo-block { background:linear-gradient(135deg,#f0f7fb 0%,#e8f5f0 100%); border:2px solid var(--gris2); border-radius:10px; padding:22px 26px; margin:20px 0; }
+  .exo-header { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+  .exo-num { background:var(--bleu2); color:#fff; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:1rem; flex-shrink:0; }
+  .exo-num.vert { background:var(--vert2); }
+  .exo-num.jaune { background:#d4850a; }
+  .exo-num.violet { background:#5b2d8e; }
+  .exo-title { font-weight:700; font-size:1rem; color:var(--bleu); }
+  .exo-title.vert { color:var(--vert); }
+  .exo-title.jaune { color:#b87000; }
+  .exo-title.violet { color:#5b2d8e; }
+  .exo-context { font-style:italic; color:var(--gris3); margin-bottom:10px; font-size:.9rem; }
+  .exo-steps { counter-reset:step; list-style:none; padding:0; }
+  .exo-steps li { counter-increment:step; display:flex; gap:10px; margin-bottom:8px; align-items:flex-start; }
+  .exo-steps li::before { content:counter(step); background:var(--bleu); color:#fff; border-radius:50%; width:22px; height:22px; min-width:22px; display:flex; align-items:center; justify-content:center; font-size:.75rem; font-weight:700; margin-top:2px; }
+  .exo-steps.vert li::before { background:var(--vert); }
+  .exo-steps.jaune li::before { background:#d4850a; }
+  .exo-steps.violet li::before { background:#5b2d8e; }
+  .check-list { list-style:none; padding:0; margin-top:10px; }
+  .check-list li { display:flex; gap:8px; align-items:flex-start; margin-bottom:5px; font-size:.88rem; }
+  .check-list li::before { content:'☐'; font-size:1.1rem; color:var(--bleu2); }
+
+  /* ── FICHE RÉCAP ── */
+  .recap { background: linear-gradient(135deg, #1a4b8c 0%, #1a7a4a 100%); border-radius:10px; padding:24px 28px; margin:24px 0 0; color:#fff; }
+  .recap h3 { font-size:1.1rem; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+  .recap-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:10px; }
+  .recap-card { background:rgba(255,255,255,.13); border:1px solid rgba(255,255,255,.25); border-radius:7px; padding:12px 14px; }
+  .recap-card h4 { font-size:.85rem; text-transform:uppercase; letter-spacing:.5px; margin-bottom:7px; color:rgba(255,255,255,.7); }
+  .recap-card ul { padding-left:16px; }
+  .recap-card li { font-size:.83rem; margin-bottom:3px; color:rgba(255,255,255,.92); }
+  .recap-card code { background:rgba(0,0,0,.25); border:none; color:#ffe082; }
+
+  /* ── TABLEAU COMPARATIF ── */
+  .table-compare { width:100%; border-collapse:collapse; margin:14px 0; font-size:.87rem; }
+  .table-compare th { background:var(--bleu2); color:#fff; padding:8px 12px; text-align:left; }
+  .table-compare td { padding:7px 12px; border-bottom:1px solid var(--gris1); }
+  .table-compare tr:nth-child(even) td { background:var(--gris0); }
+  .table-compare tr:hover td { background:var(--gris1); }
+  .table-compare.vert th { background:var(--vert); }
+  .table-compare.jaune th { background:#b87000; }
+  .table-compare.violet th { background:#5b2d8e; }
+  .pill { display:inline-block; padding:1px 9px; border-radius:12px; font-size:.78rem; font-weight:700; }
+  .pill.bleu  { background:#cce2ff; color:var(--bleu); }
+  .pill.vert  { background:#ccf0dd; color:var(--vert); }
+  .pill.jaune { background:#ffe4a0; color:#7a5000; }
+  .pill.rouge { background:#ffd0d0; color:var(--rouge); }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:680px){
+    header,nav.toc,.chapter { margin:12px; padding:16px; }
+    .chapter-body { padding:16px; }
+    .shortcut-grid { grid-template-columns:1fr; }
+    .recap-grid { grid-template-columns:1fr; }
+  }
+  @media print {
+    .chapter { box-shadow:none; border:1px solid #ccc; page-break-inside:avoid; }
+    nav.toc { display:none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════ HEADER -->
+<header>
+  <h1>📊 Microsoft Excel – Partie 1</h1>
+  <p class="sub">Cours complet · Schémas visuels · Exercices pratiques · Fiches récap</p>
+  <div class="badge-bts">BTS ERA · Bureautique · Niveau 1</div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════ TABLE DES MATIÈRES -->
+<nav class="toc">
+  <h2>📋 Table des matières</h2>
+  <ol>
+    <li><a href="#ch1">Chapitre 1 – Interface &amp; Navigation</a>
+      <ul class="sub-items">
+        <li>Le ruban et ses onglets · La barre de formule · La zone Nom</li>
+        <li>Cellules, lignes, colonnes, feuilles · Raccourcis clavier essentiels</li>
+      </ul>
+    </li>
+    <li><a href="#ch2">Chapitre 2 – Saisie &amp; Mise en forme</a>
+      <ul class="sub-items">
+        <li>Types de données · Formats de nombre · Styles et bordures · Couleurs</li>
+        <li>Copier-coller spécial · Recopie incrémentée · Fusion de cellules</li>
+      </ul>
+    </li>
+    <li><a href="#ch3">Chapitre 3 – Formules de base</a>
+      <ul class="sub-items">
+        <li>SOMME · MOYENNE · MIN / MAX · NB / NBVAL</li>
+        <li>Références relatives vs absolues · Erreurs courantes</li>
+      </ul>
+    </li>
+    <li><a href="#ch4">Chapitre 4 – Graphiques &amp; Impression</a>
+      <ul class="sub-items">
+        <li>Créer &amp; personnaliser un graphique · Choisir le bon type</li>
+        <li>Mise en page · En-têtes/pieds de page · Zone d'impression</li>
+      </ul>
+    </li>
+  </ol>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     CHAPITRE 1 – INTERFACE & NAVIGATION
+════════════════════════════════════════════════════════════════════════════ -->
+<div class="chapter" id="ch1">
+  <div class="chapter-header bleu">
+    <div class="chapter-num">01</div>
+    <div class="chapter-title">Interface &amp; Navigation</div>
+  </div>
+  <div class="chapter-body">
+
+    <!-- ──────── COURS ──────── -->
+    <div class="section-title"><span class="icon">📖</span> Cours – L'environnement Excel</div>
+
+    <p>Lorsque vous ouvrez Excel, vous accédez à un <strong>classeur</strong> (fichier <code>.xlsx</code>) composé de plusieurs <strong>feuilles de calcul</strong>. Chaque feuille est une grille de <strong>cellules</strong> organisée en lignes (numérotées 1, 2, 3…) et en colonnes (nommées A, B, C…). L'intersection d'une ligne et d'une colonne forme une cellule identifiée par sa <strong>référence</strong>, par exemple <code>B3</code>.</p>
+
+    <!-- Schéma interface -->
+    <div class="schema">
+      <div class="schema-title">🖥 Schéma visuel – Interface Excel</div>
+      <div class="excel-ui">
+        <div class="excel-title-bar">
+          <span>📊</span>
+          <span>Classeur1.xlsx – Microsoft Excel</span>
+        </div>
+        <div class="excel-ribbon">
+          <div class="excel-tabs">
+            <div class="excel-tab active">Accueil</div>
+            <div class="excel-tab">Insertion</div>
+            <div class="excel-tab">Mise en page</div>
+            <div class="excel-tab">Formules</div>
+            <div class="excel-tab">Données</div>
+            <div class="excel-tab">Révision</div>
+          </div>
+          <div class="excel-ribbon-btns">
+            <div class="rb-group">
+              <div class="rb-btns">
+                <div class="rb-btn">Couper</div>
+                <div class="rb-btn">Copier</div>
+                <div class="rb-btn active">Coller</div>
+              </div>
+              <div class="rb-group-title">Presse-papiers</div>
+            </div>
+            <div class="rb-group">
+              <div class="rb-btns">
+                <div class="rb-btn">Calibri ▾</div>
+                <div class="rb-btn">11 ▾</div>
+                <div class="rb-btn"><b>G</b></div>
+                <div class="rb-btn"><i>I</i></div>
+                <div class="rb-btn"><u>S</u></div>
+              </div>
+              <div class="rb-group-title">Police</div>
+            </div>
+            <div class="rb-group">
+              <div class="rb-btns">
+                <div class="rb-btn">≡</div>
+                <div class="rb-btn active">≡ ▸</div>
+                <div class="rb-btn">≡</div>
+                <div class="rb-btn">⟵⟶</div>
+              </div>
+              <div class="rb-group-title">Alignement</div>
+            </div>
+            <div class="rb-group">
+              <div class="rb-btns">
+                <div class="rb-btn">% 000</div>
+                <div class="rb-btn">€ ▾</div>
+                <div class="rb-btn">.0→.00</div>
+              </div>
+              <div class="rb-group-title">Nombre</div>
+            </div>
+            <div class="rb-group">
+              <div class="rb-btns">
+                <div class="rb-btn">Mise en forme cond. ▾</div>
+                <div class="rb-btn">Tableau ▾</div>
+                <div class="rb-btn">Styles ▾</div>
+              </div>
+              <div class="rb-group-title">Styles</div>
+            </div>
+          </div>
+        </div>
+        <div class="formula-bar">
+          <div class="name-box">B3</div>
+          <span style="color:#aaa;font-size:1rem;">ƒ</span>
+          <div class="formula-input">Devis menuiserie</div>
+        </div>
+        <div class="cell-grid">
+          <table class="cell-table">
+            <tr>
+              <th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th>
+            </tr>
+            <tr>
+              <td class="header-col">1</td>
+              <td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+              <td class="header-col">2</td>
+              <td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+              <td class="header-col">3</td>
+              <td></td><td class="active">Devis menuiserie</td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+              <td class="header-col">4</td>
+              <td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+              <td class="header-col">5</td>
+              <td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+          </table>
+        </div>
+        <div class="sheet-tabs">
+          <div class="sheet-tab active">Feuil1</div>
+          <div class="sheet-tab">Feuil2</div>
+          <div class="sheet-tab">Feuil3</div>
+          <div style="padding:3px 8px;font-size:.8rem;color:#666;">＋</div>
+        </div>
+      </div>
+      <p style="font-size:.8rem;color:var(--gris3);margin-top:8px;text-align:center;">La cellule <strong>B3</strong> est sélectionnée → la Zone Nom affiche <code>B3</code> et la barre de formule montre le contenu.</p>
+    </div>
+
+    <div class="section-title"><span class="icon">🔤</span> Les éléments clés du ruban</div>
+
+    <table class="table-compare">
+      <tr><th>Onglet</th><th>Contenu principal</th><th>Utilisation BTS ERA</th></tr>
+      <tr><td><strong>Accueil</strong></td><td>Police, Alignement, Nombre, Styles, Cellules</td><td>Mise en forme quotidienne</td></tr>
+      <tr><td><strong>Insertion</strong></td><td>Tableaux, Graphiques, Images, Formes</td><td>Graphiques de devis</td></tr>
+      <tr><td><strong>Mise en page</strong></td><td>Marges, Orientation, Zone d'impression</td><td>Impression des documents</td></tr>
+      <tr><td><strong>Formules</strong></td><td>Bibliothèque de fonctions, Audit</td><td>Fonctions SOMME, SI…</td></tr>
+      <tr><td><strong>Données</strong></td><td>Trier, Filtrer, Validation</td><td>Listes de matériaux</td></tr>
+      <tr><td><strong>Révision</strong></td><td>Orthographe, Commentaires, Protection</td><td>Vérification avant envoi</td></tr>
+    </table>
+
+    <div class="section-title"><span class="icon">📍</span> Références de cellules</div>
+    <p>Une <strong>référence</strong> identifie une cellule par sa colonne (lettre) puis sa ligne (chiffre). Exemples : <code>A1</code>, <code>C5</code>, <code>B12</code>.</p>
+    <p>Une <strong>plage</strong> regroupe plusieurs cellules : <code>A1:D10</code> désigne toutes les cellules de A1 à D10 (40 cellules).</p>
+
+    <div class="schema">
+      <div class="schema-title">🗺 Schéma – Références et plages</div>
+      <div style="overflow-x:auto;">
+        <table class="cell-table" style="max-width:400px;margin:0 auto;">
+          <tr><th></th><th style="background:#cce2ff;color:#1a4b8c;">A</th><th style="background:#cce2ff;color:#1a4b8c;">B</th><th>C</th><th>D</th></tr>
+          <tr>
+            <td class="header-col" style="background:#cce2ff;color:#1a4b8c;">1</td>
+            <td style="background:#cce2ff;border:2px solid #1a4b8c;font-weight:700;text-align:center;font-size:.8rem;">A1</td>
+            <td style="background:#cce2ff;border:2px solid #1a4b8c;font-weight:700;text-align:center;font-size:.8rem;">B1</td>
+            <td></td><td></td>
+          </tr>
+          <tr>
+            <td class="header-col" style="background:#cce2ff;color:#1a4b8c;">2</td>
+            <td style="background:#cce2ff;border:2px solid #1a4b8c;font-weight:700;text-align:center;font-size:.8rem;">A2</td>
+            <td style="background:#cce2ff;border:2px solid #1a4b8c;font-weight:700;text-align:center;font-size:.8rem;">B2</td>
+            <td></td><td></td>
+          </tr>
+          <tr><td class="header-col">3</td><td></td><td></td><td class="active" style="font-size:.75rem;text-align:center;">C3</td><td></td></tr>
+          <tr><td class="header-col">4</td><td></td><td></td><td></td><td></td></tr>
+        </table>
+      </div>
+      <p style="text-align:center;font-size:.82rem;color:var(--gris3);margin-top:8px;">
+        <span style="color:#1a4b8c;font-weight:700;">En bleu :</span> plage <code>A1:B2</code> (4 cellules) &nbsp;|&nbsp;
+        <span style="color:#1a4b8c;font-weight:700;">Cellule active :</span> <code>C3</code>
+      </p>
+    </div>
+
+    <div class="section-title"><span class="icon">⌨️</span> Raccourcis clavier essentiels</div>
+    <div class="shortcut-grid">
+      <div class="shortcut-item"><kbd>Ctrl + N</kbd><span>Nouveau classeur</span></div>
+      <div class="shortcut-item"><kbd>Ctrl + O</kbd><span>Ouvrir un classeur</span></div>
+      <div class="shortcut-item"><kbd>Ctrl + S</kbd><span>Enregistrer</span></div>
+      <div class="shortcut-item"><kbd>Ctrl + Z</kbd><span>Annuler</span></div>
+      <div class="shortcut-item"><kbd>Ctrl + Y</kbd><span>Rétablir</span></div>
+      <div class="shortcut-item"><kbd>Ctrl + C</kbd><span>Copier</span></div>
+      <div class="shortcut-item"><kbd>Ctrl + X</kbd><span>Couper</span></div>
+      <div class="shortcut-item"><kbd>Ctrl + V</kbd><span>Coller</span></div>
+      <div class="shortcut-item"><kbd>Ctrl + A</kbd><span>Tout sélectionner</span></div>
+      <div class="shortcut-item"><kbd>Ctrl + F</kbd><span>Rechercher</span></div>
+      <div class="shortcut-item"><kbd>Ctrl + H</kbd><span>Remplacer</span></div>
+      <div class="shortcut-item"><kbd>Ctrl + P</kbd><span>Imprimer</span></div>
+      <div class="shortcut-item"><kbd>Ctrl + →</kbd><span>Aller à la dernière cellule remplie (droite)</span></div>
+      <div class="shortcut-item"><kbd>Ctrl + ↓</kbd><span>Aller à la dernière cellule remplie (bas)</span></div>
+      <div class="shortcut-item"><kbd>Ctrl + Début</kbd><span>Aller en A1</span></div>
+      <div class="shortcut-item"><kbd>Ctrl + Fin</kbd><span>Aller à la dernière cellule utilisée</span></div>
+      <div class="shortcut-item"><kbd>F2</kbd><span>Modifier le contenu de la cellule</span></div>
+      <div class="shortcut-item"><kbd>Suppr</kbd><span>Effacer le contenu</span></div>
+      <div class="shortcut-item"><kbd>Entrée</kbd><span>Valider et descendre</span></div>
+      <div class="shortcut-item"><kbd>Tab</kbd><span>Valider et aller à droite</span></div>
+      <div class="shortcut-item"><kbd>Échap</kbd><span>Annuler la saisie en cours</span></div>
+      <div class="shortcut-item"><kbd>Ctrl + Shift + L</kbd><span>Activer/désactiver les filtres</span></div>
+    </div>
+
+    <div class="info-box bleu">
+      <div class="ib-title">💡 Astuce navigation</div>
+      Pour naviguer rapidement vers une cellule précise, cliquez sur la <strong>Zone Nom</strong> (en haut à gauche), tapez la référence (ex. <code>G45</code>) et appuyez sur <kbd>Entrée</kbd>. Pratique pour les grands tableaux.
+    </div>
+
+    <!-- ──────── EXERCICE 1 ──────── -->
+    <div class="exo-block">
+      <div class="exo-header">
+        <div class="exo-num">1</div>
+        <div class="exo-title">Exercice – Découverte de l'interface</div>
+      </div>
+      <p class="exo-context">📁 Contexte : Vous êtes en entreprise de menuiserie et devez créer votre premier classeur Excel.</p>
+      <ol class="exo-steps">
+        <li>Ouvrez Excel et créez un nouveau classeur vierge (<kbd>Ctrl + N</kbd>).</li>
+        <li>Identifiez sur l'écran : la barre de titre, le ruban, la Zone Nom, la barre de formule, les onglets de feuilles.</li>
+        <li>Cliquez sur la cellule <code>C5</code> : vérifiez que la Zone Nom affiche bien <code>C5</code>.</li>
+        <li>Allez directement en <code>Z100</code> via la Zone Nom. Revenez en <code>A1</code> avec <kbd>Ctrl + Début</kbd>.</li>
+        <li>Renommez <em>Feuil1</em> en <strong>Devis</strong> (double-clic sur l'onglet).</li>
+        <li>Ajoutez une deuxième feuille nommée <strong>Matériaux</strong>.</li>
+        <li>Sauvegardez le fichier sous le nom <code>MonPremierClasseur.xlsx</code>.</li>
+      </ol>
+      <div style="margin-top:12px;">
+        <strong style="color:var(--vert);">✔ Critères de réussite :</strong>
+        <ul class="check-list">
+          <li>La Zone Nom affiche correctement chaque cellule sélectionnée</li>
+          <li>Les deux onglets sont nommés <em>Devis</em> et <em>Matériaux</em></li>
+          <li>Le fichier est enregistré au format <code>.xlsx</code></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ──────── EXERCICE 2 ──────── -->
+    <div class="exo-block">
+      <div class="exo-header">
+        <div class="exo-num">2</div>
+        <div class="exo-title">Exercice – Navigation avancée</div>
+      </div>
+      <p class="exo-context">📁 Contexte : Vous devez comprendre les plages pour préparer vos futurs tableaux de devis.</p>
+      <ol class="exo-steps">
+        <li>Dans la cellule <code>A1</code>, tapez votre nom et validez avec <kbd>Entrée</kbd>.</li>
+        <li>Sélectionnez la plage <code>A1:E5</code> en cliquant-glissant. Vérifiez dans la Zone Nom.</li>
+        <li>Sélectionnez une plage non contiguë : <code>B2</code>, <kbd>Ctrl</kbd> + clic sur <code>D4</code> et <code>F6</code>.</li>
+        <li>Sélectionnez toute une colonne (clic sur l'en-tête <strong>C</strong>), puis toute une ligne (clic sur <strong>3</strong>).</li>
+        <li>Utilisez <kbd>Ctrl + Shift + Fin</kbd> pour sélectionner de la cellule active jusqu'à la dernière utilisée.</li>
+      </ol>
+    </div>
+
+    <!-- ──────── FICHE RÉCAP ──────── -->
+    <div class="recap">
+      <h3>📌 Fiche Récap – Chapitre 1</h3>
+      <div class="recap-grid">
+        <div class="recap-card">
+          <h4>Éléments clés</h4>
+          <ul>
+            <li>Classeur → Feuilles → Cellules</li>
+            <li>Colonne (A…Z) × Ligne (1…) = Référence</li>
+            <li>Plage : <code>A1:D10</code></li>
+            <li>Zone Nom = navigation rapide</li>
+          </ul>
+        </div>
+        <div class="recap-card">
+          <h4>Raccourcis vitaux</h4>
+          <ul>
+            <li><code>Ctrl+S</code> → Sauvegarder</li>
+            <li><code>Ctrl+Z</code> → Annuler</li>
+            <li><code>Ctrl+Début</code> → Aller en A1</li>
+            <li><code>F2</code> → Éditer cellule</li>
+          </ul>
+        </div>
+        <div class="recap-card">
+          <h4>Bonnes pratiques</h4>
+          <ul>
+            <li>Nommer ses feuilles clairement</li>
+            <li>Sauvegarder régulièrement (Ctrl+S)</li>
+            <li>Utiliser la Zone Nom pour naviguer</li>
+            <li>Fichier = <code>.xlsx</code> (pas <code>.xls</code>)</li>
+          </ul>
+        </div>
+        <div class="recap-card">
+          <h4>À ne pas confondre</h4>
+          <ul>
+            <li><strong>Classeur</strong> = fichier entier</li>
+            <li><strong>Feuille</strong> = onglet dans le classeur</li>
+            <li><strong>Cellule</strong> = case individuelle</li>
+            <li><strong>Plage</strong> = groupe de cellules</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end chapter-body -->
+</div><!-- end chapter 1 -->
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     CHAPITRE 2 – SAISIE & MISE EN FORME
+════════════════════════════════════════════════════════════════════════════ -->
+<div class="chapter" id="ch2">
+  <div class="chapter-header vert">
+    <div class="chapter-num">02</div>
+    <div class="chapter-title">Saisie &amp; Mise en forme</div>
+  </div>
+  <div class="chapter-body">
+
+    <div class="section-title vert"><span class="icon">📖</span> Cours – Types de données</div>
+
+    <p>Excel reconnaît automatiquement le <strong>type</strong> de la donnée saisie. Comprendre ces types est fondamental pour éviter les erreurs de calcul.</p>
+
+    <table class="table-compare vert">
+      <tr><th>Type</th><th>Description</th><th>Alignement par défaut</th><th>Exemple</th></tr>
+      <tr><td><span class="pill vert">Texte</span></td><td>Chaîne de caractères</td><td>Gauche</td><td><code>Chêne massif</code></td></tr>
+      <tr><td><span class="pill bleu">Nombre</span></td><td>Entier ou décimal</td><td>Droite</td><td><code>1250.50</code></td></tr>
+      <tr><td><span class="pill jaune">Date</span></td><td>Date ou heure</td><td>Droite</td><td><code>19/04/2026</code></td></tr>
+      <tr><td><span class="pill rouge">Logique</span></td><td>VRAI ou FAUX</td><td>Centré</td><td><code>VRAI</code></td></tr>
+      <tr><td><span class="pill bleu">Formule</span></td><td>Commence par <code>=</code></td><td>Selon résultat</td><td><code>=A1+B1</code></td></tr>
+    </table>
+
+    <div class="info-box rouge">
+      <div class="ib-title">⚠ Erreur fréquente</div>
+      Si vous saisissez <code>12/04</code> dans une cellule, Excel l'interprète comme une <strong>date</strong> (12 avril), pas comme la fraction 12÷4. Pour saisir du texte ressemblant à une date, précédez-le d'une apostrophe : <code>'12/04</code>.
+    </div>
+
+    <div class="section-title vert"><span class="icon">🎨</span> Formats de nombre</div>
+    <p>Le <strong>format</strong> change l'affichage sans modifier la valeur réelle stockée. Une même valeur <code>1500</code> peut s'afficher de plusieurs façons :</p>
+
+    <div class="schema">
+      <div class="schema-title">🔢 Schéma – Formats d'affichage d'un même nombre</div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:8px;">
+        <div style="background:#fff;border:2px solid var(--gris2);border-radius:6px;padding:10px 18px;text-align:center;min-width:120px;">
+          <div style="font-size:.73rem;color:var(--gris3);margin-bottom:4px;">Standard</div>
+          <div style="font-size:1.2rem;font-weight:700;color:var(--texte);">1500</div>
+        </div>
+        <div style="background:#fff;border:2px solid var(--vert2);border-radius:6px;padding:10px 18px;text-align:center;min-width:120px;">
+          <div style="font-size:.73rem;color:var(--gris3);margin-bottom:4px;">Monétaire €</div>
+          <div style="font-size:1.2rem;font-weight:700;color:var(--vert);">1 500,00 €</div>
+        </div>
+        <div style="background:#fff;border:2px solid var(--bleu2);border-radius:6px;padding:10px 18px;text-align:center;min-width:120px;">
+          <div style="font-size:.73rem;color:var(--gris3);margin-bottom:4px;">Pourcentage %</div>
+          <div style="font-size:1.2rem;font-weight:700;color:var(--bleu);">150000%</div>
+        </div>
+        <div style="background:#fff;border:2px solid #d4850a;border-radius:6px;padding:10px 18px;text-align:center;min-width:120px;">
+          <div style="font-size:.73rem;color:var(--gris3);margin-bottom:4px;">Date</div>
+          <div style="font-size:1.2rem;font-weight:700;color:#b87000;">20/04/1904</div>
+        </div>
+        <div style="background:#fff;border:2px solid #7a90b0;border-radius:6px;padding:10px 18px;text-align:center;min-width:120px;">
+          <div style="font-size:.73rem;color:var(--gris3);margin-bottom:4px;">Nombre (2 déc.)</div>
+          <div style="font-size:1.2rem;font-weight:700;color:var(--gris3);">1 500,00</div>
+        </div>
+      </div>
+      <p style="text-align:center;font-size:.8rem;color:var(--gris3);margin-top:10px;">La valeur stockée est toujours <strong>1500</strong>. Seul l'affichage change.</p>
+    </div>
+
+    <div class="section-title vert"><span class="icon">✒️</span> Mise en forme des cellules</div>
+    <p>Accédez aux options complètes via <kbd>Ctrl + 1</kbd> (ou clic droit → <em>Format de cellule</em>). Le panneau comporte 6 onglets :</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin:12px 0;">
+      <div class="info-box bleu" style="margin:0;">
+        <div class="ib-title">Nombre</div>
+        Choix du format (monétaire, date, pourcentage…)
+      </div>
+      <div class="info-box vert" style="margin:0;">
+        <div class="ib-title">Alignement</div>
+        Horizontal, vertical, retour à la ligne, fusion
+      </div>
+      <div class="info-box jaune" style="margin:0;">
+        <div class="ib-title">Police</div>
+        Taille, gras, italique, couleur, soulignement
+      </div>
+      <div class="info-box rouge" style="margin:0;">
+        <div class="ib-title">Bordure</div>
+        Épaisseur, style et couleur des bordures
+      </div>
+      <div class="info-box bleu" style="margin:0;">
+        <div class="ib-title">Remplissage</div>
+        Couleur d'arrière-plan et motifs
+      </div>
+      <div class="info-box vert" style="margin:0;">
+        <div class="ib-title">Protection</div>
+        Verrouillage et masquage des cellules
+      </div>
+    </div>
+
+    <div class="section-title vert"><span class="icon">📋</span> Schéma – Tableau mis en forme</div>
+    <div class="schema">
+      <div class="schema-title">🏗 Exemple : Tableau de devis bois mis en forme</div>
+      <div style="overflow-x:auto;">
+        <table style="border-collapse:collapse;font-size:.85rem;min-width:500px;margin:0 auto;">
+          <tr>
+            <td colspan="4" style="background:#1a4b8c;color:#fff;font-weight:700;padding:8px 12px;text-align:center;border:1px solid #1a4b8c;font-size:.95rem;">DEVIS BOIS – Menuiserie Dupont &amp; Fils</td>
+          </tr>
+          <tr>
+            <th style="background:#2563b0;color:#fff;padding:7px 12px;border:1px solid #1a4b8c;">Désignation</th>
+            <th style="background:#2563b0;color:#fff;padding:7px 12px;border:1px solid #1a4b8c;">Qté</th>
+            <th style="background:#2563b0;color:#fff;padding:7px 12px;border:1px solid #1a4b8c;">Prix unitaire</th>
+            <th style="background:#2563b0;color:#fff;padding:7px 12px;border:1px solid #1a4b8c;">Total HT</th>
+          </tr>
+          <tr>
+            <td style="padding:6px 12px;border:1px solid #c9d8ee;">Chêne massif 22mm</td>
+            <td style="padding:6px 12px;border:1px solid #c9d8ee;text-align:right;">5 m²</td>
+            <td style="padding:6px 12px;border:1px solid #c9d8ee;text-align:right;">85,00 €</td>
+            <td style="padding:6px 12px;border:1px solid #c9d8ee;text-align:right;font-weight:700;color:#1a7a4a;">425,00 €</td>
+          </tr>
+          <tr style="background:#f4f7fb;">
+            <td style="padding:6px 12px;border:1px solid #c9d8ee;">Noyer 18mm</td>
+            <td style="padding:6px 12px;border:1px solid #c9d8ee;text-align:right;">3 m²</td>
+            <td style="padding:6px 12px;border:1px solid #c9d8ee;text-align:right;">120,00 €</td>
+            <td style="padding:6px 12px;border:1px solid #c9d8ee;text-align:right;font-weight:700;color:#1a7a4a;">360,00 €</td>
+          </tr>
+          <tr>
+            <td style="padding:6px 12px;border:1px solid #c9d8ee;">MDF hydrofuge 16mm</td>
+            <td style="padding:6px 12px;border:1px solid #c9d8ee;text-align:right;">8 m²</td>
+            <td style="padding:6px 12px;border:1px solid #c9d8ee;text-align:right;">22,50 €</td>
+            <td style="padding:6px 12px;border:1px solid #c9d8ee;text-align:right;font-weight:700;color:#1a7a4a;">180,00 €</td>
+          </tr>
+          <tr style="background:#f4f7fb;">
+            <td style="padding:6px 12px;border:1px solid #c9d8ee;">Visserie inox</td>
+            <td style="padding:6px 12px;border:1px solid #c9d8ee;text-align:right;">2 boîtes</td>
+            <td style="padding:6px 12px;border:1px solid #c9d8ee;text-align:right;">14,00 €</td>
+            <td style="padding:6px 12px;border:1px solid #c9d8ee;text-align:right;font-weight:700;color:#1a7a4a;">28,00 €</td>
+          </tr>
+          <tr>
+            <td colspan="3" style="padding:8px 12px;border:1px solid #c9d8ee;text-align:right;font-weight:700;background:#e8eef7;color:#1a4b8c;">TOTAL HT</td>
+            <td style="padding:8px 12px;border:2px solid #1a4b8c;text-align:right;font-weight:900;color:#1a4b8c;font-size:1rem;background:#cce2ff;">993,00 €</td>
+          </tr>
+        </table>
+      </div>
+      <p style="font-size:.8rem;color:var(--gris3);text-align:center;margin-top:8px;">Mise en forme complète : fond coloré, bordures, gras, couleur texte, format monétaire, alignement droite pour les nombres.</p>
+    </div>
+
+    <div class="section-title vert"><span class="icon">🔄</span> Recopie incrémentée &amp; Collage spécial</div>
+    <p>La <strong>recopie incrémentée</strong> permet de créer automatiquement des séries en tirant la poignée de recopie (petit carré en bas à droite de la cellule sélectionnée).</p>
+
+    <table class="table-compare vert">
+      <tr><th>Contenu de départ</th><th>Série générée automatiquement</th></tr>
+      <tr><td><code>Lundi</code></td><td>Mardi, Mercredi, Jeudi…</td></tr>
+      <tr><td><code>Janvier</code></td><td>Février, Mars, Avril…</td></tr>
+      <tr><td><code>1, 2</code> (deux cellules)</td><td>3, 4, 5, 6…</td></tr>
+      <tr><td><code>5, 10</code> (deux cellules)</td><td>15, 20, 25…</td></tr>
+      <tr><td><code>Semaine 1</code></td><td>Semaine 2, Semaine 3…</td></tr>
+    </table>
+
+    <p>Le <strong>Collage spécial</strong> (<kbd>Ctrl + Alt + V</kbd>) permet de coller uniquement certains aspects d'une cellule :</p>
+    <ul>
+      <li><strong>Valeurs</strong> : colle le résultat d'une formule (pas la formule elle-même)</li>
+      <li><strong>Formats</strong> : colle uniquement la mise en forme</li>
+      <li><strong>Transposer</strong> : transforme lignes en colonnes et vice-versa</li>
+    </ul>
+
+    <!-- ──────── EXERCICE 3 ──────── -->
+    <div class="exo-block">
+      <div class="exo-header">
+        <div class="exo-num vert">3</div>
+        <div class="exo-title vert">Exercice – Tableau de matériaux mis en forme</div>
+      </div>
+      <p class="exo-context">📁 Contexte : Créez un tableau de stock de matériaux pour un atelier de menuiserie.</p>
+      <ol class="exo-steps vert">
+        <li>En A1, saisissez <strong>STOCK MATÉRIAUX – Atelier Martin</strong>. Fusionnez A1:E1 (<kbd>Ctrl+1</kbd> → Alignement → Fusionner).</li>
+        <li>En ligne 2, créez les en-têtes : <code>Référence | Désignation | Quantité | Unité | Prix unitaire</code></li>
+        <li>Remplissez 6 lignes de données (bois, panneaux, quincaillerie…).</li>
+        <li>Mettez en forme l'en-tête : fond bleu foncé (<code>#1a4b8c</code>), texte blanc, gras, centré.</li>
+        <li>Appliquez un format <strong>Monétaire 2 décimales</strong> à la colonne Prix unitaire.</li>
+        <li>Alternez les couleurs de ligne (blanc / gris clair <code>#f4f7fb</code>).</li>
+        <li>Ajoutez des bordures à toutes les cellules du tableau (toutes les bordures, épaisseur fine).</li>
+        <li>Utilisez la recopie incrémentée pour générer les références <code>REF-001</code> à <code>REF-006</code>.</li>
+      </ol>
+      <div style="margin-top:12px;">
+        <strong style="color:var(--vert);">✔ Critères de réussite :</strong>
+        <ul class="check-list">
+          <li>Le titre est fusionné et centré sur toute la largeur du tableau</li>
+          <li>Les prix s'affichent avec le symbole € et 2 décimales</li>
+          <li>Les bordures sont visibles sur toutes les cellules</li>
+          <li>Les références sont générées automatiquement par recopie</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ──────── EXERCICE 4 ──────── -->
+    <div class="exo-block">
+      <div class="exo-header">
+        <div class="exo-num vert">4</div>
+        <div class="exo-title vert">Exercice – Formats et saisie rapide</div>
+      </div>
+      <p class="exo-context">📁 Contexte : Maîtriser les formats pour éviter les erreurs dans les factures.</p>
+      <ol class="exo-steps vert">
+        <li>Saisissez dans A1 : <code>2500</code>. Appliquez successivement : Standard, Monétaire, Pourcentage, Nombre (2 déc.). Observez les différences.</li>
+        <li>Saisissez dans B1 : <code>19/04/2026</code>. Appliquez le format <em>Date longue</em> (ex. : <em>dimanche 19 avril 2026</em>).</li>
+        <li>En C1, saisissez <code>'001</code> (avec apostrophe). Vérifiez que le 0 est conservé.</li>
+        <li>Créez une série de dates : <code>01/01/2026</code> puis recopie incrémentée sur 12 mois.</li>
+        <li>Appliquez le <strong>renvoi automatique à la ligne</strong> à une cellule contenant un long texte.</li>
+      </ol>
+    </div>
+
+    <!-- ──────── FICHE RÉCAP ──────── -->
+    <div class="recap" style="background:linear-gradient(135deg,#1a7a4a 0%,#2563b0 100%);">
+      <h3>📌 Fiche Récap – Chapitre 2</h3>
+      <div class="recap-grid">
+        <div class="recap-card">
+          <h4>Types de données</h4>
+          <ul>
+            <li>Texte → aligné à gauche</li>
+            <li>Nombre → aligné à droite</li>
+            <li>Date → série numérique</li>
+            <li>Formule → commence par <code>=</code></li>
+          </ul>
+        </div>
+        <div class="recap-card">
+          <h4>Raccourcis mise en forme</h4>
+          <ul>
+            <li><code>Ctrl+1</code> → Format cellule</li>
+            <li><code>Ctrl+G</code> → Gras</li>
+            <li><code>Ctrl+I</code> → Italique</li>
+            <li><code>Ctrl+Alt+V</code> → Collage spécial</li>
+          </ul>
+        </div>
+        <div class="recap-card">
+          <h4>Bonnes pratiques</h4>
+          <ul>
+            <li>1 type de donnée par colonne</li>
+            <li>Pas de cellules fusionnées dans les listes</li>
+            <li>Format monétaire pour les prix</li>
+            <li>En-têtes en gras et fond coloré</li>
+          </ul>
+        </div>
+        <div class="recap-card">
+          <h4>Recopie incrémentée</h4>
+          <ul>
+            <li>Saisir le début de la série</li>
+            <li>Tirer la poignée (coin bas-droit)</li>
+            <li>Option ▸ pour changer le mode</li>
+            <li>Fonctionne avec dates, textes, nombres</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     CHAPITRE 3 – FORMULES DE BASE
+════════════════════════════════════════════════════════════════════════════ -->
+<div class="chapter" id="ch3">
+  <div class="chapter-header jaune">
+    <div class="chapter-num">03</div>
+    <div class="chapter-title">Formules de base</div>
+  </div>
+  <div class="chapter-body">
+
+    <div class="section-title jaune"><span class="icon">📖</span> Cours – Syntaxe des formules</div>
+
+    <p>Une formule commence <strong>toujours</strong> par le signe <code>=</code>. Elle peut contenir des valeurs, des références de cellules, des opérateurs et des fonctions. Excel calcule le résultat et l'affiche à la place de la formule.</p>
+
+    <div class="schema">
+      <div class="schema-title">⚙️ Anatomie d'une formule Excel</div>
+      <div style="background:#fff;border-radius:6px;padding:16px;max-width:520px;margin:0 auto;font-family:Consolas,monospace;">
+        <div style="font-size:1.3rem;color:#1a4b8c;text-align:center;letter-spacing:2px;font-weight:700;">= SOMME ( B2 : B10 )</div>
+        <div style="display:flex;justify-content:space-around;margin-top:14px;font-family:'Segoe UI',sans-serif;font-size:.8rem;">
+          <div style="text-align:center;color:#d0021b;"><div style="font-size:1.5rem;">↑</div><strong style="color:#d0021b;">Signe =</strong><br>obligatoire</div>
+          <div style="text-align:center;color:#1a7a4a;"><div style="font-size:1.5rem;">↑</div><strong style="color:#1a7a4a;">Fonction</strong><br>SOMME</div>
+          <div style="text-align:center;color:#1a4b8c;"><div style="font-size:1.5rem;">↑</div><strong style="color:#1a4b8c;">Plage</strong><br>B2 à B10</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title jaune"><span class="icon">🔢</span> Opérateurs arithmétiques</div>
+    <table class="table-compare jaune">
+      <tr><th>Opérateur</th><th>Signification</th><th>Exemple</th><th>Résultat</th></tr>
+      <tr><td><code>+</code></td><td>Addition</td><td><code>=5+3</code></td><td>8</td></tr>
+      <tr><td><code>-</code></td><td>Soustraction</td><td><code>=B2-C2</code></td><td>Différence B2−C2</td></tr>
+      <tr><td><code>*</code></td><td>Multiplication</td><td><code>=A3*D3</code></td><td>Produit A3×D3</td></tr>
+      <tr><td><code>/</code></td><td>Division</td><td><code>=E5/F5</code></td><td>Quotient E5÷F5</td></tr>
+      <tr><td><code>^</code></td><td>Puissance</td><td><code>=2^3</code></td><td>8</td></tr>
+      <tr><td><code>&</code></td><td>Concaténation texte</td><td><code>=A1&" "&B1</code></td><td>Texte joint</td></tr>
+    </table>
+
+    <div class="section-title jaune"><span class="icon">∑</span> Les fonctions essentielles</div>
+
+    <!-- SOMME -->
+    <div class="info-box jaune">
+      <div class="ib-title">∑ SOMME(plage)</div>
+      <p>Additionne toutes les valeurs d'une plage.</p>
+      <p>Syntaxe : <code>=SOMME(B2:B10)</code> ou <code>=SOMME(B2;C2;D2)</code></p>
+      <p>Raccourci : sélectionnez une cellule sous une colonne de chiffres et appuyez sur <kbd>Alt + =</kbd></p>
+    </div>
+
+    <!-- MOYENNE -->
+    <div class="info-box bleu">
+      <div class="ib-title">⌀ MOYENNE(plage)</div>
+      <p>Calcule la moyenne arithmétique (somme ÷ nombre de valeurs).</p>
+      <p>Syntaxe : <code>=MOYENNE(B2:B10)</code></p>
+      <p>⚠ Les cellules vides sont <strong>ignorées</strong> (ne comptent pas dans le dénominateur). Les cellules contenant <code>0</code> sont comptées.</p>
+    </div>
+
+    <!-- MIN / MAX -->
+    <div class="info-box vert">
+      <div class="ib-title">▼▲ MIN(plage) et MAX(plage)</div>
+      <p><code>=MIN(B2:B10)</code> → retourne la valeur la plus petite.</p>
+      <p><code>=MAX(B2:B10)</code> → retourne la valeur la plus grande.</p>
+      <p>Utile pour trouver le prix minimal/maximal d'un devis.</p>
+    </div>
+
+    <!-- NB / NBVAL -->
+    <div class="info-box rouge">
+      <div class="ib-title">🔢 NB(plage) et NBVAL(plage)</div>
+      <p><code>=NB(B2:B10)</code> → compte uniquement les cellules contenant des <strong>nombres</strong>.</p>
+      <p><code>=NBVAL(B2:B10)</code> → compte toutes les cellules <strong>non vides</strong> (texte + nombres).</p>
+    </div>
+
+    <!-- Schéma calcul -->
+    <div class="schema">
+      <div class="schema-title">📊 Schéma – Tableau de calcul avec formules</div>
+      <div style="overflow-x:auto;">
+        <table style="border-collapse:collapse;font-size:.83rem;min-width:520px;margin:0 auto;">
+          <tr>
+            <th style="background:#b87000;color:#fff;padding:6px 10px;border:1px solid #8b5000;">Poste</th>
+            <th style="background:#b87000;color:#fff;padding:6px 10px;border:1px solid #8b5000;">Qté (m²)</th>
+            <th style="background:#b87000;color:#fff;padding:6px 10px;border:1px solid #8b5000;">Prix/m²</th>
+            <th style="background:#b87000;color:#fff;padding:6px 10px;border:1px solid #8b5000;">Total HT</th>
+            <th style="background:#b87000;color:#fff;padding:6px 10px;border:1px solid #8b5000;">Formule utilisée</th>
+          </tr>
+          <tr>
+            <td style="padding:5px 10px;border:1px solid #e8d0a0;">Chêne 22mm</td>
+            <td style="padding:5px 10px;border:1px solid #e8d0a0;text-align:right;">5</td>
+            <td style="padding:5px 10px;border:1px solid #e8d0a0;text-align:right;">85,00 €</td>
+            <td style="padding:5px 10px;border:1px solid #e8d0a0;text-align:right;background:#fffbe6;font-family:Consolas;font-size:.78rem;color:#8b5000;">425,00 €</td>
+            <td style="padding:5px 10px;border:1px solid #e8d0a0;font-family:Consolas;font-size:.78rem;color:#d0021b;">=B2*C2</td>
+          </tr>
+          <tr style="background:#fffdf5;">
+            <td style="padding:5px 10px;border:1px solid #e8d0a0;">MDF 16mm</td>
+            <td style="padding:5px 10px;border:1px solid #e8d0a0;text-align:right;">8</td>
+            <td style="padding:5px 10px;border:1px solid #e8d0a0;text-align:right;">22,50 €</td>
+            <td style="padding:5px 10px;border:1px solid #e8d0a0;text-align:right;background:#fffbe6;font-family:Consolas;font-size:.78rem;color:#8b5000;">180,00 €</td>
+            <td style="padding:5px 10px;border:1px solid #e8d0a0;font-family:Consolas;font-size:.78rem;color:#d0021b;">=B3*C3</td>
+          </tr>
+          <tr>
+            <td style="padding:5px 10px;border:1px solid #e8d0a0;">Noyer 18mm</td>
+            <td style="padding:5px 10px;border:1px solid #e8d0a0;text-align:right;">3</td>
+            <td style="padding:5px 10px;border:1px solid #e8d0a0;text-align:right;">120,00 €</td>
+            <td style="padding:5px 10px;border:1px solid #e8d0a0;text-align:right;background:#fffbe6;font-family:Consolas;font-size:.78rem;color:#8b5000;">360,00 €</td>
+            <td style="padding:5px 10px;border:1px solid #e8d0a0;font-family:Consolas;font-size:.78rem;color:#d0021b;">=B4*C4</td>
+          </tr>
+          <tr>
+            <td colspan="2" style="padding:7px 10px;border:1px solid #e8d0a0;background:#fff8e6;font-weight:700;color:#b87000;">Fonctions de synthèse</td>
+            <td style="padding:7px 10px;border:1px solid #e8d0a0;background:#eaffef;font-weight:700;color:#1a7a4a;font-size:.78rem;">SOMME</td>
+            <td style="padding:7px 10px;border:1px solid #e8d0a0;background:#eaffef;font-weight:900;color:#1a7a4a;text-align:right;">965,00 €</td>
+            <td style="padding:7px 10px;border:1px solid #e8d0a0;font-family:Consolas;font-size:.78rem;color:#d0021b;">=SOMME(D2:D4)</td>
+          </tr>
+          <tr>
+            <td colspan="2" style="padding:7px 10px;border:1px solid #e8d0a0;background:#fff8e6;"></td>
+            <td style="padding:7px 10px;border:1px solid #e8d0a0;background:#e8f0fb;font-weight:700;color:#1a4b8c;font-size:.78rem;">MOYENNE</td>
+            <td style="padding:7px 10px;border:1px solid #e8d0a0;background:#e8f0fb;font-weight:700;color:#1a4b8c;text-align:right;">321,67 €</td>
+            <td style="padding:7px 10px;border:1px solid #e8d0a0;font-family:Consolas;font-size:.78rem;color:#d0021b;">=MOYENNE(D2:D4)</td>
+          </tr>
+          <tr>
+            <td colspan="2" style="padding:7px 10px;border:1px solid #e8d0a0;background:#fff8e6;"></td>
+            <td style="padding:7px 10px;border:1px solid #e8d0a0;background:#fff0f0;font-weight:700;color:#d0021b;font-size:.78rem;">MIN</td>
+            <td style="padding:7px 10px;border:1px solid #e8d0a0;background:#fff0f0;font-weight:700;color:#d0021b;text-align:right;">180,00 €</td>
+            <td style="padding:7px 10px;border:1px solid #e8d0a0;font-family:Consolas;font-size:.78rem;color:#d0021b;">=MIN(D2:D4)</td>
+          </tr>
+          <tr>
+            <td colspan="2" style="padding:7px 10px;border:1px solid #e8d0a0;background:#fff8e6;"></td>
+            <td style="padding:7px 10px;border:1px solid #e8d0a0;background:#fffbe6;font-weight:700;color:#8b5000;font-size:.78rem;">MAX</td>
+            <td style="padding:7px 10px;border:1px solid #e8d0a0;background:#fffbe6;font-weight:700;color:#8b5000;text-align:right;">425,00 €</td>
+            <td style="padding:7px 10px;border:1px solid #e8d0a0;font-family:Consolas;font-size:.78rem;color:#d0021b;">=MAX(D2:D4)</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-title jaune"><span class="icon">🔗</span> Références relatives vs absolues</div>
+    <p>Quand vous <strong>recopiez</strong> une formule, Excel adapte automatiquement les références. C'est la <strong>référence relative</strong>. Mais parfois vous voulez fixer une cellule : c'est la <strong>référence absolue</strong>, notée avec des <code>$</code>.</p>
+
+    <div class="schema">
+      <div class="schema-title">🔒 Schéma – Référence relative vs absolue</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:600px;margin:0 auto;">
+        <div>
+          <div style="font-weight:700;color:var(--bleu2);margin-bottom:8px;font-size:.88rem;">RELATIVE <code>=B2*C2</code></div>
+          <table style="border-collapse:collapse;font-size:.8rem;width:100%;">
+            <tr><th style="background:#e8eef7;padding:4px 8px;border:1px solid #c9d8ee;">Ligne</th><th style="background:#e8eef7;padding:4px 8px;border:1px solid #c9d8ee;">Formule recopiée</th></tr>
+            <tr><td style="padding:4px 8px;border:1px solid #c9d8ee;">2</td><td style="padding:4px 8px;border:1px solid #c9d8ee;font-family:Consolas;color:#d0021b;">=B2*C2</td></tr>
+            <tr><td style="padding:4px 8px;border:1px solid #c9d8ee;">3</td><td style="padding:4px 8px;border:1px solid #c9d8ee;font-family:Consolas;color:#d0021b;">=B3*C3 ↑ adapté</td></tr>
+            <tr><td style="padding:4px 8px;border:1px solid #c9d8ee;">4</td><td style="padding:4px 8px;border:1px solid #c9d8ee;font-family:Consolas;color:#d0021b;">=B4*C4 ↑ adapté</td></tr>
+          </table>
+          <p style="font-size:.77rem;color:var(--gris3);margin-top:6px;">✔ Utile pour des calculs répétés ligne par ligne</p>
+        </div>
+        <div>
+          <div style="font-weight:700;color:var(--rouge);margin-bottom:8px;font-size:.88rem;">ABSOLUE <code>=B2*$C$1</code></div>
+          <table style="border-collapse:collapse;font-size:.8rem;width:100%;">
+            <tr><th style="background:#fff0f0;padding:4px 8px;border:1px solid #f5c6c6;">Ligne</th><th style="background:#fff0f0;padding:4px 8px;border:1px solid #f5c6c6;">Formule recopiée</th></tr>
+            <tr><td style="padding:4px 8px;border:1px solid #f5c6c6;">2</td><td style="padding:4px 8px;border:1px solid #f5c6c6;font-family:Consolas;color:#d0021b;">=B2*$C$1</td></tr>
+            <tr><td style="padding:4px 8px;border:1px solid #f5c6c6;">3</td><td style="padding:4px 8px;border:1px solid #f5c6c6;font-family:Consolas;color:#d0021b;">=B3*$C$1 ← fixé !</td></tr>
+            <tr><td style="padding:4px 8px;border:1px solid #f5c6c6;">4</td><td style="padding:4px 8px;border:1px solid #f5c6c6;font-family:Consolas;color:#d0021b;">=B4*$C$1 ← fixé !</td></tr>
+          </table>
+          <p style="font-size:.77rem;color:var(--gris3);margin-top:6px;">✔ Utile pour un taux TVA ou un coefficient commun</p>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:12px;font-size:.85rem;">
+        <strong>Astuce :</strong> Appuyez sur <kbd>F4</kbd> pour basculer entre les 4 modes : <code>C2</code> → <code>$C$2</code> → <code>C$2</code> → <code>$C2</code>
+      </div>
+    </div>
+
+    <div class="section-title jaune"><span class="icon">❌</span> Messages d'erreur courants</div>
+    <table class="table-compare jaune">
+      <tr><th>Erreur</th><th>Cause</th><th>Solution</th></tr>
+      <tr><td><code style="color:#d0021b;">#DIV/0!</code></td><td>Division par zéro</td><td>Vérifier le diviseur, utiliser <code>=SI(C2=0;0;A2/C2)</code></td></tr>
+      <tr><td><code style="color:#d0021b;">#VALEUR!</code></td><td>Mauvais type de données (texte dans calcul)</td><td>Vérifier que toutes les cellules de la plage sont des nombres</td></tr>
+      <tr><td><code style="color:#d0021b;">#REF!</code></td><td>Référence invalide (ligne supprimée)</td><td>Corriger ou réécrire la formule</td></tr>
+      <tr><td><code style="color:#d0021b;">#NOM?</code></td><td>Nom de fonction mal orthographié</td><td>Vérifier l'orthographe : <code>SOMME</code> pas <code>SOME</code></td></tr>
+      <tr><td><code style="color:#d0021b;">########</code></td><td>Colonne trop étroite pour afficher le résultat</td><td>Double-cliquer sur le bord de l'en-tête de colonne</td></tr>
+    </table>
+
+    <!-- ──────── EXERCICE 5 ──────── -->
+    <div class="exo-block">
+      <div class="exo-header">
+        <div class="exo-num jaune">5</div>
+        <div class="exo-title jaune">Exercice – Facture de menuiserie</div>
+      </div>
+      <p class="exo-context">📁 Contexte : Calculez automatiquement une facture de pose de parquet pour un client.</p>
+      <ol class="exo-steps jaune">
+        <li>Créez le tableau ci-dessous avec les colonnes : Prestation | Qté | Unité | Prix HT | Total HT</li>
+        <li>Saisissez 5 prestations (pose parquet, ponçage, vitrification, plinthes, déplacement).</li>
+        <li>En colonne Total HT, entrez la formule <code>=C2*D2</code> (Qté × Prix) et recopiez-la sur les 5 lignes.</li>
+        <li>En bas du tableau, calculez le Total HT avec <code>=SOMME(...)</code>.</li>
+        <li>Calculez le montant TVA 20% en utilisant une <strong>référence absolue</strong> vers le taux TVA saisi dans une cellule à part.</li>
+        <li>Calculez le Total TTC (<code>=TotalHT + TVA</code>).</li>
+        <li>Ajoutez une ligne pour afficher le prix minimum et maximum des prestations.</li>
+        <li>Comptez le nombre de prestations avec <code>=NB()</code> ou <code>=NBVAL()</code>.</li>
+      </ol>
+      <div style="margin-top:12px;">
+        <strong style="color:#b87000;">✔ Critères de réussite :</strong>
+        <ul class="check-list">
+          <li>Les formules Total HT se mettent à jour automatiquement quand on change un prix</li>
+          <li>Le taux TVA est en <code>$</code> (référence absolue)</li>
+          <li>Le Total TTC est correct</li>
+          <li>MIN et MAX fonctionnent</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ──────── EXERCICE 6 ──────── -->
+    <div class="exo-block">
+      <div class="exo-header">
+        <div class="exo-num jaune">6</div>
+        <div class="exo-title jaune">Exercice – Références absolues et TVA</div>
+      </div>
+      <p class="exo-context">📁 Contexte : Comprenez les références absolues sur un cas concret de taux.</p>
+      <ol class="exo-steps jaune">
+        <li>Saisissez en <code>F1</code> : <code>Taux TVA</code> et en <code>G1</code> : <code>20%</code>.</li>
+        <li>En <code>A1:B5</code>, saisissez 5 articles avec leurs prix HT.</li>
+        <li>En C2, écrivez <code>=B2*$G$1</code> pour calculer la TVA du premier article.</li>
+        <li>Recopiez la formule vers C3:C6. Vérifiez que <code>$G$1</code> reste fixé.</li>
+        <li>Changez le taux en G1 à <code>10%</code> : toutes les TVA doivent se recalculer.</li>
+        <li>Essayez la même chose <em>sans</em> le <code>$</code> et observez les erreurs.</li>
+      </ol>
+    </div>
+
+    <!-- ──────── FICHE RÉCAP ──────── -->
+    <div class="recap" style="background:linear-gradient(135deg,#8b5000 0%,#d4850a 100%);">
+      <h3>📌 Fiche Récap – Chapitre 3</h3>
+      <div class="recap-grid">
+        <div class="recap-card">
+          <h4>Fonctions clés</h4>
+          <ul>
+            <li><code>=SOMME(A1:A10)</code></li>
+            <li><code>=MOYENNE(A1:A10)</code></li>
+            <li><code>=MIN(A1:A10)</code></li>
+            <li><code>=MAX(A1:A10)</code></li>
+            <li><code>=NB(A1:A10)</code></li>
+            <li><code>=NBVAL(A1:A10)</code></li>
+          </ul>
+        </div>
+        <div class="recap-card">
+          <h4>Références</h4>
+          <ul>
+            <li><code>A1</code> = relative (s'adapte)</li>
+            <li><code>$A$1</code> = absolue (fixée)</li>
+            <li><code>$A1</code> = colonne fixée</li>
+            <li><code>A$1</code> = ligne fixée</li>
+            <li><kbd>F4</kbd> = basculer les modes</li>
+          </ul>
+        </div>
+        <div class="recap-card">
+          <h4>Erreurs courantes</h4>
+          <ul>
+            <li><code>#DIV/0!</code> → division par 0</li>
+            <li><code>#VALEUR!</code> → texte dans calcul</li>
+            <li><code>#REF!</code> → cellule supprimée</li>
+            <li><code>########</code> → colonne trop étroite</li>
+          </ul>
+        </div>
+        <div class="recap-card">
+          <h4>Règle d'or</h4>
+          <ul>
+            <li>Toujours commencer par <code>=</code></li>
+            <li>Taux commun → référence absolue</li>
+            <li>Calcul répété ligne par ligne → référence relative</li>
+            <li><kbd>Alt+=</kbd> pour SOMME rapide</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     CHAPITRE 4 – GRAPHIQUES & IMPRESSION
+════════════════════════════════════════════════════════════════════════════ -->
+<div class="chapter" id="ch4">
+  <div class="chapter-header violet">
+    <div class="chapter-num">04</div>
+    <div class="chapter-title">Graphiques &amp; Impression</div>
+  </div>
+  <div class="chapter-body">
+
+    <div class="section-title violet"><span class="icon">📖</span> Cours – Créer un graphique</div>
+
+    <p>Un graphique permet de <strong>visualiser</strong> des données numériques pour les rendre plus lisibles. Dans Excel, la création d'un graphique suit toujours le même processus :</p>
+
+    <div class="schema">
+      <div class="schema-title">🔄 Processus de création d'un graphique</div>
+      <div style="display:flex;align-items:center;gap:0;flex-wrap:wrap;justify-content:center;max-width:640px;margin:0 auto;">
+        <div style="background:#5b2d8e;color:#fff;padding:10px 14px;border-radius:8px 0 0 8px;font-size:.82rem;font-weight:700;text-align:center;min-width:100px;">① Sélectionner<br>les données</div>
+        <div style="background:#7a3ab8;color:#fff;padding:10px 14px;font-size:.82rem;font-weight:700;text-align:center;min-width:100px;">② Insertion<br>→ Graphique</div>
+        <div style="background:#8e44ad;color:#fff;padding:10px 14px;font-size:.82rem;font-weight:700;text-align:center;min-width:100px;">③ Choisir<br>le type</div>
+        <div style="background:#a55cc7;color:#fff;padding:10px 14px;font-size:.82rem;font-weight:700;text-align:center;min-width:100px;">④ Personnaliser<br>titres/couleurs</div>
+        <div style="background:#ba8fd0;color:#fff;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.82rem;font-weight:700;text-align:center;min-width:100px;">⑤ Positionner<br>le graphique</div>
+      </div>
+    </div>
+
+    <div class="section-title violet"><span class="icon">📊</span> Choisir le bon type de graphique</div>
+
+    <table class="table-compare violet">
+      <tr><th>Type</th><th>Quand l'utiliser</th><th>Exemple BTS ERA</th></tr>
+      <tr><td><span class="pill bleu">Histogramme</span></td><td>Comparer des valeurs entre catégories</td><td>Prix par essence de bois</td></tr>
+      <tr><td><span class="pill vert">Courbe</span></td><td>Montrer une évolution dans le temps</td><td>Évolution du CA mensuel</td></tr>
+      <tr><td><span class="pill jaune">Secteurs (Camembert)</span></td><td>Montrer des proportions (100%)</td><td>Répartition des postes de coût</td></tr>
+      <tr><td><span class="pill bleu">Barres horizontales</span></td><td>Comparer des valeurs avec longs libellés</td><td>Temps par poste de travail</td></tr>
+      <tr><td><span class="pill rouge">Aires</span></td><td>Montrer une évolution cumulée</td><td>Cumul des ventes sur l'année</td></tr>
+    </table>
+
+    <!-- Graphique simulé -->
+    <div class="schema">
+      <div class="schema-title">📊 Schéma visuel – Histogramme simulé (Devis par poste)</div>
+      <div style="background:#fff;padding:16px;border-radius:6px;max-width:560px;margin:0 auto;">
+        <div style="font-weight:700;font-size:.9rem;text-align:center;color:#5b2d8e;margin-bottom:12px;">Répartition des coûts – Cuisine sur mesure</div>
+        <div style="display:flex;align-items:flex-end;gap:14px;height:160px;padding:0 10px;border-bottom:2px solid #ccc;border-left:2px solid #ccc;justify-content:space-around;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div style="font-size:.7rem;font-weight:700;color:#5b2d8e;">1 850€</div>
+            <div style="width:50px;background:linear-gradient(180deg,#8e44ad,#5b2d8e);height:124px;border-radius:4px 4px 0 0;"></div>
+            <div style="font-size:.7rem;color:#555;text-align:center;max-width:60px;">Façades</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div style="font-size:.7rem;font-weight:700;color:#1a4b8c;">1 200€</div>
+            <div style="width:50px;background:linear-gradient(180deg,#2563b0,#1a4b8c);height:80px;border-radius:4px 4px 0 0;"></div>
+            <div style="font-size:.7rem;color:#555;text-align:center;max-width:60px;">Plan de travail</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div style="font-size:.7rem;font-weight:700;color:#1a7a4a;">980€</div>
+            <div style="width:50px;background:linear-gradient(180deg,#22a85f,#1a7a4a);height:66px;border-radius:4px 4px 0 0;"></div>
+            <div style="font-size:.7rem;color:#555;text-align:center;max-width:60px;">Électroménager</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div style="font-size:.7rem;font-weight:700;color:#b87000;">750€</div>
+            <div style="width:50px;background:linear-gradient(180deg,#f5a623,#b87000);height:50px;border-radius:4px 4px 0 0;"></div>
+            <div style="font-size:.7rem;color:#555;text-align:center;max-width:60px;">Quincaillerie</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div style="font-size:.7rem;font-weight:700;color:#d0021b;">500€</div>
+            <div style="width:50px;background:linear-gradient(180deg,#e8314a,#a00014);height:34px;border-radius:4px 4px 0 0;"></div>
+            <div style="font-size:.7rem;color:#555;text-align:center;max-width:60px;">Pose</div>
+          </div>
+        </div>
+        <div style="font-size:.75rem;color:var(--gris3);text-align:center;margin-top:8px;">Source : Tableau Excel · Données calculées avec SOMME()</div>
+      </div>
+    </div>
+
+    <div class="section-title violet"><span class="icon">✏️</span> Personnaliser un graphique</div>
+    <p>Une fois le graphique inséré, 3 onglets contextuels apparaissent dans le ruban :</p>
+    <ul>
+      <li><strong>Création</strong> : changer le type, le style, ajouter/supprimer des éléments (titre, légende, étiquettes…)</li>
+      <li><strong>Disposition</strong> (ou Mise en forme) : modifier les couleurs, polices, effets</li>
+      <li><strong>Format</strong> : taille et position du graphique</li>
+    </ul>
+
+    <table class="table-compare violet">
+      <tr><th>Élément</th><th>Comment l'ajouter/modifier</th><th>Bonne pratique</th></tr>
+      <tr><td>Titre du graphique</td><td>Onglet Création → Ajouter un élément → Titre</td><td>Toujours présent et descriptif</td></tr>
+      <tr><td>Étiquettes de données</td><td>Clic droit → Ajouter étiquettes de données</td><td>Utiles sur camembert, barres courtes</td></tr>
+      <tr><td>Légende</td><td>Création → Légende → position</td><td>À droite ou en bas selon l'espace</td></tr>
+      <tr><td>Axe des ordonnées</td><td>Double-clic sur l'axe → Mise en forme</td><td>Préciser l'unité (€, m², heures)</td></tr>
+      <tr><td>Couleurs</td><td>Onglet Création → Modifier les couleurs</td><td>Cohérence avec les couleurs entreprise</td></tr>
+    </table>
+
+    <div class="section-title violet"><span class="icon">🖨️</span> Mise en page &amp; Impression</div>
+    <p>Avant d'imprimer, il est indispensable d'utiliser l'<strong>Aperçu avant impression</strong> (<kbd>Ctrl + P</kbd>) et de configurer la mise en page (onglet <em>Mise en page</em>).</p>
+
+    <div class="schema">
+      <div class="schema-title">📄 Paramètres essentiels de mise en page</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;max-width:620px;margin:0 auto;">
+        <div style="background:#fff;border:2px solid #d0baed;border-radius:7px;padding:12px;">
+          <div style="font-weight:700;color:#5b2d8e;font-size:.85rem;margin-bottom:6px;">📐 Orientation</div>
+          <div style="font-size:.82rem;color:var(--texte);">Portrait (↑) ou Paysage (↔)<br>→ Paysage pour les tableaux larges</div>
+        </div>
+        <div style="background:#fff;border:2px solid #d0baed;border-radius:7px;padding:12px;">
+          <div style="font-weight:700;color:#5b2d8e;font-size:.85rem;margin-bottom:6px;">📏 Marges</div>
+          <div style="font-size:.82rem;color:var(--texte);">Normal / Étroit / Large ou personnalisé.<br>→ Étroit pour maximiser l'espace</div>
+        </div>
+        <div style="background:#fff;border:2px solid #d0baed;border-radius:7px;padding:12px;">
+          <div style="font-weight:700;color:#5b2d8e;font-size:.85rem;margin-bottom:6px;">🔲 Zone d'impression</div>
+          <div style="font-size:.82rem;color:var(--texte);">Sélectionner les cellules → Mise en page → Zone d'impression → Définir</div>
+        </div>
+        <div style="background:#fff;border:2px solid #d0baed;border-radius:7px;padding:12px;">
+          <div style="font-weight:700;color:#5b2d8e;font-size:.85rem;margin-bottom:6px;">📝 En-têtes / Pieds</div>
+          <div style="font-size:.82rem;color:var(--texte);">Insertion → En-tête et pied de page.<br>→ Date, numéro de page, nom société</div>
+        </div>
+        <div style="background:#fff;border:2px solid #d0baed;border-radius:7px;padding:12px;">
+          <div style="font-weight:700;color:#5b2d8e;font-size:.85rem;margin-bottom:6px;">📊 Répéter les titres</div>
+          <div style="font-size:.82rem;color:var(--texte);">Mise en page → Titres à imprimer → Lignes à répéter en haut</div>
+        </div>
+        <div style="background:#fff;border:2px solid #d0baed;border-radius:7px;padding:12px;">
+          <div style="font-weight:700;color:#5b2d8e;font-size:.85rem;margin-bottom:6px;">📉 Mise à l'échelle</div>
+          <div style="font-size:.82rem;color:var(--texte);">Ajuster sur 1 page : Mise en page → Mettre à l'échelle → 1 page de large</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box bleu">
+      <div class="ib-title">💡 En-tête professionnel</div>
+      Pour un document BTS, votre en-tête devrait contenir : <strong>nom de l'entreprise à gauche</strong>, <strong>titre du document au centre</strong>, <strong>date à droite</strong>. Le pied de page affiche : <strong>Page X / Y</strong> au centre. Utilisez les codes : <code>&amp;[Page]</code> et <code>&amp;[Pages]</code> dans l'éditeur d'en-tête.
+    </div>
+
+    <!-- ──────── EXERCICE 7 ──────── -->
+    <div class="exo-block">
+      <div class="exo-header">
+        <div class="exo-num violet">7</div>
+        <div class="exo-title violet">Exercice – Graphique de répartition des coûts</div>
+      </div>
+      <p class="exo-context">📁 Contexte : Créez un graphique illustrant la répartition du coût d'une cuisine sur mesure.</p>
+      <ol class="exo-steps violet">
+        <li>Créez un tableau avec 5 postes et leurs coûts (façades, plan de travail, pose, quincaillerie, électroménager).</li>
+        <li>Sélectionnez les données (libellés + valeurs) et insérez un <strong>graphique Histogramme groupé</strong>.</li>
+        <li>Ajoutez un titre : <em>Répartition des coûts – Cuisine Durand</em>.</li>
+        <li>Activez les <strong>étiquettes de données</strong> (montants en € affichés sur chaque barre).</li>
+        <li>Changez les couleurs pour utiliser des tons bleus.</li>
+        <li>Déplacez le graphique sous le tableau (pas sur les cellules).</li>
+        <li>Créez un deuxième graphique de type <strong>Secteurs</strong> (camembert) avec les mêmes données.</li>
+        <li>Activez les <strong>pourcentages</strong> comme étiquettes sur le camembert.</li>
+      </ol>
+      <div style="margin-top:12px;">
+        <strong style="color:#5b2d8e;">✔ Critères de réussite :</strong>
+        <ul class="check-list">
+          <li>Les deux graphiques ont un titre clair</li>
+          <li>L'histogramme affiche les montants en €</li>
+          <li>Le camembert affiche des pourcentages (total = 100%)</li>
+          <li>Les graphiques ne recouvrent pas les données</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ──────── EXERCICE 8 ──────── -->
+    <div class="exo-block">
+      <div class="exo-header">
+        <div class="exo-num violet">8</div>
+        <div class="exo-title violet">Exercice – Mise en page professionnelle</div>
+      </div>
+      <p class="exo-context">📁 Contexte : Préparez un devis pour impression en format A4 professionnel.</p>
+      <ol class="exo-steps violet">
+        <li>Reprenez le tableau de devis de l'exercice 5 (ou créez-en un nouveau).</li>
+        <li>Orientation : <strong>Portrait</strong>. Marges : <strong>Étroit</strong>.</li>
+        <li>Définissez la <strong>zone d'impression</strong> exacte (uniquement le tableau, pas les zones vides).</li>
+        <li>Ajoutez un <strong>en-tête</strong> : gauche = <em>Menuiserie Martin</em>, centre = <em>DEVIS N°001</em>, droite = date automatique (<code>&amp;[Date]</code>).</li>
+        <li>Ajoutez un <strong>pied de page</strong> : centre = <em>Page &amp;[Page] sur &amp;[Pages]</em>.</li>
+        <li>Activez <strong>Répéter la ligne de titre</strong> en haut de chaque page (ligne des en-têtes de colonnes).</li>
+        <li>Appliquez une <strong>mise à l'échelle</strong> pour que tout tienne sur 1 page en largeur.</li>
+        <li>Vérifiez dans l'<strong>Aperçu avant impression</strong> (<kbd>Ctrl+P</kbd>). Prenez une capture d'écran si possible.</li>
+      </ol>
+    </div>
+
+    <!-- ──────── FICHE RÉCAP ──────── -->
+    <div class="recap" style="background:linear-gradient(135deg,#5b2d8e 0%,#1a4b8c 100%);">
+      <h3>📌 Fiche Récap – Chapitre 4</h3>
+      <div class="recap-grid">
+        <div class="recap-card">
+          <h4>Types de graphiques</h4>
+          <ul>
+            <li>Histogramme → comparaison</li>
+            <li>Courbe → évolution/tendance</li>
+            <li>Secteurs → proportions</li>
+            <li>Barres → catégories longues</li>
+          </ul>
+        </div>
+        <div class="recap-card">
+          <h4>Étapes création graphique</h4>
+          <ul>
+            <li>① Sélectionner données</li>
+            <li>② Insertion → Graphique</li>
+            <li>③ Choisir le type</li>
+            <li>④ Titres + étiquettes</li>
+            <li>⑤ Positionner</li>
+          </ul>
+        </div>
+        <div class="recap-card">
+          <h4>Impression pro</h4>
+          <ul>
+            <li><code>Ctrl+P</code> → aperçu</li>
+            <li>Définir la zone d'impression</li>
+            <li>En-tête : société / titre / date</li>
+            <li>Pied : Page X / Y</li>
+            <li>Répéter les titres</li>
+          </ul>
+        </div>
+        <div class="recap-card">
+          <h4>Codes en-tête utiles</h4>
+          <ul>
+            <li><code>&amp;[Page]</code> → n° de page</li>
+            <li><code>&amp;[Pages]</code> → total pages</li>
+            <li><code>&amp;[Date]</code> → date du jour</li>
+            <li><code>&amp;[Heure]</code> → heure impression</li>
+            <li><code>&amp;[Fichier]</code> → nom du fichier</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     FICHE RÉCAP GLOBALE
+════════════════════════════════════════════════════════════════════════════ -->
+<div class="chapter" style="margin-bottom:40px;">
+  <div class="chapter-header" style="background:linear-gradient(135deg,#1a4b8c,#1a7a4a,#8e44ad);">
+    <div class="chapter-num" style="font-size:1.6rem;">★</div>
+    <div class="chapter-title">Synthèse Générale – Partie 1 Excel</div>
+  </div>
+  <div class="chapter-body">
+    <p style="margin-bottom:20px;">Récapitulatif de toutes les compétences acquises dans cette partie. À utiliser comme mémo pour les examens et les exercices pratiques.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;">
+
+      <div style="background:linear-gradient(135deg,#e8f0fb,#cce2ff);border:2px solid var(--bleu2);border-radius:10px;padding:18px;">
+        <h3 style="color:var(--bleu);margin-bottom:12px;font-size:1rem;">📘 Chapitre 1 – Interface</h3>
+        <ul style="font-size:.85rem;padding-left:18px;line-height:1.8;">
+          <li>Identifier les zones de l'interface Excel</li>
+          <li>Naviguer avec les raccourcis clavier</li>
+          <li>Nommer et gérer les feuilles</li>
+          <li>Utiliser la Zone Nom pour naviguer</li>
+          <li>Sélectionner des plages contiguës et non contiguës</li>
+        </ul>
+      </div>
+
+      <div style="background:linear-gradient(135deg,#e6f7ee,#ccf0dd);border:2px solid var(--vert2);border-radius:10px;padding:18px;">
+        <h3 style="color:var(--vert);margin-bottom:12px;font-size:1rem;">📗 Chapitre 2 – Mise en forme</h3>
+        <ul style="font-size:.85rem;padding-left:18px;line-height:1.8;">
+          <li>Distinguer texte, nombre, date, formule</li>
+          <li>Appliquer des formats de nombre (€, %, date)</li>
+          <li>Mettre en forme avec police, couleur, bordures</li>
+          <li>Fusionner des cellules</li>
+          <li>Utiliser la recopie incrémentée</li>
+          <li>Maîtriser le collage spécial</li>
+        </ul>
+      </div>
+
+      <div style="background:linear-gradient(135deg,#fff8e6,#ffe4a0);border:2px solid var(--jaune);border-radius:10px;padding:18px;">
+        <h3 style="color:#b87000;margin-bottom:12px;font-size:1rem;">📙 Chapitre 3 – Formules</h3>
+        <ul style="font-size:.85rem;padding-left:18px;line-height:1.8;">
+          <li>Écrire des formules avec opérateurs</li>
+          <li>Utiliser SOMME, MOYENNE, MIN, MAX, NB</li>
+          <li>Différencier référence relative et absolue</li>
+          <li>Utiliser <kbd>F4</kbd> pour fixer une référence</li>
+          <li>Comprendre et corriger les erreurs Excel</li>
+        </ul>
+      </div>
+
+      <div style="background:linear-gradient(135deg,#f3e8ff,#d9b8f0);border:2px solid #8e44ad;border-radius:10px;padding:18px;">
+        <h3 style="color:#5b2d8e;margin-bottom:12px;font-size:1rem;">📕 Chapitre 4 – Graphiques</h3>
+        <ul style="font-size:.85rem;padding-left:18px;line-height:1.8;">
+          <li>Créer un graphique à partir de données</li>
+          <li>Choisir le type adapté (histo, secteur, courbe)</li>
+          <li>Personnaliser titres, légende, couleurs</li>
+          <li>Configurer la mise en page A4</li>
+          <li>Créer en-tête et pied de page pro</li>
+          <li>Définir une zone d'impression</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Tableau des fonctions de référence -->
+    <div class="section-title" style="margin-top:28px;"><span class="icon">📋</span> Tableau de référence rapide – Fonctions &amp; Raccourcis</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <table class="table-compare">
+        <tr><th colspan="2">Fonctions essentielles</th></tr>
+        <tr><td><code>=SOMME(A1:A10)</code></td><td>Additionne la plage</td></tr>
+        <tr><td><code>=MOYENNE(A1:A10)</code></td><td>Moyenne arithmétique</td></tr>
+        <tr><td><code>=MIN(A1:A10)</code></td><td>Valeur minimale</td></tr>
+        <tr><td><code>=MAX(A1:A10)</code></td><td>Valeur maximale</td></tr>
+        <tr><td><code>=NB(A1:A10)</code></td><td>Nb de cellules numériques</td></tr>
+        <tr><td><code>=NBVAL(A1:A10)</code></td><td>Nb de cellules non vides</td></tr>
+      </table>
+      <div>
+        <table class="table-compare">
+          <tr><th colspan="2">Raccourcis indispensables</th></tr>
+          <tr><td><kbd>Ctrl+S</kbd></td><td>Sauvegarder</td></tr>
+          <tr><td><kbd>Ctrl+Z</kbd></td><td>Annuler</td></tr>
+          <tr><td><kbd>Ctrl+1</kbd></td><td>Format cellule</td></tr>
+          <tr><td><kbd>Alt+=</kbd></td><td>SOMME automatique</td></tr>
+          <tr><td><kbd>F4</kbd></td><td>Référence absolue</td></tr>
+          <tr><td><kbd>Ctrl+P</kbd></td><td>Imprimer / Aperçu</td></tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer style="background:var(--bleu);color:rgba(255,255,255,.7);text-align:center;padding:16px;font-size:.8rem;">
+  BTS ERA – Bureautique | Partie 1 Excel | Document pédagogique complet
+</footer>
+
+</body>
+</html>

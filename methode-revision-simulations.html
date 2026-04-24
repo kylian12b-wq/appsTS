@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BTS ERA — Méthode de Révision & Simulations</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap');
+  :root {
+    --blue: #1a56db; --blue-light: #e8f0fe; --dark: #0f172a; --mid: #334155;
+    --light: #f8fafc; --border: #e2e8f0; --green: #16a34a; --orange: #ea580c;
+    --red: #dc2626; --purple: #7c3aed; --teal: #0d9488; --yellow: #ca8a04;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Sora', sans-serif; background: var(--light); color: var(--dark); line-height: 1.7; }
+  header { background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%); color: white; padding: 2.5rem 2rem; text-align: center; }
+  header .badge { background: var(--purple); display: inline-block; padding: .3rem 1rem; border-radius: 999px; font-size: .8rem; margin-bottom: .8rem; }
+  header h1 { font-size: 1.9rem; font-weight: 700; }
+  header p { color: #94a3b8; margin-top: .5rem; }
+  nav { background: white; border-bottom: 1px solid var(--border); padding: .8rem 2rem; display: flex; gap: .7rem; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; }
+  nav a { text-decoration: none; color: var(--mid); font-size: .78rem; font-weight: 600; padding: .3rem .6rem; border-radius: 6px; }
+  nav a:hover { background: var(--blue-light); color: var(--blue); }
+  main { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+  section { margin-bottom: 3rem; }
+  h2 { font-size: 1.4rem; color: var(--blue); border-left: 4px solid var(--blue); padding-left: 1rem; margin-bottom: 1.5rem; }
+  h3 { font-size: 1.05rem; font-weight: 700; margin: 1.5rem 0 .8rem; }
+  p { margin-bottom: .8rem; color: var(--mid); }
+  .card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .card.blue { border-left: 4px solid var(--blue); }
+  .card.green { border-left: 4px solid var(--green); }
+  .card.orange { border-left: 4px solid var(--orange); }
+  .card.red { border-left: 4px solid var(--red); }
+  .card.purple { border-left: 4px solid var(--purple); }
+  .card.teal { border-left: 4px solid var(--teal); }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .87rem; }
+  th { background: var(--dark); color: white; padding: .8rem; text-align: left; }
+  td { padding: .7rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:nth-child(even) td { background: var(--blue-light); }
+  .checklist { list-style: none; }
+  .checklist li { padding: .35rem 0; display: flex; gap: .6rem; font-size: .9rem; align-items: flex-start; }
+  .checklist li::before { content: "✅"; flex-shrink: 0; }
+  .checklist.danger li::before { content: "❌"; }
+  .checklist.warning li::before { content: "⚠️"; }
+  .checklist.star li::before { content: "⭐"; }
+  .partie-title { background: var(--dark); color: white; padding: 1rem 1.5rem; border-radius: 10px; margin: 2rem 0 1.5rem; font-size: 1.2rem; font-weight: 700; }
+
+  /* Pomodoro */
+  .pomodoro-schema { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; margin: 1rem 0; }
+  .pom-block { border-radius: 10px; padding: .8rem 1rem; text-align: center; font-size: .8rem; font-weight: 700; min-width: 80px; }
+  .pom-work { background: #fee2e2; color: var(--red); border: 2px solid var(--red); }
+  .pom-break { background: #dcfce7; color: var(--green); border: 2px solid var(--green); }
+  .pom-long { background: #e8f0fe; color: var(--blue); border: 2px solid var(--blue); }
+  .pom-arrow { color: var(--mid); font-size: 1.2rem; }
+
+  /* Fiche modèle */
+  .fiche-modele { background: white; border: 2px solid var(--border); border-radius: 12px; padding: 1.5rem; margin: 1rem 0; }
+  .fiche-modele .fiche-top { display: grid; grid-template-columns: 1fr auto; gap: 1rem; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 2px solid var(--border); }
+  .fiche-matiere { background: var(--blue); color: white; padding: .3rem .8rem; border-radius: 6px; font-size: .8rem; font-weight: 700; display: inline-block; margin-bottom: .4rem; }
+  .fiche-titre { font-size: 1.1rem; font-weight: 700; }
+  .fiche-niveau { text-align: right; }
+  .niveau-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; margin: 0 2px; }
+
+  /* IA dialogue */
+  .ia-dialogue { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem; margin: 1rem 0; }
+  .ia-msg { display: flex; gap: .8rem; margin-bottom: .8rem; align-items: flex-start; }
+  .ia-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 700; flex-shrink: 0; }
+  .ia-bubble { border-radius: 10px; padding: .6rem .9rem; font-size: .84rem; max-width: 85%; }
+  .ia-bubble.user { background: var(--blue); color: white; }
+  .ia-bubble.ia { background: #f1f5f9; color: var(--dark); border: 1px solid var(--border); }
+
+  /* Examen blanc */
+  .examen { background: white; border: 2px solid var(--dark); border-radius: 14px; margin-bottom: 2rem; overflow: hidden; }
+  .examen-header { background: var(--dark); color: white; padding: 1.2rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+  .examen-header h3 { margin: 0; font-size: 1.1rem; }
+  .examen-meta { font-size: .82rem; color: #94a3b8; }
+  .examen-body { padding: 1.5rem; }
+  .question-exam { background: #f8fafc; border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem; margin-bottom: 1.2rem; }
+  .question-exam .q-header { display: flex; justify-content: space-between; margin-bottom: .8rem; }
+  .question-exam .q-num { font-weight: 700; color: var(--blue); font-size: .9rem; }
+  .question-exam .q-points { background: var(--blue-light); color: var(--blue); padding: .15rem .5rem; border-radius: 4px; font-size: .75rem; font-weight: 700; }
+  .question-exam p { font-size: .9rem; font-weight: 600; margin-bottom: .8rem; }
+  .exam-input { width: 100%; border: 1px solid var(--border); border-radius: 6px; padding: .6rem; font-family: 'Sora', sans-serif; font-size: .85rem; resize: vertical; min-height: 60px; }
+  .corrige-btn { background: var(--green); color: white; border: none; padding: .5rem 1.2rem; border-radius: 6px; cursor: pointer; font-family: 'Sora', sans-serif; font-weight: 600; font-size: .84rem; margin-top: .5rem; }
+  .corrige-content { background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px; padding: 1rem; margin-top: .8rem; font-size: .85rem; display: none; }
+  .corrige-content h4 { color: var(--green); margin-bottom: .5rem; font-size: .9rem; }
+  .score-badge { display: inline-block; background: var(--blue-light); color: var(--blue); padding: .2rem .6rem; border-radius: 4px; font-size: .75rem; font-weight: 700; margin-left: .5rem; }
+
+  /* Soutenance simulation */
+  .jury-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem; margin-bottom: 1rem; }
+  .jury-question { background: #f8fafc; border-left: 4px solid var(--orange); padding: .8rem 1rem; border-radius: 0 8px 8px 0; margin-bottom: .8rem; }
+  .jury-question p { font-size: .9rem; font-weight: 600; color: var(--dark); margin: 0; }
+  .jury-conseil { background: #e8f0fe; border-radius: 8px; padding: .8rem; font-size: .84rem; }
+  .jury-conseil strong { color: var(--blue); }
+
+  /* Check-list */
+  .checklist-j { list-style: none; }
+  .checklist-j li { display: flex; gap: .8rem; padding: .5rem 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .checklist-j li:last-child { border-bottom: none; }
+  .check-box { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 4px; flex-shrink: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: .75rem; transition: all .2s; }
+  .check-box.checked { background: var(--green); border-color: var(--green); color: white; }
+  .check-text { font-size: .88rem; }
+  .check-text.checked { text-decoration: line-through; color: var(--mid); }
+
+  /* Stress */
+  .stress-steps { display: grid; gap: .8rem; margin: 1rem 0; }
+  .stress-step { display: flex; gap: 1rem; background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1rem; align-items: center; }
+  .stress-step .step-icon { font-size: 1.8rem; flex-shrink: 0; }
+  .stress-step .step-info strong { display: block; font-size: .9rem; margin-bottom: .2rem; }
+  .stress-step .step-info p { font-size: .82rem; margin: 0; }
+
+  .btn { background: var(--blue); color: white; border: none; padding: .7rem 1.5rem; border-radius: 8px; cursor: pointer; font-family: 'Sora', sans-serif; font-weight: 600; }
+  .resultat { margin-top: 1rem; padding: 1rem; border-radius: 8px; font-weight: 600; display: none; }
+  .principe-box { background: linear-gradient(135deg, var(--blue-light), #f0fdf4); border: 2px solid var(--blue); border-radius: 12px; padding: 1.5rem; margin: 1rem 0; text-align: center; }
+  .principe-box .chiffre { font-size: 2.2rem; font-weight: 700; color: var(--blue); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">BTS ERA — Réussite</div>
+  <h1>🧠 Méthode de Révision & Simulations d'Examens</h1>
+  <p>Les techniques pour apprendre efficacement et s'entraîner comme en conditions réelles</p>
+</header>
+
+<nav>
+  <a href="#apprendre">Apprendre seul</a>
+  <a href="#pomodoro">Pomodoro</a>
+  <a href="#fiches">Créer ses fiches</a>
+  <a href="#ia">Utiliser l'IA</a>
+  <a href="#entreprise">En entreprise</a>
+  <a href="#chantier">Observer</a>
+  <a href="#opportunites">Opportunités</a>
+  <a href="#examen1">Examen 1</a>
+  <a href="#examen2">Examen 2</a>
+  <a href="#examen3">Examen 3</a>
+  <a href="#soutenance">Soutenance</a>
+  <a href="#stress">Stress</a>
+  <a href="#checklist">Check-list</a>
+</nav>
+
+<main>
+
+<div class="partie-title">🧠 PARTIE 4 — MÉTHODE DE RÉVISION ADAPTÉE</div>
+
+<!-- APPRENDRE SEUL -->
+<section id="apprendre">
+  <h2>1. Comment apprendre efficacement seul</h2>
+  <div class="card blue">
+    <p>En alternance, tu n'as pas de prof à côté de toi le soir. Tu dois apprendre à apprendre seul — c'est une compétence qui se travaille, pas un don.</p>
+  </div>
+
+  <table>
+    <tr><th>Principe</th><th>Ce que ça veut dire concrètement</th><th>Pourquoi ça marche</th></tr>
+    <tr><td>🔁 Répétition espacée</td><td>Revoir une notion à J+1, J+7, J+30 — pas 3h d'un coup</td><td>Le cerveau consolide mieux en plusieurs sessions courtes</td></tr>
+    <tr><td>✍️ Écrire, pas lire</td><td>Rédiger ses fiches à la main plutôt que surligner</td><td>L'écriture active la mémoire 3x plus que la lecture passive</td></tr>
+    <tr><td>🗣️ S'expliquer à voix haute</td><td>Expliquer le cours comme si tu l'enseignais à quelqu'un</td><td>La méthode Feynman — si tu ne peux pas l'expliquer, tu ne le sais pas</td></tr>
+    <tr><td>❓ Se tester</td><td>Faire des QCM, se poser des questions, faire des annales</td><td>Le test est plus efficace que la relecture pour mémoriser</td></tr>
+    <tr><td>🎯 Objectifs précis</td><td>"Ce soir je maîtrise les 3 types de charnières" plutôt que "je révise"</td><td>Le cerveau travaille mieux avec une cible claire</td></tr>
+    <tr><td>😴 Dormir suffisamment</td><td>La mémoire se consolide pendant le sommeil</td><td>Réviser fatigué = perte de temps totale</td></tr>
+  </table>
+
+  <div class="principe-box">
+    <div class="chiffre">20 min</div>
+    <p>Durée maximale de concentration optimale — au-delà, le cerveau décroche. Mieux vaut 4 × 20 min que 1 × 2 heures.</p>
+  </div>
+</section>
+
+<!-- POMODORO -->
+<section id="pomodoro">
+  <h2>2. Technique Pomodoro adaptée aux révisions BTS ERA</h2>
+  <p>La technique Pomodoro divise le travail en blocs courts avec des pauses régulières. C'est scientifiquement prouvé comme la méthode la plus efficace pour maintenir la concentration.</p>
+
+  <h3>Le cycle de base</h3>
+  <div class="pomodoro-schema">
+    <div class="pom-block pom-work">🔴 25 min<br><small>Travail intense</small></div>
+    <span class="pom-arrow">→</span>
+    <div class="pom-block pom-break">🟢 5 min<br><small>Pause active</small></div>
+    <span class="pom-arrow">→</span>
+    <div class="pom-block pom-work">🔴 25 min<br><small>Travail intense</small></div>
+    <span class="pom-arrow">→</span>
+    <div class="pom-block pom-break">🟢 5 min<br><small>Pause active</small></div>
+    <span class="pom-arrow">→</span>
+    <div class="pom-block pom-work">🔴 25 min<br><small>Travail intense</small></div>
+    <span class="pom-arrow">→</span>
+    <div class="pom-block pom-break">🟢 5 min<br><small>Pause active</small></div>
+    <span class="pom-arrow">→</span>
+    <div class="pom-block pom-work">🔴 25 min<br><small>Travail intense</small></div>
+    <span class="pom-arrow">→</span>
+    <div class="pom-block pom-long">🔵 20 min<br><small>Grande pause</small></div>
+  </div>
+  <p style="font-size:.82rem;color:var(--mid);">= 4 Pomodoros = 2h de travail effectif avec 35 min de pauses</p>
+
+  <table>
+    <tr><th>Phase</th><th>Durée</th><th>Ce qu'on fait</th><th>Ce qu'on évite</th></tr>
+    <tr><td>🔴 Travail</td><td>25 min</td><td>UNE seule tâche — lecture, fiche, exercice. Téléphone en mode avion.</td><td>WhatsApp, Instagram, changement de tâche</td></tr>
+    <tr><td>🟢 Petite pause</td><td>5 min</td><td>Se lever, marcher, boire de l'eau, regarder par la fenêtre</td><td>Téléphone — ça relance le cerveau sur autre chose</td></tr>
+    <tr><td>🔵 Grande pause</td><td>20 min</td><td>Manger, faire du sport léger, musique</td><td>Révisions — le cerveau a besoin de vraiment décrocher</td></tr>
+  </table>
+
+  <div class="card green">
+    <h3>Adaptation BTS ERA — Pomodoro par matière</h3>
+    <table>
+      <tr><th>Session (soirée type)</th><th>Matière</th><th>Objectif précis</th></tr>
+      <tr><td>Pomodoro 1 (25 min)</td><td>Technologie</td><td>Mémoriser les 9 cotes standards cuisine</td></tr>
+      <tr><td>Pause 5 min</td><td>—</td><td>Marcher, eau</td></tr>
+      <tr><td>Pomodoro 2 (25 min)</td><td>Technologie</td><td>Se tester sur les cotes sans regarder</td></tr>
+      <tr><td>Pause 5 min</td><td>—</td><td>—</td></tr>
+      <tr><td>Pomodoro 3 (25 min)</td><td>Gestion</td><td>Faire 3 exercices de calcul TVA</td></tr>
+      <tr><td>Pause 5 min</td><td>—</td><td>—</td></tr>
+      <tr><td>Pomodoro 4 (25 min)</td><td>E6</td><td>Rédiger la section "organisation du chantier"</td></tr>
+      <tr><td>Grande pause 20 min</td><td>—</td><td>Fin de session</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- CRÉER SES FICHES -->
+<section id="fiches">
+  <h2>3. Comment créer ses propres fiches de révision</h2>
+  <div class="card orange">
+    <p><strong>Règle d'or :</strong> Une fiche qu'on écrit soi-même vaut 10 fois une fiche qu'on télécharge. Le travail de synthèse est déjà une révision.</p>
+  </div>
+
+  <h3>Structure d'une fiche efficace</h3>
+  <div class="fiche-modele">
+    <div class="fiche-top">
+      <div>
+        <span class="fiche-matiere">TECHNOLOGIE — E4</span>
+        <div class="fiche-titre">Les 3 types de charnières</div>
+        <p style="font-size:.8rem;color:var(--mid);margin-top:.3rem;">Date : 19/04/2026 | Révision : J+7, J+30</p>
+      </div>
+      <div class="fiche-niveau">
+        <p style="font-size:.72rem;color:var(--mid);">Niveau maîtrise</p>
+        <span class="niveau-dot" style="background:var(--green);"></span>
+        <span class="niveau-dot" style="background:var(--green);"></span>
+        <span class="niveau-dot" style="background:var(--border);"></span>
+      </div>
+    </div>
+    <p style="font-size:.85rem;font-weight:700;margin-bottom:.5rem;">📌 L'ESSENTIEL EN 3 LIGNES :</p>
+    <p style="font-size:.85rem;">Recouvrement total = meuble seul | Demi-recouvrement = 2 meubles côte à côte | Sans recouvrement = façade affleurante</p>
+    <p style="font-size:.85rem;font-weight:700;margin:.8rem 0 .3rem;">🧪 AUTO-TEST :</p>
+    <p style="font-size:.85rem;">Q : Quelle charnière pour 2 colonnes cuisine côte à côte ?<br>R : <span style="color:white;background:var(--dark);padding:0 4px;border-radius:3px;">Demi-recouvrement</span></p>
+    <p style="font-size:.85rem;font-weight:700;margin:.8rem 0 .3rem;">⚠️ PIÈGE CLASSIQUE :</p>
+    <p style="font-size:.85rem;">Confondre "sans recouvrement" (affleurante) avec "recouvrement total" — retenir que "sans" = cachée dans le bâti.</p>
+  </div>
+
+  <table>
+    <tr><th>Règle</th><th>Application</th></tr>
+    <tr><td>1 fiche = 1 notion</td><td>Jamais "tout les assemblages" — plutôt "tourillons seul" ou "confirmat seul"</td></tr>
+    <tr><td>Max recto-verso</td><td>Si ça ne tient pas, c'est trop — couper en deux fiches</td></tr>
+    <tr><td>Toujours un auto-test</td><td>Question + réponse cachée → se tester avant de regarder</td></tr>
+    <tr><td>Date + planning de révision</td><td>J, J+7, J+30 — marquer les cases quand c'est fait</td></tr>
+    <tr><td>Couleurs par matière</td><td>Jaune = technologie, Bleu = gestion, Vert = sciences...</td></tr>
+  </table>
+</section>
+
+<!-- UTILISER L'IA -->
+<section id="ia">
+  <h2>4. Comment utiliser l'IA pour s'entraîner</h2>
+  <div class="card purple">
+    <p>L'IA (comme Claude) est un outil d'entraînement exceptionnel disponible 24h/24. Elle peut jouer le rôle de professeur, de jury d'examen ou de camarade de révision.</p>
+  </div>
+
+  <h3>Exemples de prompts efficaces pour réviser</h3>
+  <div class="ia-dialogue">
+    <p style="font-size:.8rem;font-weight:700;color:var(--mid);margin-bottom:.8rem;">💡 Exemple 1 — Se faire interroger</p>
+    <div class="ia-msg">
+      <div class="ia-avatar" style="background:var(--blue);color:white;">Toi</div>
+      <div class="ia-bubble user">"Pose-moi 5 questions de niveau BTS ERA sur les assemblages en menuiserie. Ne me donne pas les réponses avant que je réponde."</div>
+    </div>
+    <div class="ia-msg">
+      <div class="ia-avatar" style="background:#f1f5f9;color:var(--dark);">IA</div>
+      <div class="ia-bubble ia">"Parfait ! Question 1 : Quel tourillon utilise-t-on pour assembler deux panneaux de 19mm et pourquoi ?"</div>
+    </div>
+  </div>
+
+  <div class="ia-dialogue">
+    <p style="font-size:.8rem;font-weight:700;color:var(--mid);margin-bottom:.8rem;">💡 Exemple 2 — Simuler le jury E6</p>
+    <div class="ia-msg">
+      <div class="ia-avatar" style="background:var(--blue);color:white;">Toi</div>
+      <div class="ia-bubble user">"Joue le rôle d'un jury BTS ERA. Je vais te présenter mon chantier de cuisine en chêne massif. Pose-moi des questions techniques difficiles comme le ferait un vrai jury."</div>
+    </div>
+    <div class="ia-msg">
+      <div class="ia-avatar" style="background:#f1f5f9;color:var(--dark);">IA</div>
+      <div class="ia-bubble ia">"Très bien. Commençons : Pourquoi avez-vous choisi du chêne massif plutôt que du MDF ? Quels étaient les risques liés à ce choix et comment les avez-vous gérés ?"</div>
+    </div>
+  </div>
+
+  <div class="ia-dialogue">
+    <p style="font-size:.8rem;font-weight:700;color:var(--mid);margin-bottom:.8rem;">💡 Exemple 3 — Corriger ses exercices</p>
+    <div class="ia-msg">
+      <div class="ia-avatar" style="background:var(--blue);color:white;">Toi</div>
+      <div class="ia-bubble user">"Voici ma réponse à cet exercice de gestion : [ta réponse]. Est-ce correct ? Qu'est-ce que j'aurais pu ajouter ou améliorer ?"</div>
+    </div>
+    <div class="ia-msg">
+      <div class="ia-avatar" style="background:#f1f5f9;color:var(--dark);">IA</div>
+      <div class="ia-bubble ia">"Ta réponse est correcte sur le calcul TVA. Cependant, tu as oublié de mentionner la retenue de garantie et son délai de libération. Pour un jury, ça ferait perdre 2 points..."</div>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h3>✅ Les meilleurs usages de l'IA pour le BTS ERA</h3>
+    <ul class="checklist">
+      <li>Se faire interroger sur une notion jusqu'à la maîtriser parfaitement</li>
+      <li>Simuler l'oral E6 — jury virtuel disponible à 23h</li>
+      <li>Faire corriger ses rédactions et ses exercices de gestion</li>
+      <li>Demander des explications différentes quand on ne comprend pas</li>
+      <li>Générer des cas pratiques inédits pour s'entraîner</li>
+      <li>Vérifier ses fiches de révision — "est-ce que j'ai oublié quelque chose d'important ?"</li>
+    </ul>
+  </div>
+
+  <div class="card red">
+    <h3>❌ Ce qu'il ne faut PAS faire avec l'IA</h3>
+    <ul class="checklist danger">
+      <li>Copier-coller les réponses de l'IA dans son mémoire E6 — le jury le détecte</li>
+      <li>Demander à l'IA de faire ses fiches à sa place — perdre le bénéfice de les écrire soi-même</li>
+      <li>Croire que l'IA remplace les cours et les annales officielles</li>
+    </ul>
+  </div>
+</section>
+
+<!-- EN ENTREPRISE -->
+<section id="entreprise">
+  <h2>5. Tirer parti de son temps en entreprise</h2>
+  <p>Les semaines en entreprise ne sont pas du temps perdu pour les révisions — ce sont des semaines où tu construis ton E6 et consolides tes apprentissages.</p>
+
+  <table>
+    <tr><th>Moment</th><th>Ce qu'on peut faire</th><th>Bénéfice pour le BTS</th></tr>
+    <tr><td>Trajet aller/retour</td><td>Écouter des podcasts techniques, revoir ses fiches audio</td><td>30-60 min/jour de révision passive</td></tr>
+    <tr><td>Pause déjeuner</td><td>Relire 1 fiche de révision — 10 min suffisent</td><td>Répétition espacée sans effort</td></tr>
+    <tr><td>Réunions de chantier</td><td>Prendre des notes détaillées pour le mémoire E6</td><td>Matière première directe pour l'oral</td></tr>
+    <tr><td>Livraisons et réceptions</td><td>Photographier, noter les références matériaux</td><td>Fiches techniques pour le mémoire</td></tr>
+    <tr><td>Fin de journée</td><td>5 min pour noter ce qu'on a appris ou observé</td><td>Journal de bord = mémoire E6 en construction</td></tr>
+  </table>
+
+  <div class="card teal">
+    <h3>Le journal de bord chantier — 5 min par jour</h3>
+    <p>Chaque soir en entreprise, prends 5 minutes pour noter :</p>
+    <ul class="checklist">
+      <li>Une chose technique que tu as apprise ou vue aujourd'hui</li>
+      <li>Une décision prise et pourquoi</li>
+      <li>Un problème rencontré et comment il a été résolu</li>
+      <li>Une photo avec une légende technique</li>
+    </ul>
+    <p style="margin-top:.5rem;">Après 6 mois, tu as la matière brute de ton mémoire E6.</p>
+  </div>
+</section>
+
+<!-- OBSERVER SUR LES CHANTIERS -->
+<section id="chantier">
+  <h2>6. Comment observer et apprendre sur les chantiers</h2>
+  <div class="card blue">
+    <p>Un apprenti actif apprend 3 fois plus qu'un apprenti passif. La différence : poser des questions, observer avec intention, analyser ce qu'on voit.</p>
+  </div>
+
+  <table>
+    <tr><th>Ce qu'on observe</th><th>Les questions à se poser</th><th>Lien avec le cours</th></tr>
+    <tr><td>Un assemblage en cours</td><td>Pourquoi ce type d'assemblage ? Quelle résistance ? Quelle colle ?</td><td>Technologie — assemblages</td></tr>
+    <tr><td>Une façade posée</td><td>Quel recouvrement de charnière ? Jeu correct ?</td><td>Technologie — quincaillerie</td></tr>
+    <tr><td>Un devis remis au client</td><td>Comment est-il structuré ? Quelles marges ?</td><td>Gestion — économie</td></tr>
+    <tr><td>Un plan consulté</td><td>À quelle échelle ? Comment sont cotées les pièces ?</td><td>Dessin technique</td></tr>
+    <tr><td>Une réunion de chantier</td><td>Qui décide quoi ? Comment les problèmes sont résolus ?</td><td>Management — communication</td></tr>
+    <tr><td>Une non-conformité</td><td>Comment est-elle traitée ? Quel document ?</td><td>Documents de chantier</td></tr>
+  </table>
+
+  <div class="card green">
+    <h3>⭐ Demander à comprendre — pas juste à faire</h3>
+    <p>Ne pas faire une tâche en mode automatique. Toujours se demander :</p>
+    <ul class="checklist star">
+      <li>"Pourquoi on fait ça comme ça et pas autrement ?"</li>
+      <li>"Quelle est la norme qui s'applique ici ?"</li>
+      <li>"Qu'est-ce qui se passerait si on faisait différemment ?"</li>
+    </ul>
+    <p style="margin-top:.5rem;">Un professionnel qui pose de bonnes questions est toujours bien perçu — jamais agaçant.</p>
+  </div>
+</section>
+
+<!-- OPPORTUNITÉS -->
+<section id="opportunites">
+  <h2>7. Se créer des opportunités dans son entreprise</h2>
+  <table>
+    <tr><th>Opportunité</th><th>Comment la créer</th><th>Bénéfice BTS</th></tr>
+    <tr><td>Suivre un chantier de A à Z</td><td>Demander à être affecté sur un chantier dès le départ</td><td>Matière idéale pour l'E6 — vision complète</td></tr>
+    <tr><td>Assister aux réunions client</td><td>"Je peux venir pour observer et prendre des notes ?"</td><td>Compréhension phase commerciale + CR de réunion</td></tr>
+    <tr><td>Participer au chiffrage</td><td>Demander à aider sur un devis ou un BPU</td><td>Gestion concrète — E5</td></tr>
+    <tr><td>Lire les plans avec le conducteur</td><td>Se mettre à côté pendant l'analyse des plans</td><td>Dessin technique en situation réelle</td></tr>
+    <tr><td>Suivre une réception de chantier</td><td>Demander à assister au PV de réception</td><td>Documents de chantier — vus en vrai</td></tr>
+    <tr><td>Avoir un tuteur impliqué</td><td>Proposer des points réguliers, montrer son mémoire en avance</td><td>Feedback professionnel sur l'E6</td></tr>
+  </table>
+
+  <div class="card orange">
+    <h3>⚠️ Ce que tu dois absolument documenter</h3>
+    <ul class="checklist warning">
+      <li>Les plans (avec autorisation de l'entreprise)</li>
+      <li>Les photos de chantier (avant / pendant / après)</li>
+      <li>Les CR de réunion où tu es présent</li>
+      <li>Les fiches techniques des matériaux utilisés</li>
+      <li>Le montant et la durée du chantier (pour l'E6)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PARTIE 5 ===================== -->
+<div class="partie-title">📝 PARTIE 5 — SIMULATIONS D'EXAMENS</div>
+
+<!-- EXAMEN 1 -->
+<section id="examen1">
+  <div class="examen">
+    <div class="examen-header">
+      <div>
+        <h3>📝 Examen Blanc N°1 — Technologie & Gestion</h3>
+        <div class="examen-meta">Durée conseillée : 45 min | Total : 40 points</div>
+      </div>
+      <span style="font-size:.8rem;background:rgba(255,255,255,.15);padding:.3rem .8rem;border-radius:6px;">E4 + E5</span>
+    </div>
+    <div class="examen-body">
+
+      <div class="question-exam">
+        <div class="q-header">
+          <span class="q-num">Question 1</span>
+          <span class="q-points">8 pts</span>
+        </div>
+        <p>Un client commande une cuisine avec les éléments suivants : 6 meubles bas de 600mm de large, 4 meubles hauts. Chaque meuble bas a 1 façade avec 2 charnières et 2 tiroirs à coulisseaux sortie totale. Chaque meuble haut a 2 façades avec 2 charnières chacune.<br>Établissez la liste de quincaillerie complète avec les quantités.</p>
+        <textarea class="exam-input" placeholder="Votre réponse..."></textarea>
+        <button class="corrige-btn" onclick="afficherCorrige('c1')">Voir le corrigé</button>
+        <div class="corrige-content" id="c1">
+          <h4>✅ Corrigé — 8 points</h4>
+          <table>
+            <tr><th>Article</th><th>Calcul</th><th>Quantité</th></tr>
+            <tr><td>Charnières meubles bas</td><td>6 meubles × 1 façade × 2 charnières</td><td>12</td></tr>
+            <tr><td>Charnières meubles hauts</td><td>4 meubles × 2 façades × 2 charnières</td><td>16</td></tr>
+            <tr><td>Coulisseaux tiroirs (paires)</td><td>6 meubles × 2 tiroirs</td><td>12 paires</td></tr>
+            <tr><td>Pieds réglables meubles bas</td><td>6 meubles × 4 pieds</td><td>24</td></tr>
+          </table>
+          <p style="margin-top:.5rem;font-size:.82rem;"><strong>Barème :</strong> 2 pts par ligne correcte (quantité + calcul justifié)</p>
+        </div>
+      </div>
+
+      <div class="question-exam">
+        <div class="q-header">
+          <span class="q-num">Question 2</span>
+          <span class="q-points">6 pts</span>
+        </div>
+        <p>Un plan de travail stratifié HPL coûte 85€ HT le mètre linéaire. Un client commande 3,6 ml. L'entreprise applique une marge de 30%.<br>a) Calculez le coût d'achat total HT.<br>b) Calculez le prix de vente HT.<br>c) Calculez le prix de vente TTC (TVA 10% rénovation).</p>
+        <textarea class="exam-input" placeholder="Votre réponse..."></textarea>
+        <button class="corrige-btn" onclick="afficherCorrige('c2')">Voir le corrigé</button>
+        <div class="corrige-content" id="c2">
+          <h4>✅ Corrigé — 6 points</h4>
+          <p><strong>a) Coût d'achat :</strong> 85 × 3,6 = <strong>306,00 € HT</strong> (2 pts)</p>
+          <p><strong>b) Prix de vente HT :</strong> 306 × 1,30 = <strong>397,80 € HT</strong> (2 pts)</p>
+          <p><strong>c) Prix TTC :</strong> 397,80 × 1,10 = <strong>437,58 € TTC</strong> (2 pts)</p>
+          <p style="font-size:.82rem;margin-top:.5rem;"><strong>Attention :</strong> TVA 10% car travaux de rénovation. Si le candidat met 20%, perdre 2 pts.</p>
+        </div>
+      </div>
+
+      <div class="question-exam">
+        <div class="q-header">
+          <span class="q-num">Question 3</span>
+          <span class="q-points">6 pts</span>
+        </div>
+        <p>Expliquez la différence entre les garanties suivantes et leurs durées légales :<br>— Garantie de parfait achèvement<br>— Garantie biennale<br>— Garantie décennale</p>
+        <textarea class="exam-input" placeholder="Votre réponse..."></textarea>
+        <button class="corrige-btn" onclick="afficherCorrige('c3')">Voir le corrigé</button>
+        <div class="corrige-content" id="c3">
+          <h4>✅ Corrigé — 6 points (2 pts chaque)</h4>
+          <p><strong>Parfait achèvement (1 an) :</strong> L'entreprise s'engage à corriger toutes les malfaçons signalées dans le PV de réception ou dans l'année suivant la réception.</p>
+          <p><strong>Biennale (2 ans) :</strong> Couvre les éléments d'équipement dissociables de la construction (charnières, coulisseaux, volets...). Concerne le bon fonctionnement.</p>
+          <p><strong>Décennale (10 ans) :</strong> Couvre les dommages qui compromettent la solidité de l'ouvrage ou le rendent impropre à sa destination. Obligatoire et assurable.</p>
+        </div>
+      </div>
+
+      <div class="question-exam">
+        <div class="q-header">
+          <span class="q-num">Question 4</span>
+          <span class="q-points">10 pts</span>
+        </div>
+        <p>Vous êtes conducteur de travaux sur un chantier d'aménagement d'une cuisine. Lors d'une inspection, vous constatez que les façades d'un meuble haut sont désalignées de 4mm par rapport aux façades voisines (tolérance : 2mm max).<br>Décrivez votre procédure complète pour traiter ce problème, du constat jusqu'à la résolution.</p>
+        <textarea class="exam-input" placeholder="Votre réponse..." style="min-height:100px;"></textarea>
+        <button class="corrige-btn" onclick="afficherCorrige('c4')">Voir le corrigé</button>
+        <div class="corrige-content" id="c4">
+          <h4>✅ Corrigé — 10 points</h4>
+          <p><strong>1. Constat et documentation (2 pts) :</strong> Mesurer précisément le défaut. Prendre une photo. Rédiger une Fiche de Non-Conformité (FNC) numérotée avec : localisation, description, référence plan/CCTP, date.</p>
+          <p><strong>2. Analyse de la cause (2 pts) :</strong> Vérifier si c'est un problème de réglage de charnières (réglage latéral insuffisant) ou de caisson mal d'aplomb. Mesurer le caisson avec un niveau.</p>
+          <p><strong>3. Action corrective (3 pts) :</strong> Si charnière : régler la vis latérale de la charnière. Si caisson : caler et re-fixer. Re-mesurer après correction pour vérifier la conformité.</p>
+          <p><strong>4. Levée de FNC (2 pts) :</strong> Une fois corrigé, signer la levée de la FNC avec date. Informer le chef de chantier ou le client si c'était mentionné.</p>
+          <p><strong>5. Prévention (1 pt) :</strong> Vérifier l'alignement de toutes les façades avant la fin du chantier pour éviter une réserve lors de la réception.</p>
+        </div>
+      </div>
+
+      <div class="question-exam">
+        <div class="q-header">
+          <span class="q-num">Question 5</span>
+          <span class="q-points">10 pts</span>
+        </div>
+        <p>Rédigez une notice descriptive professionnelle pour un dressing sur-mesure comprenant : structure mélaminé blanc 19mm, portes coulissantes verre trempé 6mm, une penderie double, une penderie simple, 3 tiroirs et des tablettes réglables.</p>
+        <textarea class="exam-input" placeholder="Votre réponse..." style="min-height:120px;"></textarea>
+        <button class="corrige-btn" onclick="afficherCorrige('c5')">Voir le corrigé</button>
+        <div class="corrige-content" id="c5">
+          <h4>✅ Corrigé — 10 points</h4>
+          <p><strong>Structure (2 pts) :</strong> Caissons en panneau de particules mélaminé blanc pur 19mm, classe E1. Chants ABS 2mm de même teinte collés à chaud.</p>
+          <p><strong>Tablettes (2 pts) :</strong> Tablettes réglables sur crémaillères aluminium, pas 32mm. Épaisseur 19mm avec chant ABS.</p>
+          <p><strong>Penderies (2 pts) :</strong> Penderie double : 2 niveaux de 500mm de hauteur utile chacun, tringle ronde Ø25mm chromée avec supports renforcés. Penderie simple : hauteur utile 1000mm.</p>
+          <p><strong>Tiroirs (2 pts) :</strong> 3 tiroirs à coulisseaux sortie totale soft-close. Fond en contreplaqué 8mm.</p>
+          <p><strong>Portes coulissantes (2 pts) :</strong> Cadre aluminium anodisé argent. Remplissage verre trempé 6mm satiné. Système porteur haut avec rail et galets roulants. Guide discret au sol.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXAMEN 2 -->
+<section id="examen2">
+  <div class="examen">
+    <div class="examen-header">
+      <div>
+        <h3>📝 Examen Blanc N°2 — Documents & Management</h3>
+        <div class="examen-meta">Durée conseillée : 40 min | Total : 30 points</div>
+      </div>
+      <span style="font-size:.8rem;background:rgba(255,255,255,.15);padding:.3rem .8rem;border-radius:6px;">E5 + Management</span>
+    </div>
+    <div class="examen-body">
+
+      <div class="question-exam">
+        <div class="q-header"><span class="q-num">Question 1</span><span class="q-points">8 pts</span></div>
+        <p>Vous réceptionnez un chantier de cuisine. Le client signale 3 problèmes : 1) Une façade avec un égratignure visible. 2) Un tiroir qui ne se ferme pas complètement. 3) Le plan de travail est légèrement désaligné à la jonction (2mm).<br>Rédigez le PV de réception avec ces réserves correctement formulées.</p>
+        <textarea class="exam-input" placeholder="Votre réponse..." style="min-height:100px;"></textarea>
+        <button class="corrige-btn" onclick="afficherCorrige('c6')">Voir le corrigé</button>
+        <div class="corrige-content" id="c6">
+          <h4>✅ Corrigé — 8 points</h4>
+          <p><strong>Structure du PV (2 pts) :</strong> En-tête avec chantier, date, présents, signatures.</p>
+          <p><strong>Réserve 1 (2 pts) :</strong> "Façade meuble bas [localisation précise] : égratignure visible de [X]cm à [Y]cm de hauteur. Remplacement de la façade requis." (Délai : 7 jours)</p>
+          <p><strong>Réserve 2 (2 pts) :</strong> "Tiroir [meuble bas n°X] : fermeture incomplète — jeu résiduel de 8mm quand fermé. Réglage du coulisseau ou remplacement requis." (Délai : 7 jours)</p>
+          <p><strong>Réserve 3 (2 pts) :</strong> "Plan de travail : désalignement à la jonction [localisation] de 2mm. Reprise de la pose et re-jointure requise." (Délai : 7 jours)</p>
+        </div>
+      </div>
+
+      <div class="question-exam">
+        <div class="q-header"><span class="q-num">Question 2</span><span class="q-points">8 pts</span></div>
+        <p>Un client dit à la présentation du devis : "Votre prix est de 12 500€, j'ai un concurrent à 9 800€. C'est trop cher."<br>Rédigez votre réponse complète en appliquant les techniques de défense de devis vues en cours.</p>
+        <textarea class="exam-input" placeholder="Votre réponse..." style="min-height:100px;"></textarea>
+        <button class="corrige-btn" onclick="afficherCorrige('c7')">Voir le corrigé</button>
+        <div class="corrige-content" id="c7">
+          <h4>✅ Corrigé — 8 points</h4>
+          <p><strong>Réponse attendue (structure en 4 étapes) :</strong></p>
+          <p><strong>1. Ne pas se braquer (2 pts) :</strong> "Je comprends votre préoccupation. 2 700€ de différence, c'est significatif. Regardons ensemble ce qui explique cet écart."</p>
+          <p><strong>2. Comparer point par point (3 pts) :</strong> "Vous avez leur devis ? On peut regarder ensemble : le matériau utilisé (mélaminé E1 ou E2 ?), la quincaillerie (marque ou générique ?), les coulisseaux (sortie totale ou partielle ?), la garantie incluse ou non."</p>
+          <p><strong>3. Valoriser (2 pts) :</strong> "Notre différence de prix s'explique par [éléments concrets]. C'est un investissement sur la durée de vie de votre mobilier."</p>
+          <p><strong>4. Ne pas brader sans contrepartie (1 pt) :</strong> Ne pas baisser son prix spontanément. Si concession, toujours en échange de quelque chose (paiement comptant, délai allongé...).</p>
+        </div>
+      </div>
+
+      <div class="question-exam">
+        <div class="q-header"><span class="q-num">Question 3</span><span class="q-points">7 pts</span></div>
+        <p>Vous devez organiser le briefing du matin pour une équipe de 4 personnes sur un chantier de dressing. Les tâches du jour : pose des caissons (2 compagnons expérimentés), débit des tablettes (1 apprenti), réception livraison coulisseaux à 10h (vous). Une zone est dangereuse (plafond bas à 1,80m côté gauche). Rédigez le briefing complet.</p>
+        <textarea class="exam-input" placeholder="Votre réponse..." style="min-height:100px;"></textarea>
+        <button class="corrige-btn" onclick="afficherCorrige('c8')">Voir le corrigé</button>
+        <div class="corrige-content" id="c8">
+          <h4>✅ Corrigé — 7 points</h4>
+          <p><strong>Objectif du jour (1 pt) :</strong> "Ce soir, les caissons du dressing doivent être posés et les tablettes débitées. La livraison coulisseaux à 10h doit être réceptionnée et vérifiée."</p>
+          <p><strong>Répartition des tâches (2 pts) :</strong> "Pierre et Marc : pose des caissons — commencer par le fond, vérifier les aplombs systématiquement. Julien : débit des tablettes sur la liste que je te donne — mesurer deux fois avant de couper."</p>
+          <p><strong>Point de vigilance (2 pts) :</strong> "Attention : le plafond côté gauche est à 1,80m — casques obligatoires dans cette zone. Je m'occupe de la réception livraison à 10h — pendant ce temps personne ne touche aux coulisseaux."</p>
+          <p><strong>Sécurité (1 pt) :</strong> "EPI : lunettes pour le débit, casques zone gauche, bouchons d'oreilles dès que la scie tourne."</p>
+          <p><strong>Questions (1 pt) :</strong> "Des questions ? Besoin de quelque chose ? RDV à 12h pour le point d'avancement."</p>
+        </div>
+      </div>
+
+      <div class="question-exam">
+        <div class="q-header"><span class="q-num">Question 4</span><span class="q-points">7 pts</span></div>
+        <p>Citez et expliquez les 5 éléments obligatoires que doit comporter une facture de travaux. Donnez un exemple concret pour chacun.</p>
+        <textarea class="exam-input" placeholder="Votre réponse..."></textarea>
+        <button class="corrige-btn" onclick="afficherCorrige('c9')">Voir le corrigé</button>
+        <div class="corrige-content" id="c9">
+          <h4>✅ Corrigé — 7 points (1,4 pt par élément)</h4>
+          <p><strong>1. Numéro de facture séquentiel :</strong> Ex : "Facture N° 2026-087" — sans trou dans la numérotation.</p>
+          <p><strong>2. Identité complète des deux parties :</strong> Nom, adresse, SIREN de l'entreprise et du client.</p>
+          <p><strong>3. N° TVA intracommunautaire :</strong> Ex : "FR 12 123456789" — obligatoire si assujetti à la TVA.</p>
+          <p><strong>4. Description des prestations avec prix :</strong> Désignation, quantités, prix unitaires HT, TVA applicable, total TTC.</p>
+          <p><strong>5. Date d'échéance + pénalités de retard :</strong> Ex : "Paiement à 30 jours — Pénalités : 3× taux légal + indemnité forfaitaire 40€."</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXAMEN 3 -->
+<section id="examen3">
+  <div class="examen">
+    <div class="examen-header">
+      <div>
+        <h3>📝 Examen Blanc N°3 — Culture générale (E1)</h3>
+        <div class="examen-meta">Durée conseillée : 30 min | Exercice de synthèse</div>
+      </div>
+      <span style="font-size:.8rem;background:rgba(255,255,255,.15);padding:.3rem .8rem;border-radius:6px;">E1 — Synthèse</span>
+    </div>
+    <div class="examen-body">
+      <div class="card blue" style="margin-bottom:1.5rem;">
+        <p><strong>Thème :</strong> "Le travail artisanal à l'ère du numérique"</p>
+        <p>Imaginez que vous avez lu 3 documents sur ce thème : un article sur l'intégration des logiciels BIM dans les métiers du bois, un témoignage d'un artisan qui a numérisé son entreprise, et une étude sur les formations artisanales en 2025.</p>
+      </div>
+
+      <div class="question-exam">
+        <div class="q-header"><span class="q-num">Exercice de synthèse</span><span class="q-points">40 pts</span></div>
+        <p>Rédigez un plan détaillé (introduction + 2 ou 3 parties avec sous-parties + conclusion) pour une synthèse sur le thème "Le travail artisanal à l'ère du numérique". Vous n'avez pas à rédiger la synthèse complète — juste le plan avec les idées clés de chaque partie.</p>
+        <textarea class="exam-input" placeholder="Votre plan de synthèse..." style="min-height:150px;"></textarea>
+        <button class="corrige-btn" onclick="afficherCorrige('c10')">Voir le corrigé</button>
+        <div class="corrige-content" id="c10">
+          <h4>✅ Corrigé — Plan type (40 points)</h4>
+          <p><strong>Introduction (5 pts) :</strong> Le numérique transforme tous les secteurs, y compris les métiers artisanaux traditionnels comme la menuiserie. Dans quelle mesure le numérique représente-t-il une opportunité pour l'artisan du bois ? Nous verrons d'abord les apports du numérique (I), puis les défis qu'il soulève (II).</p>
+          <p style="margin-top:.5rem;"><strong>Partie I — Le numérique, un levier de compétitivité (15 pts) :</strong></p>
+          <p>A) Des outils de conception plus performants (BIM, DAO) → gain de temps, précision, communication avec l'architecte améliorée.</p>
+          <p>B) Une gestion d'entreprise modernisée → logiciels de devis, suivi chantier, facturation automatisée.</p>
+          <p>C) De nouveaux marchés et une visibilité accrue → présence en ligne, e-réputation, recommandations numériques.</p>
+          <p style="margin-top:.5rem;"><strong>Partie II — Des défis à relever (15 pts) :</strong></p>
+          <p>A) La formation et l'adaptation des artisans → coût, temps, résistance au changement.</p>
+          <p>B) Le risque de déshumanisation du métier → la relation client, le savoir-faire manuel ne se numérisent pas.</p>
+          <p>C) La dépendance technologique → pannes, coûts de mise à jour, cybersécurité.</p>
+          <p style="margin-top:.5rem;"><strong>Conclusion (5 pts) :</strong> Le numérique est un outil au service de l'artisan, non un substitut. L'enjeu est d'adopter les outils pertinents tout en préservant l'essence du métier : le savoir-faire, la relation humaine et la qualité de la réalisation.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SIMULATION SOUTENANCE -->
+<section id="soutenance">
+  <h2>🎤 Simulation de soutenance orale E6</h2>
+  <div class="card red">
+    <p><strong>Durée réelle :</strong> 30-40 minutes. Environ 10 min de présentation + 20-30 min de questions jury. Coefficient 8 = 32% de la note finale.</p>
+  </div>
+
+  <h3>Questions type jury — Prépare ta réponse</h3>
+
+  <div class="jury-card">
+    <div class="jury-question"><p>❓ "Présentez-vous en 2 minutes et présentez brièvement votre entreprise."</p></div>
+    <div class="jury-conseil"><strong>Ce qu'ils attendent :</strong> Clarté, assurance, vocabulaire pro. Entreprise : effectif, spécialité, zone géographique, certifications. Toi : ton rôle, ta progression. <strong>Éviter :</strong> réciter un texte appris par cœur — parler naturellement.</div>
+  </div>
+
+  <div class="jury-card">
+    <div class="jury-question"><p>❓ "Expliquez-nous ce chantier en 5 minutes — contexte, votre rôle, ce que vous avez réalisé."</p></div>
+    <div class="jury-conseil"><strong>Ce qu'ils attendent :</strong> Vue d'ensemble claire. Maître d'ouvrage, type de travaux, montant, délai, ton rôle précis. Appui sur les plans et photos. <strong>Éviter :</strong> lire son mémoire — l'avoir en tête.</div>
+  </div>
+
+  <div class="jury-card">
+    <div class="jury-question"><p>❓ "Pourquoi avez-vous choisi ce matériau / cet assemblage / cette quincaillerie ?"</p></div>
+    <div class="jury-conseil"><strong>Ce qu'ils attendent :</strong> Justification technique ET économique. "J'ai choisi X parce que [technique], mais aussi parce que [coût/délai/disponibilité]." Montrer qu'on a pesé les alternatives. <strong>Éviter :</strong> "Parce que mon chef l'a dit" — prendre la décision en première personne.</div>
+  </div>
+
+  <div class="jury-card">
+    <div class="jury-question"><p>❓ "Qu'auriez-vous fait différemment si c'était à refaire ?"</p></div>
+    <div class="jury-conseil"><strong>Ce qu'ils attendent :</strong> Analyse critique réelle. Pas "rien" — c'est la pire réponse. Montrer sa capacité à apprendre de ses erreurs. <strong>Exemple :</strong> "J'aurais mesuré le taux d'humidité du bois à la réception plutôt qu'à la pose — ça nous aurait évité le retrait qu'on a eu."</div>
+  </div>
+
+  <div class="jury-card">
+    <div class="jury-question"><p>❓ "Expliquez cette cote sur le plan / ce détail de coupe."</p></div>
+    <div class="jury-conseil"><strong>Ce qu'ils attendent :</strong> Maîtrise totale de ses propres plans. Pouvoir expliquer chaque cote, chaque trait. <strong>Préparation :</strong> Réviser chaque plan du mémoire comme si c'était un cours — pointer chaque cote et être capable de l'expliquer.</div>
+  </div>
+
+  <div class="jury-card">
+    <div class="jury-question"><p>❓ "Comment avez-vous géré ce problème [retard, malfaçon, conflit...] ?"</p></div>
+    <div class="jury-conseil"><strong>Ce qu'ils attendent :</strong> Démarche de résolution de problème. Problème → analyse de la cause → action → résultat. La méthode prime sur le fait d'avoir eu un problème — tout chantier en a. <strong>Valorisant :</strong> montrer qu'on a su rebondir.</div>
+  </div>
+
+  <div class="jury-card">
+    <div class="jury-question"><p>❓ "Quel était le montant du chantier et quelle était votre marge ?"</p></div>
+    <div class="jury-conseil"><strong>Ce qu'ils attendent :</strong> Vision économique du projet. Montant HT, coût main d'œuvre, coût matériaux, marge estimée. <strong>Si tu ne sais pas :</strong> "Je n'ai pas eu accès au détail financier, mais le marché était de X€ HT — je peux estimer le coût matériaux à environ Y€."</div>
+  </div>
+</section>
+
+<!-- GESTION DU STRESS -->
+<section id="stress">
+  <h2>😤 Gérer le stress le jour J</h2>
+  <div class="stress-steps">
+    <div class="stress-step">
+      <div class="step-icon">🌙</div>
+      <div class="step-info">
+        <strong>La veille — Préparer, pas réviser</strong>
+        <p>Vérifier que tout est prêt (mémoire, plans, tenue). Faire un repas normal. Pas de révisions tardives — le cerveau a besoin de repos pour consolider. Dormir 7-8h minimum.</p>
+      </div>
+    </div>
+    <div class="stress-step">
+      <div class="step-icon">🌅</div>
+      <div class="step-info">
+        <strong>Le matin — Routine de préparation</strong>
+        <p>Petit-déjeuner complet. Éviter le café en excès — augmente l'anxiété. Relire ses 5 fiches clés — pas tout le mémoire. Arriver 30 min en avance pour s'installer calmement.</p>
+      </div>
+    </div>
+    <div class="stress-step">
+      <div class="step-icon">🫁</div>
+      <div class="step-info">
+        <strong>En salle / Avant l'oral — Respiration cohérente</strong>
+        <p>Technique 4-7-8 : inspirer 4 secondes, retenir 7 secondes, expirer 8 secondes. 3 répétitions suffisent pour calmer le système nerveux en 2 minutes.</p>
+      </div>
+    </div>
+    <div class="stress-step">
+      <div class="step-icon">📝</div>
+      <div class="step-info">
+        <strong>Écrit — Stratégie de temps</strong>
+        <p>Lire tout le sujet avant de commencer. Calculer le temps par question (1 point ≈ 1,5 min). Commencer par ce qu'on maîtrise le mieux. Ne jamais laisser une question sans réponse — même partielle.</p>
+      </div>
+    </div>
+    <div class="stress-step">
+      <div class="step-icon">🎤</div>
+      <div class="step-info">
+        <strong>Oral — Les premières 30 secondes</strong>
+        <p>Sourire en entrant. Serrer la main du jury. Attendre qu'on te propose de t'asseoir. Poser ses documents calmement. Les 30 premières secondes donnent le ton de tout l'oral.</p>
+      </div>
+    </div>
+    <div class="stress-step">
+      <div class="step-icon">💭</div>
+      <div class="step-info">
+        <strong>Face à une question difficile</strong>
+        <p>Ne jamais dire "je sais pas" et s'arrêter. Dire "Laissez-moi réfléchir une seconde" — un silence de 5 secondes est normal. Raisonner à voix haute si besoin. Si vraiment bloqué : "Je n'ai pas eu l'occasion d'aborder ce point spécifiquement, mais voici ce que je peux dire..."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHECK-LIST -->
+<section id="checklist">
+  <h2>✅ Check-list de préparation avant les épreuves</h2>
+  <div class="card blue" style="margin-bottom:1rem;">
+    <p>Clique sur chaque case pour la cocher !</p>
+  </div>
+
+  <h3>📅 1 semaine avant</h3>
+  <ul class="checklist-j" id="liste1">
+    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-text">Toutes les fiches de révision sont rédigées et relues</span></li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-text">Au moins 3 annales par matière ont été faites</span></li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-text">Le mémoire E6 est imprimé, relié et vérifié (ortho, plans, photos)</span></li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-text">Au moins 3 répétitions de la soutenance E6 ont été faites</span></li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-text">Les convocations et pièces d'identité sont prêtes</span></li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-text">Les salles d'examen sont repérées (trajet testé si besoin)</span></li>
+  </ul>
+
+  <h3 style="margin-top:1.5rem;">📅 La veille</h3>
+  <ul class="checklist-j">
+    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-text">Matériel préparé : stylos, calculatrice (piles vérifiées), règle, équerre</span></li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-text">Mémoire E6 dans le sac (+ copie de secours)</span></li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-text">Réveil réglé avec marge confortable</span></li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-text">Repas préparé pour le lendemain matin</span></li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-text">Au lit avant 23h — pas de révisions tardives</span></li>
+  </ul>
+
+  <h3 style="margin-top:1.5rem;">📅 Le jour J</h3>
+  <ul class="checklist-j">
+    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-text">Petit-déjeuner complet mangé</span></li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-text">Pièce d'identité dans le sac</span></li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-text">Arriver 30 min en avance</span></li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-text">Téléphone éteint (pas silencieux — éteint)</span></li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-text">Lire tout le sujet avant de commencer l'épreuve</span></li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div><span class="check-text">Respiration 4-7-8 si stress avant oral</span></li>
+  </ul>
+
+  <div class="card green" style="margin-top:1.5rem;">
+    <h3>🏆 Dernière chose à retenir</h3>
+    <p>Tu as fait l'alternance, tu as appris en vrai sur des chantiers réels. Les jurys cherchent quelqu'un qui a vécu les choses et peut en parler avec honnêteté. Pas quelqu'un de parfait — quelqu'un d'authentique et qui a appris.</p>
+    <p><strong>Bonne chance ! 💪</strong></p>
+  </div>
+</section>
+
+</main>
+
+<footer style="background:var(--dark);color:#94a3b8;text-align:center;padding:2rem;margin-top:3rem;">
+  <p>BTS ERA — Méthode de Révision & Simulations d'Examens</p>
+  <p style="font-size:.85rem;margin-top:.3rem;">Tu as les outils. Maintenant c'est à toi de jouer. 🎓</p>
+</footer>
+
+<script>
+function afficherCorrige(id) {
+  const el = document.getElementById(id);
+  el.style.display = el.style.display === 'block' ? 'none' : 'block';
+}
+
+function toggleCheck(el) {
+  el.classList.toggle('checked');
+  el.textContent = el.classList.contains('checked') ? '✓' : '';
+  const text = el.parentElement.querySelector('.check-text');
+  text.classList.toggle('checked');
+}
+</script>
+</body>
+</html>

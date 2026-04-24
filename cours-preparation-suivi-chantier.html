@@ -1,0 +1,2070 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cours — Préparation & Suivi de Chantier</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Barlow+Condensed:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #080a0c;
+  --bg2:      #0d1014;
+  --bg3:      #121519;
+  --bg4:      #181c22;
+  --bg5:      #1e232b;
+  --border:   #232830;
+  --border2:  #2e3540;
+  --text:     #cdd5e0;
+  --muted:    #5a6475;
+  --dim:      #333d4a;
+
+  --amber:    #f0a832;
+  --amber2:   #fcc84a;
+  --amber3:   #7a5210;
+
+  --cyan:     #2ec4e8;
+  --cyan2:    #0d5f74;
+
+  --lime:     #8bdb5a;
+  --lime2:    #3d6e22;
+
+  --red:      #e84848;
+  --red2:     #6e1e1e;
+
+  --violet:   #9b72e8;
+  --violet2:  #3d2474;
+
+  --slate:    #6a8db0;
+
+  --r:  8px;
+  --r2: 14px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Barlow', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* ── NAV ── */
+.nav {
+  position: sticky; top: 0; z-index: 300;
+  background: rgba(8,10,12,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  height: 52px;
+  display: flex;
+  align-items: center;
+  padding: 0 28px;
+  gap: 0;
+}
+.nav-brand {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  letter-spacing: .12em;
+  color: var(--amber);
+  padding-right: 24px;
+  margin-right: 16px;
+  border-right: 1px solid var(--border);
+  white-space: nowrap;
+}
+.nav-links { display: flex; gap: 2px; overflow-x: auto; }
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 5px;
+  white-space: nowrap;
+  transition: .2s;
+}
+.nav-links a:hover { color: var(--text); background: var(--bg4); }
+
+/* ── LAYOUT ── */
+.wrap { max-width: 1140px; margin: 0 auto; padding: 0 28px 80px; }
+
+/* ── HERO ── */
+.hero {
+  padding: 72px 0 56px;
+  position: relative;
+}
+.hero::after {
+  content: 'CHANTIER';
+  position: absolute;
+  right: -20px; top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 180px;
+  color: rgba(240,168,50,.03);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--amber);
+  border: 1px solid var(--amber3);
+  padding: 5px 16px;
+  border-radius: 100px;
+  margin-bottom: 26px;
+}
+.hero-tag::before { content: '▶'; font-size: 8px; }
+
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(52px, 7vw, 96px);
+  line-height: .95;
+  letter-spacing: .04em;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.hero h1 span { color: var(--amber); }
+
+.hero-sub {
+  font-family: 'Barlow', sans-serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 600px;
+  margin-bottom: 36px;
+}
+
+.hero-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 5px 14px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  color: var(--muted);
+}
+
+/* ── PART SEPARATOR ── */
+.part-sep {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: end;
+  gap: 20px;
+  padding: 56px 0 36px;
+  position: relative;
+}
+.part-sep::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, var(--border2), transparent);
+}
+.psep-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 80px;
+  line-height: 1;
+  color: var(--border2);
+  letter-spacing: .05em;
+}
+.psep-info { padding-bottom: 8px; }
+.psep-info h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: .03em;
+  line-height: 1.1;
+}
+.psep-info p { color: var(--muted); font-size: 13px; margin-top: 3px; }
+
+/* ── SECTIONS ── */
+.section { margin-bottom: 56px; }
+
+.sec-h {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--amber2);
+  margin-bottom: 22px;
+}
+.sec-h::before {
+  content: '';
+  width: 4px; height: 20px;
+  background: var(--amber);
+  border-radius: 2px;
+}
+
+/* ── TIMELINE STEPS ── */
+.timeline { display: flex; flex-direction: column; gap: 0; margin: 20px 0; }
+.tl-item {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 0 20px;
+  position: relative;
+}
+.tl-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.tl-dot {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--bg4);
+  border: 2px solid var(--amber);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  color: var(--amber);
+  flex-shrink: 0;
+  z-index: 1;
+}
+.tl-connector {
+  flex: 1;
+  width: 2px;
+  background: var(--border);
+  margin: 0 auto;
+  min-height: 24px;
+}
+.tl-item:last-child .tl-connector { display: none; }
+.tl-body {
+  padding-bottom: 28px;
+  padding-top: 4px;
+}
+.tl-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.tl-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.tl-sub {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 10px;
+}
+.tl-sub-item {
+  display: flex;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--text);
+  align-items: flex-start;
+}
+.tl-sub-item::before {
+  content: '→';
+  color: var(--amber);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── INFO BOXES ── */
+.ib {
+  border-radius: 0 var(--r) var(--r) 0;
+  border-left: 3px solid var(--amber);
+  border-top: 1px solid rgba(240,168,50,.12);
+  border-right: 1px solid rgba(240,168,50,.12);
+  border-bottom: 1px solid rgba(240,168,50,.12);
+  background: rgba(240,168,50,.05);
+  padding: 15px 20px;
+  margin: 18px 0;
+  font-size: 13.5px;
+}
+.ib.cyan   { border-left-color: var(--cyan);  border-top-color: rgba(46,196,232,.12); border-right-color: rgba(46,196,232,.12); border-bottom-color: rgba(46,196,232,.12); background: rgba(46,196,232,.04); }
+.ib.lime   { border-left-color: var(--lime);  border-top-color: rgba(139,219,90,.12); border-right-color: rgba(139,219,90,.12); border-bottom-color: rgba(139,219,90,.12); background: rgba(139,219,90,.04); }
+.ib.red    { border-left-color: var(--red);   border-top-color: rgba(232,72,72,.12);  border-right-color: rgba(232,72,72,.12);  border-bottom-color: rgba(232,72,72,.12);  background: rgba(232,72,72,.04); }
+.ib.violet { border-left-color: var(--violet);border-top-color: rgba(155,114,232,.12);border-right-color: rgba(155,114,232,.12);border-bottom-color: rgba(155,114,232,.12);background: rgba(155,114,232,.04); }
+
+.ib strong {
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--amber2);
+  margin-bottom: 5px;
+}
+.ib.cyan   strong { color: var(--cyan); }
+.ib.lime   strong { color: var(--lime); }
+.ib.red    strong { color: var(--red); }
+.ib.violet strong { color: var(--violet); }
+
+/* ── CARDS GRIDS ── */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; }
+
+.card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 22px;
+  transition: border-color .2s;
+}
+.card:hover { border-color: var(--border2); }
+
+.card-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  margin-bottom: 10px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-body { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+.card-rows { display: flex; flex-direction: column; }
+.card-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12.5px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 12px;
+}
+.card-row:last-child { border-bottom: none; }
+.card-row-k { color: var(--muted); flex-shrink: 0; }
+.card-row-v { color: var(--text); text-align: right; }
+
+/* ── TABLES ── */
+.tbl-wrap {
+  overflow-x: auto;
+  border-radius: var(--r2);
+  border: 1px solid var(--border);
+  margin: 18px 0;
+}
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead { background: var(--bg4); border-bottom: 1px solid var(--border); }
+th {
+  padding: 10px 14px;
+  text-align: left;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.5;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,.015); }
+
+.c-amber  { color: var(--amber2); font-family: 'Barlow Condensed'; font-weight: 700; }
+.c-lime   { color: var(--lime); }
+.c-red    { color: var(--red); }
+.c-mid    { color: var(--amber); }
+.c-dim    { color: var(--muted); }
+.c-cyan   { color: var(--cyan); }
+.c-violet { color: var(--violet); }
+
+/* ── CHECKLIST ── */
+.chklist { display: flex; flex-direction: column; gap: 9px; margin: 14px 0; }
+.chk {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  font-size: 13.5px;
+}
+.chk-i {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+.i-ok    { background: rgba(139,219,90,.1); border: 1px solid rgba(139,219,90,.25); color: var(--lime); }
+.i-warn  { background: rgba(240,168,50,.1);  border: 1px solid rgba(240,168,50,.25);  color: var(--amber); }
+.i-bad   { background: rgba(232,72,72,.1);  border: 1px solid rgba(232,72,72,.25);  color: var(--red); }
+.i-info  { background: rgba(46,196,232,.1); border: 1px solid rgba(46,196,232,.25); color: var(--cyan); }
+
+/* ── GANTT ── */
+.gantt-wrap {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 24px;
+  overflow-x: auto;
+  margin: 20px 0;
+}
+.gantt-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+.gantt {
+  display: grid;
+  grid-template-columns: 200px repeat(16, 1fr);
+  min-width: 800px;
+  gap: 0;
+}
+.g-head-blank { background: var(--bg4); border: 1px solid var(--border); padding: 8px 12px; font-family: 'Barlow Condensed'; font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+.g-week {
+  background: var(--bg4);
+  border: 1px solid var(--border);
+  padding: 6px 4px;
+  text-align: center;
+  font-family: 'Barlow Condensed';
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.g-week.current { background: rgba(240,168,50,.08); color: var(--amber); border-color: rgba(240,168,50,.2); }
+.g-label {
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  background: var(--bg3);
+  white-space: nowrap;
+}
+.g-label strong { font-family: 'Barlow Condensed'; font-weight: 700; font-size: 11px; color: var(--muted); display: block; letter-spacing: .08em; text-transform: uppercase; }
+.g-cell {
+  border: 1px solid var(--border);
+  background: var(--bg3);
+  min-height: 40px;
+  position: relative;
+}
+.g-bar {
+  position: absolute;
+  top: 8px; bottom: 8px;
+  border-radius: 4px;
+  left: 2px; right: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Barlow Condensed';
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(0,0,0,.7);
+  letter-spacing: .04em;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.g-bar.prep    { background: var(--slate); }
+.g-bar.livr    { background: var(--cyan); }
+.g-bar.fab     { background: var(--amber); }
+.g-bar.pose    { background: var(--lime); }
+.g-bar.fin     { background: var(--violet); }
+.g-bar.recep   { background: var(--red); }
+.g-bar.coord   { background: #e0c878; }
+
+/* ── PLAN CHANTIER SVG ── */
+.plan-box {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 24px;
+  margin: 20px 0;
+}
+.plan-label {
+  font-family: 'Barlow Condensed';
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+/* ── RISK MATRIX ── */
+.risk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 14px;
+  margin: 18px 0;
+}
+.risk-card {
+  border-radius: var(--r2);
+  padding: 18px;
+  border: 1px solid transparent;
+}
+.risk-high   { background: rgba(232,72,72,.05);  border-color: rgba(232,72,72,.15); }
+.risk-mid    { background: rgba(240,168,50,.05); border-color: rgba(240,168,50,.15); }
+.risk-low    { background: rgba(139,219,90,.05); border-color: rgba(139,219,90,.15); }
+
+.risk-level {
+  font-family: 'Barlow Condensed';
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.risk-high .risk-level   { color: var(--red); }
+.risk-mid  .risk-level   { color: var(--amber); }
+.risk-low  .risk-level   { color: var(--lime); }
+
+.risk-title {
+  font-family: 'Barlow Condensed';
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.risk-body { font-size: 12.5px; color: var(--muted); line-height: 1.55; }
+.risk-action {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--cyan);
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+.risk-action::before { content: '→'; flex-shrink: 0; }
+
+/* ── SCHEMA BOX ── */
+.schema {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 24px;
+  margin: 18px 0;
+}
+.schema-l {
+  font-family: 'Barlow Condensed';
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+/* ── 2 COL ── */
+.two-col   { display: grid; grid-template-columns: 1fr 1fr;     gap: 18px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+/* ── RECAP BANNER ── */
+.recap-banner {
+  background: linear-gradient(135deg, var(--bg3), var(--bg4));
+  border: 1px solid var(--border2);
+  border-radius: var(--r2);
+  padding: 20px 26px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.rb-icon { font-size: 28px; }
+.rb-title { font-family: 'Barlow Condensed'; font-size: 20px; font-weight: 800; letter-spacing: .03em; }
+.rb-sub   { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+
+/* ── EXERCICE ── */
+.exo {
+  background: rgba(155,114,232,.04);
+  border: 1px solid rgba(155,114,232,.15);
+  border-radius: var(--r2);
+  padding: 24px;
+  margin: 24px 0;
+}
+.exo-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.exo-num {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(155,114,232,.15);
+  border: 1px solid rgba(155,114,232,.3);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue';
+  font-size: 18px;
+  color: var(--violet);
+}
+.exo-title {
+  font-family: 'Barlow Condensed';
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: .03em;
+}
+.exo-sub { font-size: 12px; color: var(--muted); }
+
+.exo-steps { display: flex; flex-direction: column; gap: 12px; }
+.exo-step {
+  background: rgba(155,114,232,.04);
+  border: 1px solid rgba(155,114,232,.1);
+  border-radius: var(--r);
+  padding: 14px 16px;
+}
+.exo-step-num {
+  font-family: 'Barlow Condensed';
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--violet);
+  margin-bottom: 4px;
+}
+.exo-step-body { font-size: 13px; color: var(--text); }
+
+/* ── DASHBOARD ── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 14px;
+  margin: 18px 0;
+}
+.kpi {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 18px;
+  text-align: center;
+}
+.kpi-val {
+  font-family: 'Bebas Neue';
+  font-size: 36px;
+  color: var(--amber2);
+  letter-spacing: .05em;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.kpi-lbl { font-size: 11.5px; color: var(--muted); line-height: 1.4; }
+.kpi.ok   .kpi-val { color: var(--lime); }
+.kpi.warn .kpi-val { color: var(--amber); }
+.kpi.bad  .kpi-val { color: var(--red); }
+
+/* ── COMPTE-RENDU MODELE ── */
+.cr-model {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  overflow: hidden;
+  margin: 18px 0;
+}
+.cr-header {
+  background: var(--bg4);
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+}
+.cr-h-title {
+  font-family: 'Barlow Condensed';
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  color: var(--amber2);
+}
+.cr-h-meta { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.cr-body { padding: 20px 24px; }
+.cr-section {
+  margin-bottom: 20px;
+}
+.cr-sec-title {
+  font-family: 'Barlow Condensed';
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cr-sec-title::before {
+  content: '';
+  width: 12px; height: 2px;
+  background: var(--amber);
+  flex-shrink: 0;
+}
+.cr-field {
+  background: var(--bg4);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 10px 14px;
+  font-size: 12.5px;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.55;
+}
+.cr-field-label {
+  font-family: 'Barlow Condensed';
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+.cr-placeholder { color: var(--dim); font-style: italic; }
+
+/* ── STATUS BADGES ── */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Barlow Condensed';
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+.s-ok     { background: rgba(139,219,90,.1); color: var(--lime);   border: 1px solid rgba(139,219,90,.25); }
+.s-warn   { background: rgba(240,168,50,.1);  color: var(--amber);  border: 1px solid rgba(240,168,50,.25); }
+.s-bad    { background: rgba(232,72,72,.1);  color: var(--red);    border: 1px solid rgba(232,72,72,.25); }
+.s-todo   { background: rgba(90,100,117,.1); color: var(--muted);  border: 1px solid rgba(90,100,117,.25); }
+
+/* ── PLAN INSTALLATION SVG ── */
+
+hr.div { border: none; border-top: 1px solid var(--border); margin: 44px 0; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 32px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+footer a {
+  display: inline-block;
+  margin-top: 12px;
+  font-family: 'Barlow Condensed';
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--amber);
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .wrap { padding: 0 14px 60px; }
+  .two-col, .three-col { grid-template-columns: 1fr; }
+  .hero::after { display: none; }
+  .nav { padding: 0 14px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="nav-brand">⚙ CHANTIERLAB</div>
+  <nav class="nav-links">
+    <a href="#prep">Préparation</a>
+    <a href="#plans">Analyse plans</a>
+    <a href="#commandes">Commandes</a>
+    <a href="#installation">Installation</a>
+    <a href="#gantt">Gantt</a>
+    <a href="#reunion">Réunion</a>
+    <a href="#risques">Risques</a>
+    <a href="#suivi">Suivi chantier</a>
+    <a href="#tableau-bord">Tableau de bord</a>
+    <a href="#retards">Retards</a>
+    <a href="#coordination">Coordination</a>
+    <a href="#cr">Compte-rendu</a>
+    <a href="#modeles">Modèles</a>
+    <a href="#exercices">Exercices</a>
+  </nav>
+</header>
+
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Cours Professionnel · Menuiserie & Agencement</div>
+  <h1>PRÉPARATION<br>&amp; <span>SUIVI</span><br>DE CHANTIER</h1>
+  <p class="hero-sub">De l'analyse des plans à la réception des travaux — maîtriser chaque étape pour livrer dans les délais, le budget et la qualité attendue.</p>
+  <div class="hero-chips">
+    <div class="chip">Parties 1 &amp; 2</div>
+    <div class="chip">8 étapes préparation</div>
+    <div class="chip">Planning Gantt</div>
+    <div class="chip">Tableau de bord</div>
+    <div class="chip">3 modèles de documents</div>
+    <div class="chip">3 exercices pratiques</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PARTIE 1 — PRÉPARATION DU CHANTIER
+═══════════════════════════════════════ -->
+<div class="part-sep" id="prep">
+  <div class="psep-num">01</div>
+  <div class="psep-info">
+    <h2>PRÉPARATION DU CHANTIER</h2>
+    <p>Les étapes, les outils et la méthode pour démarrer chaque chantier dans les meilleures conditions</p>
+  </div>
+</div>
+
+<!-- ÉTAPES CHRONOLOGIQUES -->
+<div class="section">
+  <div class="sec-h">Les étapes de préparation dans l'ordre chronologique</div>
+
+  <div class="ib">
+    <strong>Principe fondamental</strong>
+    1h de préparation évite 4h de problèmes sur chantier. La préparation n'est pas du temps perdu — c'est un investissement direct sur la qualité de livraison et la rentabilité du chantier.
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-line"><div class="tl-dot">1</div><div class="tl-connector"></div></div>
+      <div class="tl-body">
+        <div class="tl-title">Réception et analyse des documents du marché</div>
+        <div class="tl-desc">Lire entièrement le CCTP (Cahier des Clauses Techniques Particulières), les plans, les métrés et le cahier des charges avant toute autre action. Identifier les points flous et demander les clarifications par écrit.</div>
+        <div class="tl-sub">
+          <div class="tl-sub-item">Vérifier la concordance entre les plans et le CCTP</div>
+          <div class="tl-sub-item">Identifier toutes les réserves à formuler avant démarrage</div>
+          <div class="tl-sub-item">Lister les ouvrages connexes impactant la menuiserie (électricité, plomberie, carrelage)</div>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-line"><div class="tl-dot">2</div><div class="tl-connector"></div></div>
+      <div class="tl-body">
+        <div class="tl-title">Visite préalable du site</div>
+        <div class="tl-desc">Se rendre sur le chantier avant le démarrage pour vérifier les accès, mesurer les pièces (côtes réelles vs plans), identifier les contraintes physiques et prendre des photos de l'état initial.</div>
+        <div class="tl-sub">
+          <div class="tl-sub-item">Mesurer TOUTES les pièces concernées — ne jamais faire confiance aux plans seuls</div>
+          <div class="tl-sub-item">Vérifier les accès livraison : largeur portes, ascenseur, escaliers, étage</div>
+          <div class="tl-sub-item">Identifier les réseaux apparents : gaines, tuyaux, câbles à contourner</div>
+          <div class="tl-sub-item">Photographier systématiquement l'état des lieux (référence en cas de litige)</div>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-line"><div class="tl-dot">3</div><div class="tl-connector"></div></div>
+      <div class="tl-body">
+        <div class="tl-title">Calcul des quantités et passation des commandes</div>
+        <div class="tl-desc">Établir le métré définitif, calculer les quantités de matériaux avec coefficient de perte, rédiger les bons de commande et confirmer les délais avec les fournisseurs.</div>
+        <div class="tl-sub">
+          <div class="tl-sub-item">Coefficient de perte panneaux : +10 à +15% (chutes de coupe)</div>
+          <div class="tl-sub-item">Commander les quincailleries, chants, colles et finitions en même temps</div>
+          <div class="tl-sub-item">Confirmer par écrit les délais de livraison</div>
+          <div class="tl-sub-item">Prévoir un stock de sécurité sur les pièces critiques</div>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-line"><div class="tl-dot">4</div><div class="tl-connector"></div></div>
+      <div class="tl-body">
+        <div class="tl-title">Établissement du planning Gantt</div>
+        <div class="tl-desc">Construire le planning détaillé avec toutes les tâches, leurs durées, leur ordre logique (dépendances) et les ressources humaines affectées. Le planning doit intégrer les contraintes des autres corps de métier.</div>
+        <div class="tl-sub">
+          <div class="tl-sub-item">Partir de la date de livraison et remonter (planification à rebours)</div>
+          <div class="tl-sub-item">Identifier le chemin critique (tâches sans marge)</div>
+          <div class="tl-sub-item">Prévoir des tampons de sécurité sur les tâches à risque</div>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-line"><div class="tl-dot">5</div><div class="tl-connector"></div></div>
+      <div class="tl-body">
+        <div class="tl-title">Plan d'installation de chantier</div>
+        <div class="tl-desc">Organiser physiquement le chantier avant l'arrivée des matériaux : définir les zones de stockage, l'atelier de coupe, les circulations, les zones de sécurité.</div>
+        <div class="tl-sub">
+          <div class="tl-sub-item">Zone de déchargement accessible aux camions</div>
+          <div class="tl-sub-item">Zone de stockage panneaux : à plat, aéré, à l'abri</div>
+          <div class="tl-sub-item">Atelier de coupe : scierie mobile ou salle dédiée</div>
+          <div class="tl-sub-item">Vestiaires / sanitaires : obligation légale sur chantiers</div>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-line"><div class="tl-dot">6</div><div class="tl-connector"></div></div>
+      <div class="tl-body">
+        <div class="tl-title">Analyse et anticipation des risques</div>
+        <div class="tl-desc">Identifier tous les risques potentiels (retard, malfaçon, absent, intempéries) et préparer un plan de réponse pour chacun avant qu'ils ne surviennent.</div>
+        <div class="tl-sub">
+          <div class="tl-sub-item">Lister les 5 principaux risques du chantier</div>
+          <div class="tl-sub-item">Prévoir une solution de remplacement pour chaque risque</div>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-line"><div class="tl-dot">7</div><div class="tl-connector"></div></div>
+      <div class="tl-body">
+        <div class="tl-title">Réunion de préparation avec l'équipe</div>
+        <div class="tl-desc">Briefer l'ensemble des intervenants : compagnons, sous-traitants, fournisseurs si besoin. Présenter les plans, le planning, les consignes de sécurité et les points d'attention spécifiques.</div>
+        <div class="tl-sub">
+          <div class="tl-sub-item">Durée idéale : 30–60 min maximum</div>
+          <div class="tl-sub-item">Chaque personne repart avec ses tâches clairement identifiées</div>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-line"><div class="tl-dot">8</div><div class="tl-connector"></div></div>
+      <div class="tl-body">
+        <div class="tl-title">Démarrage chantier — check-list finale</div>
+        <div class="tl-desc">La veille du premier jour, vérifier que tout est en place : matériaux livrés, outillage opérationnel, équipe informée, plan d'installation respecté.</div>
+        <div class="tl-sub">
+          <div class="tl-sub-item">Validation de la check-list de démarrage (voir fiche récap)</div>
+          <div class="tl-sub-item">Premier niveau d'avancement enregistré J+1</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- ANALYSE DES PLANS -->
+<div class="section" id="plans">
+  <div class="sec-h">Analyser les plans avant de commencer</div>
+
+  <div class="ib cyan">
+    <strong>Méthode de lecture des plans</strong>
+    Lire un plan ne s'improvise pas. Il faut procéder dans l'ordre : d'abord comprendre l'échelle et l'orientation, puis lire les vues en plan, coupes et élévations ensemble, et enfin identifier les détails de finition et les cotes critiques.
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">📐 Ce que chercher sur les plans</div>
+      <div class="chklist">
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Échelle du plan (1:20, 1:50, 1:100) — vérifier si les cotes sont explicites</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Cotes hors tout de chaque pièce — à vérifier sur place</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Hauteur sous plafond (faux-plafond, dalle brute, fini)</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Emplacements des gaines, réseaux, colonnes montantes</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Positionnement des prises et interrupteurs (à intégrer dans la menuiserie)</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Sens d'ouverture des portes / tiroirs</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Références des matériaux et finitions spécifiées</span></div>
+        <div class="chk"><div class="chk-i i-warn">!</div><span>Contradictions entre vues en plan et coupes — fréquentes en architecture</span></div>
+        <div class="chk"><div class="chk-i i-warn">!</div><span>Cotes manquantes — à demander avant démarrage, jamais à deviner</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">⚠️ Ce que vérifier absolument</div>
+      <div class="chklist">
+        <div class="chk"><div class="chk-i i-warn">!</div><span><strong>Concordance plans / métrés :</strong> les métrés peuvent différer des plans — faire le sien</span></div>
+        <div class="chk"><div class="chk-i i-warn">!</div><span><strong>Cotes réelles vs plans :</strong> mesurer sur site avec niveau laser — les murs ne sont jamais parfaitement droits</span></div>
+        <div class="chk"><div class="chk-i i-warn">!</div><span><strong>Aplombs et niveaux :</strong> vérifier le niveau du sol avant de poser la première plinthe</span></div>
+        <div class="chk"><div class="chk-i i-bad">✗</div><span><strong>Cotes en chaîne non cohérentes :</strong> la somme des cotes partielles ≠ cote totale — fréquent, source d'erreur majeure</span></div>
+        <div class="chk"><div class="chk-i i-bad">✗</div><span><strong>Plans non mis à jour :</strong> vérifier la date et l'indice de révision du plan — seul le dernier indice fait foi</span></div>
+        <div class="chk"><div class="chk-i i-info">i</div><span>Toute demande de clarification doit être faite PAR ÉCRIT (mail, fiche TQ) et archivée</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="schema">
+    <div class="schema-l">Types de documents à analyser</div>
+    <div class="tbl-wrap" style="margin:0; border-radius:var(--r);">
+      <table>
+        <thead><tr><th>Document</th><th>Contenu</th><th>Ce qui m'intéresse</th><th>Priorité</th></tr></thead>
+        <tbody>
+          <tr><td class="c-amber">Plan masse / situation</td><td>Vue d'ensemble du bâtiment</td><td>Accès chantier, orientation, contexte</td><td><span class="status s-warn">Moyenne</span></td></tr>
+          <tr><td class="c-amber">Plan de niveau</td><td>Vue de dessus d'un étage</td><td>Dimensions pièces, disposition meubles</td><td><span class="status s-bad">Critique</span></td></tr>
+          <tr><td class="c-amber">Coupes A-A / B-B</td><td>Sections verticales</td><td>Hauteurs, planchers, plafonds, niveaux</td><td><span class="status s-bad">Critique</span></td></tr>
+          <tr><td class="c-amber">Élévations / façades</td><td>Vues de face des meubles</td><td>Aspect final, décor, poignées</td><td><span class="status s-bad">Critique</span></td></tr>
+          <tr><td class="c-amber">Détails d'assemblage</td><td>Zoom sur jonctions et finitions</td><td>Comment réaliser les raccords</td><td><span class="status s-warn">Haute</span></td></tr>
+          <tr><td class="c-amber">CCTP</td><td>Spécifications techniques écrites</td><td>Matériaux imposés, normes, garanties</td><td><span class="status s-bad">Critique</span></td></tr>
+          <tr><td class="c-amber">Nomenclature / Légende</td><td>Référence des symboles</td><td>Comprendre les abréviations</td><td><span class="status s-ok">Standard</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- COMMANDES -->
+<div class="section" id="commandes">
+  <div class="sec-h">Commande des matériaux</div>
+
+  <div class="two-col">
+    <div class="schema">
+      <div class="schema-l">Calcul des quantités — Méthode</div>
+      <div class="timeline" style="margin:0;">
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot" style="width:28px;height:28px;font-size:13px;">1</div><div class="tl-connector"></div></div>
+          <div class="tl-body" style="padding-bottom:16px;">
+            <div class="tl-title" style="font-size:14px;">Métré de toutes les pièces</div>
+            <div class="tl-desc">Lister chaque pièce à fabriquer avec ses dimensions exactes (L × l × é)</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot" style="width:28px;height:28px;font-size:13px;">2</div><div class="tl-connector"></div></div>
+          <div class="tl-body" style="padding-bottom:16px;">
+            <div class="tl-title" style="font-size:14px;">Plan de débit</div>
+            <div class="tl-desc">Optimiser l'imbrication des pièces dans les panneaux (logiciel ou manuel)</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot" style="width:28px;height:28px;font-size:13px;">3</div><div class="tl-connector"></div></div>
+          <div class="tl-body" style="padding-bottom:16px;">
+            <div class="tl-title" style="font-size:14px;">Coefficient de perte</div>
+            <div class="tl-desc">Panneaux : +10–15% · Chants : +20% · Visserie : +20% · Quincaillerie : +5%</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot" style="width:28px;height:28px;font-size:13px;">4</div><div class="tl-connector"></div></div>
+          <div class="tl-body">
+            <div class="tl-title" style="font-size:14px;">Bon de commande</div>
+            <div class="tl-desc">Référence, quantité, format, épaisseur, délai souhaité, adresse de livraison</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="schema">
+      <div class="schema-l">Gestion des délais fournisseurs</div>
+      <div class="tbl-wrap" style="margin:0;border-radius:var(--r);">
+        <table>
+          <thead><tr><th>Matériau</th><th>Délai type</th><th>Commander</th></tr></thead>
+          <tbody>
+            <tr><td>Panneaux std (stock)</td><td class="c-lime">2–5 jours</td><td>J-7 mini</td></tr>
+            <tr><td>Mélaminé spécial (hors stock)</td><td class="c-mid">2–4 semaines</td><td>J-30 mini</td></tr>
+            <tr><td>Quincaillerie standard</td><td class="c-lime">3–7 jours</td><td>J-10</td></tr>
+            <tr><td>Quincaillerie spéciale</td><td class="c-mid">2–6 semaines</td><td>J-45</td></tr>
+            <tr><td>Plan de travail pierre</td><td class="c-bad">3–6 semaines</td><td>Avant tout</td></tr>
+            <tr><td>Électroménager encastré</td><td class="c-mid">1–4 semaines</td><td>J-30</td></tr>
+            <tr><td>Façades laquées sur mesure</td><td class="c-bad">4–8 semaines</td><td>Avant tout</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ib" style="margin-top:14px;margin-bottom:0;">
+        <strong>Règle d'or</strong>
+        Commander les éléments à long délai AVANT même de finaliser les autres détails du chantier. Un retard de façade laquée arrête toute la pose.
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- PLAN D'INSTALLATION -->
+<div class="section" id="installation">
+  <div class="sec-h">Plan d'installation de chantier</div>
+
+  <div class="plan-box">
+    <div class="plan-label">Schéma — Organisation type d'un chantier de cuisine</div>
+    <svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:8px;">
+      <!-- Fond -->
+      <rect width="700" height="380" fill="#121519" rx="8"/>
+      <!-- Grille légère -->
+      <defs>
+        <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+          <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#1e232b" stroke-width=".5"/>
+        </pattern>
+      </defs>
+      <rect width="700" height="380" fill="url(#grid)"/>
+
+      <!-- Local chantier (pièce) -->
+      <rect x="200" y="40" width="340" height="220" rx="4" fill="none" stroke="#2e3540" stroke-width="2"/>
+      <text x="370" y="32" fill="#5a6475" font-size="11" font-family="Barlow Condensed" font-weight="700" letter-spacing="2" text-anchor="middle">CHANTIER - CUISINE</text>
+
+      <!-- Zone de pose meubles bas -->
+      <rect x="210" y="200" width="320" height="50" rx="3" fill="rgba(139,219,90,.07)" stroke="rgba(139,219,90,.25)" stroke-width="1"/>
+      <text x="370" y="221" fill="#8bdb5a" font-size="10" font-family="Barlow Condensed" font-weight="700" letter-spacing="1" text-anchor="middle">ZONE POSE MEUBLES BAS</text>
+      <text x="370" y="235" fill="#3d6e22" font-size="9" font-family="Barlow Condensed" text-anchor="middle">Mur de pose principal</text>
+
+      <!-- Zone de stockage panneaux -->
+      <rect x="20" y="80" width="140" height="100" rx="4" fill="rgba(240,168,50,.06)" stroke="rgba(240,168,50,.2)" stroke-width="1.5"/>
+      <text x="90" y="125" fill="#f0a832" font-size="10" font-family="Barlow Condensed" font-weight="700" letter-spacing="1" text-anchor="middle">STOCKAGE</text>
+      <text x="90" y="138" fill="#f0a832" font-size="10" font-family="Barlow Condensed" font-weight="700" letter-spacing="1" text-anchor="middle">PANNEAUX</text>
+      <text x="90" y="155" fill="#7a5210" font-size="9" font-family="Barlow Condensed" text-anchor="middle">À plat, protégé</text>
+
+      <!-- Zone atelier coupe -->
+      <rect x="20" y="210" width="140" height="80" rx="4" fill="rgba(46,196,232,.06)" stroke="rgba(46,196,232,.2)" stroke-width="1.5"/>
+      <text x="90" y="245" fill="#2ec4e8" font-size="10" font-family="Barlow Condensed" font-weight="700" letter-spacing="1" text-anchor="middle">ATELIER</text>
+      <text x="90" y="258" fill="#2ec4e8" font-size="10" font-family="Barlow Condensed" font-weight="700" letter-spacing="1" text-anchor="middle">DE COUPE</text>
+      <text x="90" y="272" fill="#0d5f74" font-size="9" font-family="Barlow Condensed" text-anchor="middle">Scie + plan de débit</text>
+
+      <!-- Zone déchets -->
+      <rect x="560" y="80" width="120" height="70" rx="4" fill="rgba(232,72,72,.05)" stroke="rgba(232,72,72,.15)" stroke-width="1"/>
+      <text x="620" y="113" fill="#e84848" font-size="10" font-family="Barlow Condensed" font-weight="700" letter-spacing="1" text-anchor="middle">BENNE</text>
+      <text x="620" y="126" fill="#e84848" font-size="10" font-family="Barlow Condensed" font-weight="700" letter-spacing="1" text-anchor="middle">DÉCHETS</text>
+
+      <!-- Zone vestiaires -->
+      <rect x="560" y="175" width="120" height="70" rx="4" fill="rgba(155,114,232,.05)" stroke="rgba(155,114,232,.15)" stroke-width="1"/>
+      <text x="620" y="208" fill="#9b72e8" font-size="10" font-family="Barlow Condensed" font-weight="700" letter-spacing="1" text-anchor="middle">VESTIAIRES</text>
+      <text x="620" y="222" fill="#9b72e8" font-size="10" font-family="Barlow Condensed" font-weight="700" letter-spacing="1" text-anchor="middle">/ BUREAU</text>
+
+      <!-- Accès livraison -->
+      <rect x="250" y="300" width="200" height="50" rx="4" fill="rgba(107,141,176,.06)" stroke="rgba(107,141,176,.2)" stroke-width="1.5" stroke-dasharray="6,3"/>
+      <text x="350" y="322" fill="#6a8db0" font-size="10" font-family="Barlow Condensed" font-weight="700" letter-spacing="1" text-anchor="middle">ACCÈS LIVRAISON</text>
+      <text x="350" y="336" fill="#6a8db0" font-size="9" font-family="Barlow Condensed" text-anchor="middle">Largeur min 3m pour camion</text>
+      <!-- Flèches accès -->
+      <path d="M350 300 L350 260" fill="none" stroke="#6a8db0" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arr)"/>
+
+      <defs>
+        <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#6a8db0"/>
+        </marker>
+        <marker id="arrA" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#f0a832"/>
+        </marker>
+      </defs>
+
+      <!-- Flux matériaux -->
+      <path d="M160 130 L200 150" fill="none" stroke="#f0a832" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrA)"/>
+      <text x="175" y="138" fill="#f0a832" font-size="9" font-family="Barlow Condensed" text-anchor="middle" transform="rotate(-25,175,138)">Flux matière</text>
+
+      <!-- Protection sols -->
+      <rect x="210" y="50" width="320" height="145" rx="2" fill="rgba(240,240,255,.015)" stroke="#1e232b" stroke-width="1" stroke-dasharray="3,3"/>
+      <text x="370" y="68" fill="#2e3540" font-size="9" font-family="Barlow Condensed" text-anchor="middle">Protection sol (bâche + carton ondulé)</text>
+
+      <!-- Légende -->
+      <rect x="20" y="320" width="200" height="50" rx="4" fill="rgba(30,35,43,.6)" stroke="#232830" stroke-width="1"/>
+      <rect x="30" y="330" width="10" height="8" rx="1" fill="rgba(139,219,90,.5)"/>
+      <text x="46" y="338" fill="#5a6475" font-size="9" font-family="Barlow Condensed">Zone de pose</text>
+      <rect x="30" y="344" width="10" height="8" rx="1" fill="rgba(240,168,50,.5)"/>
+      <text x="46" y="352" fill="#5a6475" font-size="9" font-family="Barlow Condensed">Stockage / Atelier</text>
+      <rect x="100" y="330" width="10" height="8" rx="1" fill="rgba(46,196,232,.3)"/>
+      <text x="116" y="338" fill="#5a6475" font-size="9" font-family="Barlow Condensed">Zone technique</text>
+      <rect x="100" y="344" width="10" height="8" rx="1" fill="rgba(107,141,176,.3)"/>
+      <text x="116" y="352" fill="#5a6475" font-size="9" font-family="Barlow Condensed">Accès / Flux</text>
+    </svg>
+  </div>
+
+  <div class="three-col" style="margin-top:20px;">
+    <div class="card">
+      <div class="card-title">📦 Zone stockage panneaux</div>
+      <div class="chklist">
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Stocker à plat sur tasseaux (jamais sur chant — déformation garantie)</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Protéger de l'humidité et du soleil direct</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Trier par matériau et épaisseur pour retrouver rapidement</span></div>
+        <div class="chk"><div class="chk-i i-warn">!</div><span>Laisser 80cm de dégagement autour pour manipulation</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">🛡️ Sécurité chantier</div>
+      <div class="chklist">
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>EPI obligatoires : chaussures de sécurité, lunettes, casque anti-bruit</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Extincteur accessible en permanence</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Balisage des zones de circulation et de travail</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Trousse de premiers secours sur site</span></div>
+        <div class="chk"><div class="chk-i i-bad">✗</div><span>Interdiction de fumer sur le chantier (poussières et solvants)</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">🏠 Obligations légales chantier</div>
+      <div class="chklist">
+        <div class="chk"><div class="chk-i i-info">i</div><span>Vestiaires et sanitaires (ou WC de chantier) : obligatoires dès 1 salarié</span></div>
+        <div class="chk"><div class="chk-i i-info">i</div><span>Local de repos ou pause : obligatoire pour chantiers de + de 5 pers.</span></div>
+        <div class="chk"><div class="chk-i i-info">i</div><span>PPSPS (Plan Particulier Sécurité) : requis selon la taille du chantier</span></div>
+        <div class="chk"><div class="chk-i i-warn">!</div><span>Protection des sols et murs existants : à prévoir systématiquement</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- GANTT -->
+<div class="section" id="gantt">
+  <div class="sec-h">Le Planning Gantt — Tout comprendre</div>
+
+  <div class="ib">
+    <strong>Qu'est-ce qu'un planning Gantt ?</strong>
+    Inventé par Henry Gantt en 1910, c'est une représentation graphique d'un planning sous forme de barres horizontales sur un axe du temps. Chaque barre représente une tâche, sa longueur indique sa durée, et sa position indique quand elle commence et finit. Les dépendances entre tâches sont représentées par des flèches.
+  </div>
+
+  <div class="two-col">
+    <div class="schema">
+      <div class="schema-l">Comment lire un Gantt</div>
+      <div class="chklist" style="margin-top:8px;">
+        <div class="chk"><div class="chk-i i-info">i</div><span><strong>Axe horizontal = temps</strong> (semaines, jours selon granularité)</span></div>
+        <div class="chk"><div class="chk-i i-info">i</div><span><strong>Axe vertical = tâches</strong> (dans l'ordre logique d'exécution)</span></div>
+        <div class="chk"><div class="chk-i i-info">i</div><span><strong>Longueur de la barre = durée</strong> de la tâche</span></div>
+        <div class="chk"><div class="chk-i i-info">i</div><span><strong>Flèche entre barres = dépendance</strong> — une tâche ne peut pas commencer avant qu'une autre soit finie</span></div>
+        <div class="chk"><div class="chk-i i-warn">!</div><span><strong>Chemin critique</strong> = suite de tâches sans aucune marge. Tout retard sur le chemin critique = retard total du projet</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span><strong>Marge libre</strong> = temps disponible entre la fin d'une tâche et le début de la suivante (permet d'absorber des petits retards)</span></div>
+      </div>
+    </div>
+    <div class="schema">
+      <div class="schema-l">Comment construire un Gantt menuiserie</div>
+      <div class="timeline" style="margin:0;">
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot" style="width:26px;height:26px;font-size:12px;">1</div><div class="tl-connector"></div></div>
+          <div class="tl-body" style="padding-bottom:12px;"><div class="tl-title" style="font-size:13px;">Lister toutes les tâches</div><div class="tl-desc" style="font-size:12px;">Préparation, fabrication, livraison, pose, finitions, réception</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot" style="width:26px;height:26px;font-size:12px;">2</div><div class="tl-connector"></div></div>
+          <div class="tl-body" style="padding-bottom:12px;"><div class="tl-title" style="font-size:13px;">Estimer la durée de chaque tâche</div><div class="tl-desc" style="font-size:12px;">En jours ou demi-journées — être réaliste et ajouter 10–20%</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot" style="width:26px;height:26px;font-size:12px;">3</div><div class="tl-connector"></div></div>
+          <div class="tl-body" style="padding-bottom:12px;"><div class="tl-title" style="font-size:13px;">Définir les dépendances</div><div class="tl-desc" style="font-size:12px;">Quelle tâche doit être finie avant que la suivante commence ?</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot" style="width:26px;height:26px;font-size:12px;">4</div><div class="tl-connector"></div></div>
+          <div class="tl-body" style="padding-bottom:12px;"><div class="tl-title" style="font-size:13px;">Affecter les ressources</div><div class="tl-desc" style="font-size:12px;">Qui fait quoi ? Vérifier qu'aucune personne n'est sur deux tâches en même temps</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot" style="width:26px;height:26px;font-size:12px;">5</div><div class="tl-connector"></div></div>
+          <div class="tl-body"><div class="tl-title" style="font-size:13px;">Placer les jalons</div><div class="tl-desc" style="font-size:12px;">Dates clés : livraison matériaux, visite client, livraison finale, réception</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GANTT EXEMPLE -->
+  <div class="gantt-wrap">
+    <div class="gantt-title">Exemple — Planning Gantt : Chantier cuisine 3 pièces (16 semaines)</div>
+    <div class="gantt">
+      <!-- HEADER -->
+      <div class="g-head-blank">Tâche</div>
+      <div class="g-week">S1</div><div class="g-week">S2</div><div class="g-week">S3</div><div class="g-week">S4</div>
+      <div class="g-week">S5</div><div class="g-week">S6</div><div class="g-week">S7</div><div class="g-week">S8</div>
+      <div class="g-week current">S9</div><div class="g-week">S10</div><div class="g-week">S11</div><div class="g-week">S12</div>
+      <div class="g-week">S13</div><div class="g-week">S14</div><div class="g-week">S15</div><div class="g-week">S16</div>
+
+      <!-- ANALYSE / COMMANDES -->
+      <div class="g-label"><strong>PRÉP.</strong>Analyse plans + commandes</div>
+      <div class="g-cell"><div class="g-bar prep" style="left:2px;right:2px;">ANALYSE</div></div>
+      <div class="g-cell"><div class="g-bar prep" style="left:2px;right:2px;">COMMANDES</div></div>
+      <div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div>
+
+      <!-- LIVRAISONS MATERIAUX -->
+      <div class="g-label"><strong>LIVR.</strong>Matériaux panneaux</div>
+      <div class="g-cell"></div><div class="g-cell"></div>
+      <div class="g-cell"><div class="g-bar livr">LIV.</div></div>
+      <div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div>
+
+      <!-- FABRICATION CAISSONS -->
+      <div class="g-label"><strong>FAB.</strong>Caissons + débit CNC</div>
+      <div class="g-cell"></div><div class="g-cell"></div>
+      <div class="g-cell"><div class="g-bar fab" style="left:50%;right:2px;"></div></div>
+      <div class="g-cell"><div class="g-bar fab"></div></div>
+      <div class="g-cell"><div class="g-bar fab">FABRICATION CAISSONS</div></div>
+      <div class="g-cell"><div class="g-bar fab"></div></div>
+      <div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div>
+
+      <!-- LIVRAISON FACADES -->
+      <div class="g-label"><strong>LIVR.</strong>Façades laquées (ext.)</div>
+      <div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div>
+      <div class="g-cell"><div class="g-bar livr">LIV. FAÇADES</div></div>
+      <div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div>
+
+      <!-- COORD PLOMBIER -->
+      <div class="g-label"><strong>COORD.</strong>Plombier (arrivées)</div>
+      <div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div>
+      <div class="g-cell"><div class="g-bar coord">PLOMBIER</div></div>
+      <div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div>
+
+      <!-- POSE CAISSONS -->
+      <div class="g-label"><strong>POSE</strong>Caissons bas + hauts</div>
+      <div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div>
+      <div class="g-cell"><div class="g-bar pose">POSE</div></div>
+      <div class="g-cell"><div class="g-bar pose">CAISSONS</div></div>
+      <div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div>
+
+      <!-- PLAN DE TRAVAIL -->
+      <div class="g-label"><strong>LIVR.</strong>Plan de travail pierre</div>
+      <div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div>
+      <div class="g-cell"><div class="g-bar livr">PLAN TRV.</div></div>
+      <div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div>
+
+      <!-- POSE FACADES -->
+      <div class="g-label"><strong>POSE</strong>Façades + quincaillerie</div>
+      <div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div>
+      <div class="g-cell"><div class="g-bar pose" style="left:50%;right:2px;"></div></div>
+      <div class="g-cell"><div class="g-bar pose">FAÇADES</div></div>
+      <div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div>
+
+      <!-- FINITIONS -->
+      <div class="g-label"><strong>FIN.</strong>Réglages + retouches</div>
+      <div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div>
+      <div class="g-cell"><div class="g-bar fin">FINITIONS</div></div>
+      <div class="g-cell"><div class="g-bar fin">+</div></div>
+      <div class="g-cell"><div class="g-bar fin">RÉGLAGES</div></div>
+      <div class="g-cell"></div>
+
+      <!-- RÉCEPTION -->
+      <div class="g-label"><strong>RÉCEP.</strong>Livraison client</div>
+      <div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div>
+      <div class="g-cell"><div class="g-bar recep">★ RÉCEP.</div></div>
+    </div>
+    <div style="display:flex;gap:14px;margin-top:14px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);"><div style="width:16px;height:8px;border-radius:2px;background:var(--slate);"></div>Préparation</div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);"><div style="width:16px;height:8px;border-radius:2px;background:var(--cyan);"></div>Livraison</div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);"><div style="width:16px;height:8px;border-radius:2px;background:var(--amber);"></div>Fabrication</div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);"><div style="width:16px;height:8px;border-radius:2px;background:var(--lime);"></div>Pose</div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);"><div style="width:16px;height:8px;border-radius:2px;background:var(--violet);"></div>Finitions</div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);"><div style="width:16px;height:8px;border-radius:2px;background:var(--red);"></div>Réception</div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--amber);"><div style="background:rgba(240,168,50,.2);border:1px solid rgba(240,168,50,.4);width:16px;height:8px;border-radius:2px;"></div>Semaine actuelle</div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- RÉUNION DE PREPARATION -->
+<div class="section" id="reunion">
+  <div class="sec-h">Réunion de préparation avec l'équipe</div>
+
+  <div class="two-col">
+    <div class="schema">
+      <div class="schema-l">Ordre du jour type — Réunion de préparation (45 min)</div>
+      <div class="tbl-wrap" style="margin:0;border-radius:var(--r);">
+        <table>
+          <thead><tr><th>Durée</th><th>Point</th><th>Animateur</th></tr></thead>
+          <tbody>
+            <tr><td class="c-amber">5 min</td><td>Tour de table + présentation des intervenants</td><td>Chef de chantier</td></tr>
+            <tr><td class="c-amber">10 min</td><td>Présentation du chantier : client, lieu, enjeux</td><td>Chef de chantier</td></tr>
+            <tr><td class="c-amber">10 min</td><td>Lecture des plans ensemble + points d'attention</td><td>Chef de chantier</td></tr>
+            <tr><td class="c-amber">8 min</td><td>Planning : grandes étapes, dates clés, jalons</td><td>Chef de chantier</td></tr>
+            <tr><td class="c-amber">5 min</td><td>Rôles et responsabilités de chacun</td><td>Chef de chantier</td></tr>
+            <tr><td class="c-amber">5 min</td><td>Sécurité : consignes, EPI, risques identifiés</td><td>Tous</td></tr>
+            <tr><td class="c-amber">2 min</td><td>Questions / points divers</td><td>Tous</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="schema">
+      <div class="schema-l">Points essentiels à couvrir</div>
+      <div class="chklist" style="margin-top:8px;">
+        <div class="chk"><div class="chk-i i-ok">✓</div><span><strong>Le "qui fait quoi et quand"</strong> — chaque compagnon repart avec ses tâches de la semaine 1</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span><strong>Les interdépendances</strong> — Jean ne peut pas poser les hauts avant que Marc ait terminé les bas</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span><strong>Le point contact client</strong> — qui peut parler au client, dans quelles circonstances</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span><strong>La procédure en cas de problème</strong> — qui appeler, comment signaler un imprévu</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span><strong>Les horaires et règles du chantier</strong> — accès, horaires bruit, repas, stationnement</span></div>
+        <div class="chk"><div class="chk-i i-warn">!</div><span>Rédiger un compte-rendu de la réunion même court — parole sans écrit = pas de trace</span></div>
+        <div class="chk"><div class="chk-i i-warn">!</div><span>Distribuer les plans à chaque intervenant — ne pas travailler à un seul exemplaire</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- RISQUES -->
+<div class="section" id="risques">
+  <div class="sec-h">Anticipation des risques avant démarrage</div>
+
+  <div class="ib red">
+    <strong>Matrice des risques</strong>
+    Un risque = une probabilité × un impact. Identifier les risques AVANT qu'ils surviennent permet de préparer des plans de réponse et d'éviter d'improviser sous pression. Mieux vaut réfléchir à la solution du retard fournisseur depuis son bureau que depuis le chantier un lundi matin.
+  </div>
+
+  <div class="risk-grid">
+    <div class="risk-card risk-high">
+      <div class="risk-level">🔴 Risque ÉLEVÉ</div>
+      <div class="risk-title">Retard livraison matériaux</div>
+      <div class="risk-body">Fournisseur hors stock, grève transport, erreur de commande. Impact direct sur le démarrage de fabrication.</div>
+      <div class="risk-action">Plan B : identifier un fournisseur de remplacement. Commander avec marge. Confirmer livraison J-3.</div>
+    </div>
+    <div class="risk-card risk-high">
+      <div class="risk-level">🔴 Risque ÉLEVÉ</div>
+      <div class="risk-title">Écart plans / réalité sur site</div>
+      <div class="risk-body">Mur non d'aplomb, cote erronée, gaine non signalée. Découverte au moment de la pose = perte de temps majeure.</div>
+      <div class="risk-action">Plan B : mesurer toutes les cotes in situ avant fabrication. Ajouter tolérance de ±5mm sur les ouvrages.</div>
+    </div>
+    <div class="risk-card risk-high">
+      <div class="risk-level">🔴 Risque ÉLEVÉ</div>
+      <div class="risk-title">Absence d'un compagnon clé</div>
+      <div class="risk-body">Maladie, accident, démission imprévue d'un technicien unique maîtrisant une compétence spécifique.</div>
+      <div class="risk-action">Plan B : former au moins 2 personnes par compétence critique. Avoir un réseau d'intérimaires qualifiés.</div>
+    </div>
+    <div class="risk-card risk-mid">
+      <div class="risk-level">🟡 Risque MOYEN</div>
+      <div class="risk-title">Retard d'un corps de métier connexe</div>
+      <div class="risk-body">Le plombier ou l'électricien n'a pas terminé avant l'arrivée de la cuisine. Bloques la pose sans responsabilité menuiserie.</div>
+      <div class="risk-action">Plan B : formaliser les dates butoir des autres corps de métier dans le planning. Relances hebdomadaires.</div>
+    </div>
+    <div class="risk-card risk-mid">
+      <div class="risk-level">🟡 Risque MOYEN</div>
+      <div class="risk-title">Erreur de fabrication</div>
+      <div class="risk-body">Pièce fabriquée à la mauvaise cote, mauvais décor, mauvais sens de chant. Refabrication = délai + coût.</div>
+      <div class="risk-action">Plan B : double vérification des fiches de débit. Valider une pièce pilote avant lancement série.</div>
+    </div>
+    <div class="risk-card risk-mid">
+      <div class="risk-level">🟡 Risque MOYEN</div>
+      <div class="risk-title">Modification client en cours</div>
+      <div class="risk-body">Le client change d'avis sur un décor, une poignée, une dimension après commande. Impact sur délai et budget.</div>
+      <div class="risk-action">Plan B : faire signer le devis détaillé avec tous les choix. Toute modification = avenant écrit + délai supplémentaire.</div>
+    </div>
+    <div class="risk-card risk-low">
+      <div class="risk-level">🟢 Risque FAIBLE</div>
+      <div class="risk-title">Intempéries (chantier extérieur)</div>
+      <div class="risk-body">Pluie, gel empêchant l'application de finitions ou la pose d'éléments sensibles.</div>
+      <div class="risk-action">Plan B : prévoir des jours tampon dans le planning. Tente ou bâche de protection.</div>
+    </div>
+    <div class="risk-card risk-low">
+      <div class="risk-level">🟢 Risque FAIBLE</div>
+      <div class="risk-title">Casse ou malfaçon de transport</div>
+      <div class="risk-body">Pièce endommagée lors de la livraison ou du transport depuis l'atelier.</div>
+      <div class="risk-action">Plan B : emballer soigneusement. Photographier avant chargement. Stock de panneaux de remplacement.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- ═══════════════════════════════════════
+     PARTIE 2 — SUIVI DE CHANTIER
+═══════════════════════════════════════ -->
+<div class="part-sep" id="suivi">
+  <div class="psep-num">02</div>
+  <div class="psep-info">
+    <h2>SUIVI DE CHANTIER</h2>
+    <p>Piloter au quotidien, gérer les imprévus et livrer dans les délais</p>
+  </div>
+</div>
+
+<!-- VISITES DE CHANTIER -->
+<div class="section">
+  <div class="sec-h">Les visites de chantier</div>
+
+  <div class="three-col">
+    <div class="card">
+      <div class="card-title">👁 Visite quotidienne</div>
+      <div class="card-rows">
+        <div class="card-row"><span class="card-row-k">Fréquence</span><span class="card-row-v">Tous les jours</span></div>
+        <div class="card-row"><span class="card-row-k">Durée</span><span class="card-row-v">15–30 min</span></div>
+        <div class="card-row"><span class="card-row-k">Qui</span><span class="card-row-v">Chef de chantier</span></div>
+        <div class="card-row"><span class="card-row-k">Objectif</span><span class="card-row-v">Vérifier avancement, débloquer problèmes</span></div>
+      </div>
+      <div class="chklist" style="margin-top:14px;">
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Comparer avancement réel vs planning</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Identifier les blocages du jour</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Vérifier la qualité des travaux en cours</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">📋 Visite hebdomadaire</div>
+      <div class="card-rows">
+        <div class="card-row"><span class="card-row-k">Fréquence</span><span class="card-row-v">1× / semaine (lundi AM)</span></div>
+        <div class="card-row"><span class="card-row-k">Durée</span><span class="card-row-v">45–90 min</span></div>
+        <div class="card-row"><span class="card-row-k">Qui</span><span class="card-row-v">Chef + conducteur de travaux</span></div>
+        <div class="card-row"><span class="card-row-k">Objectif</span><span class="card-row-v">Bilan semaine + planning S+1</span></div>
+      </div>
+      <div class="chklist" style="margin-top:14px;">
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Compte-rendu hebdomadaire rédigé</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Photos d'avancement archivées</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Planning S+1 validé avec l'équipe</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">🤝 Visite client</div>
+      <div class="card-rows">
+        <div class="card-row"><span class="card-row-k">Fréquence</span><span class="card-row-v">Selon contrat (1–2×/mois)</span></div>
+        <div class="card-row"><span class="card-row-k">Durée</span><span class="card-row-v">30–60 min</span></div>
+        <div class="card-row"><span class="card-row-k">Qui</span><span class="card-row-v">Conducteur + client</span></div>
+        <div class="card-row"><span class="card-row-k">Objectif</span><span class="card-row-v">Validation des phases, gestion attentes</span></div>
+      </div>
+      <div class="chklist" style="margin-top:14px;">
+        <div class="chk"><div class="chk-i i-warn">!</div><span>Ne jamais promettre sans s'être assuré en interne</span></div>
+        <div class="chk"><div class="chk-i i-warn">!</div><span>Toute décision prise en visite = écrite et signée</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="schema" style="margin-top:20px;">
+    <div class="schema-l">Ce que vérifier lors d'une visite de chantier menuiserie</div>
+    <div class="tbl-wrap" style="margin:0;border-radius:var(--r);">
+      <table>
+        <thead><tr><th>Élément</th><th>Ce qu'on vérifie</th><th>Outil</th><th>Si problème</th></tr></thead>
+        <tbody>
+          <tr><td class="c-amber">Aplomb des meubles</td><td>Meubles bien verticaux sur les 2 axes</td><td>Niveau à bulle, niveau laser</td><td>Caler avec les pieds réglables ou re-fixer</td></tr>
+          <tr><td class="c-amber">Alignement des façades</td><td>Toutes les façades dans le même plan</td><td>Règle de 2m, oeil exercé</td><td>Régler les charnières (3D)</td></tr>
+          <tr><td class="c-amber">Espacement entre portes</td><td>Jeux réguliers (2–3mm)</td><td>Calibre ou cale</td><td>Réglage charnières</td></tr>
+          <tr><td class="c-amber">Qualité des chants</td><td>Chants propres, sans débordement de colle</td><td>Inspection visuelle</td><td>Raboter et recoller si nécessaire</td></tr>
+          <tr><td class="c-amber">Finitions des angles</td><td>Joints propres, pas de fissure, pas d'écart</td><td>Visuel</td><td>Mastication, retouche peinture</td></tr>
+          <tr><td class="c-amber">Fonctionnement des tiroirs</td><td>Ouverture/fermeture douce, alignement</td><td>Test manuel</td><td>Réglage coulisses, vérifier charge</td></tr>
+          <tr><td class="c-amber">Conformité aux plans</td><td>Cotes réalisées = cotes demandées</td><td>Mètre, plan</td><td>TQ, avenant ou correction</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- TABLEAU DE BORD -->
+<div class="section" id="tableau-bord">
+  <div class="sec-h">Tableau de bord chantier</div>
+
+  <div class="ib cyan">
+    <strong>Pourquoi un tableau de bord ?</strong>
+    Le tableau de bord transforme un ressenti flou ("ça avance bien je crois") en données factuelles. Il permet de détecter les dérives tôt, avant qu'elles deviennent des catastrophes, et de prendre des décisions basées sur des faits et non des impressions.
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-grid">
+    <div class="kpi ok">
+      <div class="kpi-val">78%</div>
+      <div class="kpi-lbl">Avancement global<br>(réel vs prévu)</div>
+    </div>
+    <div class="kpi warn">
+      <div class="kpi-val">+3j</div>
+      <div class="kpi-lbl">Retard cumulé<br>sur planning initial</div>
+    </div>
+    <div class="kpi ok">
+      <div class="kpi-val">94%</div>
+      <div class="kpi-lbl">Budget consommé<br>(vs budget prévisionnel)</div>
+    </div>
+    <div class="kpi bad">
+      <div class="kpi-val">2</div>
+      <div class="kpi-lbl">Non-conformités<br>ouvertes</div>
+    </div>
+    <div class="kpi ok">
+      <div class="kpi-val">0</div>
+      <div class="kpi-lbl">Accidents<br>/ incidents</div>
+    </div>
+    <div class="kpi warn">
+      <div class="kpi-val">1</div>
+      <div class="kpi-lbl">Livraison en attente<br>fournisseur</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="schema">
+      <div class="schema-l">Indicateurs essentiels à suivre</div>
+      <div class="card-rows" style="margin-top:8px;">
+        <div class="card-row"><span class="card-row-k">Avancement % réel</span><span class="card-row-v">Tâches finies / Total tâches</span></div>
+        <div class="card-row"><span class="card-row-k">Avancement % prévu</span><span class="card-row-v">Selon planning initial à cette date</span></div>
+        <div class="card-row"><span class="card-row-k">Écart planning (j)</span><span class="card-row-v">Réel — Prévu (négatif = avance)</span></div>
+        <div class="card-row"><span class="card-row-k">Budget H engagé</span><span class="card-row-v">Heures réelles vs devis</span></div>
+        <div class="card-row"><span class="card-row-k">Matériaux consommés</span><span class="card-row-v">Vs budget matières</span></div>
+        <div class="card-row"><span class="card-row-k">Réserves / TQ ouverts</span><span class="card-row-v">Nombre de non-conformités actives</span></div>
+        <div class="card-row"><span class="card-row-k">Présence équipe</span><span class="card-row-v">Effectif réel / effectif planifié</span></div>
+        <div class="card-row"><span class="card-row-k">Prochaine livraison</span><span class="card-row-v">Dates et statuts fournisseurs</span></div>
+      </div>
+    </div>
+    <div class="schema">
+      <div class="schema-l">Comment tenir le tableau de bord à jour</div>
+      <div class="chklist" style="margin-top:8px;">
+        <div class="chk"><div class="chk-i i-ok">✓</div><span><strong>Quotidiennement :</strong> mise à jour de l'avancement et incidents du jour (5 min)</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span><strong>Hebdomadairement :</strong> bilan complet avec calcul des écarts et projection fin de chantier</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Utiliser un fichier partagé (tableur en ligne) accessible à toute l'équipe</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Historiser les données — ne jamais écraser une valeur, créer une nouvelle ligne</span></div>
+        <div class="chk"><div class="chk-i i-warn">!</div><span>Un indicateur au rouge = action corrective à J+1, pas à la semaine suivante</span></div>
+        <div class="chk"><div class="chk-i i-warn">!</div><span>Ne pas minimiser les retards dans le tableau pour "rassurer" — l'honnêteté des données est la base du pilotage</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- RETARDS -->
+<div class="section" id="retards">
+  <div class="sec-h">Gérer les retards</div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Cause de retard</th><th>Fréquence</th><th>Solution immédiate</th><th>Solution structurelle</th></tr></thead>
+      <tbody>
+        <tr><td class="c-amber">Livraison matériaux en retard</td><td class="c-mid">Très fréquente</td><td>Contacter fournisseur, trouver alternative locale</td><td>Commander plus tôt, avoir 2 fournisseurs</td></tr>
+        <tr><td class="c-amber">Absent (maladie, etc.)</td><td class="c-mid">Fréquente</td><td>Redistribuer les tâches, recourir à l'intérim</td><td>Former polyvalence, réseau d'intérimaires</td></tr>
+        <tr><td class="c-amber">Retard corps de métier connexe</td><td class="c-mid">Fréquente</td><td>Avancer d'autres tâches non bloquées</td><td>Planification coordonnée dès le départ</td></tr>
+        <tr><td class="c-amber">Travail supplémentaire découvert</td><td class="c-mid">Fréquente</td><td>Rédiger un avenant immédiatement</td><td>Visite préalable exhaustive</td></tr>
+        <tr><td class="c-amber">Erreur de fabrication</td><td class="c-dim">Occasionnelle</td><td>Refabriquer en priorité, informer le client</td><td>Double vérification avant débit</td></tr>
+        <tr><td class="c-amber">Changement client</td><td class="c-dim">Occasionnelle</td><td>Avenant signé + nouveau délai</td><td>Gel des modifications après signature</td></tr>
+        <tr><td class="c-amber">Panne outillage</td><td class="c-lime">Rare</td><td>Louer, prêt d'un autre chantier</td><td>Maintenance préventive, outillage de secours</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ib lime">
+    <strong>Méthode pour rattraper un retard</strong>
+    1. Quantifier le retard exact en jours. 2. Identifier les tâches "compressibles" (qu'on peut faire plus vite avec plus de ressources). 3. Évaluer si des tâches peuvent se faire en parallèle (chevauchement). 4. Calculer les heures supplémentaires nécessaires. 5. Informer le client de façon proactive avec une nouvelle date réaliste. Ne jamais promettre une date qu'on ne peut pas tenir.
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- COORDINATION -->
+<div class="section" id="coordination">
+  <div class="sec-h">Coordonner plusieurs corps de métier</div>
+
+  <div class="schema">
+    <div class="schema-l">Séquençage type — Chantier cuisine avec coordination</div>
+    <svg viewBox="0 0 720 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;">
+      <defs>
+        <marker id="ar2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#5a6475"/>
+        </marker>
+      </defs>
+      <!-- Timeline -->
+      <line x1="20" y1="100" x2="700" y2="100" stroke="#2e3540" stroke-width="1.5"/>
+      <!-- Semaines -->
+      <text x="80"  y="170" fill="#5a6475" font-size="9" font-family="Barlow Condensed" text-anchor="middle">S1–S2</text>
+      <text x="200" y="170" fill="#5a6475" font-size="9" font-family="Barlow Condensed" text-anchor="middle">S3–S4</text>
+      <text x="320" y="170" fill="#5a6475" font-size="9" font-family="Barlow Condensed" text-anchor="middle">S5–S6</text>
+      <text x="440" y="170" fill="#5a6475" font-size="9" font-family="Barlow Condensed" text-anchor="middle">S7–S8</text>
+      <text x="560" y="170" fill="#5a6475" font-size="9" font-family="Barlow Condensed" text-anchor="middle">S9–S10</text>
+      <text x="660" y="170" fill="#5a6475" font-size="9" font-family="Barlow Condensed" text-anchor="middle">S11+</text>
+
+      <!-- Carreleur -->
+      <rect x="20" y="30" width="200" height="28" rx="4" fill="rgba(46,196,232,.15)" stroke="rgba(46,196,232,.3)" stroke-width="1"/>
+      <text x="120" y="49" fill="#2ec4e8" font-size="11" font-family="Barlow Condensed" font-weight="700" text-anchor="middle">🔲 CARRELEUR — Sol et murs</text>
+      <!-- Plombier -->
+      <rect x="200" y="30" width="160" height="28" rx="4" fill="rgba(107,141,176,.15)" stroke="rgba(107,141,176,.3)" stroke-width="1"/>
+      <text x="280" y="49" fill="#6a8db0" font-size="11" font-family="Barlow Condensed" font-weight="700" text-anchor="middle">🔧 PLOMBIER — Arrivées</text>
+      <!-- Électricien -->
+      <rect x="200" y="65" width="200" height="28" rx="4" fill="rgba(240,168,50,.12)" stroke="rgba(240,168,50,.25)" stroke-width="1"/>
+      <text x="300" y="84" fill="#f0a832" font-size="11" font-family="Barlow Condensed" font-weight="700" text-anchor="middle">⚡ ÉLECTRICIEN</text>
+      <!-- Menuisier pose -->
+      <rect x="360" y="30" width="200" height="28" rx="4" fill="rgba(139,219,90,.15)" stroke="rgba(139,219,90,.3)" stroke-width="1"/>
+      <text x="460" y="49" fill="#8bdb5a" font-size="11" font-family="Barlow Condensed" font-weight="700" text-anchor="middle">🪵 MENUISIER — Pose caissons</text>
+      <!-- Façades -->
+      <rect x="480" y="65" width="160" height="28" rx="4" fill="rgba(155,114,232,.15)" stroke="rgba(155,114,232,.3)" stroke-width="1"/>
+      <text x="560" y="84" fill="#9b72e8" font-size="11" font-family="Barlow Condensed" font-weight="700" text-anchor="middle">✨ FAÇADES + FINITIONS</text>
+      <!-- Ligne de jonction -->
+      <line x1="360" y1="44" x2="360" y2="100" stroke="#2e3540" stroke-width="1" stroke-dasharray="3,2"/>
+      <text x="364" y="118" fill="#5a6475" font-size="9" font-family="Barlow Condensed">Carrelage sec = menuisier peut poser</text>
+      <line x1="200" y1="44" x2="200" y2="100" stroke="#2e3540" stroke-width="1" stroke-dasharray="3,2"/>
+      <text x="148" y="118" fill="#5a6475" font-size="9" font-family="Barlow Condensed" text-anchor="middle">Dépose ancienne cuisine</text>
+    </svg>
+  </div>
+
+  <div class="two-col" style="margin-top:20px;">
+    <div class="card">
+      <div class="card-title">🔄 Dépendances critiques</div>
+      <div class="chklist">
+        <div class="chk"><div class="chk-i i-bad">✗</div><span><strong>Pose menuiserie AVANT carrelage :</strong> impossible — le niveau du sol n'est pas définitif, les joints sont inaccessibles</span></div>
+        <div class="chk"><div class="chk-i i-bad">✗</div><span><strong>Pose plan de travail AVANT plombier :</strong> évier et robinetterie inaccessibles après, obligés de tout démonter</span></div>
+        <div class="chk"><div class="chk-i i-bad">✗</div><span><strong>Façades AVANT caissons :</strong> pas de support, évident mais à énoncer</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span><strong>Ordre correct :</strong> démolition → carrelage sol → plombier (arrivées) → menuisier (caissons) → plombier (raccordements) → électricien → façades → finitions</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">📞 Communication inter-corps de métier</div>
+      <div class="chklist">
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Réunion de coordination mensuelle avec tous les corps de métier et le maître d'oeuvre</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Groupe WhatsApp ou outil de communication chantier — informations en temps réel</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Formaliser les dates butoir de chaque corps de métier dans un tableau commun</span></div>
+        <div class="chk"><div class="chk-i i-warn">!</div><span>En cas de retard d'un autre corps de métier, notifier PAR ÉCRIT dans les 24h — protège en cas de litige</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- COMPTE-RENDU -->
+<div class="section" id="cr">
+  <div class="sec-h">Photos &amp; Communication quotidienne</div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">📷 Photos de chantier — Protocole</div>
+      <div class="card-body" style="margin-bottom:14px;">Les photos sont à la fois un outil de suivi, une protection juridique et un outil commercial. Un dossier photo structuré vaut parfois plus qu'un long discours.</div>
+      <div class="chklist">
+        <div class="chk"><div class="chk-i i-ok">✓</div><span><strong>État initial :</strong> photographier chaque mur, sol, angle AVANT tout travail</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span><strong>Avancement :</strong> même angle, même cadrage à chaque visite pour avoir une progression visuelle</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span><strong>Détails techniques :</strong> fixations, raccordements, points complexes</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span><strong>Non-conformités :</strong> photographier tout défaut avant et après correction</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span><strong>État final :</strong> photos professionnelles à la livraison (portfolio, réseaux)</span></div>
+        <div class="chk"><div class="chk-i i-warn">!</div><span>Nommer les photos avec date + zone (ex: "2025-03-15_cuisine_mur-nord.jpg")</span></div>
+        <div class="chk"><div class="chk-i i-warn">!</div><span>Archiver sur support partagé et non uniquement sur le téléphone du chef de chantier</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">💬 Communication d'équipe au quotidien</div>
+      <div class="card-body" style="margin-bottom:14px;">La communication est le ciment qui tient le chantier. Les problèmes non exprimés deviennent des catastrophes.</div>
+      <div class="chklist">
+        <div class="chk"><div class="chk-i i-ok">✓</div><span><strong>Briefing matin (10 min) :</strong> plan du jour, qui fait quoi, points de sécurité</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span><strong>Point de fin de journée (5 min) :</strong> bilan, blocages, préparation J+1</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Encourager le signalement immédiat de tout problème ou doute — mieux vaut s'arrêter 5 min que refaire une demi-journée de travail</span></div>
+        <div class="chk"><div class="chk-i i-warn">!</div><span>Éviter le "je pensais que tu savais" — toujours vérifier la transmission de l'information</span></div>
+        <div class="chk"><div class="chk-i i-bad">✗</div><span>Ne jamais laisser un compagnon travailler avec un doute sur la cote ou la méthode — arrêter et vérifier</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- ═══════════════════════════════════════
+     MODÈLES
+═══════════════════════════════════════ -->
+<div class="part-sep" id="modeles">
+  <div class="psep-num">📄</div>
+  <div class="psep-info">
+    <h2>MODÈLES DE DOCUMENTS</h2>
+    <p>Tableau de bord, compte-rendu hebdomadaire et rapport d'avancement</p>
+  </div>
+</div>
+
+<!-- MODELE TABLEAU DE BORD -->
+<div class="section">
+  <div class="recap-banner">
+    <div class="rb-icon">📊</div>
+    <div><div class="rb-title">Modèle — Tableau de bord chantier</div><div class="rb-sub">À tenir à jour chaque semaine</div></div>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Phase / Tâche</th>
+          <th>% Prévu S.X</th>
+          <th>% Réel S.X</th>
+          <th>Écart</th>
+          <th>Statut</th>
+          <th>Responsable</th>
+          <th>Commentaire / Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="c-amber">Préparation &amp; commandes</td><td>100%</td><td>100%</td><td class="c-lime">0j</td><td><span class="status s-ok">✓ Terminé</span></td><td>M. Dupont</td><td>Toutes commandes confirmées S1</td></tr>
+        <tr><td class="c-amber">Livraison panneaux</td><td>100%</td><td>100%</td><td class="c-lime">0j</td><td><span class="status s-ok">✓ Livré</span></td><td>—</td><td>RAS — livraison conforme S3</td></tr>
+        <tr><td class="c-amber">Fabrication caissons bas</td><td>100%</td><td>80%</td><td class="c-mid">+2j</td><td><span class="status s-warn">▶ En cours</span></td><td>M. Martin</td><td>Retard machine CNC tombée en panne J3</td></tr>
+        <tr><td class="c-amber">Fabrication caissons hauts</td><td>50%</td><td>30%</td><td class="c-red">+3j</td><td><span class="status s-warn">▶ En cours</span></td><td>M. Martin</td><td>Impact de la panne — récupération planifiée</td></tr>
+        <tr><td class="c-amber">Livraison façades</td><td>0%</td><td>0%</td><td class="c-lime">—</td><td><span class="status s-todo">◌ À venir</span></td><td>Fournisseur X</td><td>Confirmation livraison S7 attendue</td></tr>
+        <tr><td class="c-amber">Coordination plombier</td><td>0%</td><td>0%</td><td class="c-lime">—</td><td><span class="status s-todo">◌ À venir</span></td><td>Entreprise Y</td><td>Planifié S8 — à confirmer</td></tr>
+        <tr><td class="c-amber">Pose caissons</td><td>0%</td><td>0%</td><td class="c-lime">—</td><td><span class="status s-todo">◌ À venir</span></td><td>M. Dupont</td><td>Conditionné à la fin de fabrication</td></tr>
+        <tr><td style="font-family:'Barlow Condensed';font-weight:800;color:var(--amber2);">GLOBAL CHANTIER</td><td>65%</td><td>52%</td><td class="c-red">+3j retard</td><td><span class="status s-warn">▲ Attention</span></td><td>Chef chantier</td><td>Plan de rattrapage en cours — voir S+1</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- MODELE COMPTE-RENDU -->
+<div class="section">
+  <div class="recap-banner">
+    <div class="rb-icon">📝</div>
+    <div><div class="rb-title">Modèle — Compte-rendu hebdomadaire</div><div class="rb-sub">À rédiger chaque semaine et diffuser à tous les intervenants</div></div>
+  </div>
+
+  <div class="cr-model">
+    <div class="cr-header">
+      <div class="cr-h-title">COMPTE-RENDU DE CHANTIER — Semaine [N°]</div>
+      <div class="cr-h-meta">Chantier : [Nom / Référence] · Date : [JJ/MM/AAAA] · Rédacteur : [Nom] · Diffusion : [Liste des destinataires]</div>
+    </div>
+    <div class="cr-body">
+      <div class="cr-section">
+        <div class="cr-sec-title">1. Participants présents</div>
+        <div class="cr-field"><span class="cr-placeholder">Lister les personnes présentes sur le chantier cette semaine : compagnons, sous-traitants, client si visite, bureau d'études…</span></div>
+      </div>
+      <div class="cr-section">
+        <div class="cr-sec-title">2. Travaux réalisés cette semaine</div>
+        <div class="cr-field"><span class="cr-placeholder">Décrire factuellement les tâches accomplies : "Fabrication et pose des 8 caissons bas cuisine côté fenêtre. Pose du plan de travail stratifié HPL. Réglage des charnières côté hotte."</span></div>
+      </div>
+      <div class="cr-section">
+        <div class="cr-sec-title">3. Avancement global</div>
+        <div class="cr-field">
+          <div class="cr-field-label">Avancement réel</div>
+          <span class="cr-placeholder">__% du chantier terminé à cette date</span>
+        </div>
+        <div class="cr-field">
+          <div class="cr-field-label">Avancement prévu selon planning</div>
+          <span class="cr-placeholder">__% attendu à cette date selon planning initial</span>
+        </div>
+        <div class="cr-field">
+          <div class="cr-field-label">Écart</div>
+          <span class="cr-placeholder">+/- ___ jours — Cause de l'écart si applicable</span>
+        </div>
+      </div>
+      <div class="cr-section">
+        <div class="cr-sec-title">4. Points bloquants &amp; problèmes rencontrés</div>
+        <div class="cr-field"><span class="cr-placeholder">Lister tout ce qui a ralenti ou bloqué le chantier cette semaine. Être précis : "Livraison façades prévue mardi non reçue — appel fournisseur jeudi, nouvelle date : semaine prochaine mardi."</span></div>
+      </div>
+      <div class="cr-section">
+        <div class="cr-sec-title">5. Décisions prises</div>
+        <div class="cr-field"><span class="cr-placeholder">Toute décision technique ou commerciale prise pendant la semaine, avec qui a décidé et quand : "Décision client [date] : changement de poignée modèle A → modèle B. Délai supplémentaire : +5 jours. Avenant n°1 à signer."</span></div>
+      </div>
+      <div class="cr-section">
+        <div class="cr-sec-title">6. Planning semaine suivante</div>
+        <div class="cr-field"><span class="cr-placeholder">Lundi : [Tâches] — Mardi : [Tâches] — Mercredi : [Tâches] — Jeudi : [Tâches] — Vendredi : [Tâches]</span></div>
+      </div>
+      <div class="cr-section">
+        <div class="cr-sec-title">7. Actions à mener — Qui fait quoi avant la prochaine semaine ?</div>
+        <div class="tbl-wrap" style="margin:0;border-radius:var(--r);">
+          <table>
+            <thead><tr><th>Action</th><th>Responsable</th><th>Échéance</th><th>Statut</th></tr></thead>
+            <tbody>
+              <tr><td><span class="cr-placeholder">Ex: Relancer fournisseur façades</span></td><td><span class="cr-placeholder">M. Dupont</span></td><td><span class="cr-placeholder">Lundi</span></td><td><span class="status s-todo">◌ À faire</span></td></tr>
+              <tr><td><span class="cr-placeholder">Ex: Confirmer date plombier S8</span></td><td><span class="cr-placeholder">Chef chantier</span></td><td><span class="cr-placeholder">Mercredi</span></td><td><span class="status s-todo">◌ À faire</span></td></tr>
+              <tr><td><span class="cr-placeholder">Ex: Envoyer avenant n°1 au client</span></td><td><span class="cr-placeholder">Commercial</span></td><td><span class="cr-placeholder">Jeudi</span></td><td><span class="status s-todo">◌ À faire</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="cr-section" style="margin-bottom:0;">
+        <div class="cr-sec-title">8. Prochain compte-rendu</div>
+        <div class="cr-field"><span class="cr-placeholder">Date du prochain compte-rendu : [JJ/MM/AAAA] — Prochaine visite client : [JJ/MM/AAAA si prévue]</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RAPPORT D'AVANCEMENT -->
+<div class="section">
+  <div class="recap-banner">
+    <div class="rb-icon">📈</div>
+    <div><div class="rb-title">Modèle — Rapport d'avancement mensuel</div><div class="rb-sub">Synthèse mensuelle pour le client et la direction</div></div>
+  </div>
+
+  <div class="cr-model">
+    <div class="cr-header">
+      <div class="cr-h-title">RAPPORT D'AVANCEMENT — [Mois / Année]</div>
+      <div class="cr-h-meta">Chantier : [Nom] · Maître d'ouvrage : [Client] · Entreprise : [Votre entreprise] · Date rapport : [JJ/MM/AAAA]</div>
+    </div>
+    <div class="cr-body">
+      <div class="cr-section">
+        <div class="cr-sec-title">Synthèse exécutive</div>
+        <div class="cr-field">
+          <div class="cr-field-label">Avancement global</div>
+          <span class="cr-placeholder">__% · [En avance / Dans les délais / En retard de __ jours]</span>
+        </div>
+        <div class="cr-field">
+          <div class="cr-field-label">Budget</div>
+          <span class="cr-placeholder">__% du budget consommé · [Sous-budget / Dans le budget / Dépassement de __€]</span>
+        </div>
+        <div class="cr-field">
+          <div class="cr-field-label">Qualité</div>
+          <span class="cr-placeholder">__ non-conformités ouvertes · __ résolues ce mois</span>
+        </div>
+        <div class="cr-field">
+          <div class="cr-field-label">Sécurité</div>
+          <span class="cr-placeholder">__ accidents / __ incidents · Taux de port des EPI : __%</span>
+        </div>
+      </div>
+      <div class="cr-section">
+        <div class="cr-sec-title">Travaux réalisés ce mois</div>
+        <div class="cr-field"><span class="cr-placeholder">Description des principales réalisations du mois avec photos d'avancement jointes en annexe.</span></div>
+      </div>
+      <div class="cr-section">
+        <div class="cr-sec-title">Prévisions mois suivant</div>
+        <div class="cr-field"><span class="cr-placeholder">Tâches prévues, jalons à atteindre, livraisons attendues, visites planifiées.</span></div>
+      </div>
+      <div class="cr-section" style="margin-bottom:0;">
+        <div class="cr-sec-title">Points d'attention &amp; risques actifs</div>
+        <div class="cr-field"><span class="cr-placeholder">Lister les risques actifs du mois avec niveau (rouge/orange/vert) et action en cours.</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- ═══════════════════════════════════════
+     FICHES RÉCAP
+═══════════════════════════════════════ -->
+<div class="part-sep">
+  <div class="psep-num">📋</div>
+  <div class="psep-info">
+    <h2>FICHES RÉCAPITULATIVES</h2>
+    <p>Résumés opérationnels prêts à utiliser sur chantier</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="recap-banner">
+    <div class="rb-icon">✅</div>
+    <div><div class="rb-title">Fiche Récap 1 — Étapes de préparation dans l'ordre</div></div>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Étape</th><th>Action</th><th>Livrable</th><th>Délai avant démarrage</th></tr></thead>
+      <tbody>
+        <tr><td class="c-amber">1. Analyse documents</td><td>Lire CCTP, plans, métrés — identifier les points flous</td><td>Liste des TQ / réserves</td><td>J-30 minimum</td></tr>
+        <tr><td class="c-amber">2. Visite préalable</td><td>Mesurer toutes les pièces, photos état initial, vérifier accès</td><td>Fiche de relevé de cotes + photos</td><td>J-21</td></tr>
+        <tr><td class="c-amber">3. Calcul quantités</td><td>Métré définitif, plan de débit, calcul avec coefficients de perte</td><td>Tableau de métré validé</td><td>J-20</td></tr>
+        <tr><td class="c-amber">4. Commandes matériaux</td><td>Bons de commande envoyés, délais confirmés par écrit</td><td>Confirmations fournisseurs</td><td>J-21 à J-45 selon délai</td></tr>
+        <tr><td class="c-amber">5. Planning Gantt</td><td>Toutes tâches planifiées, dépendances, ressources, jalons</td><td>Planning validé + partagé</td><td>J-15</td></tr>
+        <tr><td class="c-amber">6. Plan d'installation</td><td>Zones définies, signalétique, protections, vestiaires</td><td>Plan de chantier</td><td>J-7</td></tr>
+        <tr><td class="c-amber">7. Analyse risques</td><td>Top 5 risques + plan de réponse pour chacun</td><td>Fiche de risques</td><td>J-10</td></tr>
+        <tr><td class="c-amber">8. Réunion équipe</td><td>Briefer tous les intervenants, distribuer plans, planning</td><td>CR de réunion signé</td><td>J-3</td></tr>
+        <tr><td style="font-family:'Barlow Condensed';font-weight:800;color:var(--lime);">9. Check-list démarrage</td><td>Valider tous les points de la check-list avant J0</td><td>Check-list signée</td><td>Veille du J0</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="section">
+  <div class="recap-banner">
+    <div class="rb-icon">🚀</div>
+    <div><div class="rb-title">Fiche Récap 2 — Check-list complète avant démarrage</div></div>
+  </div>
+  <div class="two-col">
+    <div class="schema">
+      <div class="schema-l">Documents &amp; Préparation</div>
+      <div class="chklist">
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Plans + CCTP reçus et analysés, version à jour (indice vérifié)</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Relevé de cotes effectué sur site — concordance plans vérifiée</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Toutes les commandes passées et délais confirmés</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Planning Gantt établi et distribué à l'équipe</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Réunion de préparation tenue — CR rédigé et diffusé</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Contrat / devis signé — acompte reçu (si applicable)</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Assurance chantier vérifiée et en cours de validité</span></div>
+      </div>
+    </div>
+    <div class="schema">
+      <div class="schema-l">Logistique &amp; Sécurité</div>
+      <div class="chklist">
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Accès chantier confirmé — clés ou codes d'accès obtenus</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Matériaux principaux livrés et stockés correctement</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Outillage vérifié et opérationnel (lames, batteries, consommables)</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>EPI disponibles pour toute l'équipe</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Sol et murs protégés (bâches, cartons, angles)</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Alimentation électrique de chantier disponible</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Photos état initial prises et archivées</span></div>
+        <div class="chk"><div class="chk-i i-ok">✓</div><span>Contact client et contact urgence notés</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- ═══════════════════════════════════════
+     EXERCICES PRATIQUES
+═══════════════════════════════════════ -->
+<div class="part-sep" id="exercices">
+  <div class="psep-num">✏</div>
+  <div class="psep-info">
+    <h2>EXERCICES PRATIQUES</h2>
+    <p>Mettre en application les méthodes apprises</p>
+  </div>
+</div>
+
+<div class="section">
+
+  <div class="exo">
+    <div class="exo-header">
+      <div class="exo-num">1</div>
+      <div>
+        <div class="exo-title">Préparer un chantier de pose cuisine à partir des plans</div>
+        <div class="exo-sub">Durée estimée : 45–60 min · Niveau : Fondamental</div>
+      </div>
+    </div>
+
+    <div class="ib" style="margin-bottom:18px;">
+      <strong>Contexte</strong>
+      Vous êtes chef de chantier. Vous venez de recevoir les plans d'une cuisine de 14m² à poser dans un appartement au 3ème étage sans ascenseur. La cuisine comporte 8 caissons bas, 6 caissons hauts, 1 colonne four, 1 plan de travail quartz de 3,2m et des façades laquées blanc. Délai de livraison client : 8 semaines.
+    </div>
+
+    <div class="exo-steps">
+      <div class="exo-step">
+        <div class="exo-step-num">Étape 1 — Analyse des contraintes</div>
+        <div class="exo-step-body">Listez les 5 contraintes spécifiques à prendre en compte pour ce chantier (accès, pesanteur des matériaux, délais, etc.). Pour chacune, proposez une solution concrète.</div>
+      </div>
+      <div class="exo-step">
+        <div class="exo-step-num">Étape 2 — Liste des commandes prioritaires</div>
+        <div class="exo-step-body">En vous basant sur les délais fournisseurs du cours, identifiez quel élément doit être commandé EN PREMIER et dans quel ordre commander le reste. Justifiez.</div>
+      </div>
+      <div class="exo-step">
+        <div class="exo-step-num">Étape 3 — Plan d'installation chantier</div>
+        <div class="exo-step-body">Faites un croquis (ou décrivez précisément) comment vous allez organiser le chantier : zone de stockage des panneaux (3ème étage ?), zone de coupe, circulation. Quelle est la difficulté principale ?</div>
+      </div>
+      <div class="exo-step">
+        <div class="exo-step-num">Étape 4 — Identification des risques</div>
+        <div class="exo-step-body">Identifiez les 3 principaux risques de ce chantier spécifique. Pour chaque risque, rédigez un plan de réponse concret avec une action préventive et une action corrective.</div>
+      </div>
+      <div class="exo-step">
+        <div class="exo-step-num">Étape 5 — Check-list personnalisée</div>
+        <div class="exo-step-body">Adaptez la check-list de démarrage du cours à ce chantier spécifique. Quels points supplémentaires ajoutez-vous compte tenu des contraintes identifiées ?</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exo">
+    <div class="exo-header">
+      <div class="exo-num">2</div>
+      <div>
+        <div class="exo-title">Créer un planning Gantt pour un chantier d'agencement</div>
+        <div class="exo-sub">Durée estimée : 60–90 min · Niveau : Intermédiaire</div>
+      </div>
+    </div>
+
+    <div class="ib" style="margin-bottom:18px;">
+      <strong>Contexte</strong>
+      Vous devez livrer un dressing sur mesure (12 modules + 3 penderies + 4 tiroirs) et un bureau intégré (plan de travail 2m + bibliothèque murale) dans un appartement de standing. Livraison client imposée dans 6 semaines. Vous avez 2 compagnons disponibles. Les façades laquées sont commandées en externe (délai : 4 semaines).
+    </div>
+
+    <div class="exo-steps">
+      <div class="exo-step">
+        <div class="exo-step-num">Étape 1 — Liste exhaustive des tâches</div>
+        <div class="exo-step-body">Listez TOUTES les tâches du chantier depuis la commande des matériaux jusqu'à la réception client. N'oubliez pas les tâches administratives (confirmation livraisons, photos, compte-rendu…).</div>
+      </div>
+      <div class="exo-step">
+        <div class="exo-step-num">Étape 2 — Estimation des durées</div>
+        <div class="exo-step-body">Pour chaque tâche, estimez la durée en demi-journées. Soyez réaliste — un module de dressing = environ ½ journée de fabrication + 1h de pose. Calculez le total en heures-compagnon.</div>
+      </div>
+      <div class="exo-step">
+        <div class="exo-step-num">Étape 3 — Identification du chemin critique</div>
+        <div class="exo-step-body">Tracez le planning sur 6 semaines. Quelle est la tâche qui contrôle le délai global ? Si les façades laquées arrivent en retard de 1 semaine, quel est l'impact sur la livraison client ?</div>
+      </div>
+      <div class="exo-step">
+        <div class="exo-step-num">Étape 4 — Optimisation</div>
+        <div class="exo-step-body">Peut-on faire des tâches en parallèle pour respecter le délai ? Quelles tâches les 2 compagnons peuvent-ils faire simultanément ? Y a-t-il une semaine où l'un des 2 compagnons est sous-utilisé ?</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exo">
+    <div class="exo-header">
+      <div class="exo-num">3</div>
+      <div>
+        <div class="exo-title">Rédiger l'ordre du jour d'une réunion de préparation</div>
+        <div class="exo-sub">Durée estimée : 30 min · Niveau : Fondamental</div>
+      </div>
+    </div>
+
+    <div class="ib" style="margin-bottom:18px;">
+      <strong>Contexte</strong>
+      Vous organisez la réunion de préparation pour un chantier d'agencement commercial : installation d'un comptoir d'accueil, de 4 vitrines et d'un mur de rangement dans une boutique de prêt-à-porter. Les participants sont : vos 2 compagnons menuisiers, un électricien (éclairage vitrines), et le gérant de la boutique. La boutique ne ferme pas pendant les travaux.
+    </div>
+
+    <div class="exo-steps">
+      <div class="exo-step">
+        <div class="exo-step-num">Étape 1 — Structurer l'ordre du jour</div>
+        <div class="exo-step-body">Rédigez l'ordre du jour complet de cette réunion avec : durée de chaque point, animateur, objectif de chaque point. La réunion doit durer 45 minutes maximum. Adaptez le modèle du cours à ce contexte spécifique.</div>
+      </div>
+      <div class="exo-step">
+        <div class="exo-step-num">Étape 2 — Points spécifiques à ce chantier</div>
+        <div class="exo-step-body">Identifiez 5 points spécifiques à aborder EN PLUS du modèle standard, liés au fait que la boutique reste ouverte pendant les travaux. Comment organisez-vous les plages de travaux bruyants ?</div>
+      </div>
+      <div class="exo-step">
+        <div class="exo-step-num">Étape 3 — Coordination avec l'électricien</div>
+        <div class="exo-step-body">Rédigez la partie de l'ordre du jour dédiée à la coordination menuisier / électricien pour les vitrines éclairées. Quelles informations devez-vous lui fournir ? Que devez-vous lui demander en retour ?</div>
+      </div>
+      <div class="exo-step">
+        <div class="exo-step-num">Étape 4 — Gestion du client présent</div>
+        <div class="exo-step-body">Rédigez la partie de l'ordre du jour consacrée au gérant de la boutique. Quelles sont ses contraintes (heures d'ouverture, zones non accessibles, point de contact), et comment l'intégrez-vous sans que la réunion ne parte dans tous les sens ?</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</div><!-- /wrap -->
+
+<footer>
+  <div>Cours Professionnel — Préparation &amp; Suivi de Chantier · Menuiserie &amp; Agencement</div>
+  <div style="margin-top:6px;font-size:11px;">Document pédagogique · Parties 1 &amp; 2</div>
+  <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ RETOUR EN HAUT</a>
+</footer>
+
+</body>
+</html>

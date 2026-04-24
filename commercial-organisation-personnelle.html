@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BTS ERA — Partie Commerciale & Organisation Personnelle</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap');
+  :root {
+    --blue: #1a56db; --blue-light: #e8f0fe; --dark: #0f172a; --mid: #334155;
+    --light: #f8fafc; --border: #e2e8f0; --green: #16a34a; --orange: #ea580c;
+    --red: #dc2626; --purple: #7c3aed; --teal: #0d9488; --pink: #db2777;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Sora', sans-serif; background: var(--light); color: var(--dark); line-height: 1.7; }
+  header { background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%); color: white; padding: 2.5rem 2rem; text-align: center; }
+  header .badge { background: var(--pink); display: inline-block; padding: .3rem 1rem; border-radius: 999px; font-size: .8rem; margin-bottom: .8rem; }
+  header h1 { font-size: 1.9rem; font-weight: 700; }
+  header p { color: #94a3b8; margin-top: .5rem; }
+  nav { background: white; border-bottom: 1px solid var(--border); padding: .8rem 2rem; display: flex; gap: .7rem; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; }
+  nav a { text-decoration: none; color: var(--mid); font-size: .78rem; font-weight: 600; padding: .3rem .6rem; border-radius: 6px; }
+  nav a:hover { background: var(--blue-light); color: var(--blue); }
+  main { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+  section { margin-bottom: 3rem; }
+  h2 { font-size: 1.4rem; color: var(--blue); border-left: 4px solid var(--blue); padding-left: 1rem; margin-bottom: 1.5rem; }
+  h3 { font-size: 1.05rem; font-weight: 700; margin: 1.5rem 0 .8rem; }
+  p { margin-bottom: .8rem; color: var(--mid); }
+  .card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .card.blue { border-left: 4px solid var(--blue); }
+  .card.green { border-left: 4px solid var(--green); }
+  .card.orange { border-left: 4px solid var(--orange); }
+  .card.red { border-left: 4px solid var(--red); }
+  .card.purple { border-left: 4px solid var(--purple); }
+  .card.teal { border-left: 4px solid var(--teal); }
+  .card.pink { border-left: 4px solid var(--pink); }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .87rem; }
+  th { background: var(--dark); color: white; padding: .8rem; text-align: left; }
+  td { padding: .7rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:nth-child(even) td { background: var(--blue-light); }
+  .checklist { list-style: none; }
+  .checklist li { padding: .35rem 0; display: flex; gap: .6rem; font-size: .9rem; align-items: flex-start; }
+  .checklist li::before { content: "✅"; flex-shrink: 0; }
+  .checklist.danger li::before { content: "❌"; }
+  .checklist.warning li::before { content: "⚠️"; }
+  .checklist.star li::before { content: "⭐"; }
+  .partie-title { background: var(--dark); color: white; padding: 1rem 1.5rem; border-radius: 10px; margin: 2rem 0 1.5rem; font-size: 1.2rem; font-weight: 700; }
+
+  /* Matrice urgence/importance */
+  .matrice { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 4px; height: 280px; margin: 1rem 0; background: var(--border); border-radius: 8px; overflow: hidden; }
+  .matrice-cell { padding: 1rem; display: flex; flex-direction: column; }
+  .matrice-cell h4 { font-size: .88rem; font-weight: 700; margin-bottom: .4rem; }
+  .matrice-cell p { font-size: .78rem; }
+  .matrice-cell ul { list-style: none; font-size: .75rem; }
+  .matrice-cell ul li::before { content: "→ "; }
+  .m-q1 { background: #fee2e2; }
+  .m-q1 h4 { color: var(--red); }
+  .m-q2 { background: #dcfce7; }
+  .m-q2 h4 { color: var(--green); }
+  .m-q3 { background: #fff7ed; }
+  .m-q3 h4 { color: var(--orange); }
+  .m-q4 { background: #f1f5f9; }
+  .m-q4 h4 { color: var(--mid); }
+  .matrice-labels { display: grid; grid-template-columns: auto 1fr 1fr; grid-template-rows: auto 1fr 1fr; margin: 1rem 0; }
+  .matrice-wrapper { position: relative; }
+  .axe-x { text-align: center; font-size: .8rem; font-weight: 700; color: var(--mid); margin-bottom: .3rem; }
+  .axe-y { writing-mode: vertical-rl; transform: rotate(180deg); font-size: .8rem; font-weight: 700; color: var(--mid); margin-right: .5rem; display: flex; align-items: center; }
+  .col-labels { display: flex; gap: 4px; margin-bottom: 2px; }
+  .col-label { flex: 1; text-align: center; font-size: .75rem; font-weight: 600; color: var(--mid); }
+
+  /* Dialogue négociation */
+  .dialogue { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem; margin: 1rem 0; }
+  .dialogue-title { font-weight: 700; margin-bottom: 1rem; font-size: .88rem; color: var(--mid); }
+  .msg { display: flex; gap: .8rem; margin-bottom: .8rem; align-items: flex-start; }
+  .msg-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 700; flex-shrink: 0; }
+  .msg-bubble { border-radius: 10px; padding: .6rem .9rem; font-size: .84rem; max-width: 80%; }
+  .msg-bubble.pro { background: var(--blue); color: white; }
+  .msg-bubble.client { background: #f1f5f9; color: var(--dark); }
+  .msg-bubble.fournisseur { background: #f0fdf4; color: var(--dark); border: 1px solid #86efac; }
+  .msg-label { font-size: .7rem; font-weight: 700; margin-bottom: .2rem; color: var(--mid); }
+
+  /* Timeline étapes AO */
+  .etape-list { list-style: none; position: relative; padding-left: 2rem; }
+  .etape-list::before { content: ''; position: absolute; left: .6rem; top: 0; bottom: 0; width: 2px; background: var(--border); }
+  .etape-item { position: relative; padding: .7rem 0; }
+  .etape-item::before { content: ''; position: absolute; left: -1.65rem; top: 1rem; width: 12px; height: 12px; border-radius: 50%; background: var(--blue); border: 2px solid white; box-shadow: 0 0 0 2px var(--blue); }
+  .etape-item.danger::before { background: var(--red); box-shadow: 0 0 0 2px var(--red); }
+  .etape-item.success::before { background: var(--green); box-shadow: 0 0 0 2px var(--green); }
+  .etape-item strong { display: block; font-size: .9rem; }
+  .etape-item span { font-size: .82rem; color: var(--mid); }
+
+  /* Tableau de bord visuel */
+  .dashboard { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1rem 0; }
+  .dash-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1rem; text-align: center; }
+  .dash-card .value { font-size: 1.8rem; font-weight: 700; }
+  .dash-card .label { font-size: .75rem; color: var(--mid); }
+  .dash-card.ok .value { color: var(--green); }
+  .dash-card.warning .value { color: var(--orange); }
+  .dash-card.alert .value { color: var(--red); }
+
+  /* Réseau schema */
+  .reseau-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0; }
+  .reseau-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1rem; }
+  .reseau-card .icon { font-size: 1.5rem; display: block; margin-bottom: .4rem; }
+  .reseau-card h4 { font-size: .88rem; font-weight: 700; margin-bottom: .3rem; }
+  .reseau-card p { font-size: .78rem; }
+
+  /* Stress thermomètre */
+  .stress-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin: 1rem 0; }
+  .stress-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem; }
+  .stress-card .niveau { font-size: .72rem; font-weight: 700; padding: .15rem .5rem; border-radius: 4px; display: inline-block; margin-bottom: .5rem; }
+  .stress-card h4 { font-size: .9rem; font-weight: 700; margin-bottom: .4rem; }
+  .stress-card p { font-size: .8rem; }
+
+  .qcm { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
+  .question { margin-bottom: 1.5rem; }
+  .question p { font-weight: 600; margin-bottom: .5rem; }
+  .options label { display: block; padding: .4rem; cursor: pointer; font-size: .9rem; }
+  .options input { margin-right: .5rem; }
+  .btn { background: var(--blue); color: white; border: none; padding: .7rem 1.5rem; border-radius: 8px; cursor: pointer; font-family: 'Sora', sans-serif; font-weight: 600; }
+  .resultat { margin-top: 1rem; padding: 1rem; border-radius: 8px; font-weight: 600; display: none; }
+  .principe-box { background: linear-gradient(135deg, var(--blue-light), #f0fdf4); border: 2px solid var(--blue); border-radius: 12px; padding: 1.5rem; margin: 1rem 0; text-align: center; }
+  .principe-box .chiffre { font-size: 2.2rem; font-weight: 700; color: var(--blue); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">BTS ERA — Commercial & Organisation</div>
+  <h1>💼 Parties 4 & 5 : Commercial & Organisation Personnelle</h1>
+  <p>Développe ton activité commerciale et maîtrise ton organisation de conducteur de travaux</p>
+</header>
+
+<nav>
+  <a href="#ao-public">AO Public</a>
+  <a href="#ao-prive">AO Privé</a>
+  <a href="#nego-fourn">Négociation fournisseur</a>
+  <a href="#presentation">Présentation client</a>
+  <a href="#devis">Défendre devis</a>
+  <a href="#fidelisation">Fidélisation</a>
+  <a href="#reseau">Réseau</a>
+  <a href="#recommandation">Recommandation</a>
+  <a href="#multi-chantier">Multi-chantiers</a>
+  <a href="#matrice">Priorisation</a>
+  <a href="#outils">Outils</a>
+  <a href="#reunions">Réunions</a>
+  <a href="#reporting">Reporting</a>
+  <a href="#stress">Stress</a>
+  <a href="#qcm">QCM</a>
+</nav>
+
+<main>
+
+<div class="partie-title">💼 PARTIE 4 — LA PARTIE COMMERCIALE</div>
+
+<!-- AO PUBLIC -->
+<section id="ao-public">
+  <h2>1. Répondre à un appel d'offres public</h2>
+  <div class="card blue">
+    <p><strong>Règle n°1 :</strong> En appel d'offres public, le client est obligé de choisir l'offre économiquement la plus avantageuse selon des critères publiés à l'avance. Tu connais les règles du jeu avant de jouer.</p>
+  </div>
+
+  <h3>Stratégie de réponse en 5 étapes</h3>
+  <ul class="etape-list">
+    <li class="etape-item"><strong>1. Décider si on répond</strong><span>Analyse rapide : correspond-on au profil ? A-t-on les références ? Le projet est-il rentable ? Si 2 réponses sur 3 sont non → ne pas répondre.</span></li>
+    <li class="etape-item"><strong>2. Télécharger et lire le DCE complet</strong><span>RC en premier (règles), CCTP ensuite (technique), plans. Prendre des notes sur les points clés et les ambiguïtés.</span></li>
+    <li class="etape-item"><strong>3. Visiter le site et poser des questions</strong><span>Toujours faire la visite si elle est proposée. Poser ses questions avant la date limite officielle — les réponses sont transmises à tous.</span></li>
+    <li class="etape-item"><strong>4. Chiffrer rigoureusement</strong><span>Métrés précis depuis les plans, prix matériaux actualisés, temps main d'œuvre réaliste. Ne jamais sous-chiffrer pour gagner — dangereux.</span></li>
+    <li class="etape-item success"><strong>5. Rédiger un mémoire technique personnalisé</strong><span>Adapté à CE chantier, pas copié-collé. Montrer qu'on a compris les enjeux spécifiques du projet.</span></li>
+  </ul>
+
+  <h3>Les pièges classiques à éviter</h3>
+  <div class="card red">
+    <ul class="checklist danger">
+      <li>Remettre son offre en retard — disqualification automatique, sans exception</li>
+      <li>Oublier une pièce administrative (assurance, Kbis, DC1...) — dossier irrecevable</li>
+      <li>Sous-chiffrer pour gagner — le projet devient non rentable, voire déficitaire</li>
+      <li>Mémoire technique générique — la commission le voit immédiatement, note basse</li>
+      <li>Ne pas répondre aux questions posées dans le DCE — points perdus automatiquement</li>
+    </ul>
+  </div>
+</section>
+
+<!-- AO PRIVÉ -->
+<section id="ao-prive">
+  <h2>2. Répondre à un appel d'offres privé</h2>
+  <table>
+    <tr><th>Critère</th><th>AO Public</th><th>AO Privé</th></tr>
+    <tr><td>Règles</td><td>Code commande publique — très strict</td><td>Libres — le client fait ce qu'il veut</td></tr>
+    <tr><td>Critères de choix</td><td>Publiés à l'avance obligatoirement</td><td>Peuvent changer en cours de route</td></tr>
+    <tr><td>Négociation</td><td>Très limitée (souvent interdite)</td><td>Possible et souvent attendue</td></tr>
+    <tr><td>Relation client</td><td>Formelle, via plateforme officielle</td><td>Directe, téléphone, réunion possible</td></tr>
+    <tr><td>Délais réponse</td><td>Fixés réglementairement</td><td>Variables selon le client</td></tr>
+  </table>
+
+  <div class="card teal">
+    <h3>Avantage du privé : la relation prime</h3>
+    <p>En appel d'offres privé, ta relation avec le client, ta réputation et ta capacité à rassurer font souvent la différence — même si ton prix n'est pas le plus bas.</p>
+    <ul class="checklist">
+      <li>Demander à rencontrer le client avant de remettre ton offre</li>
+      <li>Comprendre ses priorités réelles (délai ? qualité ? prix ? tranquillité ?)</li>
+      <li>Adapter ta proposition à ses priorités</li>
+      <li>Rester en contact pendant la période d'analyse — sans harceler</li>
+    </ul>
+  </div>
+</section>
+
+<!-- NÉGOCIATION FOURNISSEUR -->
+<section id="nego-fourn">
+  <h2>3. Négocier avec un fournisseur</h2>
+  <div class="card purple">
+    <p><strong>Principe :</strong> Négocier c'est trouver un accord gagnant-gagnant. Un fournisseur bien négocié et bien traité devient un partenaire fiable — crucial pour les délais et la qualité.</p>
+  </div>
+
+  <table>
+    <tr><th>Levier de négociation</th><th>Comment l'utiliser</th><th>Efficacité</th></tr>
+    <tr><td>🔢 Volume</td><td>"Sur ce chantier j'ai besoin de X m² — et j'ai 3 autres chantiers dans les 2 mois"</td><td>⭐⭐⭐⭐⭐</td></tr>
+    <tr><td>💰 Paiement comptant</td><td>"Je paye à réception si vous faites un effort sur le prix"</td><td>⭐⭐⭐⭐</td></tr>
+    <tr><td>📅 Flexibilité de dates</td><td>"Je peux décaler la livraison de 10 jours si ça vous arrange"</td><td>⭐⭐⭐</td></tr>
+    <tr><td>🤝 Fidélité</td><td>"Je travaille avec vous depuis 3 ans, j'aimerais un geste commercial"</td><td>⭐⭐⭐⭐</td></tr>
+    <tr><td>🏆 Référence</td><td>"Je peux vous citer sur mes chantiers / vous recommander"</td><td>⭐⭐</td></tr>
+    <tr><td>⚡ Concurrence</td><td>"J'ai une offre de X% moins chère chez un concurrent"</td><td>⭐⭐⭐ (à utiliser avec prudence)</td></tr>
+  </table>
+
+  <div class="dialogue">
+    <div class="dialogue-title">💬 Exemple de négociation fournisseur (mélaminé)</div>
+    <div class="msg">
+      <div class="msg-avatar" style="background:var(--blue);color:white;">CT</div>
+      <div>
+        <div class="msg-label">Conducteur de travaux</div>
+        <div class="msg-bubble pro">"Bonjour, j'ai besoin de 45 panneaux mélaminé blanc 19mm pour livraison le 25. Sur les 3 prochains mois j'ai encore 2 chantiers cuisine — ça représente environ 150 panneaux au total. Quel est votre meilleur prix pour un engagement sur le volume ?"</div>
+      </div>
+    </div>
+    <div class="msg" style="flex-direction:row-reverse;">
+      <div class="msg-avatar" style="background:#f1f5f9;color:var(--dark);">F</div>
+      <div style="text-align:right;">
+        <div class="msg-label">Fournisseur</div>
+        <div class="msg-bubble fournisseur">"Pour ce volume, je peux vous faire 8,50€/panneau au lieu de 9,20€, livraison comprise."</div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="msg-avatar" style="background:var(--blue);color:white;">CT</div>
+      <div>
+        <div class="msg-label">Conducteur de travaux</div>
+        <div class="msg-bubble pro">"Je prends si vous pouvez garantir les délais — j'ai eu des retards la dernière fois. Et je règle à 30 jours au lieu de 60."</div>
+      </div>
+    </div>
+    <p style="font-size:.8rem;color:var(--mid);margin-top:.5rem;">✅ Volume + fidélité + paiement rapide = 3 leviers utilisés en même temps.</p>
+  </div>
+
+  <div class="card orange">
+    <h3>⏰ Le timing de la négociation</h3>
+    <ul class="checklist star">
+      <li>Fin de mois / fin de trimestre : les commerciaux ont des objectifs à atteindre → plus enclins à faire des gestes</li>
+      <li>Hors saison : moins de demandes = plus de marge de manœuvre</li>
+      <li>Jamais en urgence : si tu as besoin pour demain, tu n'as aucun levier</li>
+    </ul>
+  </div>
+</section>
+
+<!-- PRÉSENTATION CLIENT -->
+<section id="presentation">
+  <h2>4. Présentation client — Se préparer et convaincre</h2>
+  <table>
+    <tr><th>Phase</th><th>Action</th><th>Durée</th></tr>
+    <tr><td>Avant la réunion</td><td>Préparer un support visuel (photos références, plan, matériaux). Se renseigner sur le client (activité, projets précédents).</td><td>1-2h</td></tr>
+    <tr><td>Introduction (2 min)</td><td>Se présenter, présenter l'entreprise en 3 phrases. Reformuler le besoin du client pour montrer qu'on a compris.</td><td>2 min</td></tr>
+    <tr><td>Corps (10 min)</td><td>Présenter la solution proposée, les matériaux, le planning. Montrer des photos de réalisations similaires.</td><td>10 min</td></tr>
+    <tr><td>Prix (5 min)</td><td>Annoncer le prix après avoir montré la valeur. Jamais en premier.</td><td>5 min</td></tr>
+    <tr><td>Questions (5 min)</td><td>Écouter, répondre sans se défendre. Noter les objections pour y revenir.</td><td>5 min</td></tr>
+    <tr><td>Conclusion</td><td>Fixer la prochaine étape concrète — "Je vous envoie le devis d'ici jeudi".</td><td>1 min</td></tr>
+  </table>
+
+  <div class="card green">
+    <h3>✅ Supports visuels efficaces</h3>
+    <ul class="checklist">
+      <li>Photos de réalisations similaires — 5 à 10 photos de qualité suffisent</li>
+      <li>Échantillons matériaux — le client touche et voit en vrai</li>
+      <li>Plan en perspective ou croquis 3D si possible</li>
+      <li>Fiche technique 1 page sur les matériaux choisis</li>
+      <li>Référence d'un client satisfait prêt à témoigner</li>
+    </ul>
+  </div>
+</section>
+
+<!-- DÉFENDRE SON DEVIS -->
+<section id="devis">
+  <h2>5. Défendre son devis face au client</h2>
+  <div class="card pink">
+    <p><strong>Règle fondamentale :</strong> Ne jamais baisser son prix sans raison ou sans contrepartie. Si tu baisses trop facilement, le client se dit qu'il t'a payé trop cher les autres fois — et perd confiance.</p>
+  </div>
+
+  <h3>Réponses aux objections classiques</h3>
+  <table>
+    <tr><th>Objection client</th><th>Réponse efficace</th></tr>
+    <tr><td>"C'est trop cher"</td><td>"Par rapport à quoi exactement ? Si vous avez une offre moins chère, regardons ensemble ce qu'elle inclut ou non."</td></tr>
+    <tr><td>"J'ai un devis 20% moins cher"</td><td>"C'est possible — vérifions si les prestations sont identiques. Souvent il manque la quincaillerie haut de gamme, les finitions, la garantie..."</td></tr>
+    <tr><td>"Vous pouvez faire un effort ?"</td><td>"Je peux regarder si on peut optimiser certains postes — mais sans toucher à la qualité. Qu'est-ce qui vous semble le plus cher ?"</td></tr>
+    <tr><td>"Je vais réfléchir"</td><td>"Bien sûr. Pour vous aider à décider, y a-t-il un point qui vous semble flou ou qui vous retient ?" (identifier la vraie objection)</td></tr>
+    <tr><td>"On peut commencer sans devis signé ?"</td><td>"Je comprends l'urgence, mais pour protéger votre projet et le mien, je démarre uniquement sur bon de commande signé."</td></tr>
+  </table>
+
+  <div class="dialogue">
+    <div class="dialogue-title">💬 Exemple de défense de devis</div>
+    <div class="msg">
+      <div class="msg-avatar" style="background:#f1f5f9;color:var(--dark);">C</div>
+      <div>
+        <div class="msg-label">Client</div>
+        <div class="msg-bubble client">"Votre devis fait 18 500€, j'ai un concurrent à 14 000€. Pourquoi cette différence ?"</div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="msg-avatar" style="background:var(--blue);color:white;">CT</div>
+      <div>
+        <div class="msg-label">Conducteur de travaux</div>
+        <div class="msg-bubble pro">"Bonne question. Regardons ensemble leur devis. Ils proposent du mélaminé E2 — nous du E1 certifié. Leurs charnières sont sans marque — les nôtres sont Blum avec 10 ans de garantie. Et leur plan de travail fait 28mm, le nôtre 38mm. Ces 4 500€ de différence, vous les retrouvez dans la durabilité de votre cuisine."</div>
+      </div>
+    </div>
+    <div class="msg" style="flex-direction:row-reverse;">
+      <div class="msg-avatar" style="background:#f1f5f9;color:var(--dark);">C</div>
+      <div style="text-align:right;">
+        <div class="msg-label">Client</div>
+        <div class="msg-bubble client">"Ah, je n'avais pas vu ça..."</div>
+      </div>
+    </div>
+    <p style="font-size:.8rem;color:var(--mid);margin-top:.5rem;">✅ Comparer point par point, pas défendre son prix globalement.</p>
+  </div>
+</section>
+
+<!-- FIDÉLISATION -->
+<section id="fidelisation">
+  <h2>6. Fidéliser un client — Relation long terme</h2>
+  <p>Garder un client existant coûte 5x moins cher que d'en trouver un nouveau. La fidélisation est le meilleur investissement commercial.</p>
+  <table>
+    <tr><th>Action</th><th>Quand</th><th>Impact</th></tr>
+    <tr><td>Appel de suivi 1 mois après réception</td><td>1 mois après la fin du chantier</td><td>Fort — client se sent suivi et valorisé</td></tr>
+    <tr><td>Vœux de fin d'année personnalisés</td><td>Décembre</td><td>Moyen — maintenir le contact</td></tr>
+    <tr><td>Transmission d'une info utile</td><td>Ponctuel</td><td>Fort — "j'ai pensé à vous"</td></tr>
+    <tr><td>Invitation événement pro (salon...)</td><td>Selon occasions</td><td>Moyen — lien humain</td></tr>
+    <tr><td>Offre prioritaire sur nouveau projet</td><td>Avant de publier</td><td>Très fort — sentiment de privilège</td></tr>
+    <tr><td>Retour rapide en cas de problème SAV</td><td>Dès signalement</td><td>Critique — détermine la fidélité future</td></tr>
+  </table>
+
+  <div class="card green">
+    <h3>Le suivi post-chantier en 3 étapes</h3>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:.5rem;">
+      <div style="text-align:center;background:#f0fdf4;border-radius:8px;padding:1rem;">
+        <div style="font-size:1.3rem;font-weight:700;color:var(--green);">J+7</div>
+        <p style="font-size:.8rem;">SMS ou mail de satisfaction — "Tout se passe bien avec votre cuisine ?"</p>
+      </div>
+      <div style="text-align:center;background:#f0fdf4;border-radius:8px;padding:1rem;">
+        <div style="font-size:1.3rem;font-weight:700;color:var(--green);">J+30</div>
+        <p style="font-size:.8rem;">Appel de suivi — vérifier qu'il n'y a aucun problème. En profiter pour demander une recommandation.</p>
+      </div>
+      <div style="text-align:center;background:#f0fdf4;border-radius:8px;padding:1rem;">
+        <div style="font-size:1.3rem;font-weight:700;color:var(--green);">J+365</div>
+        <p style="font-size:.8rem;">Rappel de garantie — "Votre garantie d'un an se termine bientôt, tout va bien ?"</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RÉSEAU -->
+<section id="reseau">
+  <h2>7. Développer son réseau professionnel</h2>
+  <div class="reseau-grid">
+    <div class="reseau-card">
+      <span class="icon">🏗️</span>
+      <h4>Artisans et corps d'état</h4>
+      <p>Électriciens, plombiers, peintres, carreleurs — se recommander mutuellement sur les chantiers.</p>
+    </div>
+    <div class="reseau-card">
+      <span class="icon">🏛️</span>
+      <h4>Architectes et maîtres d'œuvre</h4>
+      <p>Prescripteurs clés — s'ils t'apprécient, ils te recommandent à leurs clients.</p>
+    </div>
+    <div class="reseau-card">
+      <span class="icon">🏘️</span>
+      <h4>Promoteurs et bailleurs</h4>
+      <p>Marchés récurrents importants — une relation = des chantiers réguliers.</p>
+    </div>
+    <div class="reseau-card">
+      <span class="icon">🔨</span>
+      <h4>Fournisseurs</h4>
+      <p>Un bon commercial fournisseur peut te recommander auprès d'autres clients.</p>
+    </div>
+    <div class="reseau-card">
+      <span class="icon">🎓</span>
+      <h4>Anciens collègues et formateurs</h4>
+      <p>Réseau de confiance — les opportunités circulent souvent entre anciens.</p>
+    </div>
+    <div class="reseau-card">
+      <span class="icon">🌐</span>
+      <h4>Réseaux pros (LinkedIn, CAPEB...)</h4>
+      <p>Visibilité en ligne, événements sectoriels, salons professionnels.</p>
+    </div>
+  </div>
+
+  <div class="card blue">
+    <h3>💡 Règle d'or du réseau</h3>
+    <p>Donner avant de recevoir. Recommande les autres en premier — ils te recommanderont naturellement en retour. Un réseau se construit sur la confiance, pas sur l'intérêt immédiat.</p>
+  </div>
+</section>
+
+<!-- RECOMMANDATION -->
+<section id="recommandation">
+  <h2>8. Se faire recommander — Bouche à oreille et réputation</h2>
+  <div class="principe-box">
+    <div class="chiffre">78%</div>
+    <p>des artisans du bâtiment trouvent leurs clients par le bouche à oreille</p>
+  </div>
+
+  <table>
+    <tr><th>Action</th><th>Comment faire concrètement</th></tr>
+    <tr><td>Demander la recommandation</td><td>À J+30 : "Êtes-vous satisfait ? Si vous connaissez quelqu'un qui a un projet similaire, je serais ravi que vous pensiez à moi."</td></tr>
+    <tr><td>Faciliter les avis Google</td><td>Envoyer le lien direct vers votre page Google My Business avec un QR code</td></tr>
+    <tr><td>Photos chantier avec accord</td><td>Publier sur Instagram / LinkedIn / site web — visible par les amis du client</td></tr>
+    <tr><td>Carte de visite systématique</td><td>Laisser 5 cartes de visite au client satisfait — "Pour vos amis si besoin"</td></tr>
+    <tr><td>Panneau de chantier visible</td><td>Nom entreprise + téléphone bien visible depuis la rue pendant les travaux</td></tr>
+  </table>
+
+  <div class="card teal">
+    <h3>La réputation se construit sur 3 piliers</h3>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:.5rem;">
+      <div style="text-align:center;background:#f0fdfa;border-radius:8px;padding:1rem;">
+        <div style="font-size:1.5rem;">🏆</div>
+        <strong style="font-size:.85rem;display:block;margin:.3rem 0;">Qualité du travail</strong>
+        <p style="font-size:.78rem;">Le chantier parle pour toi. Un travail soigné se voit et se dit.</p>
+      </div>
+      <div style="text-align:center;background:#f0fdfa;border-radius:8px;padding:1rem;">
+        <div style="font-size:1.5rem;">📞</div>
+        <strong style="font-size:.85rem;display:block;margin:.3rem 0;">Réactivité</strong>
+        <p style="font-size:.78rem;">Rappeler dans la journée. Tenir ses engagements de délai.</p>
+      </div>
+      <div style="text-align:center;background:#f0fdfa;border-radius:8px;padding:1rem;">
+        <div style="font-size:1.5rem;">🤝</div>
+        <strong style="font-size:.85rem;display:block;margin:.3rem 0;">Honnêteté</strong>
+        <p style="font-size:.78rem;">Dire la vérité sur les délais et les problèmes. Jamais promettre ce qu'on ne peut pas tenir.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PARTIE 5 ===================== -->
+<div class="partie-title">📅 PARTIE 5 — ORGANISATION PERSONNELLE</div>
+
+<!-- MULTI-CHANTIERS -->
+<section id="multi-chantier">
+  <h2>1. Gérer plusieurs chantiers en même temps</h2>
+  <div class="card orange">
+    <p>Un conducteur de travaux gère en moyenne 3 à 8 chantiers simultanément à différents stades d'avancement. Sans méthode, c'est le chaos. Avec méthode, c'est gérable.</p>
+  </div>
+
+  <table>
+    <tr><th>Outil</th><th>Usage</th><th>Fréquence de mise à jour</th></tr>
+    <tr><td>Planning général (Gantt)</td><td>Vue d'ensemble de tous les chantiers sur 3 mois</td><td>Hebdomadaire</td></tr>
+    <tr><td>Tableau de bord chantiers</td><td>État d'avancement, alertes, prochaines actions</td><td>Quotidien</td></tr>
+    <tr><td>Agenda bloqué par chantier</td><td>Créneaux dédiés à chaque chantier dans la semaine</td><td>En continu</td></tr>
+    <tr><td>Liste de tâches par chantier</td><td>Actions concrètes à faire, responsables, délais</td><td>Quotidien</td></tr>
+    <tr><td>Fichier contacts par chantier</td><td>MO, architecte, sous-traitants, fournisseurs</td><td>À la création du chantier</td></tr>
+  </table>
+
+  <div class="dashboard">
+    <div class="dash-card ok">
+      <div class="value">✅ 3</div>
+      <div class="label">Chantiers en cours — dans les temps</div>
+    </div>
+    <div class="dash-card warning">
+      <div class="value">⚠️ 1</div>
+      <div class="label">Chantier avec retard — à surveiller</div>
+    </div>
+    <div class="dash-card alert">
+      <div class="value">🚨 1</div>
+      <div class="label">Chantier bloqué — action urgente</div>
+    </div>
+  </div>
+
+  <div class="card blue">
+    <h3>Règle des blocs de temps</h3>
+    <p>Consacre chaque matin 30 minutes à planifier ta journée. Attribue des blocs de temps à chaque chantier — ne passe pas d'un chantier à l'autre toutes les 10 minutes, tu perds ton efficacité.</p>
+    <p><strong>Exemple type :</strong> 8h briefing chantier A → 9h visite chantier B → 11h réunion client C → 14h-16h administratif (devis, factures) → 16h-17h chantier A (point fin de journée)</p>
+  </div>
+</section>
+
+<!-- MATRICE URGENCE/IMPORTANCE -->
+<section id="matrice">
+  <h2>2. Prioriser les urgences — Matrice d'Eisenhower</h2>
+  <p>Tout semble urgent dans la vie d'un conducteur de travaux. Cette matrice t'aide à distinguer ce qui EST urgent de ce qui SEMBLE urgent.</p>
+
+  <div style="display:flex;gap:.5rem;align-items:center;margin-bottom:.3rem;">
+    <div style="width:30px;"></div>
+    <div style="flex:1;text-align:center;font-size:.78rem;font-weight:700;color:var(--mid);">URGENT</div>
+    <div style="flex:1;text-align:center;font-size:.78rem;font-weight:700;color:var(--mid);">PAS URGENT</div>
+  </div>
+  <div style="display:flex;gap:.5rem;align-items:stretch;">
+    <div style="display:flex;flex-direction:column;justify-content:space-around;width:30px;">
+      <div style="font-size:.72rem;font-weight:700;color:var(--mid);writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;">IMPORTANT</div>
+      <div style="font-size:.72rem;font-weight:700;color:var(--mid);writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;">PAS IMPORTANT</div>
+    </div>
+    <div class="matrice" style="flex:1;">
+      <div class="matrice-cell m-q1">
+        <h4>🔥 FAIRE EN PREMIER</h4>
+        <p style="font-size:.78rem;margin-bottom:.3rem;">Urgent + Important</p>
+        <ul>
+          <li>Accident sur chantier</li>
+          <li>Client très mécontent</li>
+          <li>Livraison bloquée demain</li>
+          <li>Deadline AO dans 2h</li>
+        </ul>
+      </div>
+      <div class="matrice-cell m-q2">
+        <h4>📅 PLANIFIER</h4>
+        <p style="font-size:.78rem;margin-bottom:.3rem;">Important + Pas urgent</p>
+        <ul>
+          <li>Préparer les AO à venir</li>
+          <li>Formation équipe</li>
+          <li>Améliorer les process</li>
+          <li>Développer le réseau</li>
+        </ul>
+      </div>
+      <div class="matrice-cell m-q3">
+        <h4>📤 DÉLÉGUER</h4>
+        <p style="font-size:.78rem;margin-bottom:.3rem;">Urgent + Pas important</p>
+        <ul>
+          <li>Appels fournisseurs simples</li>
+          <li>Commandes courantes</li>
+          <li>Certains mails</li>
+          <li>Tâches administratives</li>
+        </ul>
+      </div>
+      <div class="matrice-cell m-q4">
+        <h4>🗑️ ÉLIMINER</h4>
+        <p style="font-size:.78rem;margin-bottom:.3rem;">Pas urgent + Pas important</p>
+        <ul>
+          <li>Réseaux sociaux perso</li>
+          <li>Réunions inutiles</li>
+          <li>Tâches sans valeur ajoutée</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTILS -->
+<section id="outils">
+  <h2>3. Outils de suivi quotidien</h2>
+  <table>
+    <tr><th>Outil</th><th>Usage</th><th>Avantages</th><th>Niveau</th></tr>
+    <tr><td><strong>Agenda papier</strong></td><td>Planning semaine, RDV, deadlines</td><td>Toujours dispo, pas de batterie</td><td>Débutant</td></tr>
+    <tr><td><strong>Google Calendar</strong></td><td>Agenda partagé, rappels automatiques</td><td>Synchronisé téléphone + PC, partage équipe</td><td>Facile</td></tr>
+    <tr><td><strong>Trello / Notion</strong></td><td>Tableaux de bord chantiers, listes tâches</td><td>Visuel, collaboratif, gratuit</td><td>Intermédiaire</td></tr>
+    <tr><td><strong>Excel / Sheets</strong></td><td>Suivi budgets, plannings, tableaux de bord</td><td>Très flexible, maîtrisé</td><td>Intermédiaire</td></tr>
+    <tr><td><strong>WhatsApp Pro</strong></td><td>Communication équipe chantier</td><td>Rapide, photos, vocal</td><td>Facile</td></tr>
+    <tr><td><strong>Logiciel BTP (Batappli...)</strong></td><td>Devis, facturation, suivi chantier intégré</td><td>Tout en un, professionnel</td><td>Avancé</td></tr>
+  </table>
+
+  <div class="card green">
+    <h3>✅ Le tableau de bord minimum à tenir</h3>
+    <p>Un fichier Excel simple avec 1 ligne par chantier et ces colonnes :</p>
+    <p style="font-family:monospace;background:#f1f5f9;padding:.5rem;border-radius:6px;font-size:.82rem;">Chantier | Client | Montant HT | % avancement | Prochaine action | Date limite | Statut</p>
+    <p>Mis à jour chaque matin en 10 minutes — te donne la visibilité sur tout.</p>
+  </div>
+</section>
+
+<!-- RÉUNIONS -->
+<section id="reunions">
+  <h2>4. Mener des réunions efficaces et courtes</h2>
+  <div class="card red">
+    <p><strong>La réalité :</strong> 70% des réunions pourraient être remplacées par un mail ou un message. Les réunions qui durent plus d'1h sans compte-rendu ne servent à rien.</p>
+  </div>
+
+  <table>
+    <tr><th>Type de réunion</th><th>Durée idéale</th><th>Participants</th><th>Format</th></tr>
+    <tr><td>Point d'avancement chantier</td><td>15-30 min</td><td>Équipe chantier</td><td>Debout si possible</td></tr>
+    <tr><td>Réunion de chantier client</td><td>45-60 min</td><td>MO, architecte, entreprises</td><td>Sur site avec CR</td></tr>
+    <tr><td>Réunion de lancement</td><td>60-90 min</td><td>Toute l'équipe projet</td><td>Salle avec support</td></tr>
+    <tr><td>Point hebdo direction</td><td>30-45 min</td><td>CT + direction</td><td>Tableau de bord</td></tr>
+  </table>
+
+  <div class="card blue">
+    <h3>Les 3 règles d'une réunion efficace</h3>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:.5rem;">
+      <div style="text-align:center;background:var(--blue-light);border-radius:8px;padding:1rem;">
+        <div style="font-size:1.3rem;font-weight:700;color:var(--blue);">Avant</div>
+        <p style="font-size:.8rem;">Ordre du jour envoyé à l'avance. Chacun vient préparé.</p>
+      </div>
+      <div style="text-align:center;background:var(--blue-light);border-radius:8px;padding:1rem;">
+        <div style="font-size:1.3rem;font-weight:700;color:var(--blue);">Pendant</div>
+        <p style="font-size:.8rem;">Un animateur, un note-taker. Rester sur l'ordre du jour. Timer visible.</p>
+      </div>
+      <div style="text-align:center;background:var(--blue-light);border-radius:8px;padding:1rem;">
+        <div style="font-size:1.3rem;font-weight:700;color:var(--blue);">Après</div>
+        <p style="font-size:.8rem;">CR envoyé dans les 24h avec décisions + responsables + délais.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REPORTING -->
+<section id="reporting">
+  <h2>5. Reporting à sa direction — Quoi dire et comment</h2>
+  <p>Ta direction a besoin de savoir rapidement l'essentiel — pas un roman, des faits et des chiffres clés.</p>
+
+  <table>
+    <tr><th>Information</th><th>Ce qu'ils veulent savoir</th><th>Format</th></tr>
+    <tr><td>Avancement chantiers</td><td>% réalisé vs prévu, retards éventuels</td><td>Tableau simple — vert/orange/rouge</td></tr>
+    <tr><td>Situation financière</td><td>Situations facturées, encours client, dépenses</td><td>Chiffres clés — pas de détail</td></tr>
+    <tr><td>Problèmes / Risques</td><td>Ce qui peut déraper + solution proposée</td><td>"Problème X → j'ai fait Y → il reste Z"</td></tr>
+    <tr><td>Besoins</td><td>Ressources humaines, matériel, décisions</td><td>Direct et concret — "J'ai besoin de..."</td></tr>
+  </table>
+
+  <div class="card teal">
+    <h3>Structure d'un reporting en 5 minutes</h3>
+    <ol style="margin-left:1.5rem;font-size:.9rem;line-height:2;">
+      <li><strong>Vue d'ensemble :</strong> "On a X chantiers en cours, Y dans les temps, Z avec retard"</li>
+      <li><strong>Points positifs :</strong> "On a livré le chantier Dupont avec 2 jours d'avance"</li>
+      <li><strong>Points de vigilance :</strong> "Le chantier Martin a 1 semaine de retard — livraison matériaux problème résolu"</li>
+      <li><strong>Besoins :</strong> "J'ai besoin d'une décision sur le sous-traitant pour le chantier X"</li>
+      <li><strong>Prévisions semaine suivante :</strong> "Réception chantier B vendredi, démarrage chantier C lundi"</li>
+    </ol>
+  </div>
+</section>
+
+<!-- STRESS -->
+<section id="stress">
+  <h2>6. Gestion du stress & Équilibre pro/perso</h2>
+  <div class="stress-grid">
+    <div class="stress-card">
+      <span class="niveau" style="background:#dcfce7;color:var(--green);">Stress utile</span>
+      <h4>Le stress positif</h4>
+      <p>Maintient l'attention, donne de l'énergie, aide à se dépasser. Un chantier sans pression devient souvent moins rigoureux.</p>
+    </div>
+    <div class="stress-card">
+      <span class="niveau" style="background:#fee2e2;color:var(--red);">Stress toxique</span>
+      <h4>Le stress chronique</h4>
+      <p>Erreurs de jugement, irritabilité, fatigue, burn-out. À identifier et traiter rapidement.</p>
+    </div>
+  </div>
+
+  <h3>Signaux d'alarme à surveiller</h3>
+  <div class="card red">
+    <ul class="checklist warning">
+      <li>Tu travailles plus de 55h/semaine depuis plusieurs semaines</li>
+      <li>Tu penses aux chantiers la nuit sans pouvoir dormir</li>
+      <li>Tu t'énerves facilement pour des détails</li>
+      <li>Tu n'as plus d'énergie pour ta vie personnelle</li>
+      <li>Tu fais des erreurs que tu ne ferais pas habituellement</li>
+    </ul>
+  </div>
+
+  <h3>Techniques anti-stress concrètes pour conducteur de travaux</h3>
+  <table>
+    <tr><th>Technique</th><th>Comment faire</th><th>Quand</th></tr>
+    <tr><td>🔲 Cloisonner</td><td>Définir des heures de fin — après 19h, plus de mails pro</td><td>Quotidien</td></tr>
+    <tr><td>📋 Vider la tête</td><td>Noter TOUT sur papier ou appli — la tête n'est pas un agenda</td><td>Soir avant de dormir</td></tr>
+    <tr><td>🚶 Marcher</td><td>30 min de marche = meilleur antistress naturel prouvé</td><td>Midi ou soir</td></tr>
+    <tr><td>🎯 Faire une chose à la fois</td><td>Fermer les onglets, couper les notifications — focus total</td><td>Au bureau</td></tr>
+    <tr><td>💬 Parler à quelqu'un</td><td>Collègue, supérieur, proche — verbaliser réduit le stress de 40%</td><td>Dès que ça monte</td></tr>
+    <tr><td>🏆 Célébrer les victoires</td><td>Un chantier livré = reconnaître le travail accompli</td><td>À chaque fin de chantier</td></tr>
+  </table>
+
+  <div class="card purple">
+    <h3>Équilibre vie pro/perso — La règle des 3 tiers</h3>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:.5rem;">
+      <div style="text-align:center;background:#faf5ff;border-radius:8px;padding:1rem;">
+        <div style="font-size:1.5rem;font-weight:700;color:var(--purple);">⅓</div>
+        <strong style="font-size:.85rem;display:block;margin:.3rem 0;">Travail</strong>
+        <p style="font-size:.78rem;">Efficace, concentré, sans débordement chronique</p>
+      </div>
+      <div style="text-align:center;background:#faf5ff;border-radius:8px;padding:1rem;">
+        <div style="font-size:1.5rem;font-weight:700;color:var(--purple);">⅓</div>
+        <strong style="font-size:.85rem;display:block;margin:.3rem 0;">Famille/Amis</strong>
+        <p style="font-size:.78rem;">Présent mentalement, pas juste physiquement</p>
+      </div>
+      <div style="text-align:center;background:#faf5ff;border-radius:8px;padding:1rem;">
+        <div style="font-size:1.5rem;font-weight:700;color:var(--purple);">⅓</div>
+        <strong style="font-size:.85rem;display:block;margin:.3rem 0;">Soi</strong>
+        <p style="font-size:.78rem;">Sport, hobbies, repos — recharger les batteries</p>
+      </div>
+    </div>
+    <p style="margin-top:1rem;font-size:.85rem;"><strong>Règle simple :</strong> Un conducteur de travaux épuisé fait des erreurs coûteuses. Prendre soin de soi, c'est aussi prendre soin de ses chantiers.</p>
+  </div>
+</section>
+
+<!-- QCM -->
+<section id="qcm">
+  <h2>🎯 QCM — Commercial & Organisation</h2>
+  <div class="qcm">
+    <div class="question">
+      <p>1. Quel est le premier levier de négociation avec un fournisseur ?</p>
+      <div class="options">
+        <label><input type="radio" name="q1" value="a"> Menacer de changer de fournisseur</label>
+        <label><input type="radio" name="q1" value="b"> Le volume et l'engagement sur plusieurs chantiers</label>
+        <label><input type="radio" name="q1" value="c"> Payer en retard</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>2. Quand annoncer son prix lors d'une présentation client ?</p>
+      <div class="options">
+        <label><input type="radio" name="q2" value="a"> En premier pour être transparent</label>
+        <label><input type="radio" name="q2" value="b"> Après avoir montré la valeur de la prestation</label>
+        <label><input type="radio" name="q2" value="c"> Par mail avant la réunion</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>3. Dans la matrice d'Eisenhower, que fait-on avec les tâches "urgentes mais pas importantes" ?</p>
+      <div class="options">
+        <label><input type="radio" name="q3" value="a"> On les fait en premier</label>
+        <label><input type="radio" name="q3" value="b"> On les élimine</label>
+        <label><input type="radio" name="q3" value="c"> On les délègue</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>4. Un client dit "j'ai un devis 20% moins cher". Quelle est la meilleure réponse ?</p>
+      <div class="options">
+        <label><input type="radio" name="q4" value="a"> Baisser immédiatement son prix de 20%</label>
+        <label><input type="radio" name="q4" value="b"> Comparer point par point les deux offres pour montrer les différences</label>
+        <label><input type="radio" name="q4" value="c"> Dire que ce concurrent est moins bon</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>5. Quelle est la règle d'or du réseau professionnel ?</p>
+      <div class="options">
+        <label><input type="radio" name="q5" value="a"> Contacter les gens uniquement quand on a besoin d'eux</label>
+        <label><input type="radio" name="q5" value="b"> Donner avant de recevoir — recommander les autres en premier</label>
+        <label><input type="radio" name="q5" value="c"> Aller à un maximum de salons professionnels</label>
+      </div>
+    </div>
+    <button class="btn" onclick="verifierQCM()">Vérifier mes réponses</button>
+    <div class="resultat" id="resultat"></div>
+  </div>
+</section>
+
+</main>
+
+<footer style="background:var(--dark);color:#94a3b8;text-align:center;padding:2rem;margin-top:3rem;">
+  <p>BTS ERA — Parties 4 & 5 : Commercial & Organisation Personnelle</p>
+  <p style="font-size:.85rem;margin-top:.3rem;">Apprenti menuisier → Conducteur de travaux</p>
+</footer>
+
+<script>
+function verifierQCM() {
+  const reponses = { q1: 'b', q2: 'b', q3: 'c', q4: 'b', q5: 'b' };
+  let score = 0, total = Object.keys(reponses).length;
+  for (let q in reponses) {
+    const s = document.querySelector(`input[name="${q}"]:checked`);
+    if (s && s.value === reponses[q]) score++;
+  }
+  const r = document.getElementById('resultat');
+  r.style.display = 'block';
+  if (score === total) { r.style.background='#dcfce7'; r.style.color='#16a34a'; r.textContent=`🎉 Parfait ! ${score}/${total} — Tu es prêt à gérer ton activité !`; }
+  else if (score >= total/2) { r.style.background='#fef9c3'; r.style.color='#ca8a04'; r.textContent=`👍 Bien ! ${score}/${total} — Relis les points ratés.`; }
+  else { r.style.background='#fee2e2'; r.style.color='#dc2626'; r.textContent=`📚 ${score}/${total} — Reprends le cours !`; }
+}
+</script>
+</body>
+</html>

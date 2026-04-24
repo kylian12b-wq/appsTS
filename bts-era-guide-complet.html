@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BTS ERA — Guide Complet Révisions</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;700;900&family=Nunito:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #07080a;
+  --bg2:     #0c0e12;
+  --bg3:     #121519;
+  --bg4:     #181c22;
+  --bg5:     #1e232b;
+  --border:  #22272f;
+  --border2: #2d3440;
+  --text:    #dce4f0;
+  --muted:   #5c6880;
+  --dim:     #303848;
+
+  --p:  #6c8fff; /* primary blue */
+  --p2: #3a5cd4;
+  --p3: #1a2a70;
+
+  --g:  #3dd68c; /* green */
+  --g2: #1a7a4a;
+
+  --y:  #fbbf24; /* yellow */
+  --y2: #92600a;
+
+  --r:  #f87171; /* red */
+  --r2: #7a2020;
+
+  --o:  #fb923c; /* orange */
+  --o2: #7a3a10;
+
+  --v:  #c084fc; /* violet */
+  --v2: #5a2090;
+
+  --t:  #38bdf8; /* teal/sky */
+  --t2: #0a5080;
+
+  --radius: 10px;
+  --radius2: 18px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+/* ── NAV ── */
+.nav {
+  position: sticky; top: 0; z-index: 400;
+  background: rgba(7,8,10,0.97);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  padding: 0 28px;
+  height: 54px;
+  gap: 0;
+}
+.nav-logo {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 900;
+  font-size: 15px;
+  color: var(--p);
+  letter-spacing: .06em;
+  padding-right: 22px;
+  margin-right: 16px;
+  border-right: 1px solid var(--border);
+  white-space: nowrap;
+}
+.nav-links { display: flex; gap: 2px; overflow-x: auto; }
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: .2s;
+  letter-spacing: .02em;
+}
+.nav-links a:hover { color: var(--text); background: var(--bg4); }
+
+/* ── LAYOUT ── */
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 28px 80px; }
+
+/* ── HERO ── */
+.hero {
+  padding: 72px 0 56px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-glow {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 700px 350px at 15% 50%, rgba(108,143,255,.08) 0%, transparent 65%),
+    radial-gradient(ellipse 500px 280px at 85% 30%, rgba(61,214,140,.06) 0%, transparent 65%);
+}
+.hero-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Unbounded', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--p);
+  border: 1px solid var(--p3);
+  border-radius: 100px;
+  padding: 5px 16px;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-family: 'Unbounded', sans-serif;
+  font-size: clamp(42px, 6.5vw, 88px);
+  font-weight: 900;
+  line-height: .95;
+  letter-spacing: -.02em;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.hero h1 .accent { color: var(--p); }
+.hero-sub {
+  color: var(--muted);
+  font-size: 15px;
+  max-width: 580px;
+  margin-bottom: 36px;
+  font-weight: 400;
+}
+.hero-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+.tag {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 5px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: .02em;
+}
+
+/* ── PART SEP ── */
+.part-sep {
+  padding: 56px 0 32px;
+  position: relative;
+}
+.part-sep::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, var(--border2), transparent);
+}
+.part-inner { display: flex; align-items: flex-end; gap: 20px; }
+.part-n {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 900;
+  font-size: 80px;
+  line-height: 1;
+  color: var(--border2);
+  letter-spacing: -.04em;
+  flex-shrink: 0;
+}
+.part-info h2 {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+.part-info p { color: var(--muted); font-size: 13px; }
+
+/* ── SECTION TITLE ── */
+.st {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  color: var(--y);
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.st::before { content: ''; width: 4px; height: 18px; background: var(--p); border-radius: 2px; flex-shrink: 0; }
+
+.section { margin-bottom: 52px; }
+
+/* ── INFO BOXES ── */
+.ib {
+  border-left: 3px solid var(--p);
+  border-top: 1px solid rgba(108,143,255,.12);
+  border-right: 1px solid rgba(108,143,255,.12);
+  border-bottom: 1px solid rgba(108,143,255,.12);
+  background: rgba(108,143,255,.05);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 14px 18px;
+  margin: 15px 0;
+  font-size: 13.5px;
+}
+.ib.g  { border-left-color:var(--g); border-top-color:rgba(61,214,140,.12); border-right-color:rgba(61,214,140,.12); border-bottom-color:rgba(61,214,140,.12); background:rgba(61,214,140,.04); }
+.ib.y  { border-left-color:var(--y); border-top-color:rgba(251,191,36,.12); border-right-color:rgba(251,191,36,.12); border-bottom-color:rgba(251,191,36,.12); background:rgba(251,191,36,.04); }
+.ib.r  { border-left-color:var(--r); border-top-color:rgba(248,113,113,.12); border-right-color:rgba(248,113,113,.12); border-bottom-color:rgba(248,113,113,.12); background:rgba(248,113,113,.04); }
+.ib.o  { border-left-color:var(--o); border-top-color:rgba(251,146,60,.12); border-right-color:rgba(251,146,60,.12); border-bottom-color:rgba(251,146,60,.12); background:rgba(251,146,60,.04); }
+.ib.v  { border-left-color:var(--v); border-top-color:rgba(192,132,252,.12); border-right-color:rgba(192,132,252,.12); border-bottom-color:rgba(192,132,252,.12); background:rgba(192,132,252,.04); }
+.ib.t  { border-left-color:var(--t); border-top-color:rgba(56,189,248,.12); border-right-color:rgba(56,189,248,.12); border-bottom-color:rgba(56,189,248,.12); background:rgba(56,189,248,.04); }
+
+.ib strong {
+  display: block;
+  font-family: 'Unbounded', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--p);
+  margin-bottom: 5px;
+}
+.ib.g strong { color:var(--g); }
+.ib.y strong { color:var(--y); }
+.ib.r strong { color:var(--r); }
+.ib.o strong { color:var(--o); }
+.ib.v strong { color:var(--v); }
+.ib.t strong { color:var(--t); }
+
+/* ── CARDS ── */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  padding: 22px;
+  transition: border-color .2s, transform .15s;
+}
+.card:hover { border-color: var(--border2); transform: translateY(-2px); }
+.card-h {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  letter-spacing: -.01em;
+  display: flex; align-items: center; gap: 8px;
+}
+.card-body { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+/* ── EPREUVE CARDS ── */
+.epr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; }
+.epr-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  overflow: hidden;
+  transition: border-color .2s, transform .15s;
+}
+.epr-card:hover { border-color: var(--border2); transform: translateY(-3px); }
+.epr-head {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.epr-code {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -.02em;
+}
+.epr-coef {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 100px;
+  letter-spacing: .06em;
+}
+.epr-body { padding: 18px 20px; }
+.epr-name {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+  letter-spacing: -.01em;
+}
+.epr-desc { font-size: 12.5px; color: var(--muted); line-height: 1.65; margin-bottom: 14px; }
+.epr-rows { display: flex; flex-direction: column; }
+.epr-row {
+  display: flex; justify-content: space-between;
+  font-size: 12px; padding: 5px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 12px;
+}
+.epr-row:last-child { border-bottom: none; }
+.epr-row-k { color: var(--muted); }
+.epr-row-v { color: var(--text); font-weight: 600; text-align: right; }
+.epr-jury {
+  margin-top: 14px;
+  background: var(--bg4);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  font-size: 12px;
+  color: var(--text);
+}
+.epr-jury-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+
+/* COULEURS par épreuve */
+.e1 { --ec: var(--p); }
+.e2 { --ec: var(--g); }
+.e3 { --ec: var(--y); }
+.e4 { --ec: var(--o); }
+.e5 { --ec: var(--v); }
+.e6 { --ec: var(--r); }
+.e7 { --ec: var(--t); }
+
+.epr-card .epr-head { border-left: 4px solid var(--ec); }
+.epr-code { color: var(--ec); }
+.epr-coef { background: color-mix(in srgb, var(--ec) 15%, transparent); color: var(--ec); border: 1px solid color-mix(in srgb, var(--ec) 30%, transparent); }
+
+/* ── TABLES ── */
+.tbl-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius2);
+  border: 1px solid var(--border);
+  margin: 16px 0;
+}
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead { background: var(--bg4); border-bottom: 1px solid var(--border); }
+th {
+  padding: 10px 14px;
+  text-align: left;
+  font-family: 'Unbounded', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+td { padding: 11px 14px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.55; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,.012); }
+
+.cp  { color: var(--p);  font-weight: 700; }
+.cg  { color: var(--g); }
+.cy  { color: var(--y);  font-weight: 600; }
+.cr  { color: var(--r); }
+.co  { color: var(--o); }
+.cv  { color: var(--v); }
+.ct  { color: var(--t); }
+.cdim { color: var(--muted); }
+
+/* ── CHECKLIST ── */
+.chk-list { display: flex; flex-direction: column; gap: 9px; margin: 12px 0; }
+.chk { display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; }
+.ci {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; flex-shrink: 0; margin-top: 1px;
+}
+.ci-ok   { background:rgba(61,214,140,.1);  border:1px solid rgba(61,214,140,.25);  color:var(--g); }
+.ci-warn { background:rgba(251,191,36,.1);  border:1px solid rgba(251,191,36,.25);  color:var(--y); }
+.ci-bad  { background:rgba(248,113,113,.1); border:1px solid rgba(248,113,113,.25); color:var(--r); }
+.ci-info { background:rgba(108,143,255,.1); border:1px solid rgba(108,143,255,.25); color:var(--p); }
+.ci-tip  { background:rgba(192,132,252,.1); border:1px solid rgba(192,132,252,.25); color:var(--v); }
+
+/* ── QCM ── */
+.qcm-block {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  padding: 24px;
+  margin: 20px 0;
+}
+.qcm-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--v);
+  margin-bottom: 18px;
+  display: flex; align-items: center; gap: 10px;
+}
+.qcm-title::before { content: '?'; width: 28px; height: 28px; border-radius: 50%; background: rgba(192,132,252,.15); border: 1px solid rgba(192,132,252,.3); display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+
+.qcm-q { margin-bottom: 20px; }
+.qcm-q-text { font-weight: 700; font-size: 14px; margin-bottom: 10px; }
+.qcm-options { display: flex; flex-direction: column; gap: 7px; }
+.qcm-opt {
+  background: var(--bg4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 9px 14px;
+  font-size: 13px;
+  cursor: default;
+  display: flex; align-items: flex-start; gap: 10px;
+  transition: border-color .15s;
+}
+.qcm-opt.correct { background: rgba(61,214,140,.08); border-color: rgba(61,214,140,.3); color: var(--g); }
+.qcm-opt.wrong   { background: rgba(248,113,113,.06); border-color: rgba(248,113,113,.2); color: var(--r); text-decoration: line-through; }
+.qcm-opt-letter {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  background: var(--bg5);
+  color: var(--muted);
+  margin-top: 1px;
+}
+.qcm-opt.correct .qcm-opt-letter { background: rgba(61,214,140,.2); color: var(--g); }
+.qcm-opt.wrong   .qcm-opt-letter { background: rgba(248,113,113,.15); color: var(--r); }
+.qcm-expl {
+  margin-top: 8px;
+  background: rgba(108,143,255,.06);
+  border-left: 2px solid var(--p);
+  padding: 8px 12px;
+  font-size: 12.5px;
+  color: var(--text);
+  border-radius: 0 6px 6px 0;
+}
+
+/* ── FICHE MATIÈRE ── */
+.fiche {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.fiche-head {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 16px;
+}
+.fiche-ico {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.fiche-h-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+.fiche-h-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.fiche-body { padding: 22px 24px; }
+.fiche-sub-h {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  margin-bottom: 12px;
+  margin-top: 20px;
+  color: var(--text);
+  display: flex; align-items: center; gap: 8px;
+}
+.fiche-sub-h:first-child { margin-top: 0; }
+.fiche-sub-h::before { content: ''; width: 3px; height: 14px; border-radius: 2px; background: var(--p); }
+
+/* ── GANTT MINI ── */
+.gantt-mini {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  overflow-x: auto;
+  padding: 20px;
+  margin: 18px 0;
+}
+.gantt-lbl {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.g-grid { display: grid; grid-template-columns: 220px repeat(12, 1fr); min-width: 700px; }
+.g-hb { background: var(--bg4); border: 1px solid var(--border); padding: 6px 10px; font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: .08em; color: var(--muted); }
+.g-mth { background: var(--bg4); border: 1px solid var(--border); padding: 6px 4px; text-align: center; font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700; color: var(--muted); letter-spacing: .04em; }
+.g-mth.hi { background: rgba(108,143,255,.08); color: var(--p); border-color: rgba(108,143,255,.2); }
+.g-lbl { border: 1px solid var(--border); padding: 8px 10px; font-size: 11.5px; color: var(--text); display: flex; align-items: center; background: var(--bg3); white-space: nowrap; }
+.g-lbl small { font-size: 10px; color: var(--muted); display: block; }
+.g-cell { border: 1px solid var(--border); background: var(--bg3); min-height: 38px; position: relative; }
+.g-bar {
+  position: absolute; top: 7px; bottom: 7px;
+  left: 2px; right: 2px;
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Unbounded', sans-serif; font-size: 9px; font-weight: 700;
+  color: rgba(0,0,0,.75); overflow: hidden; white-space: nowrap;
+  letter-spacing: .04em;
+}
+
+/* ── EXERCICE ── */
+.exo {
+  background: rgba(108,143,255,.04);
+  border: 1px solid rgba(108,143,255,.15);
+  border-radius: var(--radius2);
+  padding: 24px;
+  margin: 22px 0;
+}
+.exo-header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+.exo-num {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 22px; font-weight: 900;
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  background: rgba(108,143,255,.12);
+  border: 1px solid rgba(108,143,255,.25);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--p); flex-shrink: 0;
+}
+.exo-title { font-family: 'Unbounded', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: -.01em; }
+.exo-sub   { font-size: 12px; color: var(--muted); margin-top: 3px; }
+.exo-steps { display: flex; flex-direction: column; gap: 12px; }
+.exo-step {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+}
+.exo-step-n {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--p); margin-bottom: 4px;
+}
+.exo-step-body { font-size: 13px; color: var(--text); }
+
+/* CORRIGÉ */
+.corrige {
+  background: rgba(61,214,140,.04);
+  border: 1px solid rgba(61,214,140,.15);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-top: 10px;
+  font-size: 13px;
+}
+.corrige-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--g); margin-bottom: 6px;
+}
+
+/* ── 2 3 COL ── */
+.two-col   { display: grid; grid-template-columns: 1fr 1fr;     gap: 18px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+/* ── SCHEMA ── */
+.schema {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  padding: 22px;
+  margin: 16px 0;
+}
+.schema-lbl {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 14px;
+}
+
+/* ── COEFF BAR ── */
+.coeff-bar {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 10px;
+}
+.coeff-label { font-size: 12px; color: var(--text); min-width: 180px; }
+.coeff-track { flex: 1; height: 10px; background: var(--bg5); border-radius: 100px; overflow: hidden; }
+.coeff-fill  { height: 100%; border-radius: 100px; }
+.coeff-val   { font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 900; min-width: 32px; text-align: right; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 30px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+footer a {
+  display: inline-block; margin-top: 10px;
+  font-family: 'Unbounded', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--p); text-decoration: none;
+}
+
+hr.div { border: none; border-top: 1px solid var(--border); margin: 44px 0; }
+
+@media (max-width: 768px) {
+  .wrap { padding: 0 14px 60px; }
+  .two-col, .three-col, .epr-grid { grid-template-columns: 1fr; }
+  .nav { padding: 0 14px; }
+  .part-n { font-size: 56px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="nav-logo">BTS ERA</div>
+  <nav class="nav-links">
+    <a href="#epreuves">Épreuves</a>
+    <a href="#coefficients">Coefficients</a>
+    <a href="#e6">Épreuve E6</a>
+    <a href="#erreurs">Erreurs classiques</a>
+    <a href="#calendrier">Calendrier</a>
+    <a href="#fiches">Fiches matières</a>
+    <a href="#techno">Technologie</a>
+    <a href="#dessin">Dessin</a>
+    <a href="#gestion">Gestion/Éco</a>
+    <a href="#expression">Expression</a>
+    <a href="#sciences">Sciences</a>
+    <a href="#exercices">Exercices</a>
+    <a href="#devis">Devis cuisine</a>
+    <a href="#cctp">CCTP</a>
+    <a href="#soutenance">Soutenance</a>
+  </nav>
+</header>
+
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-label">Guide de révision complet 2024–2026</div>
+  <h1>BTS<br><span class="accent">ERA</span></h1>
+  <p class="hero-sub">Études et Réalisation d'Agencement — Structure des épreuves, fiches de révision, QCM et exercices pratiques avec corrigés.</p>
+  <div class="hero-tags">
+    <div class="tag">7 épreuves détaillées</div>
+    <div class="tag">Fiches par matière</div>
+    <div class="tag">QCM corrigés</div>
+    <div class="tag">7 exercices pratiques</div>
+    <div class="tag">Calendrier type</div>
+    <div class="tag">Conseils jury</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     PARTIE 1 — STRUCTURE DU BTS ERA
+════════════════════════════════════ -->
+<div class="part-sep" id="epreuves">
+  <div class="part-inner">
+    <div class="part-n">01</div>
+    <div class="part-info">
+      <h2>Structure du BTS ERA</h2>
+      <p>Épreuves, coefficients, attendus des jurys et organisation</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="st">Toutes les épreuves du BTS ERA</div>
+
+  <div class="ib y">
+    <strong>Avertissement important</strong>
+    Le BTS ERA est régi par le référentiel officiel de l'Éducation Nationale. Les informations ci-dessous s'appuient sur le programme et la structure connus. Vérifiez toujours le référentiel officiel en vigueur sur le site du Ministère ou auprès de votre établissement — les programmes peuvent évoluer.
+  </div>
+
+  <div class="epr-grid">
+
+    <!-- E1 -->
+    <div class="epr-card e1">
+      <div class="epr-head">
+        <div class="epr-code">E1</div>
+        <div class="epr-coef">Coef. 4</div>
+      </div>
+      <div class="epr-body">
+        <div class="epr-name">Culture Générale &amp; Expression</div>
+        <div class="epr-desc">Épreuve écrite commune à tous les BTS. 4h. À partir de documents écrits ou iconographiques, rédiger une synthèse et un texte personnel argumenté sur une thématique contemporaine.</div>
+        <div class="epr-rows">
+          <div class="epr-row"><span class="epr-row-k">Format</span><span class="epr-row-v">Écrit — 4h</span></div>
+          <div class="epr-row"><span class="epr-row-k">Exercices</span><span class="epr-row-v">Synthèse de docs + texte personnel</span></div>
+          <div class="epr-row"><span class="epr-row-k">Barème</span><span class="epr-row-v">Synthèse /40 + personnel /20</span></div>
+        </div>
+        <div class="epr-jury">
+          <div class="epr-jury-title">Ce qu'attend le jury</div>
+          Synthèse : objectivité, hiérarchisation des idées, aucun avis personnel. Texte personnel : prise de position claire, argumentation structurée, style soigné. Zéro faute d'orthographe.
+        </div>
+      </div>
+    </div>
+
+    <!-- E2 -->
+    <div class="epr-card e2">
+      <div class="epr-head">
+        <div class="epr-code">E2</div>
+        <div class="epr-coef">Coef. 4</div>
+      </div>
+      <div class="epr-body">
+        <div class="epr-name">Langue Vivante Étrangère</div>
+        <div class="epr-desc">Épreuve orale. Compréhension et expression en anglais (généralement) dans un contexte professionnel de l'agencement/construction. Présentation d'un document iconographique lié au secteur.</div>
+        <div class="epr-rows">
+          <div class="epr-row"><span class="epr-row-k">Format</span><span class="epr-row-v">Oral — 20 min (dont 20 min prépa)</span></div>
+          <div class="epr-row"><span class="epr-row-k">Contenu</span><span class="epr-row-v">Document professionnel + échange</span></div>
+          <div class="epr-row"><span class="epr-row-k">Niveau visé</span><span class="epr-row-v">B2 minimum</span></div>
+        </div>
+        <div class="epr-jury">
+          <div class="epr-jury-title">Ce qu'attend le jury</div>
+          Aisance à l'oral, vocabulaire professionnel du secteur (bois, agencement, chantier), capacité à décrire une image/plan et à interagir naturellement. La prononciation parfaite n'est pas l'objectif — la communication oui.
+        </div>
+      </div>
+    </div>
+
+    <!-- E3 -->
+    <div class="epr-card e3">
+      <div class="epr-head">
+        <div class="epr-code">E3</div>
+        <div class="epr-coef">Coef. 5</div>
+      </div>
+      <div class="epr-body">
+        <div class="epr-name">Sciences Appliquées &amp; Gestion</div>
+        <div class="epr-desc">Épreuve écrite. Regroupe les mathématiques appliquées, la physique-chimie liée aux matériaux et aux finitions, et les bases de gestion économique de la construction.</div>
+        <div class="epr-rows">
+          <div class="epr-row"><span class="epr-row-k">Format</span><span class="epr-row-v">Écrit — 3h</span></div>
+          <div class="epr-row"><span class="epr-row-k">Thèmes</span><span class="epr-row-v">Maths, physique matériaux, gestion</span></div>
+          <div class="epr-row"><span class="epr-row-k">Documents</span><span class="epr-row-v">Dossier technique fourni</span></div>
+        </div>
+        <div class="epr-jury">
+          <div class="epr-jury-title">Ce qu'attend le jury</div>
+          Rigueur dans les calculs (montrer les étapes), réponses avec unités, application directe aux cas concrets du bâtiment. Pas de mémorisation de formules abstraites — comprendre POURQUOI on les applique.
+        </div>
+      </div>
+    </div>
+
+    <!-- E4 -->
+    <div class="epr-card e4">
+      <div class="epr-head">
+        <div class="epr-code">E4</div>
+        <div class="epr-coef">Coef. 6</div>
+      </div>
+      <div class="epr-body">
+        <div class="epr-name">Étude Technique d'un Ouvrage d'Agencement</div>
+        <div class="epr-desc">Cœur technique du BTS. Épreuve écrite à partir d'un dossier technique. Analyse de plans, lecture de CCTP, choix de matériaux, calcul de métrés, représentation technique, résolution de problèmes constructifs.</div>
+        <div class="epr-rows">
+          <div class="epr-row"><span class="epr-row-k">Format</span><span class="epr-row-v">Écrit — 5h</span></div>
+          <div class="epr-row"><span class="epr-row-k">Dossier</span><span class="epr-row-v">Plans, CCTP, documents techniques</span></div>
+          <div class="epr-row"><span class="epr-row-k">Contenu</span><span class="epr-row-v">Analyse, choix, calculs, schémas</span></div>
+        </div>
+        <div class="epr-jury">
+          <div class="epr-jury-title">Ce qu'attend le jury</div>
+          Lecture rigoureuse des plans, justification des choix techniques, schémas propres et cotés, méthodologie de calcul visible, réponses professionnelles et concises. Pas de roman — des réponses techniques précises.
+        </div>
+      </div>
+    </div>
+
+    <!-- E5 -->
+    <div class="epr-card e5">
+      <div class="epr-head">
+        <div class="epr-code">E5</div>
+        <div class="epr-coef">Coef. 4</div>
+      </div>
+      <div class="epr-body">
+        <div class="epr-name">Économie &amp; Gestion de la Construction</div>
+        <div class="epr-desc">Épreuve écrite portant sur la gestion économique d'un chantier : devis, facturation, situations de travaux, avenants, rentabilité, législation sociale et juridique du secteur.</div>
+        <div class="epr-rows">
+          <div class="epr-row"><span class="epr-row-k">Format</span><span class="epr-row-v">Écrit — 3h</span></div>
+          <div class="epr-row"><span class="epr-row-k">Thèmes</span><span class="epr-row-v">Devis, facturation, rentabilité, droit</span></div>
+          <div class="epr-row"><span class="epr-row-k">Calculs</span><span class="epr-row-v">Prix de revient, marges, situations</span></div>
+        </div>
+        <div class="epr-jury">
+          <div class="epr-jury-title">Ce qu'attend le jury</div>
+          Maîtrise des calculs de coûts (HT/TTC, marges, coefficients), exactitude des montages de facturation, connaissance du cadre juridique (garanties, sous-traitance, CCAP/CCTP).
+        </div>
+      </div>
+    </div>
+
+    <!-- E6 -->
+    <div class="epr-card e6">
+      <div class="epr-head">
+        <div class="epr-code">E6</div>
+        <div class="epr-coef">Coef. 6</div>
+      </div>
+      <div class="epr-body">
+        <div class="epr-name">Projet en Entreprise — Soutenance orale</div>
+        <div class="epr-desc">L'épreuve la plus importante en pratique. Dossier de projet réalisé en entreprise durant l'alternance + soutenance orale devant jury. Présentation d'un ouvrage réel conçu/réalisé en entreprise.</div>
+        <div class="epr-rows">
+          <div class="epr-row"><span class="epr-row-k">Format</span><span class="epr-row-v">Dossier + Oral 30–45 min</span></div>
+          <div class="epr-row"><span class="epr-row-k">Durée prépa dossier</span><span class="epr-row-v">Toute l'année de BTS2</span></div>
+          <div class="epr-row"><span class="epr-row-k">Contenu dossier</span><span class="epr-row-v">Plans, CCTP, planning, chiffrage</span></div>
+        </div>
+        <div class="epr-jury">
+          <div class="epr-jury-title">Ce qu'attend le jury</div>
+          Un vrai projet professionnel — pas une vitrine. Montrer sa compréhension du projet, sa capacité à le défendre techniquement, à justifier ses choix, à gérer le budget et le planning. L'authenticité et la maîtrise comptent plus que la beauté du dossier.
+        </div>
+      </div>
+    </div>
+
+    <!-- E7 -->
+    <div class="epr-card e7">
+      <div class="epr-head">
+        <div class="epr-code">E7</div>
+        <div class="epr-coef">Coef. 3</div>
+      </div>
+      <div class="epr-body">
+        <div class="epr-name">Expression &amp; Communication Professionnelle</div>
+        <div class="epr-desc">Épreuve orale. Présenter et défendre un document ou une problématique professionnelle. Capacité à communiquer clairement avec un interlocuteur professionnel (client, maître d'ouvrage).</div>
+        <div class="epr-rows">
+          <div class="epr-row"><span class="epr-row-k">Format</span><span class="epr-row-v">Oral — 20 min</span></div>
+          <div class="epr-row"><span class="epr-row-k">Support</span><span class="epr-row-v">Document professionnel fourni</span></div>
+        </div>
+        <div class="epr-jury">
+          <div class="epr-jury-title">Ce qu'attend le jury</div>
+          Clarté du discours, structuration de la pensée, écoute et reformulation, adaptation du niveau de langage à l'interlocuteur. Se former à la communication professionnelle, pas à réciter un texte.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- COEFFICIENTS -->
+<div class="section" id="coefficients">
+  <div class="st">Coefficients — Comprendre leur impact</div>
+
+  <div class="two-col">
+    <div class="schema">
+      <div class="schema-lbl">Visualisation des coefficients par épreuve</div>
+      <div style="margin-top:12px;">
+        <div class="coeff-bar">
+          <div class="coeff-label"><span class="cp">E1</span> Culture G. &amp; Expression</div>
+          <div class="coeff-track"><div class="coeff-fill" style="width:40%;background:var(--p);"></div></div>
+          <div class="coeff-val cp">4</div>
+        </div>
+        <div class="coeff-bar">
+          <div class="coeff-label"><span class="cg">E2</span> Langue Vivante</div>
+          <div class="coeff-track"><div class="coeff-fill" style="width:40%;background:var(--g);"></div></div>
+          <div class="coeff-val cg">4</div>
+        </div>
+        <div class="coeff-bar">
+          <div class="coeff-label"><span class="cy">E3</span> Sciences &amp; Gestion</div>
+          <div class="coeff-track"><div class="coeff-fill" style="width:50%;background:var(--y);"></div></div>
+          <div class="coeff-val cy">5</div>
+        </div>
+        <div class="coeff-bar">
+          <div class="coeff-label"><span class="co">E4</span> Étude Technique</div>
+          <div class="coeff-track"><div class="coeff-fill" style="width:60%;background:var(--o);"></div></div>
+          <div class="coeff-val co">6</div>
+        </div>
+        <div class="coeff-bar">
+          <div class="coeff-label"><span class="cv">E5</span> Économie &amp; Gestion</div>
+          <div class="coeff-track"><div class="coeff-fill" style="width:40%;background:var(--v);"></div></div>
+          <div class="coeff-val cv">4</div>
+        </div>
+        <div class="coeff-bar">
+          <div class="coeff-label"><span class="cr">E6</span> Projet Entreprise ⭐</div>
+          <div class="coeff-track"><div class="coeff-fill" style="width:60%;background:var(--r);"></div></div>
+          <div class="coeff-val cr">6</div>
+        </div>
+        <div class="coeff-bar">
+          <div class="coeff-label"><span class="ct">E7</span> Expression Pro.</div>
+          <div class="coeff-track"><div class="coeff-fill" style="width:30%;background:var(--t);"></div></div>
+          <div class="coeff-val ct">3</div>
+        </div>
+      </div>
+    </div>
+    <div class="schema">
+      <div class="schema-lbl">Stratégie par les coefficients</div>
+      <div class="chk-list" style="margin-top:8px;">
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>E4 + E6 = 12 points de coefficient</strong> — c'est le cœur du BTS. Une bonne note là compense beaucoup ailleurs.</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span>E3 (coef.5) est souvent sous-estimée. Une note de 14/20 au lieu de 8/20 = 30 points de moyenne de plus.</span></div>
+        <div class="chk"><div class="ci ci-warn">!</div><span>E1 Culture G. : coefficient 4 mais épreuve commune — souvent la moins bien préparée. Ne pas l'abandonner.</span></div>
+        <div class="chk"><div class="ci ci-warn">!</div><span>Le BTS ERA n'a pas de note éliminatoire officielle par épreuve, mais une moyenne générale &lt; 10/20 entraîne l'échec.</span></div>
+        <div class="chk"><div class="ci ci-info">i</div><span>Un point de moyenne = coefficient × 1 point. +1 point en E4 (coef.6) = +6 points sur le total final.</span></div>
+        <div class="chk"><div class="ci ci-tip">★</div><span>Priorité absolue : soigner E4 et E6. Ensuite E3 et E5. Puis E1 et E2. E7 en dernier mais pas à négliger.</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- E6 PROJET ENTREPRISE -->
+<div class="section" id="e6">
+  <div class="st">L'épreuve E6 — Projet en entreprise</div>
+
+  <div class="ib r">
+    <strong>L'épreuve la plus stratégique du BTS ERA</strong>
+    Coefficient 6, épreuve orale, projet réel de l'alternance — c'est celle qui différencie les candidats. Elle valorise ceux qui ont vraiment compris leur entreprise et leur chantier. Elle pénalise ceux qui ont un beau dossier vide de substance.
+  </div>
+
+  <div class="two-col">
+    <div class="schema">
+      <div class="schema-lbl">Structure du dossier E6 — Ce qu'il doit contenir</div>
+      <div class="chk-list" style="margin-top:8px;">
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Présentation de l'entreprise :</strong> activité, taille, marchés, organisation</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Présentation du projet :</strong> contexte, client, localisation, nature des ouvrages</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Documents techniques :</strong> plans d'implantation, coupes, élévations, nomenclatures</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Pièces écrites :</strong> CCTP ou extrait, DPGF, devis ou situation de travaux</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Planning de réalisation :</strong> Gantt ou planning simplifié</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Photos de chantier :</strong> état initial, en cours, état final — légendées et datées</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Analyse personnelle :</strong> difficultés rencontrées, solutions apportées, ce qu'on a appris</span></div>
+        <div class="chk"><div class="ci ci-warn">!</div><span>Pagination, sommaire, lisibilité des plans — le jury lit vite, la clarté est essentielle</span></div>
+      </div>
+    </div>
+    <div class="schema">
+      <div class="schema-lbl">Comment préparer la soutenance orale E6</div>
+      <div class="chk-list" style="margin-top:8px;">
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Connaître son dossier par cœur :</strong> retrouver n'importe quel document en 10 secondes</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Préparer 5 min de présentation libre :</strong> projet, contexte, votre rôle exact</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Anticiper les questions type :</strong> "Pourquoi ce choix de matériau ?", "Comment avez-vous géré ce problème ?"</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>S'entraîner à voix haute :</strong> minimum 5 répétitions complètes avant le jour J</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Maîtriser les plans :</strong> savoir expliquer chaque cote, chaque choix constructif</span></div>
+        <div class="chk"><div class="ci ci-warn">!</div><span>Dire "je ne sais pas" est acceptable — inventer est rédhibitoire pour le jury</span></div>
+        <div class="chk"><div class="ci ci-bad">✗</div><span>Ne pas lire ses notes ou son dossier pendant la soutenance — regarder le jury</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="schema" style="margin-top:20px;">
+    <div class="schema-lbl">Questions fréquentes du jury E6 — Soyez prêts</div>
+    <div class="tbl-wrap" style="margin:0;border-radius:var(--radius);">
+      <table>
+        <thead><tr><th>Question jury</th><th>Ce qu'il évalue</th><th>Bonne approche de réponse</th></tr></thead>
+        <tbody>
+          <tr><td class="cy">"Quel était votre rôle exact ?"</td><td>Honnêteté, implication réelle</td><td>Être précis et honnête — ne pas surévaluer son rôle</td></tr>
+          <tr><td class="cy">"Pourquoi avez-vous choisi ce matériau ?"</td><td>Justification technique</td><td>Critères : humidité, charge, budget, délai, esthétique</td></tr>
+          <tr><td class="cy">"Que feriez-vous différemment ?"</td><td>Recul critique, maturité</td><td>Identifier vraiment une erreur et la solution — ne pas dire "rien"</td></tr>
+          <tr><td class="cy">"Expliquez-moi cette cote sur le plan"</td><td>Lecture technique</td><td>Pointer physiquement, expliquer logiquement l'origine de la cote</td></tr>
+          <tr><td class="cy">"Comment avez-vous géré [problème] ?"</td><td>Résolution de problèmes</td><td>Décrire le problème, les options envisagées, la décision et le résultat</td></tr>
+          <tr><td class="cy">"Quel était le budget du projet ?"</td><td>Conscience économique</td><td>Donner les ordres de grandeur — matériaux, MO, sous-traitance</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- ERREURS CLASSIQUES -->
+<div class="section" id="erreurs">
+  <div class="st">Erreurs classiques qui font perdre des points</div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-h" style="color:var(--r);">❌ Hors sujet en E4</div>
+      <div class="card-body">Répondre à la question générale sans s'appuyer sur le dossier fourni. L'E4 est toujours contextualisée. Toute réponse doit partir du dossier technique donné, pas de connaissances générales abstraites.</div>
+    </div>
+    <div class="card">
+      <div class="card-h" style="color:var(--r);">❌ Oublier les unités</div>
+      <div class="card-body">En E3 et E4, un calcul sans unité = souvent 0 point. Écrire systématiquement l'unité à chaque étape et à la réponse finale. Vérifier la cohérence : un prix en €/m² × une surface en m² = un prix en €.</div>
+    </div>
+    <div class="card">
+      <div class="card-h" style="color:var(--r);">❌ Dossier E6 mal ciblé</div>
+      <div class="card-body">Choisir un projet trop simple (une étagère) ou trop complexe (un chantier auquel on n'a presque pas participé). Le projet idéal est celui où vous avez vraiment travaillé — même modeste, si vous le maîtrisez.</div>
+    </div>
+    <div class="card">
+      <div class="card-h" style="color:var(--r);">❌ Plans illisibles</div>
+      <div class="card-body">Plans trop petits, non cotés, sans légende, sans échelle. Chaque plan doit être lisible, titré, à l'échelle indiquée, avec une légende. Refaire proprement si nécessaire — un plan brouillon pénalise fortement.</div>
+    </div>
+    <div class="card">
+      <div class="card-h" style="color:var(--r);">❌ Synthèse E1 avec opinion</div>
+      <div class="card-body">Donner son avis dans la synthèse de documents est une faute grave. La synthèse = restitution objective des idées des documents. L'opinion personnelle n'arrive que dans le texte argumenté.</div>
+    </div>
+    <div class="card">
+      <div class="card-h" style="color:var(--r);">❌ Mal gérer le temps</div>
+      <div class="card-body">En E4 (5h), ne pas répartir son temps = finir à la question 3 sur 10. Lire toutes les questions d'abord. Donner une réponse partielle à toutes vaut mieux qu'une réponse parfaite aux premières seulement.</div>
+    </div>
+    <div class="card">
+      <div class="card-h" style="color:var(--r);">❌ Lire son dossier en E6</div>
+      <div class="card-body">Pendant la soutenance, lire ses notes ou son dossier = note très pénalisée. Le jury veut voir que vous CONNAISSEZ votre projet. Apprendre les éléments clés par cœur. Utilisez le dossier pour montrer, pas pour lire.</div>
+    </div>
+    <div class="card">
+      <div class="card-h" style="color:var(--r);">❌ Métrés sous-estimés</div>
+      <div class="card-body">En E4 et E5, les métrés approximatifs ou sans coefficient de perte sont pénalisés. Toujours appliquer +10 à +15% sur les panneaux, vérifier la cohérence des unités (m², ml, m³).</div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- CALENDRIER -->
+<div class="section" id="calendrier">
+  <div class="st">Calendrier type d'une année BTS ERA</div>
+
+  <div class="gantt-mini">
+    <div class="gantt-lbl">Planning annuel BTS ERA — Alternance 1 semaine / 1 semaine</div>
+    <div class="g-grid">
+      <div class="g-hb">Activité</div>
+      <div class="g-mth">SEPT</div><div class="g-mth">OCT</div><div class="g-mth">NOV</div><div class="g-mth">DÉC</div>
+      <div class="g-mth">JANV</div><div class="g-mth">FÉV</div><div class="g-mth">MARS</div><div class="g-mth">AVR</div>
+      <div class="g-mth hi">MAI</div><div class="g-mth hi">JUIN</div><div class="g-mth">JUIL</div><div class="g-mth">AOÛT</div>
+
+      <!-- Semaines école -->
+      <div class="g-lbl">Semaines en école<small>Cours, TP, projets</small></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--p);">ÉCOLE</div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--p);">ÉCOLE</div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--p);">ÉCOLE</div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--p);"></div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--p);">ÉCOLE</div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--p);">ÉCOLE</div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--p);">RÉVISIONS</div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--p);">RÉVISIONS</div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--r);">EXAMENS</div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--r);">EXAMENS</div></div>
+      <div class="g-cell"></div><div class="g-cell"></div>
+
+      <!-- Semaines entreprise -->
+      <div class="g-lbl">Semaines en entreprise<small>Alternance</small></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--g);">ENTREP.</div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--g);">ENTREP.</div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--g);">ENTREP.</div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--g);">ENTREP.</div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--g);">ENTREP.</div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--g);">ENTREP.</div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--g);">ENTREP.</div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--g);">ENTREP.</div></div>
+      <div class="g-cell"></div><div class="g-cell"></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--g);">ENTREP.</div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--g);">ENTREP.</div></div>
+
+      <!-- Dossier E6 -->
+      <div class="g-lbl">Dossier E6<small>Préparer tout au long</small></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--o);left:50%;right:2px;">DÉBUT</div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--o);"></div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--o);"></div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--o);">CHANTIER →</div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--o);"></div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--o);"></div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--y);">RÉDACTION</div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--y);">FINALISER</div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--r);">SOUTENANCE</div></div>
+      <div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div>
+
+      <!-- Révisions -->
+      <div class="g-lbl">Révisions E1 E3 E4 E5<small>Planifier tôt</small></div>
+      <div class="g-cell"></div><div class="g-cell"></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--v);left:50%;right:2px;"></div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--v);"></div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--v);"></div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--v);"></div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--v);">INTENSIF</div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--v);">INTENSIF</div></div>
+      <div class="g-cell"><div class="g-bar" style="background:var(--r);">EXAMS</div></div>
+      <div class="g-cell"></div><div class="g-cell"></div><div class="g-cell"></div>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-top:20px;">
+    <div class="schema">
+      <div class="schema-lbl">Organisation semaine école type</div>
+      <div class="tbl-wrap" style="margin:0;border-radius:var(--radius);">
+        <table>
+          <thead><tr><th>Jour</th><th>Matin</th><th>Après-midi</th><th>Soir (1h)</th></tr></thead>
+          <tbody>
+            <tr><td class="cp">Lun</td><td>Cours E4/Techno</td><td>TP Dessin</td><td>Revoir la fiche du jour</td></tr>
+            <tr><td class="cg">Mar</td><td>Cours E3/Sciences</td><td>Cours E5/Gestion</td><td>Exercice E5 (30min)</td></tr>
+            <tr><td class="cy">Mer</td><td>Cours E1/Français</td><td>Cours E2/Anglais</td><td>Vocabulaire anglais pro</td></tr>
+            <tr><td class="co">Jeu</td><td>TP Techno/Plans</td><td>Cours E4 suite</td><td>Dossier E6 (30min)</td></tr>
+            <tr><td class="cv">Ven</td><td>E7/Expression</td><td>Bilan semaine</td><td>Planning semaine suivante</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="schema">
+      <div class="schema-lbl">Organisation semaine entreprise type</div>
+      <div class="chk-list" style="margin-top:8px;">
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Au travail :</strong> noter chaque jour ce qu'on a fait, les techniques utilisées, les problèmes rencontrés → matière pour le dossier E6</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Le soir (30–45 min) :</strong> une fiche de révision par semaine, ou un exercice E3/E5</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Le week-end :</strong> 2h de révisions réparties — pas de sessions de 5h d'un coup</span></div>
+        <div class="chk"><div class="ci ci-warn">!</div><span>Ne jamais perdre le fil de l'école pendant les semaines entreprise — le retour est difficile</span></div>
+        <div class="chk"><div class="ci ci-warn">!</div><span>Photographier régulièrement le chantier — impossible de rattraper après coup</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     PARTIE 2 — FICHES DE RÉVISION
+════════════════════════════════════ -->
+<div class="part-sep" id="fiches">
+  <div class="part-inner">
+    <div class="part-n">02</div>
+    <div class="part-info">
+      <h2>Fiches de Révision</h2>
+      <p>Par matière, avec points clés, schémas et QCM de validation</p>
+    </div>
+  </div>
+</div>
+
+<!-- FICHE TECHNOLOGIE -->
+<div class="section" id="techno">
+  <div class="fiche">
+    <div class="fiche-head">
+      <div class="fiche-ico" style="background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.25);">🪵</div>
+      <div>
+        <div class="fiche-h-title" style="color:var(--o);">Technologie de construction &amp; agencement</div>
+        <div class="fiche-h-sub">Épreuve E4 principale — Matière cœur du BTS ERA</div>
+      </div>
+    </div>
+    <div class="fiche-body">
+
+      <div class="fiche-sub-h">Les matériaux principaux</div>
+      <div class="tbl-wrap" style="margin:0;border-radius:var(--radius);">
+        <table>
+          <thead><tr><th>Matériau</th><th>Composition</th><th>Densité</th><th>Usage principal</th><th>Classe humidité</th></tr></thead>
+          <tbody>
+            <tr><td class="co">Aggloméré P2</td><td>Particules + résine UF</td><td>600–750 kg/m³</td><td>Caissons intérieur sec</td><td class="cg">Intérieur sec</td></tr>
+            <tr><td class="co">Aggloméré P3</td><td>Particules + additifs hydrofuges</td><td>620–760 kg/m³</td><td>Cuisine, salle de bain</td><td class="cy">Humide</td></tr>
+            <tr><td class="co">MDF standard</td><td>Fibres fines + résine MF</td><td>650–800 kg/m³</td><td>Façades, profilés, CNC</td><td class="cg">Intérieur sec</td></tr>
+            <tr><td class="co">MDF Hydro</td><td>Fibres + résine mélamine</td><td>650–800 kg/m³</td><td>Façades cuisine/bain</td><td class="cy">Humide</td></tr>
+            <tr><td class="co">Contreplaqué CTB-X</td><td>Plis croisés + résine phénolique</td><td>500–650 kg/m³</td><td>Structure, extérieur protégé</td><td class="ct">Extérieur</td></tr>
+            <tr><td class="co">OSB3</td><td>Lamelles croisées + résine PF</td><td>600–700 kg/m³</td><td>Construction, structure</td><td class="cy">Humide</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="fiche-sub-h">Épaisseurs et usages — À connaître par cœur</div>
+      <div class="two-col">
+        <div>
+          <div class="chk-list">
+            <div class="chk"><div class="ci ci-info">3</div><span><strong>3–6mm :</strong> HDF fond de tiroir, dos d'armoire</span></div>
+            <div class="chk"><div class="ci ci-info">8</div><span><strong>8mm :</strong> Panneau décoratif, séparation légère</span></div>
+            <div class="chk"><div class="ci ci-info">12</div><span><strong>12mm :</strong> Petits caissons, portée &lt;50cm</span></div>
+            <div class="chk"><div class="ci ci-info">16</div><span><strong>16mm :</strong> Caissons cuisine industriels</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="chk-list">
+            <div class="chk"><div class="ci ci-ok">19</div><span><strong>19mm ★ :</strong> Standard universel — caissons, tablettes</span></div>
+            <div class="chk"><div class="ci ci-warn">22</div><span><strong>22mm :</strong> Tablettes longues portée &gt;90cm</span></div>
+            <div class="chk"><div class="ci ci-warn">25</div><span><strong>25mm+ :</strong> Plans de travail, pièces maîtresses</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fiche-sub-h">Cotes standards à connaître</div>
+      <div class="tbl-wrap" style="margin:0;border-radius:var(--radius);">
+        <table>
+          <thead><tr><th>Élément</th><th>Cote standard</th><th>Justification</th></tr></thead>
+          <tbody>
+            <tr><td class="co">Plan de travail cuisine</td><td class="cy">870 mm / sol</td><td>H = taille/2 + 50 (pour 170cm)</td></tr>
+            <tr><td class="co">Profondeur meuble bas</td><td class="cy">565 mm (plan 600)</td><td>Portée de bras debout</td></tr>
+            <tr><td class="co">Espacement hauts / plan</td><td class="cy">530–600 mm</td><td>Accès + norme hotte</td></tr>
+            <tr><td class="co">Profondeur meuble haut</td><td class="cy">300–350 mm</td><td>Portée de bras en hauteur</td></tr>
+            <tr><td class="co">Profondeur dressing</td><td class="cy">600 mm</td><td>Cintres standards</td></tr>
+            <tr><td class="co">Hauteur bureau</td><td class="cy">720–750 mm</td><td>Ergonomie assise</td></tr>
+            <tr><td class="co">Hauteur vasque SDB</td><td class="cy">800–850 mm</td><td>Position penchée lavage</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="fiche-sub-h">Quincaillerie — Références importantes</div>
+      <div class="chk-list">
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Charnières Blum/Grass 35mm :</strong> standard industrie — réglage 3D (haut/bas, avant/arrière, gauche/droite)</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Coulisses à billes Blum :</strong> charge 30–70kg, avec ou sans fermeture douce (Blumotion)</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Systèmes de penderie :</strong> tringle ronde Ø25mm ou ovale pour gain de place</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Pieds réglables :</strong> 100–150mm, permettent le réglage de niveau sous les caissons</span></div>
+        <div class="chk"><div class="ci ci-warn">!</div><span>Toujours spécifier le type de charnière selon l'angle d'ouverture : 100°, 110°, 165° (coin)</span></div>
+      </div>
+
+      <!-- QCM TECHNOLOGIE -->
+      <div class="qcm-block" style="margin-top:24px;">
+        <div class="qcm-title">QCM — Technologie de construction</div>
+
+        <div class="qcm-q">
+          <div class="qcm-q-text">1. Un panneau MDF hydrofuge (vert) est recommandé dans quelle zone ?</div>
+          <div class="qcm-options">
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">A</div>Chambre à coucher</div>
+            <div class="qcm-opt correct"><div class="qcm-opt-letter">B</div>Cuisine ou salle de bain</div>
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">C</div>Extérieur sous abri</div>
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">D</div>Bureau climatisé</div>
+          </div>
+          <div class="qcm-expl">Le MDF hydrofuge résiste à une humidité relative jusqu'à ~85% — adapté aux cuisines et salles de bain. Pour l'extérieur, il faut du contreplaqué CTB-X ou OSB3.</div>
+        </div>
+
+        <div class="qcm-q">
+          <div class="qcm-q-text">2. L'épaisseur standard universelle pour les caissons de dressing et de cuisine est :</div>
+          <div class="qcm-options">
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">A</div>16 mm</div>
+            <div class="qcm-opt correct"><div class="qcm-opt-letter">B</div>19 mm</div>
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">C</div>22 mm</div>
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">D</div>25 mm</div>
+          </div>
+          <div class="qcm-expl">19mm est le standard pro car il correspond aux dimensions des ferrures calibrées (Blum, Grass) et offre le meilleur compromis résistance/poids/coût.</div>
+        </div>
+
+        <div class="qcm-q">
+          <div class="qcm-q-text">3. La hauteur standard d'un plan de travail cuisine est de :</div>
+          <div class="qcm-options">
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">A</div>840 mm</div>
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">B</div>900 mm</div>
+            <div class="qcm-opt correct"><div class="qcm-opt-letter">C</div>870 mm</div>
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">D</div>800 mm</div>
+          </div>
+          <div class="qcm-expl">870mm est calculé pour une personne de 170cm : taille÷2 + 50 = 85 + 50 = 135... non, formule : plinthe 100mm + caisson 720mm + plan 40–50mm ≈ 870mm. Adaptable selon taille client.</div>
+        </div>
+
+        <div class="qcm-q">
+          <div class="qcm-q-text">4. Quel panneau est constitué de plis croisés alternés ?</div>
+          <div class="qcm-options">
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">A</div>MDF</div>
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">B</div>Aggloméré</div>
+            <div class="qcm-opt correct"><div class="qcm-opt-letter">C</div>Contreplaqué</div>
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">D</div>OSB</div>
+          </div>
+          <div class="qcm-expl">Le contreplaqué est composé de feuilles de bois déroulées (plis) collées perpendiculairement les unes aux autres. Cette structure croisée lui confère une excellente résistance mécanique et une stabilité dimensionnelle supérieure.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FICHE GESTION/ÉCONOMIE -->
+<div class="section" id="gestion">
+  <div class="fiche">
+    <div class="fiche-head">
+      <div class="fiche-ico" style="background:rgba(192,132,252,.12);border:1px solid rgba(192,132,252,.25);">💰</div>
+      <div>
+        <div class="fiche-h-title" style="color:var(--v);">Gestion &amp; Économie de la Construction</div>
+        <div class="fiche-h-sub">Épreuves E3 et E5 — Calculs, devis, facturation, rentabilité</div>
+      </div>
+    </div>
+    <div class="fiche-body">
+
+      <div class="fiche-sub-h">Formules essentielles — À maîtriser parfaitement</div>
+
+      <div class="two-col">
+        <div class="schema" style="margin:0;">
+          <div class="schema-lbl">Prix de revient &amp; marges</div>
+          <div class="chk-list" style="margin-top:8px;">
+            <div class="chk"><div class="ci ci-info">f</div><span><strong>Prix de revient = </strong>Matériaux + MO + Sous-traitance + Frais généraux</span></div>
+            <div class="chk"><div class="ci ci-info">f</div><span><strong>Marge brute = </strong>Prix de vente HT − Prix de revient</span></div>
+            <div class="chk"><div class="ci ci-info">f</div><span><strong>Taux de marge = </strong>Marge brute ÷ Prix de vente × 100</span></div>
+            <div class="chk"><div class="ci ci-info">f</div><span><strong>Coefficient multiplicateur = </strong>Prix de vente ÷ Prix d'achat</span></div>
+            <div class="chk"><div class="ci ci-info">f</div><span><strong>Prix TTC = </strong>Prix HT × (1 + taux TVA)</span></div>
+            <div class="chk"><div class="ci ci-info">f</div><span><strong>Coût horaire MO = </strong>Salaire brut × 1.45 ÷ heures / mois</span></div>
+          </div>
+        </div>
+        <div class="schema" style="margin:0;">
+          <div class="schema-lbl">Application numérique — Exemple type</div>
+          <div style="font-size:13px;line-height:1.8;">
+            <div style="color:var(--muted);">Matériaux</div>
+            <div style="display:flex;justify-content:space-between; padding-bottom:5px;border-bottom:1px solid var(--border);">
+              <span>Panneaux + quincaillerie</span><span class="cy">3 200 €</span>
+            </div>
+            <div style="color:var(--muted);margin-top:6px;">Main-d'œuvre</div>
+            <div style="display:flex;justify-content:space-between; padding-bottom:5px;border-bottom:1px solid var(--border);">
+              <span>40h × 32€/h coût réel</span><span class="cy">1 280 €</span>
+            </div>
+            <div style="color:var(--muted);margin-top:6px;">Frais généraux (12%)</div>
+            <div style="display:flex;justify-content:space-between; padding-bottom:5px;border-bottom:1px solid var(--border);">
+              <span>12% × (3200+1280)</span><span class="cy">538 €</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-weight:700;margin-top:8px;">
+              <span>= Prix de revient</span><span class="co">5 018 €</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;color:var(--muted);margin-top:4px;">
+              <span>Prix de vente visé (marge 20%)</span><span class="cg">6 273 €</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fiche-sub-h">Déboursé sec — Notion fondamentale</div>
+      <div class="ib" style="margin:0 0 16px 0;">
+        <strong>Déboursé sec</strong>
+        Le déboursé sec = coût direct du chantier SANS les frais généraux. C'est la base du calcul du devis. Prix de vente = Déboursé sec × Coefficient de vente. Ce coefficient intègre les frais généraux ET la marge.
+      </div>
+
+      <div class="fiche-sub-h">Situations de travaux — Calcul type</div>
+      <div class="schema" style="margin:0;">
+        <div class="schema-lbl">Méthode de calcul d'une situation</div>
+        <div style="font-size:13px;line-height:2;display:flex;flex-direction:column;gap:2px;">
+          <div style="display:flex;justify-content:space-between;"><span class="cdim">Marché HT (+ avenants)</span><span class="cv">= Marché actualisé HT</span></div>
+          <div style="display:flex;justify-content:space-between;"><span class="cdim">× % d'avancement cumulé</span><span class="cv">= Montant cumulé facturable</span></div>
+          <div style="display:flex;justify-content:space-between;"><span class="cdim">− Situations antérieures HT</span><span class="cv">= Situation N présente HT</span></div>
+          <div style="display:flex;justify-content:space-between;"><span class="cdim">+ TVA 20%</span><span class="cv">= Montant TTC</span></div>
+          <div style="display:flex;justify-content:space-between;"><span class="cdim">− Retenue garantie 5% (si applicable)</span><span class="cg">= Net à payer TTC</span></div>
+        </div>
+      </div>
+
+      <!-- QCM GESTION -->
+      <div class="qcm-block" style="margin-top:24px;">
+        <div class="qcm-title">QCM — Gestion &amp; Économie</div>
+
+        <div class="qcm-q">
+          <div class="qcm-q-text">1. Un chantier a un prix de vente HT de 15 000€ et un coût de revient de 12 000€. Quelle est la marge brute ?</div>
+          <div class="qcm-options">
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">A</div>12%</div>
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">B</div>3 000€ et 25%</div>
+            <div class="qcm-opt correct"><div class="qcm-opt-letter">C</div>3 000€ et 20%</div>
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">D</div>2 000€ et 13%</div>
+          </div>
+          <div class="qcm-expl">Marge brute = 15 000 − 12 000 = 3 000€. Taux = 3 000 ÷ 15 000 × 100 = 20%. Attention : le taux se calcule sur le prix de vente, pas sur le coût de revient (qui donnerait 25% — c'est le taux de marque).</div>
+        </div>
+
+        <div class="qcm-q">
+          <div class="qcm-q-text">2. Un marché HT est de 40 000€. Situation n°1 = 30% d'avancement. Situation n°2 = 60% d'avancement. Quel est le montant HT de la situation n°2 ?</div>
+          <div class="qcm-options">
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">A</div>24 000€</div>
+            <div class="qcm-opt correct"><div class="qcm-opt-letter">B</div>12 000€</div>
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">C</div>18 000€</div>
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">D</div>8 000€</div>
+          </div>
+          <div class="qcm-expl">Montant cumulé S2 = 60% × 40 000 = 24 000€. Situation n°1 = 30% × 40 000 = 12 000€. Situation n°2 = 24 000 − 12 000 = 12 000€ HT.</div>
+        </div>
+
+        <div class="qcm-q">
+          <div class="qcm-q-text">3. La TVA applicable aux travaux de rénovation dans un logement de plus de 2 ans est de :</div>
+          <div class="qcm-options">
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">A</div>20%</div>
+            <div class="qcm-opt correct"><div class="qcm-opt-letter">B</div>10%</div>
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">C</div>5,5%</div>
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">D</div>2,1%</div>
+          </div>
+          <div class="qcm-expl">10% s'applique aux travaux de rénovation et amélioration dans un logement achevé depuis plus de 2 ans. 20% = taux normal (neuf, commerce). 5,5% = amélioration performance énergétique. À vérifier avec la réglementation en vigueur.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FICHE EXPRESSION -->
+<div class="section" id="expression">
+  <div class="fiche">
+    <div class="fiche-head">
+      <div class="fiche-ico" style="background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.25);">✍️</div>
+      <div>
+        <div class="fiche-h-title" style="color:var(--t);">Expression &amp; Communication Professionnelle</div>
+        <div class="fiche-h-sub">Épreuves E1 et E7 — Écrire, synthétiser, communiquer</div>
+      </div>
+    </div>
+    <div class="fiche-body">
+
+      <div class="fiche-sub-h">La synthèse de documents (E1) — Méthode</div>
+      <div class="tbl-wrap" style="margin:0;border-radius:var(--radius);">
+        <table>
+          <thead><tr><th>Étape</th><th>Action</th><th>Durée</th><th>Erreur à éviter</th></tr></thead>
+          <tbody>
+            <tr><td class="ct">1. Lecture rapide</td><td>Comprendre le thème global, identifier le type de chaque doc</td><td>20 min</td><td>Paniquer si un doc est difficile</td></tr>
+            <tr><td class="ct">2. Analyse par doc</td><td>Annoter les idées clés, les thèses, les exemples</td><td>40 min</td><td>Copier des phrases entières</td></tr>
+            <tr><td class="ct">3. Plan de synthèse</td><td>Organiser les idées en 2 ou 3 parties thématiques</td><td>20 min</td><td>Plan chronologique (par doc)</td></tr>
+            <tr><td class="ct">4. Rédaction</td><td>Rédiger sans avis personnel, citer les sources entre parenthèses</td><td>50 min</td><td>Dire "je pense que"</td></tr>
+            <tr><td class="ct">5. Relecture</td><td>Vérifier orthographe, longueur (~200 mots), cohérence</td><td>10 min</td><td>Rendre sans relire</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="fiche-sub-h">Le texte personnel argumenté (E1)</div>
+      <div class="two-col">
+        <div class="chk-list">
+          <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Introduction :</strong> contextualiser le sujet + annoncer clairement votre thèse (oui/non/nuancé)</span></div>
+          <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Développement :</strong> 2 ou 3 arguments + exemple concret pour chacun</span></div>
+          <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Conclusion :</strong> répondre à la question posée + ouverture</span></div>
+          <div class="chk"><div class="ci ci-ok">✓</div><span>Utiliser des connecteurs logiques : "en effet", "cependant", "par conséquent", "en revanche"</span></div>
+        </div>
+        <div class="chk-list">
+          <div class="chk"><div class="ci ci-bad">✗</div><span>Écrire "je" à tout va — le texte argumenté est formel</span></div>
+          <div class="chk"><div class="ci ci-bad">✗</div><span>Répéter les mêmes mots — avoir un vocabulaire varié</span></div>
+          <div class="chk"><div class="ci ci-bad">✗</div><span>Finir sans conclure — le jury lit les 2 premières et 2 dernières lignes en priorité</span></div>
+          <div class="chk"><div class="ci ci-warn">!</div><span>Longueur recommandée : 250–350 mots. Pas de roman.</span></div>
+        </div>
+      </div>
+
+      <!-- QCM EXPRESSION -->
+      <div class="qcm-block" style="margin-top:20px;">
+        <div class="qcm-title">QCM — Expression &amp; Communication</div>
+        <div class="qcm-q">
+          <div class="qcm-q-text">1. Dans une synthèse de documents, vous pouvez :</div>
+          <div class="qcm-options">
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">A</div>Donner votre avis personnel si vous le justifiez</div>
+            <div class="qcm-opt correct"><div class="qcm-opt-letter">B</div>Restituer objectivement les idées des documents</div>
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">C</div>Utiliser uniquement un seul document si les autres sont difficiles</div>
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">D</div>Copier des phrases des documents si elles sont entre guillemets</div>
+          </div>
+          <div class="qcm-expl">La synthèse est un exercice objectif. Tout avis personnel est une faute. Tous les documents doivent être utilisés. Les emprunts directs aux textes sont à éviter — reformuler toujours.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FICHE SCIENCES -->
+<div class="section" id="sciences">
+  <div class="fiche">
+    <div class="fiche-head">
+      <div class="fiche-ico" style="background:rgba(61,214,140,.12);border:1px solid rgba(61,214,140,.25);">🔬</div>
+      <div>
+        <div class="fiche-h-title" style="color:var(--g);">Sciences Appliquées</div>
+        <div class="fiche-h-sub">Épreuve E3 — Physique matériaux, mécanique, thermique</div>
+      </div>
+    </div>
+    <div class="fiche-body">
+
+      <div class="fiche-sub-h">Résistance des matériaux — Notions clés</div>
+      <div class="tbl-wrap" style="margin:0;border-radius:var(--radius);">
+        <table>
+          <thead><tr><th>Grandeur</th><th>Symbole</th><th>Unité</th><th>Définition</th></tr></thead>
+          <tbody>
+            <tr><td class="cg">Contrainte</td><td>σ (sigma)</td><td>N/mm² = MPa</td><td>Force / Section = résistance interne</td></tr>
+            <tr><td class="cg">Module d'élasticité</td><td>E</td><td>MPa ou N/mm²</td><td>Rigidité du matériau (bois ~10 000 MPa)</td></tr>
+            <tr><td class="cg">Déflèche / Flèche</td><td>f</td><td>mm</td><td>Déformation au centre d'une poutre</td></tr>
+            <tr><td class="cg">Dureté Brinell</td><td>HB</td><td>—</td><td>Résistance à l'indentation (chêne ≈ 3.7)</td></tr>
+            <tr><td class="cg">Densité</td><td>ρ</td><td>kg/m³</td><td>Masse volumique (chêne ≈ 700 kg/m³)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="fiche-sub-h">Calculs de flèche — Formule à connaître</div>
+      <div class="ib g">
+        <strong>Formule de flèche d'une poutre simplement appuyée</strong>
+        f = (5 × q × L⁴) / (384 × E × I) — où q = charge linéique (N/mm), L = portée (mm), E = module (MPa), I = moment quadratique (mm⁴). En BTS ERA, souvent simplifiée ou donnée sous forme tabulaire dans le dossier.
+      </div>
+
+      <div class="fiche-sub-h">Thermique — Isolation et performance</div>
+      <div class="chk-list">
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Résistance thermique R = e/λ</strong> — e = épaisseur (m), λ = conductivité thermique (W/m.K)</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Plus R est grand</strong>, plus le matériau est isolant. Un mur = somme des R de chaque couche.</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>λ bois massif ≈ 0,12–0,18 W/m.K</strong> — bon isolant naturel comparé à l'acier (50 W/m.K)</span></div>
+        <div class="chk"><div class="ci ci-ok">✓</div><span><strong>Pont thermique :</strong> rupture d'isolation créant une zone froide — source de condensation et moisissures</span></div>
+      </div>
+
+      <!-- QCM SCIENCES -->
+      <div class="qcm-block" style="margin-top:20px;">
+        <div class="qcm-title">QCM — Sciences Appliquées</div>
+        <div class="qcm-q">
+          <div class="qcm-q-text">1. Un panneau MDF 19mm a un module d'élasticité de 2 500 MPa. Un contreplaqué 18mm a un module de 7 000 MPa. Pour une même portée, lequel fléchit le plus ?</div>
+          <div class="qcm-options">
+            <div class="qcm-opt correct"><div class="qcm-opt-letter">A</div>Le MDF</div>
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">B</div>Le contreplaqué</div>
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">C</div>Ils fléchissent pareil</div>
+            <div class="qcm-opt wrong"><div class="qcm-opt-letter">D</div>On ne peut pas comparer sans la charge</div>
+          </div>
+          <div class="qcm-expl">Plus le module d'élasticité E est élevé, plus le matériau est rigide et moins il fléchit. MDF (2 500 MPa) &lt;&lt; Contreplaqué (7 000 MPa) → le MDF fléchit beaucoup plus que le contreplaqué pour une même portée et charge.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     PARTIE 3 — EXERCICES PRATIQUES
+════════════════════════════════════ -->
+<div class="part-sep" id="exercices">
+  <div class="part-inner">
+    <div class="part-n">03</div>
+    <div class="part-info">
+      <h2>Exercices Pratiques</h2>
+      <p>Cas concrets avec corrigés détaillés — type BTS ERA</p>
+    </div>
+  </div>
+</div>
+
+<!-- EXO 1 : DOSSIER TECHNIQUE -->
+<div class="section">
+  <div class="exo">
+    <div class="exo-header">
+      <div class="exo-num">1</div>
+      <div>
+        <div class="exo-title">Créer un dossier technique complet d'agencement</div>
+        <div class="exo-sub">Type E6 — Durée estimée : 3–4h · Niveau E4/E6</div>
+      </div>
+    </div>
+    <div class="ib y" style="margin-bottom:16px;">
+      <strong>Contexte</strong>
+      Vous réalisez le dossier technique d'une cuisine de 10m² pour un appartement du 3ème étage. La cuisine comporte : 6 caissons bas 600mm, 4 caissons hauts 600mm, 1 colonne four 600mm, 1 plan de travail quartz 3,2m, des façades laquées blanc mat. Surface au sol : 2,5m × 4m.
+    </div>
+    <div class="exo-steps">
+      <div class="exo-step">
+        <div class="exo-step-n">Partie A — Plan d'implantation</div>
+        <div class="exo-step-body">Dessinez à l'échelle 1:20 le plan de la cuisine en vue de dessus. Positionnez les meubles en respectant les normes (dégagement évier 600mm, distance hotte 530mm). Cotez les dimensions principales.</div>
+        <div class="corrige">
+          <div class="corrige-title">✓ Éléments de corrigé</div>
+          Échelle 1:20 = 1cm sur le plan = 20cm réel. Pour une pièce 2,5m × 4m : plan 12,5cm × 20cm. Cotes obligatoires : largeur totale pièce, position et largeur de chaque meuble, dégagement de circulation (min 1,20m), position de la hotte. Les meubles bas ont une profondeur de 600mm représentée.
+        </div>
+      </div>
+      <div class="exo-step">
+        <div class="exo-step-n">Partie B — Coupe verticale</div>
+        <div class="exo-step-body">Réalisez une coupe verticale (élévation) du mur principal. Indiquez : hauteur du plan de travail (870mm), hauteur du meuble haut (720mm), espacement hauts/bas (530mm), hauteur de la hotte. Cotez toutes les hauteurs.</div>
+        <div class="corrige">
+          <div class="corrige-title">✓ Éléments de corrigé</div>
+          De bas en haut : sol → plinthe 100mm → caisson 720mm → plan travail 40–50mm = 870mm total. Puis espace 530mm = fixation rail bas des hauts à 1450mm. Meuble haut 720mm → sommet à 2170mm. Tracer toutes les cotes cumulées ET partielles.
+        </div>
+      </div>
+      <div class="exo-step">
+        <div class="exo-step-n">Partie C — Nomenclature des éléments</div>
+        <div class="exo-step-body">Établissez la nomenclature complète : référencez chaque élément (caisson, façade, plan de travail), spécifiez le matériau, les dimensions et la quantité. Format tableau.</div>
+        <div class="corrige">
+          <div class="corrige-title">✓ Éléments de corrigé</div>
+          Tableau à 5 colonnes minimum : Réf. | Désignation | Matériau | Dimensions L×l×é | Qté. Exemple : C01 | Caisson bas | Aggloméré P3 mélaminé blanc | 600×565×720 | 6. Le plan de travail quartz se note en ML (mètres linéaires) : 3,2 ml × 600mm large × 30mm épais.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXO 2 : DEVIS CUISINE -->
+<div class="section" id="devis">
+  <div class="exo">
+    <div class="exo-header">
+      <div class="exo-num">2</div>
+      <div>
+        <div class="exo-title">Faire un devis de A à Z pour une cuisine professionnelle</div>
+        <div class="exo-sub">Type E5 — Durée estimée : 2h · Calculs complets avec corrigé</div>
+      </div>
+    </div>
+    <div class="ib" style="margin-bottom:16px;">
+      <strong>Données du chantier</strong>
+      Cuisine : 6 caissons bas 600mm à 85€/u, 4 caissons hauts 600mm à 65€/u, 1 colonne four à 140€. Façades laquées : 45€/u (22 façades). Plan de travail quartz 3,2m à 280€/ml. Main-d'œuvre : 2 compagnons × 2 jours × 8h = 32h. Coût horaire chargé : 38€/h. Frais généraux : 12% du déboursé sec. Marge souhaitée : 22%.
+    </div>
+    <div class="exo-steps">
+      <div class="exo-step">
+        <div class="exo-step-n">Étape 1 — Déboursé sec matériaux</div>
+        <div class="exo-step-body">Calculez le coût total des matériaux. N'oubliez pas le coefficient de perte de 12% sur les panneaux (caissons). Le plan de travail et les façades sont livrés finis — pas de coefficient de perte.</div>
+        <div class="corrige">
+          <div class="corrige-title">✓ Corrigé étape 1</div>
+          Caissons bas : 6 × 85 × 1,12 = 572,00€ · Caissons hauts : 4 × 65 × 1,12 = 291,20€ · Colonne four : 1 × 140 × 1,12 = 156,80€ · Façades : 22 × 45 = 990,00€ · Plan de travail : 3,2 × 280 = 896,00€ · <strong>TOTAL matériaux = 2 906,00€</strong>
+        </div>
+      </div>
+      <div class="exo-step">
+        <div class="exo-step-n">Étape 2 — Déboursé sec main-d'œuvre</div>
+        <div class="exo-step-body">Calculez le coût de la main-d'œuvre avec le coût horaire chargé fourni.</div>
+        <div class="corrige">
+          <div class="corrige-title">✓ Corrigé étape 2</div>
+          MO = 32h × 38€/h = 1 216,00€ · <strong>Déboursé sec total = 2 906 + 1 216 = 4 122,00€</strong>
+        </div>
+      </div>
+      <div class="exo-step">
+        <div class="exo-step-n">Étape 3 — Prix de revient avec frais généraux</div>
+        <div class="exo-step-body">Ajoutez les frais généraux (12% du déboursé sec) pour obtenir le prix de revient complet.</div>
+        <div class="corrige">
+          <div class="corrige-title">✓ Corrigé étape 3</div>
+          FG = 4 122 × 12% = 494,64€ · <strong>Prix de revient = 4 122 + 494,64 = 4 616,64€</strong>
+        </div>
+      </div>
+      <div class="exo-step">
+        <div class="exo-step-n">Étape 4 — Prix de vente HT et TTC</div>
+        <div class="exo-step-body">Calculez le prix de vente HT avec 22% de marge brute. Puis le TTC avec TVA à 10% (rénovation logement). Vérifiez la marge obtenue.</div>
+        <div class="corrige">
+          <div class="corrige-title">✓ Corrigé étape 4</div>
+          Marge = 22% → Prix de vente HT = Prix de revient ÷ (1 − 0,22) = 4 616,64 ÷ 0,78 = <strong>5 918,77€ HT</strong> · TVA 10% = 591,88€ · <strong>Prix TTC = 6 510,65€</strong> · Vérification marge = (5 918,77 − 4 616,64) ÷ 5 918,77 × 100 = 22% ✓
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXO 3 : CCTP -->
+<div class="section" id="cctp">
+  <div class="exo">
+    <div class="exo-header">
+      <div class="exo-num">3</div>
+      <div>
+        <div class="exo-title">Rédiger un CCTP pour un projet d'agencement</div>
+        <div class="exo-sub">Type E4/E5 — Durée estimée : 1h30 · Niveau rédactionnel</div>
+      </div>
+    </div>
+    <div class="ib t" style="margin-bottom:16px;">
+      <strong>Qu'est-ce qu'un CCTP ?</strong>
+      Cahier des Clauses Techniques Particulières — document contractuel qui décrit précisément les travaux à réaliser, les matériaux à employer, les normes à respecter et les conditions d'exécution. Il fait partie du marché.
+    </div>
+    <div class="exo-steps">
+      <div class="exo-step">
+        <div class="exo-step-n">Structure type d'un CCTP agencement</div>
+        <div class="exo-step-body">Rédigez un CCTP pour la fourniture et pose de caissons de cuisine. Votre CCTP doit comporter les chapitres suivants dans l'ordre :</div>
+        <div class="corrige">
+          <div class="corrige-title">✓ Structure de référence</div>
+          <strong>Art. 1 — Objet et domaine d'application :</strong> "Le présent CCTP définit les conditions techniques d'exécution des travaux de fourniture et pose de cuisine équipée, comprenant [liste]."<br><br>
+          <strong>Art. 2 — Documents de référence :</strong> Normes NF EN applicables, DTU concernés (DTU 36.3 menuiseries intérieures).<br><br>
+          <strong>Art. 3 — Matériaux et produits :</strong> Spécifier chaque matériau avec sa norme, sa classe et sa marque de référence. Ex : "Panneaux de particules P3 selon EN 312, épaisseur 19mm, revêtement mélamine 2 faces, classe E1."<br><br>
+          <strong>Art. 4 — Exécution des travaux :</strong> Conditions de pose, niveaux, aplombs, fixations, traitement des chants.<br><br>
+          <strong>Art. 5 — Contrôles et réception :</strong> Vérifications à effectuer, tolérances admises, conditions de réception.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXO 4 : GANTT -->
+<div class="section">
+  <div class="exo">
+    <div class="exo-header">
+      <div class="exo-num">4</div>
+      <div>
+        <div class="exo-title">Construire un planning Gantt de chantier</div>
+        <div class="exo-sub">Type E4 — Durée estimée : 45 min</div>
+      </div>
+    </div>
+    <div class="ib" style="margin-bottom:16px;">
+      <strong>Données</strong>
+      Chantier dressing sur mesure : 8 modules + 2 penderies. Fabrication : 3 jours. Livraison matériaux : J+7 après commande. Pose : 2 jours. Finitions : 1 jour. Réception : 1 jour. Contrainte : le carreleur finit la pièce le vendredi de la semaine 2.
+    </div>
+    <div class="exo-steps">
+      <div class="exo-step">
+        <div class="exo-step-n">Consigne</div>
+        <div class="exo-step-body">Construisez le Gantt sur 4 semaines. Identifiez le chemin critique. Quel est le délai minimum de livraison client ? Que se passe-t-il si la livraison matériaux prend 10 jours au lieu de 7 ?</div>
+        <div class="corrige">
+          <div class="corrige-title">✓ Corrigé</div>
+          <strong>S1 :</strong> Commande matériaux (J1) + début fabrication J3 si stock atelier disponible.<br>
+          <strong>S2 :</strong> Livraison matériaux J8 + suite fabrication J8→J10 (3 jours total).<br>
+          <strong>S3 :</strong> Carreleur finit vendredi S2 → Pose possible lundi S3. Pose J1→J2 + Finitions J3 = 3 jours.<br>
+          <strong>S3 fin :</strong> Réception J4 = <strong>délai total 17 jours ouvrés minimum.</strong><br><br>
+          <strong>Si livraison 10j :</strong> Fabrication décalée de 3 jours → Pose décalée de 3 jours → Réception en S4 semaine 4 = retard de 3 jours. Chemin critique = livraison → fabrication → pose → réception.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXO 5 : SOUTENANCE -->
+<div class="section" id="soutenance">
+  <div class="exo">
+    <div class="exo-header">
+      <div class="exo-num">5</div>
+      <div>
+        <div class="exo-title">Préparer et simuler une soutenance orale E6</div>
+        <div class="exo-sub">Simulation complète — Durée : 30 min · Seul ou avec un partenaire</div>
+      </div>
+    </div>
+    <div class="exo-steps">
+      <div class="exo-step">
+        <div class="exo-step-n">Phase 1 — Script de présentation (5 min)</div>
+        <div class="exo-step-body">Rédigez votre présentation orale de 5 minutes en respectant ce plan : (1) Présentation de l'entreprise — 1 min. (2) Contexte du projet — 1 min. (3) Description technique de l'ouvrage — 2 min. (4) Votre rôle et les difficultés surmontées — 1 min.</div>
+        <div class="corrige">
+          <div class="corrige-title">✓ Points de vigilance</div>
+          Jamais de "euh", "voilà", "du coup" à répétition. Parler à 80% du temps en direction du jury, 20% vers le dossier/plans. Utiliser un vocabulaire professionnel : "l'ouvrage", "le maître d'ouvrage", "le CCTP", "le déboursé sec", "la réception". 5 minutes = environ 600–700 mots. S'entraîner avec un chronomètre.
+        </div>
+      </div>
+      <div class="exo-step">
+        <div class="exo-step-n">Phase 2 — Questions simulées du jury</div>
+        <div class="exo-step-body">Demandez à quelqu'un de vous poser ces questions en alternance, de façon imprévisible. Répondez à l'oral sans lire :<br>
+        • "Pourquoi avez-vous choisi ce matériau pour les façades ?"<br>
+        • "Quel était le budget total du chantier ?"<br>
+        • "Que feriez-vous différemment aujourd'hui ?"<br>
+        • "Expliquez-moi cette cote sur le plan"<br>
+        • "Quelle difficulté avez-vous rencontrée et comment l'avez-vous résolue ?"</div>
+        <div class="corrige">
+          <div class="corrige-title">✓ Méthode de réponse</div>
+          Structure STAR : Situation → Tâche → Action → Résultat. Toujours répondre en max 90 secondes. Si vous ne savez pas : "Je n'ai pas cette information précise en tête, mais dans mon dossier je peux vous montrer [X]." Le jury préfère l'honnêteté à l'improvisation hasardeuse.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXO 6 : ANALYSE DE PLAN -->
+<div class="section">
+  <div class="exo">
+    <div class="exo-header">
+      <div class="exo-num">6</div>
+      <div>
+        <div class="exo-title">Analyser un plan et répondre aux questions type BTS</div>
+        <div class="exo-sub">Type E4 — Méthode de lecture de plan</div>
+      </div>
+    </div>
+    <div class="exo-steps">
+      <div class="exo-step">
+        <div class="exo-step-n">Méthode systématique de lecture de plan E4</div>
+        <div class="exo-step-body">Face à un plan en E4, appliquer cette séquence dans l'ordre avant de répondre aux questions :</div>
+        <div class="corrige">
+          <div class="corrige-title">✓ Protocole de lecture</div>
+          <strong>1. Lire le cartouche :</strong> Échelle, indice de révision, date, titre, auteur. Vérifier que c'est le bon document.<br>
+          <strong>2. Identifier le type de vue :</strong> Plan (dessus), coupe (section verticale), élévation (façade), détail.<br>
+          <strong>3. Repérer l'échelle :</strong> Mesurer une cote connue avec la règle pour vérifier l'échelle.<br>
+          <strong>4. Lire les symboles et légende :</strong> Identifier les matériaux hachurés, les conventions de représentation.<br>
+          <strong>5. Suivre les cotes :</strong> Vérifier que la somme des cotes partielles = cote totale (souvent non !)<br>
+          <strong>6. Identifier les incohérences :</strong> Note et signaler dans votre réponse toute contradiction entre la vue en plan et la coupe.
+        </div>
+      </div>
+      <div class="exo-step">
+        <div class="exo-step-n">Questions type BTS sur plans</div>
+        <div class="exo-step-body">Entraînez-vous à répondre précisément aux formulations suivantes : "Donnez la hauteur hors tout du meuble", "Calculez la superficie développée des façades", "Justifiez le choix d'assemblage à cet endroit", "Indiquez le matériau utilisé pour [élément]".</div>
+        <div class="corrige">
+          <div class="corrige-title">✓ Formulations attendues en E4</div>
+          Ne jamais dire "le bois" → Dire "aggloméré P3 mélaminé blanc 19mm EN 312". Ne jamais dire "vissé" → Dire "assemblage par vis inox 4×35mm avec pré-perçage diamètre 3mm". La précision technique est notée. Une réponse vague donne 0 ou 0,5 point là où une réponse précise donne 2 points.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXO 7 : PRIX DE REVIENT -->
+<div class="section">
+  <div class="exo">
+    <div class="exo-header">
+      <div class="exo-num">7</div>
+      <div>
+        <div class="exo-title">Calculer un prix de revient et établir un devis complet</div>
+        <div class="exo-sub">Exercice complet avec corrigé — Type E5</div>
+      </div>
+    </div>
+    <div class="ib o" style="margin-bottom:16px;">
+      <strong>Données complètes</strong>
+      Dressing 3 modules (400mm + 600mm + 800mm), profondeur 600mm, hauteur 2200mm. Matériaux : mélaminé blanc 19mm à 18€/m², chants ABS 2mm à 0,80€/ml, quincaillerie forfait 320€. MO : 24h à 35€/h chargé. FG : 15%. Marge souhaitée : 25%. TVA : 20%.
+    </div>
+    <div class="exo-steps">
+      <div class="exo-step">
+        <div class="exo-step-n">Étape 1 — Métré panneaux</div>
+        <div class="exo-step-body">Calculez la surface totale de panneaux nécessaire pour les 3 modules. Chaque module = 2 côtés + fond + tablettes + dessus. Appliquez +12% de perte.</div>
+        <div class="corrige">
+          <div class="corrige-title">✓ Corrigé</div>
+          Module 400 : côtés 2×(0,4×2,2)=1,76m² + fond 0,4×2,2=0,88m² + tablettes 3×(0,4×0,58)=0,70m² = 3,34m²<br>
+          Module 600 : côtés 2×(0,6×2,2)=2,64m² + fond 0,6×2,2=1,32m² + tablettes 3×(0,6×0,58)=1,04m² = 5,00m²<br>
+          Module 800 : côtés 2×(0,8×2,2)=3,52m² + fond 0,8×2,2=1,76m² + tablettes 3×(0,8×0,58)=1,39m² = 6,67m²<br>
+          Total brut = 15,01m² × 1,12 = <strong>16,81m² de panneaux</strong><br>
+          Coût matériaux panneaux = 16,81 × 18€ = <strong>302,58€</strong><br>
+          + Quincaillerie 320€ + Chants (estimer ~80ml) 80×0,80=64€<br>
+          <strong>Total matériaux = 686,58€</strong>
+        </div>
+      </div>
+      <div class="exo-step">
+        <div class="exo-step-n">Étape 2 — Prix de revient et devis final</div>
+        <div class="exo-step-body">Calculez le déboursé sec, ajoutez les FG, calculez le prix de vente HT et TTC avec la marge souhaitée.</div>
+        <div class="corrige">
+          <div class="corrige-title">✓ Corrigé complet</div>
+          MO = 24h × 35€ = 840€<br>
+          Déboursé sec = 686,58 + 840 = 1 526,58€<br>
+          FG (15%) = 1 526,58 × 0,15 = 228,99€<br>
+          Prix de revient = 1 526,58 + 228,99 = <strong>1 755,57€</strong><br>
+          Prix de vente HT = 1 755,57 ÷ (1 − 0,25) = 1 755,57 ÷ 0,75 = <strong>2 340,76€ HT</strong><br>
+          TVA 20% = 468,15€<br>
+          <strong>Prix TTC = 2 808,91€</strong><br>
+          Marge brute = (2 340,76 − 1 755,57) ÷ 2 340,76 = 25% ✓
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<footer>
+  <div>BTS ERA — Guide Complet de Révisions · Structure, Fiches &amp; Exercices Pratiques</div>
+  <div style="margin-top:5px;color:var(--dim);font-size:11px;">Document pédagogique · Vérifier le référentiel officiel en vigueur sur education.gouv.fr</div>
+  <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ Retour en haut</a>
+</footer>
+
+</body>
+</html>

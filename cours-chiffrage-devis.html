@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chiffrage & Devis — Cours Menuiserie Professionnelle</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #f5f0e8;
+  --warm: #ede6d6;
+  --paper: #faf7f2;
+  --dark: #1a1710;
+  --ink: #2c2820;
+  --mid: #6b6456;
+  --light: #a09688;
+  --gold: #c8992a;
+  --gold2: #e8b84b;
+  --rust: #b85c38;
+  --teal: #2a7c6f;
+  --teal2: #3aad9b;
+  --border: #d4c9b5;
+  --border2: #e8dfd0;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* ── HERO ── */
+.hero {
+  background: var(--dark);
+  color: var(--cream);
+  padding: 80px 40px 70px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 30% 50%, rgba(200,153,42,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 70% 50%, rgba(42,124,111,0.12) 0%, transparent 60%);
+}
+
+.hero-label {
+  display: inline-block;
+  border: 1px solid rgba(200,153,42,0.4);
+  color: var(--gold2);
+  padding: 5px 18px;
+  border-radius: 2px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(38px, 6vw, 72px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold2);
+}
+
+.hero-sub {
+  color: rgba(245,240,232,0.6);
+  font-size: 17px;
+  max-width: 580px;
+  margin: 0 auto 44px;
+  font-weight: 300;
+}
+
+.hero-tags {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.hero-tag {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 13px;
+  color: rgba(245,240,232,0.7);
+}
+
+/* ── NAV ── */
+.nav {
+  background: var(--dark);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 0 40px;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.nav::-webkit-scrollbar { display: none; }
+
+.nav a {
+  color: rgba(245,240,232,0.45);
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 14px 16px;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  letter-spacing: 0.02em;
+}
+
+.nav a:hover { color: var(--cream); }
+.nav a.p4 { color: rgba(200,153,42,0.7); }
+.nav a.p4:hover { color: var(--gold2); border-bottom-color: var(--gold2); }
+.nav a.p5 { color: rgba(42,124,111,0.7); }
+.nav a.p5:hover { color: var(--teal2); border-bottom-color: var(--teal2); }
+
+.nav-divider {
+  width: 1px;
+  background: rgba(255,255,255,0.08);
+  margin: 8px 0;
+  flex-shrink: 0;
+}
+
+/* ── CONTAINER ── */
+.container { max-width: 980px; margin: 0 auto; padding: 64px 32px; }
+
+/* ── PART BANNER ── */
+.part-banner {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0;
+  margin-bottom: 56px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.part-banner-num {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 28px 16px;
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.p4 .part-banner-num { background: var(--gold); }
+.p5 .part-banner-num { background: var(--teal); }
+
+.part-banner-body {
+  padding: 28px 32px;
+  border: 1px solid var(--border);
+  border-left: none;
+}
+
+.part-banner-body h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.part-banner-body p { color: var(--mid); font-size: 15px; }
+
+/* ── SECTION ── */
+.section {
+  margin-bottom: 52px;
+  scroll-margin-top: 56px;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.section.visible { opacity: 1; transform: translateY(0); }
+
+.section-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 22px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.p4 .section-heading { border-color: var(--gold); }
+.p5 .section-heading { border-color: var(--teal); }
+
+/* ── CARDS ── */
+.card {
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 24px 28px;
+  margin-bottom: 16px;
+}
+
+.card h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.card p, .card li { color: var(--mid); font-size: 15px; }
+
+.card ul { list-style: none; padding: 0; margin-top: 8px; }
+.card ul li { padding: 5px 0 5px 20px; position: relative; }
+.card ul li::before { content: '▸'; position: absolute; left: 0; font-size: 11px; top: 8px; }
+.p4 .card ul li::before { color: var(--gold); }
+.p5 .card ul li::before { color: var(--teal); }
+
+/* ── FORMULA ── */
+.formula-box {
+  background: var(--dark);
+  color: var(--cream);
+  border-radius: 4px;
+  padding: 24px 28px;
+  margin: 16px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.formula-box::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.p4 .formula-box::before { background: linear-gradient(90deg, var(--gold), var(--gold2)); }
+.p5 .formula-box::before { background: linear-gradient(90deg, var(--teal), var(--teal2)); }
+
+.formula-label {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.45;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.formula-expr {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.formula-expr .hl { color: var(--gold2); }
+.p5 .formula-expr .hl { color: var(--teal2); }
+
+.formula-note {
+  margin-top: 12px;
+  font-size: 13px;
+  opacity: 0.55;
+  line-height: 1.5;
+}
+
+/* ── GRID ── */
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+@media(max-width: 680px) { .grid2, .grid3 { grid-template-columns: 1fr; } }
+
+/* ── CALL OUT ── */
+.callout {
+  border-left: 4px solid;
+  padding: 16px 20px;
+  border-radius: 0 4px 4px 0;
+  margin: 16px 0;
+  font-size: 15px;
+}
+
+.callout.gold { border-color: var(--gold); background: rgba(200,153,42,0.07); color: #6b4f10; }
+.callout.teal { border-color: var(--teal); background: rgba(42,124,111,0.07); color: #1a4d43; }
+.callout.rust { border-color: var(--rust); background: rgba(184,92,56,0.07); color: #6b2a10; }
+
+.callout strong { display: block; margin-bottom: 4px; font-weight: 700; }
+
+/* ── TABLE ── */
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 20px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+thead { background: var(--warm); }
+th { padding: 12px 16px; text-align: left; font-weight: 700; font-size: 12px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--mid); border-bottom: 1px solid var(--border); }
+td { padding: 11px 16px; border-bottom: 1px solid var(--border2); color: var(--mid); vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(200,153,42,0.03); }
+td strong { color: var(--ink); }
+
+.num { font-family: 'Playfair Display', serif; font-weight: 700; }
+.num.gold { color: var(--gold); }
+.num.teal { color: var(--teal); }
+.num.rust { color: var(--rust); }
+
+/* ── EXERCISE ── */
+.exercise {
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 28px;
+}
+
+.exercise-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.p4 .exercise-header { background: rgba(200,153,42,0.08); }
+.p5 .exercise-header { background: rgba(42,124,111,0.08); }
+
+.exercise-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1;
+  opacity: 0.2;
+}
+
+.p4 .exercise-num { color: var(--gold); }
+.p5 .exercise-num { color: var(--teal); }
+
+.exercise-title { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; }
+.exercise-tag {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 100px;
+}
+
+.p4 .exercise-tag { background: rgba(200,153,42,0.15); color: #8b6a10; }
+.p5 .exercise-tag { background: rgba(42,124,111,0.15); color: var(--teal); }
+
+.exercise-body { padding: 24px 24px 0; }
+
+/* ── CORRECTION ── */
+.correction {
+  background: var(--dark);
+  color: var(--cream);
+  border-radius: 0 0 4px 4px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.correction-toggle {
+  width: 100%;
+  background: none;
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  cursor: pointer;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(245,240,232,0.55);
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.correction-toggle:hover { color: var(--cream); }
+
+.correction-toggle .arrow {
+  margin-left: auto;
+  transition: transform 0.3s;
+  font-size: 16px;
+}
+
+.correction-toggle.open .arrow { transform: rotate(180deg); }
+
+.correction-content {
+  display: none;
+  padding: 0 24px 24px;
+}
+
+.correction-content.open { display: block; }
+
+.corr-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 14px;
+}
+
+.corr-line:last-child { border-bottom: none; }
+.corr-line .label { color: rgba(245,240,232,0.55); }
+.corr-line .val { font-family: 'Playfair Display', serif; font-weight: 700; }
+.corr-line .val.gold { color: var(--gold2); }
+.corr-line .val.teal { color: var(--teal2); }
+.corr-line.total { background: rgba(255,255,255,0.04); padding: 12px 0; border-radius: 2px; margin-top: 4px; padding-left: 10px; padding-right: 10px; }
+.corr-line.total .label { color: var(--cream); font-weight: 700; }
+
+.corr-note { font-size: 13px; color: rgba(245,240,232,0.45); margin-top: 16px; line-height: 1.6; }
+
+/* ── DEVIS MODEL ── */
+.devis-model {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+.devis-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  background: var(--dark);
+  color: var(--cream);
+  padding: 24px 28px;
+}
+
+.devis-company { }
+.devis-company h3 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+.devis-company p { font-size: 13px; opacity: 0.55; line-height: 1.5; }
+
+.devis-ref { text-align: right; }
+.devis-ref .ref-num { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900; color: var(--gold2); line-height: 1; }
+.devis-ref .ref-label { font-size: 11px; opacity: 0.4; letter-spacing: 0.1em; text-transform: uppercase; }
+
+.devis-client-bar {
+  background: var(--warm);
+  padding: 16px 28px;
+  display: flex;
+  gap: 40px;
+  border-bottom: 1px solid var(--border);
+}
+
+.devis-client-bar .field label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light); font-weight: 600; display: block; margin-bottom: 2px; }
+.devis-client-bar .field span { font-size: 14px; font-weight: 600; color: var(--ink); }
+
+.devis-body { padding: 0 28px 28px; }
+
+.devis-body table { margin-top: 20px; }
+.devis-body th { background: var(--warm); }
+
+.devis-total-block {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.devis-total-inner {
+  width: 300px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.devis-total-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border2);
+}
+
+.devis-total-row:last-child { border-bottom: none; background: var(--dark); color: var(--cream); }
+.devis-total-row:last-child .t-val { color: var(--gold2); font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+.t-label { color: var(--mid); }
+.t-val { font-weight: 600; color: var(--ink); }
+
+/* ── MENTIONS GRID ── */
+.mentions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.mention-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px 16px;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.mention-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.mention-item strong { display: block; font-size: 13px; margin-bottom: 2px; color: var(--ink); }
+.mention-item span { color: var(--mid); font-size: 13px; }
+
+/* ── DIVIDER ── */
+.part-divider {
+  margin: 72px 0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: var(--light);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.part-divider::before, .part-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── SCHEMA FLUX ── */
+.flux {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin: 20px 0;
+  overflow-x: auto;
+}
+
+.flux-step {
+  flex: 1;
+  min-width: 120px;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-right: none;
+  padding: 16px 12px;
+  text-align: center;
+  position: relative;
+}
+
+.flux-step:last-child { border-right: 1px solid var(--border); }
+
+.flux-step::after {
+  content: '▶';
+  position: absolute;
+  right: -11px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  z-index: 2;
+  background: var(--paper);
+  padding: 2px;
+}
+
+.flux-step:last-child::after { display: none; }
+
+.flux-icon { font-size: 22px; margin-bottom: 6px; }
+.flux-label { font-size: 12px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+.flux-sub { font-size: 11px; color: var(--light); }
+
+.p4 .flux-step { border-top: 3px solid var(--gold); }
+.p5 .flux-step { border-top: 3px solid var(--teal); }
+
+/* ── FOOTER ── */
+footer { text-align: center; padding: 40px 32px; border-top: 1px solid var(--border); color: var(--light); font-size: 13px; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-label">Cours Professionnel · Menuiserie & Agencement</div>
+  <h1>Chiffrage <em>&</em><br>Devis Complet</h1>
+  <p class="hero-sub">Maîtriser le coût de revient, la construction du prix de vente, et la rédaction d'un devis professionnel — de A à Z.</p>
+  <div class="hero-tags">
+    <span class="hero-tag">Partie 4 — Chiffrage</span>
+    <span class="hero-tag">Partie 5 — Devis</span>
+    <span class="hero-tag">Exercices corrigés</span>
+    <span class="hero-tag">Modèles prêts à l'emploi</span>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#cout-revient" class="p4">Coût de revient</a>
+  <a href="#postes" class="p4">Postes de coût</a>
+  <a href="#matieres" class="p4">Matières premières</a>
+  <a href="#mo" class="p4">Main d'œuvre</a>
+  <a href="#frais-gen" class="p4">Frais généraux</a>
+  <a href="#coeff" class="p4">Coeff. de vente</a>
+  <a href="#prix-vente" class="p4">Prix de vente</a>
+  <a href="#marges" class="p4">Marges</a>
+  <a href="#tva" class="p4">TVA</a>
+  <a href="#defendre" class="p4">Défendre le prix</a>
+  <a href="#exo4" class="p4">Exercices P4</a>
+  <div class="nav-divider"></div>
+  <a href="#structure-devis" class="p5">Structure devis</a>
+  <a href="#mentions" class="p5">Mentions légales</a>
+  <a href="#paiement" class="p5">Paiement</a>
+  <a href="#modeles" class="p5">Modèles</a>
+  <a href="#exo5" class="p5">Exercices P5</a>
+</nav>
+
+<main class="container">
+
+<!-- ════ PARTIE 4 ════ -->
+<div class="part-banner p4">
+  <div class="part-banner-num">Partie 4</div>
+  <div class="part-banner-body">
+    <h2>Chiffrage Complet</h2>
+    <p>Du coût de revient au prix de vente — maîtriser chaque poste pour préserver sa rentabilité.</p>
+  </div>
+</div>
+
+<!-- 4.1 Coût de revient -->
+<div class="section p4" id="cout-revient">
+  <div class="section-heading">💰 C'est quoi un coût de revient ?</div>
+
+  <div class="callout gold">
+    <strong>📌 Définition simple</strong>
+    Le coût de revient est la somme de <em>tout ce que vous coûte</em> la réalisation d'un projet : matières premières, main d'œuvre, frais généraux, sous-traitance. C'est le seuil en dessous duquel vous vendez à perte.
+  </div>
+
+  <div class="formula-box p4">
+    <div class="formula-label">Formule fondamentale</div>
+    <div class="formula-expr">Coût de revient = <span class="hl">MP</span> + <span class="hl">MO</span> + <span class="hl">FG</span> + <span class="hl">ST</span></div>
+    <div class="formula-note">MP = Matières Premières · MO = Main d'Œuvre · FG = Frais Généraux · ST = Sous-Traitance</div>
+  </div>
+
+  <div class="flux p4">
+    <div class="flux-step"><div class="flux-icon">🪵</div><div class="flux-label">Matières</div><div class="flux-sub">Panneaux, quincaillerie, finitions</div></div>
+    <div class="flux-step"><div class="flux-icon">👷</div><div class="flux-label">Main d'œuvre</div><div class="flux-sub">Heures × taux chargé</div></div>
+    <div class="flux-step"><div class="flux-icon">🏭</div><div class="flux-label">Frais généraux</div><div class="flux-sub">Loyer, machines, véhicules</div></div>
+    <div class="flux-step"><div class="flux-icon">🤝</div><div class="flux-label">Sous-traitance</div><div class="flux-sub">Pose, transport, façonnage</div></div>
+    <div class="flux-step" style="background:var(--dark); color:var(--cream); border-color:var(--dark);"><div class="flux-icon">📊</div><div class="flux-label" style="color:var(--gold2)">Coût de revient</div><div class="flux-sub" style="color:rgba(245,240,232,0.5)">Seuil zéro perte</div></div>
+  </div>
+
+  <div class="card">
+    <h4>⚠️ Pourquoi c'est crucial ?</h4>
+    <ul>
+      <li>Un artisan qui ne connaît pas son coût de revient travaille sans filet</li>
+      <li>Un devis trop bas = travail gratuit ou pertes cachées</li>
+      <li>Un devis trop haut = perte de commandes inutilement</li>
+      <li>Le coût de revient est la boussole de toute décision commerciale</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 4.2 Postes de coût -->
+<div class="section p4" id="postes">
+  <div class="section-heading">📦 Les postes de coût</div>
+
+  <div class="grid2">
+    <div class="card">
+      <h4>🪵 Matières Premières (MP)</h4>
+      <ul>
+        <li>Panneaux (mélaminé, MDF, contreplaqué...)</li>
+        <li>Quincaillerie (charnières, glissières, poignées)</li>
+        <li>Finitions (peinture, placage, stratifié)</li>
+        <li>Consommables (colle, vis, chants, solvants)</li>
+        <li>Plans de travail, crédences, accessoires</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>👷 Main d'Œuvre (MO)</h4>
+      <ul>
+        <li>Heures de fabrication en atelier</li>
+        <li>Heures de pose sur chantier</li>
+        <li>Heures de conception / chiffrage</li>
+        <li>Taux horaire chargé (salaire + charges patronales)</li>
+        <li>Productivité réelle (temps utile / temps total)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>🏭 Frais Généraux (FG)</h4>
+      <ul>
+        <li>Loyer atelier / showroom</li>
+        <li>Machines et amortissements</li>
+        <li>Véhicules (leasing, carburant, entretien)</li>
+        <li>Assurances (RC Pro, décennale, locaux)</li>
+        <li>Téléphone, informatique, logiciels</li>
+        <li>Expert-comptable, banque, publicité</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>🤝 Sous-Traitance (ST)</h4>
+      <ul>
+        <li>Pose confiée à un tiers</li>
+        <li>Façonnage spécifique (CNC, laquage...)</li>
+        <li>Transport / livraison externalisé</li>
+        <li>Bureau d'études ou technicien dessinateur</li>
+        <li>Électricien, plombier en co-traitance</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 4.3 Matières -->
+<div class="section p4" id="matieres">
+  <div class="section-heading">🪵 Calcul du coût des matières</div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Matériau</th><th>Unité</th><th>Prix unitaire HT</th><th>Remarque</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Panneau mélaminé 19mm</strong></td><td>m² ou panneau 2,8×2,07</td><td class="num gold">8–18 €/m²</td><td>Selon coloris, marque</td></tr>
+        <tr><td><strong>MDF 16mm cru</strong></td><td>m²</td><td class="num gold">6–12 €/m²</td><td>Peindre ou plaquer</td></tr>
+        <tr><td><strong>Contreplaqué bouleau 18mm</strong></td><td>m²</td><td class="num gold">18–30 €/m²</td><td>Qualité façade</td></tr>
+        <tr><td><strong>Charnière invisible</strong></td><td>pièce</td><td class="num">0,40–2,50 €</td><td>Comptez plaque montage</td></tr>
+        <tr><td><strong>Glissière à galets 450mm</strong></td><td>paire</td><td class="num">3–8 €</td><td>Sortie totale = +40%</td></tr>
+        <tr><td><strong>Glissière Blumotion</strong></td><td>paire</td><td class="num gold">18–35 €</td><td>Amortissement client</td></tr>
+        <tr><td><strong>Plan de travail stratifié 28mm</strong></td><td>ml</td><td class="num">45–90 €/ml</td><td>Coupe = +15 min MO</td></tr>
+        <tr><td><strong>Chant ABS</strong></td><td>ml</td><td class="num">0,15–0,50 €/ml</td><td>Ne pas oublier !</td></tr>
+        <tr><td><strong>Poignée standard</strong></td><td>pièce</td><td class="num">2–25 €</td><td>Variable selon gamme</td></tr>
+        <tr><td><strong>Colle / consommables</strong></td><td>forfait</td><td class="num">2–5% des MP</td><td>Inclure systématiquement</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="formula-box p4">
+    <div class="formula-label">Méthode de calcul matières</div>
+    <div class="formula-expr">Coût MP = <span class="hl">Σ (Qté × Prix unitaire)</span> × 1,05 (pertes)</div>
+    <div class="formula-note">Appliquer un coefficient de perte de 5 à 10% selon la complexité du projet. Pour les chants, calculer le périmètre exact de chaque élément.</div>
+  </div>
+
+  <div class="callout gold">
+    <strong>💡 Astuce pro</strong>
+    Créer une nomenclature automatisée dans Excel ou votre logiciel : chaque meuble = liste de pièces avec dimensions, qtés et prix unitaire. Le total se calcule automatiquement. Gain de temps × 5 au chiffrage.
+  </div>
+</div>
+
+<!-- 4.4 Main d'oeuvre -->
+<div class="section p4" id="mo">
+  <div class="section-heading">👷 Calcul de la main d'œuvre</div>
+
+  <div class="formula-box p4">
+    <div class="formula-label">Coût main d'œuvre réel</div>
+    <div class="formula-expr">Coût MO = <span class="hl">Heures × Taux horaire chargé</span></div>
+    <div class="formula-note">Le taux horaire chargé = salaire brut + charges patronales (~42–45% en France). Un salarié à 2 000€ brut/mois coûte ~2 900€/mois à l'employeur.</div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h4>📊 Calcul du taux horaire chargé</h4>
+      <div class="table-wrap" style="margin-top:10px">
+        <table>
+          <thead><tr><th>Élément</th><th>Montant mensuel</th></tr></thead>
+          <tbody>
+            <tr><td>Salaire brut</td><td class="num">2 000 €</td></tr>
+            <tr><td>Charges patronales (≈44%)</td><td class="num">880 €</td></tr>
+            <tr><td><strong>Coût total mensuel</strong></td><td class="num gold"><strong>2 880 €</strong></td></tr>
+            <tr><td>Heures productives (152h × 85%)</td><td class="num">129 h</td></tr>
+            <tr><td><strong>Taux horaire chargé</strong></td><td class="num gold"><strong>≈ 22,3 €/h</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <h4>⏱ Temps de référence (par type)</h4>
+      <ul>
+        <li><strong>Caisson 60cm</strong> : 45–60 min fabrication</li>
+        <li><strong>Porte de cuisine</strong> : 20–30 min pose</li>
+        <li><strong>Plan de travail (2ml)</strong> : 1h–1h30 pose</li>
+        <li><strong>Cuisine complète 3m</strong> : 8–14h pose</li>
+        <li><strong>Dressing 2m</strong> : 4–6h pose</li>
+        <li><strong>Chiffrage + commandes</strong> : 2–4h par projet</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout rust">
+    <strong>⚠️ Erreur fréquente</strong>
+    Utiliser son salaire net comme base de calcul. Un artisan indépendant doit intégrer ses charges sociales (environ 45% du bénéfice), ses congés payés, et ses absences imprévues. Le taux horaire réel d'un artisan seul doit être au moins 2,5× son souhait de revenu net horaire.
+  </div>
+</div>
+
+<!-- 4.5 Frais généraux -->
+<div class="section p4" id="frais-gen">
+  <div class="section-heading">🏭 Intégrer les frais généraux</div>
+
+  <div class="card">
+    <h4>📐 Méthode : le taux de frais généraux</h4>
+    <p>On calcule le total annuel des frais généraux, puis on le rapporte au nombre d'heures productives vendues dans l'année. Cela donne un <strong>taux horaire de frais généraux</strong> à ajouter à chaque heure de travail facturée.</p>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Poste</th><th>Montant annuel HT</th><th>% du total</th></tr></thead>
+      <tbody>
+        <tr><td>Loyer atelier (ex. 400€/mois)</td><td class="num">4 800 €</td><td>~22%</td></tr>
+        <tr><td>Leasing / entretien véhicule</td><td class="num">4 200 €</td><td>~19%</td></tr>
+        <tr><td>Amortissement machines</td><td class="num">3 600 €</td><td>~16%</td></tr>
+        <tr><td>Assurances (RC Pro, décennale)</td><td class="num">2 400 €</td><td>~11%</td></tr>
+        <tr><td>Téléphone, internet, logiciels</td><td class="num">1 800 €</td><td>~8%</td></tr>
+        <tr><td>Expert-comptable, banque</td><td class="num">1 500 €</td><td>~7%</td></tr>
+        <tr><td>Publicité, déplacements commerciaux</td><td class="num">1 200 €</td><td>~5%</td></tr>
+        <tr><td>Divers (EPI, fournitures bureau...)</td><td class="num">2 500 €</td><td>~11%</td></tr>
+        <tr><td><strong>Total FG annuel</strong></td><td class="num gold"><strong>22 000 €</strong></td><td>100%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="formula-box p4">
+    <div class="formula-label">Taux horaire de frais généraux</div>
+    <div class="formula-expr">Taux FG = <span class="hl">FG annuel ÷ Heures productives annuelles</span></div>
+    <div class="formula-note">Exemple : 22 000€ ÷ 1 200h productives = 18,3 €/h de FG à intégrer dans chaque heure facturée. Ce taux s'ajoute au taux MO.</div>
+  </div>
+</div>
+
+<!-- 4.6 Coefficient de vente -->
+<div class="section p4" id="coeff">
+  <div class="section-heading">✖️ Coefficient de vente</div>
+
+  <div class="callout gold">
+    <strong>📌 Définition</strong>
+    Le coefficient de vente (ou coefficient multiplicateur) est le nombre par lequel on multiplie le coût de revient pour obtenir le prix de vente HT. Il intègre à la fois les frais généraux et la marge bénéficiaire souhaitée.
+  </div>
+
+  <div class="formula-box p4">
+    <div class="formula-label">Calcul du coefficient</div>
+    <div class="formula-expr">PV HT = Coût de revient × <span class="hl">Coefficient</span></div>
+    <div class="formula-note">Le coefficient dépend du secteur, de la concurrence et de la stratégie. En menuiserie/agencement : coefficient typique entre 1,8 et 3,0 selon les postes.</div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Poste</th><th>Coeff. min</th><th>Coeff. courant</th><th>Coeff. haut de gamme</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Matières premières</strong></td><td class="num">1,5</td><td class="num gold">1,8–2,2</td><td class="num">2,5–3,0</td></tr>
+        <tr><td><strong>Main d'œuvre</strong></td><td class="num">1,2</td><td class="num gold">1,3–1,5</td><td class="num">1,6–1,8</td></tr>
+        <tr><td><strong>Sous-traitance</strong></td><td class="num">1,05</td><td class="num gold">1,10–1,15</td><td class="num">1,20</td></tr>
+        <tr><td><strong>Coefficient global projet</strong></td><td class="num">1,7</td><td class="num gold">2,0–2,5</td><td class="num">2,8–3,5</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h4>🔗 Relation coeff / taux de marge</h4>
+    <div class="table-wrap" style="margin-top:10px">
+      <table>
+        <thead><tr><th>Coefficient</th><th>Taux de marque (%)</th><th>Taux de marge (%)</th></tr></thead>
+        <tbody>
+          <tr><td>1,5</td><td>33%</td><td>50%</td></tr>
+          <tr><td>2,0</td><td>50%</td><td>100%</td></tr>
+          <tr><td>2,5</td><td>60%</td><td>150%</td></tr>
+          <tr><td>3,0</td><td>67%</td><td>200%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 4.7 Prix de vente -->
+<div class="section p4" id="prix-vente">
+  <div class="section-heading">💶 Calcul du prix de vente HT avec marge</div>
+
+  <div class="formula-box p4">
+    <div class="formula-label">Méthode complète</div>
+    <div class="formula-expr">PV HT = (MP + MO + FG + ST) × <span class="hl">Coefficient</span></div>
+  </div>
+
+  <div class="card">
+    <h4>📋 Exemple de construction du prix</h4>
+    <div class="table-wrap" style="margin-top:10px">
+      <table>
+        <thead><tr><th>Poste</th><th>Calcul</th><th>Montant HT</th></tr></thead>
+        <tbody>
+          <tr><td>Matières premières</td><td>Nomenclature détaillée</td><td class="num">850 €</td></tr>
+          <tr><td>Main d'œuvre (24h × 22,3€)</td><td>Atelier + pose</td><td class="num">535 €</td></tr>
+          <tr><td>Frais généraux (24h × 18,3€)</td><td>Quote-part FG</td><td class="num">439 €</td></tr>
+          <tr><td>Sous-traitance (transport)</td><td>Forfait livraison</td><td class="num">80 €</td></tr>
+          <tr><td><strong>Coût de revient total</strong></td><td></td><td class="num gold"><strong>1 904 €</strong></td></tr>
+          <tr><td>Marge bénéficiaire (coeff 2,1)</td><td>1 904 × 2,1</td><td class="num rust"><strong>3 998 €</strong></td></tr>
+          <tr><td><strong>Prix de vente HT</strong></td><td>Arrondi commercial</td><td class="num gold"><strong>3 990 €</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 4.8 Marges -->
+<div class="section p4" id="marges">
+  <div class="section-heading">📊 Marge brute vs marge nette</div>
+
+  <div class="grid2">
+    <div class="formula-box p4">
+      <div class="formula-label">Marge brute</div>
+      <div class="formula-expr">MB = <span class="hl">PV HT − Coût de revient</span></div>
+      <div class="formula-note">Exprimée en € ou en % du prix de vente. Ne tient pas compte des frais financiers, impôts, amortissements exceptionnels.</div>
+    </div>
+    <div class="formula-box p4">
+      <div class="formula-label">Marge nette</div>
+      <div class="formula-expr">MN = <span class="hl">MB − Frais fixes − IS</span></div>
+      <div class="formula-note">Tient compte de tous les frais, y compris l'impôt sur les sociétés. C'est le bénéfice réel disponible.</div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Indicateur</th><th>Formule</th><th>Exemple (PV = 4 000€, CR = 1 904€)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Marge brute €</strong></td><td>PV − CR</td><td class="num gold">2 096 €</td></tr>
+        <tr><td><strong>Taux de marge brute</strong></td><td>(PV−CR) / CR × 100</td><td class="num gold">110 %</td></tr>
+        <tr><td><strong>Taux de marque</strong></td><td>(PV−CR) / PV × 100</td><td class="num">52,4 %</td></tr>
+        <tr><td><strong>Marge nette estimée</strong></td><td>Après frais fixes + IS</td><td class="num teal">~8–15 % du PV</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout rust">
+    <strong>⚠️ Marge brute ≠ profit !</strong>
+    Une marge brute de 50% peut cacher une marge nette nulle si les frais fixes sont mal absorbés. Toujours vérifier son point mort (chiffre d'affaires minimum pour couvrir tous les frais fixes).
+  </div>
+</div>
+
+<!-- 4.9 TVA -->
+<div class="section p4" id="tva">
+  <div class="section-heading">🧾 TVA — Taux applicables en menuiserie</div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Type de travaux</th><th>Taux TVA</th><th>Conditions</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Rénovation logement > 2 ans</strong></td><td class="num teal">10 %</td><td>Local d'habitation achevé depuis + de 2 ans</td></tr>
+        <tr><td><strong>Travaux d'amélioration énergétique</strong></td><td class="num teal">5,5 %</td><td>Fenêtres, isolation, chaleur renouvelable</td></tr>
+        <tr><td><strong>Construction neuve</strong></td><td class="num rust">20 %</td><td>Bâtiment neuf ou < 2 ans</td></tr>
+        <tr><td><strong>Agencement commercial / bureaux</strong></td><td class="num rust">20 %</td><td>Locaux non d'habitation</td></tr>
+        <tr><td><strong>Fourniture seule (matériaux)</strong></td><td class="num rust">20 %</td><td>Vente sans pose</td></tr>
+        <tr><td><strong>Logement social (ANAH)</strong></td><td class="num teal">5,5 %</td><td>Conditions de ressources strictes</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="formula-box p4">
+    <div class="formula-label">Passage HT / TTC</div>
+    <div class="formula-expr">TTC = HT × <span class="hl">(1 + taux TVA)</span>&nbsp; / &nbsp;HT = TTC ÷ (1 + taux TVA)</div>
+    <div class="formula-note">Exemple à 10% : 3 990 € HT × 1,10 = 4 389 € TTC&nbsp;·&nbsp;4 389 € TTC ÷ 1,10 = 3 990 € HT</div>
+  </div>
+
+  <div class="callout rust">
+    <strong>⚠️ Attention : taux mixtes</strong>
+    Sur un même chantier, vous pouvez avoir des taux différents : menuiseries à 10% (rénovation) et fourniture de matériaux à 20%. Il faut faire figurer chaque taux séparément sur le devis et la facture. En cas de doute, consultez votre expert-comptable.
+  </div>
+</div>
+
+<!-- 4.10 Défendre son prix -->
+<div class="section p4" id="defendre">
+  <div class="section-heading">🤝 Défendre son prix face au client</div>
+
+  <div class="grid2">
+    <div class="card">
+      <h4>✅ Techniques efficaces</h4>
+      <ul>
+        <li><strong>Décomposer le prix</strong> : montrer ce que comprend chaque poste (matières, pose, garantie)</li>
+        <li><strong>Valoriser la qualité</strong> : certifications, marques, durabilité</li>
+        <li><strong>Comparer sur 10 ans</strong> : coût total de possession vs prix bas</li>
+        <li><strong>Proposer 3 niveaux</strong> : entrée / standard / premium. Rarement le moins cher est choisi.</li>
+        <li><strong>Valider les besoins</strong> avant de défendre, reformuler ce que le client veut vraiment</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>❌ À éviter absolument</h4>
+      <ul>
+        <li>Baisser le prix sans contrepartie (signal de faiblesse)</li>
+        <li>Justifier par "j'ai des charges" (argument client = sa sphère)</li>
+        <li>Comparer à de la grande distribution (terrain glissant)</li>
+        <li>Accepter un prix impossible et espérer rentabiliser plus tard</li>
+        <li>Retravailler gratuitement si le devis était flou dès le départ</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout gold">
+    <strong>💡 La règle d'or</strong>
+    Si le client demande une réduction, ne baissez jamais sans retirer quelque chose en échange. "Je peux retirer la pose du plan de travail, qui représente 200€. Vous pourrez le faire réaliser par votre carreleur." Cela protège votre image et votre rentabilité.
+  </div>
+</div>
+
+<!-- ─── EXERCICES PARTIE 4 ─── -->
+<div class="section p4" id="exo4">
+  <div class="section-heading">📝 Exercices pratiques — Partie 4</div>
+
+  <!-- Exercice 1 -->
+  <div class="exercise p4">
+    <div class="exercise-header">
+      <div class="exercise-num">01</div>
+      <div class="exercise-title">Calculer le coût de revient d'une cuisine</div>
+      <span class="exercise-tag">Coût de revient</span>
+    </div>
+    <div class="exercise-body">
+      <div class="callout gold" style="margin-bottom:16px">
+        <strong>📋 Données du projet</strong>
+        Cuisine linéaire 3m. 6 caissons bas, 4 caissons hauts, 1 plan de travail stratifié 3ml, 1 évier + mitigeur fournis par client. Pose réalisée par 1 menuisier en 10h. Taux MO chargé : 22€/h. Taux FG : 18€/h.
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Élément</th><th>Détail</th><th>Montant HT</th></tr></thead>
+          <tbody>
+            <tr><td>Panneaux mélaminés</td><td>28 m² × 14 €/m²</td><td>?</td></tr>
+            <tr><td>Quincaillerie (charnières, glissières)</td><td>Forfait</td><td>280 €</td></tr>
+            <tr><td>Poignées (10 pièces)</td><td>10 × 8 €</td><td>?</td></tr>
+            <tr><td>Plan de travail</td><td>3 ml × 65 €</td><td>?</td></tr>
+            <tr><td>Consommables (5% des MP)</td><td>À calculer</td><td>?</td></tr>
+            <tr><td>Main d'œuvre fabrication (8h)</td><td>8h × 22€</td><td>?</td></tr>
+            <tr><td>Main d'œuvre pose (10h)</td><td>10h × 22€</td><td>?</td></tr>
+            <tr><td>Frais généraux (18h)</td><td>18h × 18€</td><td>?</td></tr>
+            <tr><td><strong>COÛT DE REVIENT TOTAL</strong></td><td></td><td class="num gold">?</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="correction">
+        <button class="correction-toggle" onclick="toggleCorr(this)">
+          ▸ Voir le corrigé détaillé <span class="arrow">▼</span>
+        </button>
+        <div class="correction-content">
+          <div class="corr-line"><span class="label">Panneaux mélaminés : 28 × 14€</span><span class="val gold">392 €</span></div>
+          <div class="corr-line"><span class="label">Quincaillerie (donné)</span><span class="val">280 €</span></div>
+          <div class="corr-line"><span class="label">Poignées : 10 × 8€</span><span class="val">80 €</span></div>
+          <div class="corr-line"><span class="label">Plan de travail : 3 × 65€</span><span class="val">195 €</span></div>
+          <div class="corr-line"><span class="label">Sous-total MP avant consomm.</span><span class="val">947 €</span></div>
+          <div class="corr-line"><span class="label">Consommables : 947 × 5%</span><span class="val">47 €</span></div>
+          <div class="corr-line"><span class="label">MO fabrication : 8h × 22€</span><span class="val">176 €</span></div>
+          <div class="corr-line"><span class="label">MO pose : 10h × 22€</span><span class="val">220 €</span></div>
+          <div class="corr-line"><span class="label">Frais généraux : 18h × 18€</span><span class="val">324 €</span></div>
+          <div class="corr-line total"><span class="label">✅ COÛT DE REVIENT TOTAL</span><span class="val gold">1 994 €</span></div>
+          <p class="corr-note">Avec un coefficient de vente de 2,0 → Prix de vente HT = 3 988 € ≈ 3 990 €. Marge brute = 1 996 € soit 50% du PV. TVA à 10% si rénovation logement &gt; 2 ans → TTC = 4 389 €.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exercice 2 -->
+  <div class="exercise p4">
+    <div class="exercise-header">
+      <div class="exercise-num">02</div>
+      <div class="exercise-title">Établir un prix de vente avec marge sur un dressing</div>
+      <span class="exercise-tag">Prix de vente</span>
+    </div>
+    <div class="exercise-body">
+      <div class="callout gold" style="margin-bottom:16px">
+        <strong>📋 Données du projet</strong>
+        Dressing sur mesure niche 2m × 2,40m. Fond + côtés + 3 rayonnages fixes + 1 penderie + 2 tiroirs. Matières : 320€. MO fabrication : 5h. MO pose : 4h. Taux MO : 23€/h. Taux FG : 17€/h. Coefficient de vente souhaité : 2,3. TVA applicable : 10%.
+      </div>
+      <p style="color:var(--mid); font-size:15px; margin-bottom:16px">Calculez : le coût de revient, le prix de vente HT, le prix TTC, et la marge brute en € et en %.</p>
+      <div class="correction">
+        <button class="correction-toggle" onclick="toggleCorr(this)">
+          ▸ Voir le corrigé détaillé <span class="arrow">▼</span>
+        </button>
+        <div class="correction-content">
+          <div class="corr-line"><span class="label">Matières premières</span><span class="val">320 €</span></div>
+          <div class="corr-line"><span class="label">MO fabrication : 5h × 23€</span><span class="val">115 €</span></div>
+          <div class="corr-line"><span class="label">MO pose : 4h × 23€</span><span class="val">92 €</span></div>
+          <div class="corr-line"><span class="label">Frais généraux : 9h × 17€</span><span class="val">153 €</span></div>
+          <div class="corr-line total"><span class="label">Coût de revient</span><span class="val gold">680 €</span></div>
+          <div class="corr-line"><span class="label">Prix de vente HT (× 2,3)</span><span class="val gold">1 564 €</span></div>
+          <div class="corr-line"><span class="label">Prix TTC (× 1,10)</span><span class="val teal">1 720 €</span></div>
+          <div class="corr-line"><span class="label">Marge brute €</span><span class="val gold">884 €</span></div>
+          <div class="corr-line total"><span class="label">Taux de marque</span><span class="val gold">56,5 % du PV</span></div>
+          <p class="corr-note">Interprétation : pour 1€ facturé au client, 0,565€ couvre les charges et le bénéfice. Ce projet est rentable avec un coefficient &gt; 2. En dessous de coeff 1,47, on serait en perte.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exercice 3 -->
+  <div class="exercise p4">
+    <div class="exercise-header">
+      <div class="exercise-num">03</div>
+      <div class="exercise-title">Comparer deux solutions et choisir la plus rentable</div>
+      <span class="exercise-tag">Analyse</span>
+    </div>
+    <div class="exercise-body">
+      <div class="callout gold" style="margin-bottom:16px">
+        <strong>📋 Situation</strong>
+        Vous avez deux commandes pour la même semaine. Laquelle choisir si vous ne pouvez en prendre qu'une ?
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Élément</th><th>Commande A — Cuisine</th><th>Commande B — Bureau agencement</th></tr></thead>
+          <tbody>
+            <tr><td>Prix de vente HT</td><td class="num">6 200 €</td><td class="num">5 800 €</td></tr>
+            <tr><td>Matières premières</td><td class="num">1 800 €</td><td class="num">900 €</td></tr>
+            <tr><td>Heures MO (23€/h)</td><td class="num">30h = 690 €</td><td class="num">22h = 506 €</td></tr>
+            <tr><td>Frais généraux (17€/h)</td><td class="num">30h = 510 €</td><td class="num">22h = 374 €</td></tr>
+            <tr><td>Sous-traitance</td><td class="num">0 €</td><td class="num">300 €</td></tr>
+            <tr><td><strong>Coût de revient</strong></td><td class="num gold"><strong>3 000 €</strong></td><td class="num gold"><strong>2 080 €</strong></td></tr>
+            <tr><td>Marge brute €</td><td class="num">?</td><td class="num">?</td></tr>
+            <tr><td>Marge brute / heure</td><td class="num">?</td><td class="num">?</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="correction">
+        <button class="correction-toggle" onclick="toggleCorr(this)">
+          ▸ Voir le corrigé + analyse <span class="arrow">▼</span>
+        </button>
+        <div class="correction-content">
+          <div class="corr-line"><span class="label">Marge brute A</span><span class="val gold">3 200 €</span></div>
+          <div class="corr-line"><span class="label">Marge brute / heure A</span><span class="val gold">3 200 ÷ 30 = 106,7 €/h</span></div>
+          <div class="corr-line"><span class="label">Marge brute B</span><span class="val teal">3 720 €</span></div>
+          <div class="corr-line total"><span class="label">Marge brute / heure B</span><span class="val teal">3 720 ÷ 22 = 169,1 €/h ✅</span></div>
+          <p class="corr-note">📊 La commande B (bureau) est plus rentable à l'heure malgré un prix de vente inférieur, car elle mobilise moins de temps et de matières. La marge par heure est le vrai indicateur de rentabilité pour arbitrer entre chantiers. Choisir B.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DIVIDER -->
+<div class="part-divider">Partie 5</div>
+
+<!-- ════ PARTIE 5 ════ -->
+<div class="part-banner p5">
+  <div class="part-banner-num">Partie 5</div>
+  <div class="part-banner-body">
+    <h2>Devis Complet de A à Z</h2>
+    <p>Structurer, rédiger et défendre un devis professionnel — avec modèles prêts à l'emploi.</p>
+  </div>
+</div>
+
+<!-- 5.1 Structure d'un devis -->
+<div class="section p5" id="structure-devis">
+  <div class="section-heading">📄 Structure d'un devis professionnel</div>
+
+  <div class="flux p5">
+    <div class="flux-step"><div class="flux-icon">🏢</div><div class="flux-label">En-tête</div><div class="flux-sub">Société, client, réf.</div></div>
+    <div class="flux-step"><div class="flux-icon">📋</div><div class="flux-label">Descriptif</div><div class="flux-sub">Détail par poste</div></div>
+    <div class="flux-step"><div class="flux-icon">💶</div><div class="flux-label">Chiffrage</div><div class="flux-sub">HT + TVA + TTC</div></div>
+    <div class="flux-step"><div class="flux-icon">📝</div><div class="flux-label">Conditions</div><div class="flux-sub">Paiement, délais</div></div>
+    <div class="flux-step"><div class="flux-icon">✍️</div><div class="flux-label">Signature</div><div class="flux-sub">Bon pour accord</div></div>
+  </div>
+
+  <div class="card">
+    <h4>📐 Méthode de calcul matières — étape par étape</h4>
+    <ul>
+      <li><strong>1. Lister tous les éléments</strong> : caissons, portes, plans, quincaillerie, finitions</li>
+      <li><strong>2. Calculer les m² de panneaux</strong> par caisson (développé de toutes les pièces)</li>
+      <li><strong>3. Appliquer le coefficient de perte</strong> : +5 à 10% selon complexité</li>
+      <li><strong>4. Lister la quincaillerie</strong> pièce par pièce (ne pas faire au forfait)</li>
+      <li><strong>5. Valoriser chaque poste</strong> avec le prix unitaire en vigueur</li>
+      <li><strong>6. Additionner + appliquer le coefficient de vente</strong></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h4>⏱ Estimation des temps — méthode pro</h4>
+    <ul>
+      <li>Lister chaque opération : découpe, chant, montage, finition, pose</li>
+      <li>Utiliser des temps standards établis sur chantiers précédents</li>
+      <li>Ajouter 10 à 15% pour les imprévus et ajustements</li>
+      <li>Distinguer fabrication atelier / pose chantier / chiffrage</li>
+      <li>Ne jamais estimer "à l'œil" sur des projets complexes</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 5.2 Mentions légales -->
+<div class="section p5" id="mentions">
+  <div class="section-heading">⚖️ Les mentions obligatoires sur un devis</div>
+
+  <div class="mentions-grid">
+    <div class="mention-item"><div class="mention-num">1</div><div><strong>Identité du professionnel</strong><span>Nom/raison sociale, adresse, SIRET, n° TVA intracommunautaire</span></div></div>
+    <div class="mention-item"><div class="mention-num">2</div><div><strong>Identité du client</strong><span>Nom, adresse, coordonnées</span></div></div>
+    <div class="mention-item"><div class="mention-num">3</div><div><strong>Date d'émission</strong><span>Date de rédaction du devis</span></div></div>
+    <div class="mention-item"><div class="mention-num">4</div><div><strong>Numéro de devis</strong><span>Référence unique pour suivi et archivage</span></div></div>
+    <div class="mention-item"><div class="mention-num">5</div><div><strong>Description détaillée</strong><span>Nature et quantité de chaque prestation, matériaux, fournitures</span></div></div>
+    <div class="mention-item"><div class="mention-num">6</div><div><strong>Prix unitaires HT</strong><span>Pour chaque ligne de prestation ou fourniture</span></div></div>
+    <div class="mention-item"><div class="mention-num">7</div><div><strong>Taux et montant TVA</strong><span>Par taux applicable (5,5% / 10% / 20%), base HT et montant TVA</span></div></div>
+    <div class="mention-item"><div class="mention-num">8</div><div><strong>Total TTC</strong><span>Prix global toutes taxes comprises</span></div></div>
+    <div class="mention-item"><div class="mention-num">9</div><div><strong>Durée de validité</strong><span>Obligatoire — généralement 30 à 90 jours</span></div></div>
+    <div class="mention-item"><div class="mention-num">10</div><div><strong>Conditions de paiement</strong><span>Acompte, échéances, mode de paiement acceptés</span></div></div>
+    <div class="mention-item"><div class="mention-num">11</div><div><strong>Délai d'exécution</strong><span>Date de début et durée estimée des travaux</span></div></div>
+    <div class="mention-item"><div class="mention-num">12</div><div><strong>Assurances</strong><span>N° assurance décennale + garantie de parfait achèvement si travaux &gt; 500€</span></div></div>
+  </div>
+
+  <div class="callout teal">
+    <strong>✅ Mention "Bon pour accord"</strong>
+    Le devis signé avec la mention "Bon pour accord" et la date constitue un contrat. Conserver l'original signé. Pour les travaux de rénovation &gt; 150€ chez un particulier, le délai de rétractation légal est de 14 jours (à mentionner sur le devis).
+  </div>
+</div>
+
+<!-- 5.3 Conditions de paiement -->
+<div class="section p5" id="paiement">
+  <div class="section-heading">💳 Conditions de paiement et acomptes</div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Étape</th><th>Moment</th><th>% usuel</th><th>Objectif</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Acompte de commande</strong></td><td>À la signature du devis</td><td class="num teal">30–40 %</td><td>Couvre l'achat des matières premières</td></tr>
+        <tr><td><strong>Acompte intermédiaire</strong></td><td>À la livraison / début pose</td><td class="num teal">30 %</td><td>Couvre les frais de chantier</td></tr>
+        <tr><td><strong>Solde</strong></td><td>À la réception des travaux</td><td class="num teal">30–40 %</td><td>Équilibre trésorerie</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h4>📋 Gérer les révisions de prix</h4>
+      <ul>
+        <li>Toujours émettre un <strong>avenant signé</strong> avant de réaliser des travaux supplémentaires</li>
+        <li>Ne jamais travailler sur "accord verbal" pour des plus-values</li>
+        <li>Formuler l'avenant comme "Travaux supplémentaires — réf devis XX"</li>
+        <li>Indiquer le montant et le délai supplémentaire éventuel</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>⚠️ Clauses de révision de prix</h4>
+      <ul>
+        <li>Pour les projets > 3 mois, inclure une clause d'indexation matériaux</li>
+        <li>Référence BT01 (indice bâtiment) ou spécifique bois/métal</li>
+        <li>Formule type : "Prix susceptibles de révision selon indice BT01 publié par l'INSEE"</li>
+        <li>Protège contre la hausse des matières premières</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 5.4 Modèles de devis -->
+<div class="section p5" id="modeles">
+  <div class="section-heading">📋 Modèles de devis</div>
+
+  <!-- Modèle 1 : Cuisine -->
+  <div class="card" style="margin-bottom:8px"><h4>📌 Modèle 1 — Cuisine complète</h4></div>
+  <div class="devis-model">
+    <div class="devis-header">
+      <div class="devis-company">
+        <h3>MENUISERIE DUPONT & FILS</h3>
+        <p>14 rue des Ateliers — 75011 Paris<br>SIRET : 123 456 789 00012<br>Tél : 01 23 45 67 89 · contact@dupont-menuiserie.fr<br>Assurance décennale : MMA n° 12345</p>
+      </div>
+      <div class="devis-ref">
+        <div class="ref-label">Devis n°</div>
+        <div class="ref-num">D-2025-047</div>
+        <p style="font-size:12px; opacity:0.45; margin-top:6px">Émis le : 15/03/2025<br>Valable jusqu'au : 15/06/2025</p>
+      </div>
+    </div>
+    <div class="devis-client-bar">
+      <div class="field"><label>Client</label><span>M. et Mme Martin</span></div>
+      <div class="field"><label>Adresse chantier</label><span>8 avenue des Lilas, 75012 Paris</span></div>
+      <div class="field"><label>Objet</label><span>Cuisine équipée sur mesure</span></div>
+    </div>
+    <div class="devis-body">
+      <table>
+        <thead><tr><th>Désignation</th><th>Qté</th><th>U.</th><th>PU HT</th><th>Total HT</th></tr></thead>
+        <tbody>
+          <tr><td colspan="5" style="background:var(--warm); font-weight:700; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--mid); padding:10px 16px;">1. FOURNITURE MEUBLES</td></tr>
+          <tr><td>Caisson bas 60cm, mélaminé blanc mat 19mm, chants ABS</td><td>6</td><td>u.</td><td>145 €</td><td class="num">870 €</td></tr>
+          <tr><td>Caisson haut 30cm × 70cm, mélaminé blanc mat</td><td>4</td><td>u.</td><td>95 €</td><td class="num">380 €</td></tr>
+          <tr><td>Portes + façades mélaminées (coloris RAL 7016)</td><td>10</td><td>u.</td><td>68 €</td><td class="num">680 €</td></tr>
+          <tr><td>Plan de travail stratifié effet béton, 28mm, bord arrondi</td><td>3,2</td><td>ml</td><td>72 €</td><td class="num">230 €</td></tr>
+          <tr><td>Quincaillerie Blum : charnières, glissières amortisseur</td><td>1</td><td>forf.</td><td>420 €</td><td class="num">420 €</td></tr>
+          <tr><td colspan="5" style="background:var(--warm); font-weight:700; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--mid); padding:10px 16px;">2. POSE ET MISE EN ŒUVRE</td></tr>
+          <tr><td>Pose de la cuisine complète, calage, réglage, finitions</td><td>12</td><td>h</td><td>52 €</td><td class="num">624 €</td></tr>
+          <tr><td>Dépose ancienne cuisine, évacuation déchets</td><td>1</td><td>forf.</td><td>180 €</td><td class="num">180 €</td></tr>
+        </tbody>
+      </table>
+      <div class="devis-total-block">
+        <div class="devis-total-inner">
+          <div class="devis-total-row"><span class="t-label">Total HT</span><span class="t-val">3 384 €</span></div>
+          <div class="devis-total-row"><span class="t-label">TVA 10% (rénovation)</span><span class="t-val">338,40 €</span></div>
+          <div class="devis-total-row"><span class="t-label">TOTAL TTC</span><span class="t-val">3 722,40 €</span></div>
+        </div>
+      </div>
+      <p style="font-size:12px; color:var(--light); margin-top:12px">Acompte 35% à la commande : 1 302,84 € TTC · Solde à la réception · Délai : 4 à 6 semaines</p>
+    </div>
+  </div>
+
+  <!-- Modèle 2 : Dressing -->
+  <div class="card" style="margin-bottom:8px; margin-top:24px"><h4>📌 Modèle 2 — Dressing sur mesure</h4></div>
+  <div class="devis-model">
+    <div class="devis-header">
+      <div class="devis-company">
+        <h3>MENUISERIE DUPONT & FILS</h3>
+        <p>14 rue des Ateliers — 75011 Paris<br>SIRET : 123 456 789 00012</p>
+      </div>
+      <div class="devis-ref">
+        <div class="ref-label">Devis n°</div>
+        <div class="ref-num">D-2025-051</div>
+        <p style="font-size:12px; opacity:0.45; margin-top:6px">Émis le : 20/03/2025<br>Valable jusqu'au : 20/06/2025</p>
+      </div>
+    </div>
+    <div class="devis-client-bar">
+      <div class="field"><label>Client</label><span>Mme Leclerc</span></div>
+      <div class="field"><label>Objet</label><span>Dressing niche sur mesure</span></div>
+      <div class="field"><label>Dimensions</label><span>2,00m L × 2,40m H</span></div>
+    </div>
+    <div class="devis-body">
+      <table>
+        <thead><tr><th>Désignation</th><th>Qté</th><th>U.</th><th>PU HT</th><th>Total HT</th></tr></thead>
+        <tbody>
+          <tr><td colspan="5" style="background:var(--warm); font-weight:700; font-size:12px; text-transform:uppercase; color:var(--mid); padding:10px 16px;">FOURNITURE & POSE DRESSING</td></tr>
+          <tr><td>Structure bois mélaminé blanc (fond, côtés, traverse)</td><td>1</td><td>ens.</td><td>290 €</td><td class="num">290 €</td></tr>
+          <tr><td>Rayonnages réglables 200cm (5 niveaux)</td><td>5</td><td>u.</td><td>48 €</td><td class="num">240 €</td></tr>
+          <tr><td>Penderie simple 200cm + tringle + supports</td><td>1</td><td>u.</td><td>85 €</td><td class="num">85 €</td></tr>
+          <tr><td>Module tiroirs (2 tiroirs Blumotion)</td><td>1</td><td>u.</td><td>165 €</td><td class="num">165 €</td></tr>
+          <tr><td>Portes coulissantes miroir 2 vantaux, cadre alu</td><td>2</td><td>u.</td><td>245 €</td><td class="num">490 €</td></tr>
+          <tr><td>Pose complète, finitions, nettoyage</td><td>5</td><td>h</td><td>52 €</td><td class="num">260 €</td></tr>
+        </tbody>
+      </table>
+      <div class="devis-total-block">
+        <div class="devis-total-inner">
+          <div class="devis-total-row"><span class="t-label">Total HT</span><span class="t-val">1 530 €</span></div>
+          <div class="devis-total-row"><span class="t-label">TVA 10%</span><span class="t-val">153 €</span></div>
+          <div class="devis-total-row"><span class="t-label">TOTAL TTC</span><span class="t-val">1 683 €</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modèle 3 : Agencement commercial -->
+  <div class="card" style="margin-bottom:8px; margin-top:24px"><h4>📌 Modèle 3 — Agencement commercial (bureau)</h4></div>
+  <div class="devis-model">
+    <div class="devis-header">
+      <div class="devis-company">
+        <h3>MENUISERIE DUPONT & FILS</h3>
+        <p>14 rue des Ateliers — 75011 Paris<br>SIRET : 123 456 789 00012</p>
+      </div>
+      <div class="devis-ref">
+        <div class="ref-label">Devis n°</div>
+        <div class="ref-num">D-2025-058</div>
+        <p style="font-size:12px; opacity:0.45; margin-top:6px">Émis le : 25/03/2025<br>Valable jusqu'au : 25/06/2025</p>
+      </div>
+    </div>
+    <div class="devis-client-bar">
+      <div class="field"><label>Client</label><span>SARL Innov'Office</span></div>
+      <div class="field"><label>Objet</label><span>Agencement bureau open space</span></div>
+      <div class="field"><label>TVA</label><span>20 % (local commercial)</span></div>
+    </div>
+    <div class="devis-body">
+      <table>
+        <thead><tr><th>Désignation</th><th>Qté</th><th>U.</th><th>PU HT</th><th>Total HT</th></tr></thead>
+        <tbody>
+          <tr><td colspan="5" style="background:var(--warm); font-weight:700; font-size:12px; text-transform:uppercase; color:var(--mid); padding:10px 16px;">LOT 1 — CLOISONS & SÉPARATIONS</td></tr>
+          <tr><td>Cloison vitrage aluminium H 2,50m (module 120cm)</td><td>4</td><td>ml</td><td>420 €</td><td class="num">1 680 €</td></tr>
+          <tr><td>Porte vitrée coulissante, cadre alu, serrure</td><td>1</td><td>u.</td><td>890 €</td><td class="num">890 €</td></tr>
+          <tr><td colspan="5" style="background:var(--warm); font-weight:700; font-size:12px; text-transform:uppercase; color:var(--mid); padding:10px 16px;">LOT 2 — MOBILIER BOIS</td></tr>
+          <tr><td>Bibliothèque murale sur mesure, 3m, 5 niveaux, chêne plaqué</td><td>1</td><td>ens.</td><td>1 450 €</td><td class="num">1 450 €</td></tr>
+          <tr><td>Banque d'accueil arrondie, stratifié noir, plan en béton ciré</td><td>1</td><td>u.</td><td>2 200 €</td><td class="num">2 200 €</td></tr>
+          <tr><td colspan="5" style="background:var(--warm); font-weight:700; font-size:12px; text-transform:uppercase; color:var(--mid); padding:10px 16px;">LOT 3 — POSE ET COORDINATION</td></tr>
+          <tr><td>Pose ensemble, coordination, finitions, nettoyage</td><td>18</td><td>h</td><td>58 €</td><td class="num">1 044 €</td></tr>
+        </tbody>
+      </table>
+      <div class="devis-total-block">
+        <div class="devis-total-inner">
+          <div class="devis-total-row"><span class="t-label">Total HT</span><span class="t-val">7 264 €</span></div>
+          <div class="devis-total-row"><span class="t-label">TVA 20%</span><span class="t-val">1 452,80 €</span></div>
+          <div class="devis-total-row"><span class="t-label">TOTAL TTC</span><span class="t-val">8 716,80 €</span></div>
+        </div>
+      </div>
+      <p style="font-size:12px; color:var(--light); margin-top:12px">Acompte 40% à la commande · 30% à la livraison · 30% à réception · Délai d'exécution : 5 à 7 semaines</p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── EXERCICES PARTIE 5 ─── -->
+<div class="section p5" id="exo5">
+  <div class="section-heading">📝 Exercices pratiques — Partie 5</div>
+
+  <!-- Exercice 1 -->
+  <div class="exercise p5">
+    <div class="exercise-header">
+      <div class="exercise-num">01</div>
+      <div class="exercise-title">Faire un devis complet pour une cuisine sur plan</div>
+      <span class="exercise-tag">Devis cuisine</span>
+    </div>
+    <div class="exercise-body">
+      <div class="callout teal" style="margin-bottom:16px">
+        <strong>📋 Données client</strong>
+        Cuisine en L, 2m + 1,5m. 8 caissons bas 60cm, 5 caissons hauts 35cm, façades laquées blanc, plan de travail quartz 2,5ml, crédence carrelage (fourni par client). Pose prévue 14h. Dépose ancienne cuisine incluse (2h). MO : 52€/h facturé. TVA : 10% (rénovation). Client : particulier, 38 ans.
+      </div>
+      <p style="color:var(--mid); font-size:15px; margin-bottom:16px">Rédigez le devis structuré avec : en-tête complet, lignes détaillées par poste, calcul TVA, total TTC, conditions de paiement et délai.</p>
+      <div class="correction">
+        <button class="correction-toggle" onclick="toggleCorr(this)">
+          ▸ Voir le corrigé ligne par ligne <span class="arrow">▼</span>
+        </button>
+        <div class="correction-content">
+          <div class="corr-line"><span class="label">8 caissons bas 60cm × 145€</span><span class="val gold">1 160 €</span></div>
+          <div class="corr-line"><span class="label">5 caissons hauts × 90€</span><span class="val">450 €</span></div>
+          <div class="corr-line"><span class="label">13 façades laquées × 85€</span><span class="val">1 105 €</span></div>
+          <div class="corr-line"><span class="label">Plan de travail quartz 2,5ml × 95€</span><span class="val">237,50 €</span></div>
+          <div class="corr-line"><span class="label">Quincaillerie Blum (forfait)</span><span class="val">480 €</span></div>
+          <div class="corr-line"><span class="label">Pose 14h × 52€</span><span class="val">728 €</span></div>
+          <div class="corr-line"><span class="label">Dépose + évacuation 2h × 52€</span><span class="val">104 €</span></div>
+          <div class="corr-line total"><span class="label">Total HT</span><span class="val gold">4 264,50 €</span></div>
+          <div class="corr-line"><span class="label">TVA 10%</span><span class="val">426,45 €</span></div>
+          <div class="corr-line total"><span class="label">TOTAL TTC</span><span class="val teal">4 690,95 €</span></div>
+          <p class="corr-note">Conditions : Acompte 35% à la commande = 1 641,83 € TTC. Solde à réception. Délai : 4–5 semaines. Valable 90 jours. Mention délai rétractation 14 jours obligatoire (particulier, domicile). Assurance décennale à mentionner.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exercice 2 -->
+  <div class="exercise p5">
+    <div class="exercise-header">
+      <div class="exercise-num">02</div>
+      <div class="exercise-title">Faire un devis pour un dressing sur plan</div>
+      <span class="exercise-tag">Devis dressing</span>
+    </div>
+    <div class="exercise-body">
+      <div class="callout teal" style="margin-bottom:16px">
+        <strong>📋 Données client</strong>
+        Dressing d'angle niche 2,50m × 1,80m × H 2,50m. Côté A : 4 étagères + 1 penderie. Côté B : 2 tiroirs tiroir-à-linge + 3 étagères. Façades : portes battantes mélaminé gris anthracite. Pas de portes de niche. Pose : 7h. MO facturé : 52€/h. TVA : 10%.
+      </div>
+      <div class="correction">
+        <button class="correction-toggle" onclick="toggleCorr(this)">
+          ▸ Voir le corrigé <span class="arrow">▼</span>
+        </button>
+        <div class="correction-content">
+          <div class="corr-line"><span class="label">Structure panneau (fond+côtés+traverses) — est.</span><span class="val gold">380 €</span></div>
+          <div class="corr-line"><span class="label">7 étagères réglables × 48€</span><span class="val">336 €</span></div>
+          <div class="corr-line"><span class="label">1 penderie simple (tringle + supports)</span><span class="val">75 €</span></div>
+          <div class="corr-line"><span class="label">Module 2 tiroirs tiroir-à-linge Blumotion</span><span class="val">195 €</span></div>
+          <div class="corr-line"><span class="label">Portes battantes gris anthracite (6 vantaux × 65€)</span><span class="val">390 €</span></div>
+          <div class="corr-line"><span class="label">Charnières, poignées, quincaillerie</span><span class="val">120 €</span></div>
+          <div class="corr-line"><span class="label">Pose 7h × 52€</span><span class="val">364 €</span></div>
+          <div class="corr-line total"><span class="label">Total HT</span><span class="val gold">1 860 €</span></div>
+          <div class="corr-line"><span class="label">TVA 10%</span><span class="val">186 €</span></div>
+          <div class="corr-line total"><span class="label">TOTAL TTC</span><span class="val teal">2 046 €</span></div>
+          <p class="corr-note">Note : Le dressing d'angle demande une attention particulière au plan de coupe et à l'assemblage en angle — prévoir +20min de fabrication et un gabarit de découpe. Toujours indiquer "Travaux sur mesure — aucun retour ni annulation après bon de commande signé".</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exercice 3 -->
+  <div class="exercise p5">
+    <div class="exercise-header">
+      <div class="exercise-num">03</div>
+      <div class="exercise-title">Faire un devis pour un agencement bureau</div>
+      <span class="exercise-tag">Commercial</span>
+    </div>
+    <div class="exercise-body">
+      <div class="callout teal" style="margin-bottom:16px">
+        <strong>📋 Données client</strong>
+        Bureau professionnel 25m². Prestation : 1 bibliothèque murale 4m × H 2,50m (chêne plaqué), 2 cloisons vitrées (L 3m chacune, H 2,50m, alu laqué blanc), 1 porte vitrée coulissante. Pose : 22h. MO : 58€/h. Sous-traitance vitrerie : 450€ HT. TVA : 20%. Acompte souhaité : 40%.
+      </div>
+      <div class="correction">
+        <button class="correction-toggle" onclick="toggleCorr(this)">
+          ▸ Voir le corrigé + explication TVA 20% <span class="arrow">▼</span>
+        </button>
+        <div class="correction-content">
+          <div class="corr-line"><span class="label">Bibliothèque 4m chêne plaqué (sur mesure)</span><span class="val gold">2 200 €</span></div>
+          <div class="corr-line"><span class="label">2 cloisons vitrées 3ml × 420€/ml</span><span class="val">2 520 €</span></div>
+          <div class="corr-line"><span class="label">Porte vitrée coulissante alu</span><span class="val">890 €</span></div>
+          <div class="corr-line"><span class="label">Pose 22h × 58€</span><span class="val">1 276 €</span></div>
+          <div class="corr-line"><span class="label">Sous-traitance vitrerie (refacturée)</span><span class="val">450 €</span></div>
+          <div class="corr-line total"><span class="label">Total HT</span><span class="val gold">7 336 €</span></div>
+          <div class="corr-line"><span class="label">TVA 20% (local commercial)</span><span class="val">1 467,20 €</span></div>
+          <div class="corr-line total"><span class="label">TOTAL TTC</span><span class="val teal">8 803,20 €</span></div>
+          <div class="corr-line"><span class="label">Acompte 40% à la commande</span><span class="val gold">3 521,28 € TTC</span></div>
+          <p class="corr-note">TVA 20% car local commercial (bureau non-résidentiel). La sous-traitance est intégrée au devis et refacturée avec marge de coordination. Toujours avoir un bon de commande signé de la SARL ou SAS avec tampon avant de commencer. Mentionner les conditions de règlement entreprise (30 jours fin de mois si client professionnel).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <p style="font-family:'Playfair Display',serif; font-size:16px; margin-bottom:8px">Menuiserie & Agencement — Formation Professionnelle</p>
+  <p>Parties 4 & 5 · Chiffrage Complet & Devis · Tous les montants sont donnés à titre indicatif</p>
+</footer>
+
+<script>
+function toggleCorr(btn) {
+  const content = btn.nextElementSibling;
+  const isOpen = content.classList.contains('open');
+  content.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.05 });
+
+document.querySelectorAll('.section').forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

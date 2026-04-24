@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BTS ERA — Documents de Conception & Contractuels</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap');
+  :root {
+    --blue: #1a56db; --blue-light: #e8f0fe; --dark: #0f172a; --mid: #334155;
+    --light: #f8fafc; --border: #e2e8f0; --green: #16a34a; --orange: #ea580c; --red: #dc2626; --purple: #7c3aed;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Sora', sans-serif; background: var(--light); color: var(--dark); line-height: 1.7; }
+  header { background: var(--dark); color: white; padding: 2rem; text-align: center; }
+  header .badge { background: var(--blue); display: inline-block; padding: .3rem 1rem; border-radius: 999px; font-size: .8rem; margin-bottom: .8rem; }
+  header h1 { font-size: 1.8rem; font-weight: 700; }
+  header p { color: #94a3b8; margin-top: .5rem; }
+  nav { background: white; border-bottom: 1px solid var(--border); padding: .8rem 2rem; display: flex; gap: .8rem; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; }
+  nav a { text-decoration: none; color: var(--mid); font-size: .8rem; font-weight: 600; padding: .3rem .7rem; border-radius: 6px; }
+  nav a:hover { background: var(--blue-light); color: var(--blue); }
+  main { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+  section { margin-bottom: 3rem; }
+  h2 { font-size: 1.4rem; color: var(--blue); border-left: 4px solid var(--blue); padding-left: 1rem; margin-bottom: 1.5rem; }
+  h3 { font-size: 1.05rem; font-weight: 700; margin: 1.5rem 0 .8rem; }
+  p { margin-bottom: .8rem; color: var(--mid); }
+  .card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .card.blue { border-left: 4px solid var(--blue); }
+  .card.green { border-left: 4px solid var(--green); }
+  .card.orange { border-left: 4px solid var(--orange); }
+  .card.red { border-left: 4px solid var(--red); }
+  .card.purple { border-left: 4px solid var(--purple); }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .87rem; }
+  th { background: var(--dark); color: white; padding: .8rem; text-align: left; }
+  td { padding: .7rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:nth-child(even) td { background: var(--blue-light); }
+  .modele { background: white; border: 2px solid var(--border); border-radius: 12px; padding: 1.5rem; margin: 1rem 0; font-size: .87rem; }
+  .modele-header { background: var(--dark); color: white; padding: .8rem 1rem; border-radius: 8px 8px 0 0; margin: -1.5rem -1.5rem 1rem; font-weight: 700; display: flex; justify-content: space-between; font-size: .9rem; }
+  .modele-champ { border-bottom: 1px solid var(--border); padding: .4rem 0; }
+  .modele-champ span.label { color: var(--blue); font-weight: 600; }
+  .modele-champ .valeur { color: #666; font-style: italic; }
+  .checklist { list-style: none; }
+  .checklist li { padding: .35rem 0; display: flex; gap: .6rem; font-size: .9rem; align-items: flex-start; }
+  .checklist li::before { content: "✅"; flex-shrink: 0; }
+  .checklist.danger li::before { content: "❌"; }
+  .checklist.warning li::before { content: "⚠️"; }
+  .checklist.info li::before { content: "📋"; }
+  .partie-title { background: var(--dark); color: white; padding: 1rem 1.5rem; border-radius: 10px; margin: 2rem 0 1.5rem; font-size: 1.2rem; font-weight: 700; }
+  .doc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin: 1rem 0; }
+  .doc-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem; border-top: 4px solid var(--blue); }
+  .doc-card.green { border-top-color: var(--green); }
+  .doc-card.orange { border-top-color: var(--orange); }
+  .doc-card.purple { border-top-color: var(--purple); }
+  .doc-card.red { border-top-color: var(--red); }
+  .doc-card h4 { font-size: .95rem; font-weight: 700; margin-bottom: .5rem; }
+  .doc-card p { font-size: .82rem; }
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before { content: ''; position: absolute; left: .6rem; top: 0; bottom: 0; width: 2px; background: var(--border); }
+  .timeline-item { position: relative; padding: .8rem 0; }
+  .timeline-item::before { content: ''; position: absolute; left: -1.65rem; top: 1.1rem; width: 12px; height: 12px; border-radius: 50%; background: var(--blue); border: 2px solid white; box-shadow: 0 0 0 2px var(--blue); }
+  .timeline-item strong { display: block; font-size: .95rem; }
+  .timeline-item span { font-size: .82rem; color: var(--mid); }
+  .exercice { background: white; border: 2px solid var(--blue); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .exercice h3 { color: var(--blue); margin-top: 0; }
+  .corrige { background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px; padding: 1rem; margin-top: 1rem; }
+  .corrige h4 { color: var(--green); margin-bottom: .5rem; }
+  .qcm { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
+  .question { margin-bottom: 1.5rem; }
+  .question p { font-weight: 600; margin-bottom: .5rem; }
+  .options label { display: block; padding: .4rem; cursor: pointer; font-size: .9rem; }
+  .options input { margin-right: .5rem; }
+  .btn { background: var(--blue); color: white; border: none; padding: .7rem 1.5rem; border-radius: 8px; cursor: pointer; font-family: 'Sora', sans-serif; font-weight: 600; }
+  .resultat { margin-top: 1rem; padding: 1rem; border-radius: 8px; font-weight: 600; display: none; }
+  .mention-box { background: #fef9c3; border: 2px solid #fbbf24; border-radius: 10px; padding: 1rem 1.5rem; margin: 1rem 0; }
+  .mention-box h4 { color: #92400e; margin-bottom: .5rem; }
+  .montant-box { background: var(--blue-light); border-radius: 8px; padding: 1rem; text-align: center; margin: .5rem 0; }
+  .montant-box .montant { font-size: 1.5rem; font-weight: 700; color: var(--blue); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">BTS ERA — Documents Professionnels</div>
+  <h1>📄 Documents de Conception & Contractuels</h1>
+  <p>Maîtrise tous les documents d'un projet de menuiserie et d'agencement</p>
+</header>
+
+<nav>
+  <a href="#cctp">CCTP</a>
+  <a href="#dce">DCE</a>
+  <a href="#bpu">BPU/DQE/DPGF</a>
+  <a href="#notice">Notice</a>
+  <a href="#memoire">Mémoire technique</a>
+  <a href="#recap1">Récap P1</a>
+  <a href="#devis">Devis</a>
+  <a href="#commande">Commande</a>
+  <a href="#avenant">Avenant</a>
+  <a href="#situation">Situations</a>
+  <a href="#facture">Facture</a>
+  <a href="#recap2">Récap P2</a>
+  <a href="#exercices">Exercices</a>
+  <a href="#qcm">QCM</a>
+</nav>
+
+<main>
+
+<div class="partie-title">📐 PARTIE 1 — DOCUMENTS DE CONCEPTION</div>
+
+<!-- CCTP -->
+<section id="cctp">
+  <h2>1. CCTP — Cahier des Clauses Techniques Particulières</h2>
+  <div class="card blue">
+    <p><strong>Définition :</strong> Document technique qui décrit précisément tous les travaux à réaliser. C'est la "bible technique" du projet — il dit QUOI faire, avec QUELS matériaux, selon QUELLES normes.</p>
+    <p><strong>Qui le rédige ?</strong> Le maître d'œuvre (architecte, bureau d'études) pour le compte du maître d'ouvrage.</p>
+    <p><strong>Quand ?</strong> Phase conception, avant consultation des entreprises.</p>
+  </div>
+  <h3>Structure d'un CCTP menuiserie</h3>
+  <table>
+    <tr><th>Section</th><th>Contenu typique</th></tr>
+    <tr><td>Article 1 — Généralités</td><td>Objet du marché, normes applicables, documents de référence</td></tr>
+    <tr><td>Article 2 — Matériaux</td><td>Nature, marques, certifications (mélaminé E1, chant ABS 2mm...)</td></tr>
+    <tr><td>Article 3 — Prescriptions techniques</td><td>Modes d'exécution, tolérances, assemblages exigés</td></tr>
+    <tr><td>Article 4 — Ouvrages</td><td>Description de chaque ouvrage : meubles bas, hauts, plans de travail...</td></tr>
+    <tr><td>Article 5 — Quincaillerie</td><td>Marques imposées ou agréées, performances minimales</td></tr>
+    <tr><td>Article 6 — Finitions</td><td>Type de finition, couleurs, aspects de surface exigés</td></tr>
+    <tr><td>Article 7 — Contrôle/réception</td><td>Critères de réception, essais, tolérances admises</td></tr>
+  </table>
+  <div class="card green">
+    <h3>✅ Comment lire un CCTP efficacement</h3>
+    <ul class="checklist">
+      <li>Lire d'abord l'article "Généralités" pour comprendre le cadre global</li>
+      <li>Identifier les matériaux imposés vs les matériaux "ou équivalent"</li>
+      <li>Repérer les normes citées (NF, EN, DTU) et les connaître</li>
+      <li>Noter toutes les prestations annexes (dépose, évacuation, protection...)</li>
+      <li>Vérifier si des essais ou PV de conformité sont demandés</li>
+    </ul>
+  </div>
+</section>
+
+<!-- DCE -->
+<section id="dce">
+  <h2>2. DCE — Dossier de Consultation des Entreprises</h2>
+  <p>Le DCE est l'ensemble des documents remis aux entreprises pour leur permettre de chiffrer et répondre au projet. Le CCTP en fait partie.</p>
+  <div class="doc-grid">
+    <div class="doc-card">
+      <h4>📋 RC — Règlement de Consultation</h4>
+      <p>Les règles du jeu : date limite, pièces à fournir, critères de sélection, modalités de remise de l'offre.</p>
+    </div>
+    <div class="doc-card green">
+      <h4>🔧 CCTP</h4>
+      <p>Description technique de tous les travaux. Matériaux, méthodes, normes.</p>
+    </div>
+    <div class="doc-card orange">
+      <h4>⚖️ CCAP</h4>
+      <p>Clauses administratives : délais, pénalités, modalités de paiement, assurances.</p>
+    </div>
+    <div class="doc-card purple">
+      <h4>📐 Plans</h4>
+      <p>Plans architecte, coupes, élévations, détails. Permettent le métré et la compréhension du projet.</p>
+    </div>
+    <div class="doc-card red">
+      <h4>💰 BPU / DQE / DPGF</h4>
+      <p>Documents de chiffrage à remplir avec vos prix. Voir section suivante.</p>
+    </div>
+    <div class="doc-card">
+      <h4>📝 Acte d'engagement</h4>
+      <p>Document que l'entreprise signe pour s'engager sur son offre de prix.</p>
+    </div>
+  </div>
+  <p><strong>Qui prépare le DCE ?</strong> Le maître d'œuvre (architecte ou économiste de la construction) pour le compte du maître d'ouvrage.</p>
+</section>
+
+<!-- BPU / DQE / DPGF -->
+<section id="bpu">
+  <h2>3. BPU, DQE et DPGF — Les documents de chiffrage</h2>
+  <table>
+    <tr><th>Document</th><th>Définition</th><th>Qui remplit</th><th>Contenu</th></tr>
+    <tr>
+      <td><strong>BPU</strong><br>Bordereau des Prix Unitaires</td>
+      <td>Liste des prix à l'unité pour chaque prestation</td>
+      <td>L'entreprise</td>
+      <td>Prix unitaire HT par prestation (ex: 1 charnière posée = 8€)</td>
+    </tr>
+    <tr>
+      <td><strong>DQE</strong><br>Devis Quantitatif Estimatif</td>
+      <td>BPU + quantités estimées = montant total</td>
+      <td>L'entreprise (prix) + MO (quantités)</td>
+      <td>Quantités × Prix unitaire = Montant par poste + Total général</td>
+    </tr>
+    <tr>
+      <td><strong>DPGF</strong><br>Décomposition du Prix Global et Forfaitaire</td>
+      <td>Pour les marchés à prix forfaitaire — détail du prix global</td>
+      <td>L'entreprise</td>
+      <td>Répartition du forfait par poste : matériaux, MO, quincaillerie, frais généraux</td>
+    </tr>
+  </table>
+
+  <div class="card blue">
+    <h3>Différence BPU/DQE vs devis simple</h3>
+    <table>
+      <tr><th>Critère</th><th>Devis simple</th><th>BPU/DQE</th></tr>
+      <tr><td>Format</td><td>Libre</td><td>Imposé par le DCE</td></tr>
+      <tr><td>Usage</td><td>Marché privé, particuliers</td><td>Appels d'offres publics et privés formels</td></tr>
+      <tr><td>Prix unitaires</td><td>Pas forcément détaillés</td><td>Obligatoirement détaillés ligne par ligne</td></tr>
+      <tr><td>Comparaison</td><td>Difficile entre entreprises</td><td>Facilite la comparaison des offres</td></tr>
+    </table>
+  </div>
+
+  <h3>Exemple de BPU menuiserie (extrait)</h3>
+  <table>
+    <tr><th>N°</th><th>Désignation</th><th>Unité</th><th>Prix unitaire HT</th></tr>
+    <tr><td>1.1</td><td>Caisson mélaminé blanc 19mm — meuble bas 600mm</td><td>U</td><td>285,00 €</td></tr>
+    <tr><td>1.2</td><td>Façade MDF laqué brillant — battant standard</td><td>m²</td><td>185,00 €</td></tr>
+    <tr><td>1.3</td><td>Plan de travail stratifié HPL 38mm</td><td>ml</td><td>95,00 €</td></tr>
+    <tr><td>1.4</td><td>Charnière Blum Clip Top Blumotion — pose comprise</td><td>U</td><td>12,00 €</td></tr>
+    <tr><td>1.5</td><td>Coulisseau sortie totale soft-close — paire posée</td><td>paire</td><td>28,00 €</td></tr>
+  </table>
+</section>
+
+<!-- NOTICE DESCRIPTIVE -->
+<section id="notice">
+  <h2>4. Notice descriptive</h2>
+  <div class="card orange">
+    <p><strong>À quoi ça sert ?</strong> Document de synthèse qui décrit en langage clair (accessible au client) les matériaux et prestations prévus. Plus accessible que le CCTP technique.</p>
+    <p><strong>Quand ?</strong> Remise au client avec le devis ou en phase de conception. Souvent demandée pour les permis de construire (logements).</p>
+  </div>
+  <h3>Comment rédiger une notice descriptive menuiserie</h3>
+  <div class="modele">
+    <div class="modele-header"><span>📄 MODÈLE — Notice descriptive menuiserie/agencement</span></div>
+    <div class="modele-champ"><span class="label">Projet :</span> <span class="valeur">Aménagement cuisine et dressing — Appartement M. Dupont, Paris 15e</span></div>
+    <div class="modele-champ"><span class="label">Entreprise :</span> <span class="valeur">Menuiserie Martin — SIREN 123 456 789</span></div>
+    <br>
+    <strong>CUISINE</strong>
+    <div class="modele-champ"><span class="label">Structure des meubles :</span> <span class="valeur">Caissons en panneau de particules mélaminé blanc 19mm, classe E1 (faibles émissions formaldéhyde), marque Egger ou équivalent.</span></div>
+    <div class="modele-champ"><span class="label">Façades :</span> <span class="valeur">MDF laqué brillant blanc pur RAL 9003, épaisseur 18mm. Fraisage poignée intégré.</span></div>
+    <div class="modele-champ"><span class="label">Plan de travail :</span> <span class="valeur">Stratifié HPL compact 38mm, décor béton gris anthracite. Chant alu brossé.</span></div>
+    <div class="modele-champ"><span class="label">Quincaillerie :</span> <span class="valeur">Charnières Blum Clip Top Blumotion (fermeture douce). Coulisseaux sortie totale soft-close. Pieds réglables.</span></div>
+    <br>
+    <strong>DRESSING</strong>
+    <div class="modele-champ"><span class="label">Structure :</span> <span class="valeur">Mélaminé blanc 19mm. Tablettes réglables sur crémaillères aluminium pas 32mm.</span></div>
+    <div class="modele-champ"><span class="label">Penderie :</span> <span class="valeur">Tringle ronde Ø25mm chromée avec supports. Hauteur double penderie : 2×500mm.</span></div>
+    <div class="modele-champ"><span class="label">Portes coulissantes :</span> <span class="valeur">Cadre aluminium, verre trempé 6mm satiné. Rail haut porteur, guide bas.</span></div>
+  </div>
+</section>
+
+<!-- MÉMOIRE TECHNIQUE -->
+<section id="memoire">
+  <h2>5. Mémoire technique BTS ERA — Structure complète</h2>
+  <p>Pour le BTS ERA, le mémoire technique est le document central qui prouve ta maîtrise d'un chantier. Il est noté et présenté à l'oral.</p>
+  <table>
+    <tr><th>Section</th><th>Contenu attendu</th><th>Pages conseillées</th></tr>
+    <tr><td>Page de garde</td><td>Titre, entreprise, chantier, dates, ton nom</td><td>1</td></tr>
+    <tr><td>Sommaire</td><td>Généré automatiquement (Word)</td><td>1</td></tr>
+    <tr><td>Présentation de l'entreprise</td><td>Effectif, spécialités, organisation, certifications</td><td>1-2</td></tr>
+    <tr><td>Présentation du chantier</td><td>Maître d'ouvrage, localisation, nature des travaux, montant, délai</td><td>1-2</td></tr>
+    <tr><td>Analyse des plans et CCTP</td><td>Lecture critique, contraintes identifiées, questions posées</td><td>2-3</td></tr>
+    <tr><td>Choix techniques</td><td>Matériaux retenus et justification, quincaillerie, assemblages</td><td>2-3</td></tr>
+    <tr><td>Organisation du chantier</td><td>Phasage, planning, ressources humaines et matérielles</td><td>2</td></tr>
+    <tr><td>Sécurité (PPSPS synthèse)</td><td>Risques identifiés, mesures prises, EPI</td><td>1</td></tr>
+    <tr><td>Suivi de chantier</td><td>CR de réunion, FNC, difficultés rencontrées, solutions</td><td>2-3</td></tr>
+    <tr><td>Réception</td><td>PV de réception, réserves, levée des réserves</td><td>1</td></tr>
+    <tr><td>Bilan / Conclusion</td><td>Ce que tu as appris, difficultés, points d'amélioration</td><td>1</td></tr>
+    <tr><td>Annexes</td><td>Plans, photos, fiches techniques, devis, PV</td><td>Variable</td></tr>
+  </table>
+</section>
+
+<!-- RÉCAP PARTIE 1 -->
+<section id="recap1">
+  <h2>📌 Fiche Récap — Documents de conception</h2>
+  <table>
+    <tr><th>Document</th><th>Utilité</th><th>Qui fait</th><th>Quand</th></tr>
+    <tr><td>CCTP</td><td>Décrire techniquement les travaux</td><td>Maître d'œuvre</td><td>Phase conception</td></tr>
+    <tr><td>DCE</td><td>Ensemble des docs pour consulter les entreprises</td><td>Maître d'œuvre</td><td>Avant consultation</td></tr>
+    <tr><td>BPU</td><td>Prix unitaires de chaque prestation</td><td>Entreprise</td><td>Phase réponse AO</td></tr>
+    <tr><td>DQE</td><td>BPU × quantités = montant total</td><td>Entreprise + MO</td><td>Phase réponse AO</td></tr>
+    <tr><td>DPGF</td><td>Détail du prix forfaitaire global</td><td>Entreprise</td><td>Phase réponse AO</td></tr>
+    <tr><td>Notice descriptive</td><td>Décrire en clair les matériaux et prestations</td><td>Entreprise</td><td>Avec le devis</td></tr>
+    <tr><td>Mémoire technique</td><td>Prouver la compétence et la méthode</td><td>Entreprise</td><td>Réponse AO / BTS</td></tr>
+  </table>
+  <div class="card red" style="margin-top:1rem;">
+    <h3>❌ Erreurs classiques à éviter</h3>
+    <ul class="checklist danger">
+      <li>Confondre CCTP (technique) et CCAP (administratif)</li>
+      <li>Remplir le BPU sans avoir lu le CCTP en entier → oubli de prestations</li>
+      <li>Faire un mémoire technique générique → copié-collé visible, note basse</li>
+      <li>Ne pas dater et signer la notice descriptive → pas de valeur contractuelle</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PARTIE 2 ===================== -->
+<div class="partie-title">📝 PARTIE 2 — DOCUMENTS CONTRACTUELS</div>
+
+<!-- DEVIS -->
+<section id="devis">
+  <h2>1. Devis simple vs Devis quantitatif</h2>
+  <table>
+    <tr><th>Critère</th><th>Devis simple</th><th>Devis quantitatif</th></tr>
+    <tr><td>Format</td><td>Libre, par prestation globale</td><td>Ligne par ligne avec qté × PU</td></tr>
+    <tr><td>Usage</td><td>Particuliers, petits travaux</td><td>Chantiers importants, professionnels</td></tr>
+    <tr><td>Transparence</td><td>Prix global souvent peu détaillé</td><td>Très détaillé, comparable facilement</td></tr>
+    <tr><td>Modification</td><td>Difficile à modifier partiellement</td><td>Facile : on modifie les quantités</td></tr>
+  </table>
+
+  <div class="modele">
+    <div class="modele-header"><span>📄 MODÈLE — Devis professionnel menuiserie</span><span>Devis N° 2026-042</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+      <div>
+        <div class="modele-champ"><span class="label">Entreprise :</span> <span class="valeur">Menuiserie Martin SARL</span></div>
+        <div class="modele-champ"><span class="label">SIREN :</span> <span class="valeur">123 456 789</span></div>
+        <div class="modele-champ"><span class="label">N° TVA :</span> <span class="valeur">FR 12 123456789</span></div>
+        <div class="modele-champ"><span class="label">Décennale :</span> <span class="valeur">AXA N° 123456</span></div>
+      </div>
+      <div>
+        <div class="modele-champ"><span class="label">Client :</span> <span class="valeur">M. Jean Dupont</span></div>
+        <div class="modele-champ"><span class="label">Adresse travaux :</span> <span class="valeur">12 rue des Lilas, 75015 Paris</span></div>
+        <div class="modele-champ"><span class="label">Date devis :</span> <span class="valeur">19/04/2026</span></div>
+        <div class="modele-champ"><span class="label">Validité :</span> <span class="valeur">3 mois</span></div>
+      </div>
+    </div>
+    <table style="margin:.5rem 0;">
+      <tr><th>Désignation</th><th>Qté</th><th>U</th><th>PU HT</th><th>Total HT</th></tr>
+      <tr><td>Caisson mélaminé blanc 19mm — meuble bas 600mm</td><td>6</td><td>U</td><td>285,00 €</td><td>1 710,00 €</td></tr>
+      <tr><td>Façade MDF laqué blanc — pose comprise</td><td>8,4</td><td>m²</td><td>185,00 €</td><td>1 554,00 €</td></tr>
+      <tr><td>Plan de travail HPL 38mm — pose comprise</td><td>3,2</td><td>ml</td><td>95,00 €</td><td>304,00 €</td></tr>
+      <tr><td>Quincaillerie (charnières, coulisseaux, pieds)</td><td>1</td><td>Forfait</td><td>380,00 €</td><td>380,00 €</td></tr>
+      <tr><td colspan="4" style="text-align:right;font-weight:700;">Total HT</td><td><strong>3 948,00 €</strong></td></tr>
+      <tr><td colspan="4" style="text-align:right;">TVA 20%</td><td>789,60 €</td></tr>
+      <tr><td colspan="4" style="text-align:right;font-weight:700;">Total TTC</td><td><strong>4 737,60 €</strong></td></tr>
+    </table>
+    <div class="modele-champ"><span class="label">Délai d'exécution :</span> <span class="valeur">3 semaines à compter de la réception de l'acompte</span></div>
+    <div class="modele-champ"><span class="label">Conditions de paiement :</span> <span class="valeur">30% acompte à la commande — solde à réception</span></div>
+    <p style="font-size:.8rem;margin-top:1rem;color:#666;">Bon pour accord — Date et signature précédées de la mention manuscrite "Bon pour accord"</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem;">
+      <div style="border:1px solid var(--border);padding:.8rem;border-radius:6px;min-height:60px;"><p style="font-size:.75rem;">Signature client :</p></div>
+      <div style="border:1px solid var(--border);padding:.8rem;border-radius:6px;min-height:60px;"><p style="font-size:.75rem;">Cachet entreprise :</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BON DE COMMANDE -->
+<section id="commande">
+  <h2>2. Bon de commande & Contrat de sous-traitance</h2>
+  <h3>Bon de commande fournisseur</h3>
+  <div class="card blue">
+    <p>Document que tu émets quand tu commandes des matériaux à un fournisseur. Il engage les deux parties.</p>
+    <p><strong>Ce qu'il faut vérifier à la réception :</strong></p>
+    <ul class="checklist">
+      <li>Référence et désignation exactes des produits commandés</li>
+      <li>Quantités conformes à la commande</li>
+      <li>Prix unitaires conformes au devis fournisseur</li>
+      <li>Conditions de paiement correctes</li>
+      <li>Date de livraison souhaitée mentionnée</li>
+    </ul>
+  </div>
+
+  <h3>Contrat de sous-traitance — Ce qu'il faut vérifier</h3>
+  <div class="card orange">
+    <ul class="checklist warning">
+      <li>Identification claire des deux parties (entreprise principale + sous-traitant)</li>
+      <li>Description précise des prestations sous-traitées</li>
+      <li>Montant, modalités et délais de paiement</li>
+      <li>Délai d'exécution et pénalités de retard</li>
+      <li>Responsabilités en cas de malfaçon</li>
+      <li>Attestation d'assurance décennale du sous-traitant</li>
+      <li>Agrément du maître d'ouvrage (obligatoire en marché public)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- AVENANT -->
+<section id="avenant">
+  <h2>3. Avenant — Modification du contrat initial</h2>
+  <div class="card purple">
+    <p><strong>C'est quoi ?</strong> Document qui modifie officiellement un contrat ou un devis déjà signé. Il peut augmenter ou diminuer le montant, modifier les délais ou les prestations.</p>
+    <p><strong>Quand ça arrive ?</strong> Travaux supplémentaires demandés par le client, modification de plans, découverte en cours de chantier (mur porteur non prévu, humidité...).</p>
+  </div>
+  <div class="modele">
+    <div class="modele-header"><span>📄 MODÈLE — Avenant N°1</span></div>
+    <div class="modele-champ"><span class="label">Avenant au devis N° :</span> <span class="valeur">2026-042 du 19/04/2026</span></div>
+    <div class="modele-champ"><span class="label">Objet de l'avenant :</span> <span class="valeur">Ajout d'un meuble colonne four encastré non prévu au devis initial</span></div>
+    <div class="modele-champ"><span class="label">Raison :</span> <span class="valeur">Décision client en cours de chantier — CR réunion du 22/04/2026</span></div>
+    <br>
+    <table style="margin:.5rem 0;">
+      <tr><th>Prestation ajoutée</th><th>Montant HT</th></tr>
+      <tr><td>Colonne four 60cm mélaminé blanc — pose incluse</td><td>420,00 €</td></tr>
+      <tr><td colspan="1" style="text-align:right;font-weight:700;">Montant avenant HT</td><td><strong>420,00 €</strong></td></tr>
+    </table>
+    <div class="modele-champ"><span class="label">Montant marché initial HT :</span> <span class="valeur">3 948,00 €</span></div>
+    <div class="modele-champ"><span class="label">Nouveau montant total HT :</span> <span class="valeur"><strong>4 368,00 €</strong></span></div>
+    <p style="font-size:.8rem;margin-top:1rem;color:#666;">⚠️ L'avenant doit être signé par les deux parties AVANT l'exécution des travaux supplémentaires.</p>
+  </div>
+</section>
+
+<!-- SITUATIONS DE TRAVAUX -->
+<section id="situation">
+  <h2>4. Situations de travaux & Retenue de garantie</h2>
+  <div class="card blue">
+    <p><strong>C'est quoi une situation de travaux ?</strong> Facture intermédiaire émise en cours de chantier, proportionnelle à l'avancement réel des travaux. Utilisée sur les chantiers importants pour ne pas attendre la fin pour être payé.</p>
+  </div>
+  <div class="modele">
+    <div class="modele-header"><span>📄 MODÈLE — Situation de travaux N°2</span></div>
+    <div class="modele-champ"><span class="label">Chantier :</span> <span class="valeur">Aménagement cuisine Dupont — Devis 2026-042</span></div>
+    <div class="modele-champ"><span class="label">Période :</span> <span class="valeur">Du 01/04/2026 au 19/04/2026</span></div>
+    <br>
+    <table style="margin:.5rem 0;">
+      <tr><th>Poste</th><th>Montant total</th><th>Situation 1 (30%)</th><th>Situation 2 (50%)</th><th>Cumul (80%)</th></tr>
+      <tr><td>Caissons</td><td>1 710 €</td><td>513 €</td><td>855 €</td><td>1 368 €</td></tr>
+      <tr><td>Façades</td><td>1 554 €</td><td>466 €</td><td>777 €</td><td>1 243 €</td></tr>
+      <tr><td>Plan de travail</td><td>304 €</td><td>0 €</td><td>304 €</td><td>304 €</td></tr>
+      <tr><td>Quincaillerie</td><td>380 €</td><td>114 €</td><td>190 €</td><td>304 €</td></tr>
+      <tr><td><strong>TOTAL HT</strong></td><td><strong>3 948 €</strong></td><td><strong>1 093 €</strong></td><td><strong>2 126 €</strong></td><td><strong>3 219 €</strong></td></tr>
+    </table>
+    <div class="modele-champ"><span class="label">Retenue de garantie 5% :</span> <span class="valeur">- 161,00 €</span></div>
+    <div class="modele-champ"><span class="label">Net à payer situation 2 :</span> <span class="valeur"><strong>1 965,00 € HT</strong></span></div>
+  </div>
+
+  <div class="mention-box">
+    <h4>⏱️ La retenue de garantie</h4>
+    <table style="font-size:.85rem;margin:0;">
+      <tr><th>Point</th><th>Règle</th></tr>
+      <tr><td>Montant</td><td>5% du montant HT du marché (légal)</td></tr>
+      <tr><td>Objet</td><td>Garantir la levée des réserves après réception</td></tr>
+      <tr><td>Libération</td><td>1 an après la réception (garantie de parfait achèvement)</td></tr>
+      <tr><td>Remplacement possible</td><td>Par une caution bancaire à la première demande</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- FACTURE -->
+<section id="facture">
+  <h2>5. Facture de travaux — Structure et mentions obligatoires</h2>
+  <div class="modele">
+    <div class="modele-header"><span>📄 MODÈLE — Facture de travaux</span><span>Facture N° 2026-087</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+      <div>
+        <div class="modele-champ"><span class="label">Émetteur :</span> <span class="valeur">Menuiserie Martin SARL</span></div>
+        <div class="modele-champ"><span class="label">Adresse :</span> <span class="valeur">5 rue de l'Atelier, 94000 Créteil</span></div>
+        <div class="modele-champ"><span class="label">SIREN :</span> <span class="valeur">123 456 789</span></div>
+        <div class="modele-champ"><span class="label">N° TVA intracommunautaire :</span> <span class="valeur">FR 12 123456789</span></div>
+      </div>
+      <div>
+        <div class="modele-champ"><span class="label">Client :</span> <span class="valeur">M. Jean Dupont</span></div>
+        <div class="modele-champ"><span class="label">Date de facture :</span> <span class="valeur">19/04/2026</span></div>
+        <div class="modele-champ"><span class="label">Date d'échéance :</span> <span class="valeur">19/05/2026 (30 jours)</span></div>
+        <div class="modele-champ"><span class="label">Référence devis :</span> <span class="valeur">Devis 2026-042</span></div>
+      </div>
+    </div>
+    <table style="margin:.5rem 0;">
+      <tr><th>Désignation</th><th>Montant HT</th></tr>
+      <tr><td>Travaux d'aménagement cuisine selon devis 2026-042</td><td>3 948,00 €</td></tr>
+      <tr><td>Avenant N°1 — Colonne four</td><td>420,00 €</td></tr>
+      <tr><td>— Acompte versé le 20/03/2026</td><td>- 1 184,40 €</td></tr>
+      <tr><td colspan="1" style="text-align:right;">Total HT</td><td>3 183,60 €</td></tr>
+      <tr><td colspan="1" style="text-align:right;">TVA 20%</td><td>636,72 €</td></tr>
+      <tr><td colspan="1" style="text-align:right;font-weight:700;">NET À PAYER TTC</td><td><strong>3 820,32 €</strong></td></tr>
+    </table>
+    <div class="modele-champ"><span class="label">Mode de règlement :</span> <span class="valeur">Virement bancaire — IBAN FR76 1234 5678 9012 3456 7890 123</span></div>
+    <p style="font-size:.78rem;margin-top:1rem;color:#888;">En cas de retard de paiement : pénalités de 3× le taux légal + indemnité forfaitaire de recouvrement 40€ (Art. L441-6 Code Commerce)</p>
+  </div>
+  <div class="mention-box">
+    <h4>📋 Mentions obligatoires sur une facture</h4>
+    <ul class="checklist info" style="font-size:.85rem;">
+      <li>Numéro de facture (séquentiel, sans trou)</li>
+      <li>Date d'émission</li>
+      <li>Identité complète émetteur et client (nom, adresse, SIREN)</li>
+      <li>N° TVA intracommunautaire (si assujetti)</li>
+      <li>Description précise des prestations</li>
+      <li>Prix unitaires HT, quantités, total HT, TVA, total TTC</li>
+      <li>Date d'échéance et conditions de paiement</li>
+      <li>Pénalités de retard et indemnité forfaitaire</li>
+    </ul>
+  </div>
+</section>
+
+<!-- RÉCAP PARTIE 2 -->
+<section id="recap2">
+  <h2>📌 Fiche Récap — Documents contractuels</h2>
+  <h3>Ordre chronologique des documents dans un projet</h3>
+  <div class="timeline">
+    <div class="timeline-item"><strong>1. Devis (+ notice descriptive)</strong><span>Avant tout engagement — signé = contrat</span></div>
+    <div class="timeline-item"><strong>2. Bon de commande fournisseurs</strong><span>Dès le devis signé et l'acompte reçu</span></div>
+    <div class="timeline-item"><strong>3. Situation de travaux N°1</strong><span>En cours de chantier (si marché important)</span></div>
+    <div class="timeline-item"><strong>4. Avenant (si nécessaire)</strong><span>Avant d'exécuter les travaux supplémentaires</span></div>
+    <div class="timeline-item"><strong>5. Situation de travaux N°2, N°3...</strong><span>Selon l'avancement du chantier</span></div>
+    <div class="timeline-item"><strong>6. PV de réception</strong><span>Fin de chantier — signature client + entreprise</span></div>
+    <div class="timeline-item"><strong>7. Facture finale (solde)</strong><span>Après réception — déduction acomptes et situations</span></div>
+    <div class="timeline-item"><strong>8. Libération retenue de garantie</strong><span>1 an après réception (si tout est levé)</span></div>
+  </div>
+
+  <div class="card red" style="margin-top:1.5rem;">
+    <h3>❌ Erreurs qui peuvent coûter cher</h3>
+    <ul class="checklist danger">
+      <li>Commencer les travaux sans devis signé → impossible de se faire payer en cas de litige</li>
+      <li>Faire des travaux supplémentaires sans avenant signé → non payés légalement</li>
+      <li>Oublier le numéro de TVA intracommunautaire sur la facture → facture non conforme</li>
+      <li>Ne pas mentionner les pénalités de retard sur la facture → difficile de les réclamer</li>
+      <li>Oublier de déduire les acomptes sur la facture finale → conflit client</li>
+      <li>Ne pas archiver les bons de commande → impossible de contester une livraison</li>
+    </ul>
+  </div>
+</section>
+
+<!-- EXERCICES -->
+<section id="exercices">
+  <h2>🛠️ Exercices Pratiques</h2>
+
+  <div class="exercice">
+    <h3>Exercice 1 — Lire et analyser un CCTP menuiserie</h3>
+    <p><strong>Extrait de CCTP :</strong></p>
+    <div style="background:#f1f5f9;border-left:4px solid var(--blue);padding:1rem;border-radius:0 8px 8px 0;font-size:.87rem;margin:1rem 0;">
+      <p><strong>Article 4.2 — Meubles bas cuisine</strong></p>
+      <p>Les caissons seront réalisés en panneau de particules mélaminé blanc pur, épaisseur 19mm minimum, classe E1. Le chant exposé sera en ABS 2mm de même teinte, collé à chaud. Les façades seront en MDF hydrofuge laqué brillant, épaisseur 18mm. La quincaillerie sera de marque BLUM ou équivalent agréé. Les coulisseaux seront à sortie totale avec amortisseur intégré.</p>
+    </div>
+    <p>Questions :</p>
+    <ol style="margin-left:1.5rem;font-size:.9rem;line-height:2;">
+      <li>Quelle épaisseur minimum pour les caissons ?</li>
+      <li>Peut-on utiliser du chant PVC 0.4mm ? Justifie.</li>
+      <li>Peut-on utiliser des charnières Hettich ? Justifie.</li>
+      <li>Quel type de coulisseau est imposé ?</li>
+    </ol>
+    <div class="corrige">
+      <h4>✅ Corrigé</h4>
+      <ol style="margin-left:1.5rem;font-size:.88rem;line-height:1.8;">
+        <li>19mm minimum</li>
+        <li>Non — le CCTP impose ABS 2mm. PVC 0.4mm ne répond pas à la prescription.</li>
+        <li>Oui — "BLUM ou équivalent agréé" → Hettich est une marque équivalente reconnue, mais il faudra le faire agréer par le maître d'œuvre avant pose.</li>
+        <li>Sortie totale avec amortisseur intégré (soft-close)</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="exercice">
+    <h3>Exercice 2 — Rédiger une notice descriptive</h3>
+    <p><strong>Projet :</strong> Dressing sur-mesure pour chambre parentale. Mélaminé blanc, portes coulissantes verre, penderie double et simple, tiroirs, tablettes réglables.</p>
+    <p>Rédige la notice descriptive en langage clair pour le client :</p>
+    <div class="corrige">
+      <h4>✅ Corrigé type</h4>
+      <p style="font-size:.88rem;line-height:1.8;"><strong>Structure :</strong> Caissons en panneau de particules mélaminé blanc 19mm, classe E1 (label environnemental). <strong>Tablettes :</strong> Réglables sur crémaillères aluminium, pas 32mm — 5 positions possibles. <strong>Penderie double :</strong> Hauteur 2×500mm, tringle ronde Ø25mm chromée. <strong>Penderie simple :</strong> Hauteur 1000mm. <strong>Tiroirs :</strong> 3 tiroirs coulisseaux sortie totale soft-close, fond contreplaqué. <strong>Portes coulissantes :</strong> Cadre aluminium anodisé, verre trempé 6mm satiné — rail porteur haut, guide discret bas. <strong>Finition :</strong> Chants ABS 2mm, poignées profilé aluminium brossé intégré.</p>
+    </div>
+  </div>
+
+  <div class="exercice">
+    <h3>Exercice 3 — Structurer un mémoire technique BTS ERA</h3>
+    <p><strong>Situation :</strong> Tu as réalisé en entreprise l'aménagement d'une salle de réunion en bois massif chêne (tables, meubles de rangement, claustra). Montant : 28 000€ HT. Durée : 6 semaines.</p>
+    <p>Liste les 10 sections de ton mémoire et indique en 2 lignes ce que tu mettrais dans chacune :</p>
+    <div class="corrige">
+      <h4>✅ Structure attendue</h4>
+      <ol style="margin-left:1.5rem;font-size:.87rem;line-height:1.9;">
+        <li><strong>Page de garde :</strong> "Aménagement salle de réunion en chêne massif — Entreprise Menuiserie Martin — BTS ERA 2026 — Votre nom"</li>
+        <li><strong>Présentation entreprise :</strong> 12 salariés, spécialité agencement tertiaire et bois massif, Qualibat 2112</li>
+        <li><strong>Présentation chantier :</strong> Siège social client à Boulogne, 85m² à aménager, budget 28k€, délai 6 semaines</li>
+        <li><strong>Analyse CCTP :</strong> Essence imposée (chêne massif séché étuvé), finition huile naturelle, tolérance jeux ±0.5mm</li>
+        <li><strong>Choix techniques :</strong> Chêne massif 20mm stabili étuvé, assemblages tenon-mortaise + domino, huile Osmo</li>
+        <li><strong>Organisation :</strong> Phase 1 fabrication atelier (4 sem.) → Phase 2 pose (2 sem.) le week-end pour ne pas bloquer le client</li>
+        <li><strong>Sécurité :</strong> Risques poussières bois (masque FFP2), manutention tables (2 personnes minimum), chutes</li>
+        <li><strong>Suivi chantier :</strong> 3 CR de réunion, 1 FNC (retard livraison chêne), solution trouvée avec fournisseur alternatif</li>
+        <li><strong>Réception :</strong> PV signé le 15/04, 2 réserves (égratignure claustra + alignement table), levées en 48h</li>
+        <li><strong>Bilan :</strong> Projet livré en temps, difficulté principale = séchage inégal du chêne. Solution : mesurer le taux d'humidité systématiquement à réception.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- QCM -->
+<section id="qcm">
+  <h2>🎯 QCM — Documents de conception & contractuels</h2>
+  <div class="qcm">
+    <div class="question">
+      <p>1. Que contient le CCTP ?</p>
+      <div class="options">
+        <label><input type="radio" name="q1" value="a"> Les règles administratives du marché (délais, pénalités)</label>
+        <label><input type="radio" name="q1" value="b"> La description technique des travaux, matériaux et méthodes</label>
+        <label><input type="radio" name="q1" value="c"> Les prix unitaires de chaque prestation</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>2. La retenue de garantie représente quel pourcentage du marché ?</p>
+      <div class="options">
+        <label><input type="radio" name="q2" value="a"> 2%</label>
+        <label><input type="radio" name="q2" value="b"> 5%</label>
+        <label><input type="radio" name="q2" value="c"> 10%</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>3. Un avenant doit être signé :</p>
+      <div class="options">
+        <label><input type="radio" name="q3" value="a"> Après avoir réalisé les travaux supplémentaires</label>
+        <label><input type="radio" name="q3" value="b"> Avant d'exécuter les travaux supplémentaires</label>
+        <label><input type="radio" name="q3" value="c"> À la réception du chantier</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>4. Quelle est la différence entre BPU et DPGF ?</p>
+      <div class="options">
+        <label><input type="radio" name="q4" value="a"> Le BPU détaille les prix unitaires, la DPGF décompose un prix forfaitaire global</label>
+        <label><input type="radio" name="q4" value="b"> Ce sont deux noms pour le même document</label>
+        <label><input type="radio" name="q4" value="c"> Le BPU est pour les marchés publics, la DPGF pour les privés</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>5. Quelle mention est obligatoire sur toute facture de travaux ?</p>
+      <div class="options">
+        <label><input type="radio" name="q5" value="a"> Le nom du conducteur de travaux</label>
+        <label><input type="radio" name="q5" value="b"> Le numéro de TVA intracommunautaire et les pénalités de retard</label>
+        <label><input type="radio" name="q5" value="c"> Le plan de l'ouvrage réalisé</label>
+      </div>
+    </div>
+    <button class="btn" onclick="verifierQCM()">Vérifier mes réponses</button>
+    <div class="resultat" id="resultat"></div>
+  </div>
+</section>
+
+</main>
+
+<footer style="background:var(--dark);color:#94a3b8;text-align:center;padding:2rem;margin-top:3rem;">
+  <p>BTS ERA — Documents de Conception & Contractuels</p>
+  <p style="font-size:.85rem;margin-top:.3rem;">Apprenti menuisier → Conducteur de travaux</p>
+</footer>
+
+<script>
+function verifierQCM() {
+  const reponses = { q1: 'b', q2: 'b', q3: 'b', q4: 'a', q5: 'b' };
+  let score = 0, total = Object.keys(reponses).length;
+  for (let q in reponses) {
+    const s = document.querySelector(`input[name="${q}"]:checked`);
+    if (s && s.value === reponses[q]) score++;
+  }
+  const r = document.getElementById('resultat');
+  r.style.display = 'block';
+  if (score === total) { r.style.background='#dcfce7'; r.style.color='#16a34a'; r.textContent=`🎉 Parfait ! ${score}/${total} — Tu maîtrises les documents pro !`; }
+  else if (score >= total/2) { r.style.background='#fef9c3'; r.style.color='#ca8a04'; r.textContent=`👍 Bien ! ${score}/${total} — Relis les points ratés.`; }
+  else { r.style.background='#fee2e2'; r.style.color='#dc2626'; r.textContent=`📚 ${score}/${total} — Reprends le cours !`; }
+}
+</script>
+</body>
+</html>
