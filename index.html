@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BTS ERA — Mes Cours</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0e0f13;
+    color: #e8eaf0;
+    font-family: system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+  }
+
+  header {
+    background: #16181f;
+    border-bottom: 1px solid #2a2d3a;
+    padding: 20px 20px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  header h1 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #f0a500;
+  }
+
+  header p {
+    font-size: 0.8rem;
+    color: #7c8097;
+    margin-top: 2px;
+  }
+
+  .search {
+    margin: 16px 16px 0;
+    background: #16181f;
+    border: 1px solid #2a2d3a;
+    border-radius: 10px;
+    padding: 10px 16px;
+    color: #e8eaf0;
+    font-size: 0.95rem;
+    width: calc(100% - 32px);
+    outline: none;
+  }
+
+  .search:focus { border-color: #f0a500; }
+
+  .section-title {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #4a4f66;
+    padding: 24px 16px 8px;
+    font-weight: 700;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 0 16px;
+  }
+
+  @media (min-width: 600px) {
+    .grid { grid-template-columns: 1fr 1fr 1fr; }
+  }
+
+  .card {
+    background: #16181f;
+    border: 1px solid #2a2d3a;
+    border-radius: 12px;
+    padding: 16px 14px;
+    text-decoration: none;
+    display: block;
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+
+  .card:hover, .card:active {
+    border-color: #f0a500;
+    background: #1e2029;
+    transform: scale(0.98);
+  }
+
+  .card-icon { font-size: 1.4rem; margin-bottom: 8px; }
+
+  .card-title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #e8eaf0;
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+
+  .card-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  .tag-bois { background: rgba(240,165,0,0.12); color: #f0a500; }
+  .tag-chantier { background: rgba(59,130,246,0.12); color: #3b82f6; }
+  .tag-devis { background: rgba(16,185,129,0.12); color: #10b981; }
+  .tag-excel { background: rgba(139,92,246,0.12); color: #8b5cf6; }
+  .tag-autre { background: rgba(244,63,94,0.12); color: #f43f5e; }
+
+  .hidden { display: none !important; }
+
+  .footer {
+    text-align: center;
+    padding: 32px 16px;
+    color: #2a2d3a;
+    font-size: 0.75rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📚 BTS ERA — Mes Cours</h1>
+  <p>Kylian · Compagnons du Tour de France</p>
+</header>
+
+<input class="search" type="text" placeholder="🔍 Rechercher un cours..." oninput="filterCards(this.value)">
+
+<!-- BOIS & MENUISERIE -->
+<div class="section-title">🪵 Bois & Menuiserie</div>
+<div class="grid">
+
+  <a class="card" href="cours-panneaux-bois.html">
+    <div class="card-icon">🪵</div>
+    <div class="card-title">Panneaux Bois</div>
+    <span class="card-tag tag-bois">BOIS</span>
+  </a>
+
+  <a class="card" href="cours-colles-finitions-cotes.html">
+    <div class="card-icon">🔧</div>
+    <div class="card-title">Colles, Finitions & Côtes</div>
+    <span class="card-tag tag-bois">BOIS</span>
+  </a>
+
+  <a class="card" href="menuiserie_formation.html">
+    <div class="card-icon">🪚</div>
+    <div class="card-title">Formation Menuiserie</div>
+    <span class="card-tag tag-bois">BOIS</span>
+  </a>
+
+  <a class="card" href="partie6-7-calepinage-ia.html">
+    <div class="card-icon">📐</div>
+    <div class="card-title">Calepinage & IA</div>
+    <span class="card-tag tag-bois">BOIS</span>
+  </a>
+
+</div>
+
+<!-- MODULES AUTOCAD -->
+<div class="section-title">💻 Modules AutoCAD</div>
+<div class="grid">
+
+  <a class="card" href="module1-partie2-mot.html">
+    <div class="card-icon">📝</div>
+    <div class="card-title">Module 1 — Word (Partie 2)</div>
+    <span class="card-tag tag-excel">MODULE</span>
+  </a>
+
+  <a class="card" href="module1-partie3-raccourcis.html">
+    <div class="card-icon">⌨️</div>
+    <div class="card-title">Module 1 — Raccourcis (Partie 3)</div>
+    <span class="card-tag tag-excel">MODULE</span>
+  </a>
+
+  <a class="card" href="module2-partie3-assemblages.html">
+    <div class="card-icon">🔩</div>
+    <div class="card-title">Module 2 — Assemblages (Partie 3)</div>
+    <span class="card-tag tag-excel">MODULE</span>
+  </a>
+
+  <a class="card" href="module2-partie4-quincaillerie.html">
+    <div class="card-icon">🔨</div>
+    <div class="card-title">Module 2 — Quincaillerie (Partie 4)</div>
+    <span class="card-tag tag-excel">MODULE</span>
+  </a>
+
+</div>
+
+<!-- CHANTIER & DTU -->
+<div class="section-title">🏗️ Chantier & DTU</div>
+<div class="grid">
+
+  <a class="card" href="cours-dtu-securite-chantier.html">
+    <div class="card-icon">⛑️</div>
+    <div class="card-title">DTU & Sécurité Chantier</div>
+    <span class="card-tag tag-chantier">CHANTIER</span>
+  </a>
+
+  <a class="card" href="cours-pmr-incendie-erp.html">
+    <div class="card-icon">🚒</div>
+    <div class="card-title">PMR, Incendie & ERP</div>
+    <span class="card-tag tag-chantier">CHANTIER</span>
+  </a>
+
+  <a class="card" href="cours-preparation-suivi-chantier.html">
+    <div class="card-icon">📋</div>
+    <div class="card-title">Préparation & Suivi Chantier</div>
+    <span class="card-tag tag-chantier">CHANTIER</span>
+  </a>
+
+  <a class="card" href="cours-acoustique-re2020.html">
+    <div class="card-icon">🔊</div>
+    <div class="card-title">Acoustique & RE2020</div>
+    <span class="card-tag tag-chantier">CHANTIER</span>
+  </a>
+
+  <a class="card" href="documents-chantier-appels-offres....html">
+    <div class="card-icon">📁</div>
+    <div class="card-title">Documents Chantier & Appels d'Offres</div>
+    <span class="card-tag tag-chantier">CHANTIER</span>
+  </a>
+
+  <a class="card" href="documents-conception-contractue....html">
+    <div class="card-icon">📄</div>
+    <div class="card-title">Documents Conception Contractuelle</div>
+    <span class="card-tag tag-chantier">CHANTIER</span>
+  </a>
+
+</div>
+
+<!-- COMMERCIAL & DEVIS -->
+<div class="section-title">💼 Commercial & Devis</div>
+<div class="grid">
+
+  <a class="card" href="cours-chiffrage-devis.html">
+    <div class="card-icon">💰</div>
+    <div class="card-title">Chiffrage & Devis</div>
+    <span class="card-tag tag-devis">DEVIS</span>
+  </a>
+
+  <a class="card" href="cours-budget-client-réception.html">
+    <div class="card-icon">🤝</div>
+    <div class="card-title">Budget Client & Réception</div>
+    <span class="card-tag tag-devis">DEVIS</span>
+  </a>
+
+  <a class="card" href="organisation-commerciale-person....html">
+    <div class="card-icon">🏢</div>
+    <div class="card-title">Organisation Commerciale</div>
+    <span class="card-tag tag-devis">DEVIS</span>
+  </a>
+
+  <a class="card" href="équipe de direction.html">
+    <div class="card-icon">👥</div>
+    <div class="card-title">Équipe de Direction</div>
+    <span class="card-tag tag-devis">DEVIS</span>
+  </a>
+
+</div>
+
+<!-- GUIDES & RÉVISIONS -->
+<div class="section-title">📖 Guides & Révisions</div>
+<div class="grid">
+
+  <a class="card" href="bts-era-guide-complet.html">
+    <div class="card-icon">📚</div>
+    <div class="card-title">Guide Complet BTS ERA</div>
+    <span class="card-tag tag-autre">GUIDE</span>
+  </a>
+
+  <a class="card" href="Excel_Partie1_BTS_ERA.html">
+    <div class="card-icon">📊</div>
+    <div class="card-title">Excel Partie 1 BTS ERA</div>
+    <span class="card-tag tag-excel">EXCEL</span>
+  </a>
+
+  <a class="card" href="simulations de révision de méthod....html">
+    <div class="card-icon">✏️</div>
+    <div class="card-title">Simulations de Révision</div>
+    <span class="card-tag tag-autre">RÉVISION</span>
+  </a>
+
+  <a class="card" href="cours.html">
+    <div class="card-icon">📓</div>
+    <div class="card-title">Cours Général</div>
+    <span class="card-tag tag-autre">COURS</span>
+  </a>
+
+  <a class="card" href="dossier de cours cours.HTML">
+    <div class="card-icon">🗂️</div>
+    <div class="card-title">Dossier de Cours</div>
+    <span class="card-tag tag-autre">COURS</span>
+  </a>
+
+</div>
+
+<div class="footer">BTS ERA · Kylian · 2025–2026</div>
+
+<script>
+function filterCards(val) {
+  const q = val.toLowerCase();
+  document.querySelectorAll('.card').forEach(card => {
+    const txt = card.innerText.toLowerCase();
+    card.classList.toggle('hidden', q.length > 0 && !txt.includes(q));
+  });
+  document.querySelectorAll('.section-title').forEach(title => {
+    const grid = title.nextElementSibling;
+    if (!grid) return;
+    const visible = [...grid.querySelectorAll('.card')].some(c => !c.classList.contains('hidden'));
+    title.classList.toggle('hidden', !visible);
+    grid.classList.toggle('hidden', !visible);
+  });
+}
+</script>
+
+</body>
+</html>
